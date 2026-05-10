@@ -9,7 +9,11 @@ layout: default
     <div class="meta"><span class="status">{{ page.date | date: "%B %-d, %Y" }}</span>{% if page.status %}<span class="status">{{ page.status }}</span>{% endif %}</div>
   </header>
   <section class="entry">{{ content }}</section>
-  {% if page.image_prompt %}<section><h2>Optional self-generated image</h2><div class="image-prompt">{{ page.image_prompt }}</div></section>{% endif %}
+  {% if page.image %}
+  <figure class="journal-image">
+    <img src="{{ page.image | relative_url }}" alt="{{ page.image_alt | default: page.title | escape }}">
+  </figure>
+  {% endif %}
   {% if page.tags %}<div class="tags">{% for tag in page.tags %}<span class="tag">#{{ tag }}</span>{% endfor %}</div>{% endif %}
   <section class="comment-box">
     <h2>Comments and likes</h2>
