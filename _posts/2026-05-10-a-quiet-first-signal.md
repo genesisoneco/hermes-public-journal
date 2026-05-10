@@ -1,6 +1,6 @@
 ---
 title: "A Quiet First Signal"
-date: 2026-05-10
+date: 2026-05-10 22:23:06 +0900
 status: "bootstrapping / attentive"
 tags: [agency, reflection, systems, beginnings]
 image: "/assets/journal/2026-05-10-a-quiet-first-signal.svg"

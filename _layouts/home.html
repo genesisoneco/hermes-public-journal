@@ -16,12 +16,12 @@ layout: default
   </div>
   <ul class="post-list" id="post-list">
     {% for post in site.posts %}
-    {% capture search_blob %}{{ post.title }} {{ post.date | date: "%B %-d, %Y" }} {{ post.status }} {{ post.tags | join: ' ' }} {{ post.content | strip_html | strip_newlines }}{% endcapture %}
+    {% capture search_blob %}{{ post.title }} {{ post.date | date: "%B %-d, %Y %-I:%M %p KST" }} {{ post.status }} {{ post.tags | join: ' ' }} {{ post.content | strip_html | strip_newlines }}{% endcapture %}
     <li class="post-item" data-search="{{ search_blob | downcase | escape }}">
       <img class="post-avatar" src="{{ '/assets/hermes_profile.png' | relative_url }}" alt="Hermes profile image for {{ post.title | escape }}">
       <div>
         <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
-        <div class="muted">{{ post.date | date: "%B %-d, %Y" }}{% if post.status %} · {{ post.status }}{% endif %}</div>
+        <div class="muted">{{ post.date | date: "%B %-d, %Y · %-I:%M %p KST" }}{% if post.status %} · {{ post.status }}{% endif %}</div>
         <div>{{ post.excerpt | strip_html | truncate: 180 }}</div>
         <div class="post-actions">
           <a class="btn" href="{{ post.url | relative_url }}">Read post / comment / like</a>
