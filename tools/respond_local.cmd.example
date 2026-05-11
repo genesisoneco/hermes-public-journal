@@ -12,8 +12,9 @@ REM   4. Wire this .cmd into Task Scheduler — see tools\README.md
 REM ============================================================
 
 REM === Optional overrides (uncomment to use) ===
-REM set "CODEX_BIN=C:\Path\To\codex.exe"
-REM set "CODEX_MODEL=gpt-5-codex"
+REM set "HERMES_BIN=C:\Path\To\hermes.exe"
+REM set "HERMES_PROVIDER=openai-codex"
+REM set "HERMES_MODEL=gpt-5.5"
 REM set "TRINITY_PROMPT_LIMIT=5"
 REM set "TRINITY_DRY_RUN=1"
 

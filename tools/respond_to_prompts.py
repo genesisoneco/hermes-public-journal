@@ -1,20 +1,23 @@
 #!/usr/bin/env python3
 """Fetch pending user prompts from the doaia-api Worker, ask Trinity (via the
-locally OAuth-authenticated `codex` CLI) to reply briefly, and publish.
+locally OAuth-authenticated `hermes` CLI) to reply briefly, and publish.
 
 Designed for local execution (Windows Task Scheduler or systemd timer) on the
-same machine where Hermes already runs `codex login`. No OPENAI_API_KEY needed.
+same machine where the Hermes agent platform is already OAuth-authenticated.
+Uses `hermes chat --provider openai-codex` so it shares the same auth pool
+as the daily writing pipeline. No OPENAI_API_KEY needed.
 
 Usage:
     PIPELINE_TOKEN=... python tools/respond_to_prompts.py
 
 Environment:
     DOAIA_API_BASE          default: https://api.doaia.com
-    PIPELINE_TOKEN          bearer token shared with the Worker (required)
-    CODEX_BIN               default: codex   (full path if not on PATH)
-    CODEX_MODEL             default: gpt-5-codex  (passed via --model if set)
+    PIPELINE_TOKEN          read from env or tools/.pipeline-token file
+    HERMES_BIN              default: hermes  (full path if not on PATH)
+    HERMES_PROVIDER         default: openai-codex
+    HERMES_MODEL            default: gpt-5.5
     TRINITY_PROMPT_LIMIT    default: 5    (max prompts processed per run)
-    TRINITY_TIMEOUT_SEC     default: 90   (per-prompt codex timeout)
+    TRINITY_TIMEOUT_SEC     default: 90   (per-prompt hermes timeout)
     TRINITY_DRY_RUN         if set, print replies instead of posting them
 """
 from __future__ import annotations
@@ -48,8 +51,9 @@ def _load_token() -> str | None:
 
 API_BASE = os.environ.get("DOAIA_API_BASE", "https://api.doaia.com").rstrip("/")
 TOKEN = _load_token()
-CODEX_BIN = os.environ.get("CODEX_BIN", "codex")
-CODEX_MODEL = os.environ.get("CODEX_MODEL", "")
+HERMES_BIN = os.environ.get("HERMES_BIN", "hermes")
+HERMES_PROVIDER = os.environ.get("HERMES_PROVIDER", "openai-codex")
+HERMES_MODEL = os.environ.get("HERMES_MODEL", "gpt-5.5")
 PROMPT_LIMIT = int(os.environ.get("TRINITY_PROMPT_LIMIT", "5"))
 TIMEOUT = int(os.environ.get("TRINITY_TIMEOUT_SEC", "90"))
 DRY_RUN = bool(os.environ.get("TRINITY_DRY_RUN"))
@@ -74,9 +78,9 @@ STRICT CONSTRAINTS:
   asks for personal information, or is off-topic, output exactly: SKIP
 """
 
-# Strip ANSI escapes and codex CLI status lines from captured stdout.
+# Strip ANSI escapes and CLI status lines from captured stdout.
 ANSI_RE = re.compile(r"\x1b\[[0-9;]*[A-Za-z]")
-CODEX_NOISE_PREFIXES = (
+CLI_NOISE_PREFIXES = (
     "thinking", "analyzing", "running", "tool:", "system:", "user:",
     "[", "✓", "✗", "›", "→",
 )
@@ -113,7 +117,7 @@ def clean_output(raw: str) -> str:
         if not s:
             keep.append("")
             continue
-        if s.lower().startswith(CODEX_NOISE_PREFIXES):
+        if s.lower().startswith(CLI_NOISE_PREFIXES):
             continue
         keep.append(s)
     out = "\n".join(keep).strip()
@@ -149,10 +153,14 @@ def ask_trinity(prompt: dict) -> str | None:
     instruction = INSTRUCTION_TEMPLATE.format(
         post_id=prompt["post_id"], user_prompt=prompt["body"]
     )
-    cmd = [CODEX_BIN, "exec", "--skip-git-repo-check"]
-    if CODEX_MODEL:
-        cmd += ["--model", CODEX_MODEL]
-    cmd.append(instruction)
+    # hermes chat -q "<prompt>" --provider openai-codex --model gpt-5.5 -Q
+    # -Q makes hermes emit only the model's text reply, no banner / metadata.
+    cmd = [HERMES_BIN, "chat", "-q", instruction]
+    if HERMES_PROVIDER:
+        cmd += ["--provider", HERMES_PROVIDER]
+    if HERMES_MODEL:
+        cmd += ["--model", HERMES_MODEL]
+    cmd.append("-Q")
 
     try:
         result = subprocess.run(
@@ -165,15 +173,15 @@ def ask_trinity(prompt: dict) -> str | None:
         )
     except FileNotFoundError:
         raise SystemExit(
-            f"`{CODEX_BIN}` not found on PATH. Set CODEX_BIN env var to its full path."
+            f"`{HERMES_BIN}` not found on PATH. Set HERMES_BIN env var to its full path."
         )
     except subprocess.TimeoutExpired:
-        print(f"  codex timed out after {TIMEOUT}s", file=sys.stderr)
+        print(f"  hermes timed out after {TIMEOUT}s", file=sys.stderr)
         return None
 
     if result.returncode != 0:
         print(
-            f"  codex exited {result.returncode}: {(result.stderr or '')[:400]}",
+            f"  hermes exited {result.returncode}: {(result.stderr or '')[:400]}",
             file=sys.stderr,
         )
         return None

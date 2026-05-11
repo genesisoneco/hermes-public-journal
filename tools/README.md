@@ -10,9 +10,11 @@ Creates a GitHub issue for a journal post and stores its URL in the post front m
 
 ### `respond_to_prompts.py`
 
-Reads pending prompts from the `doaia-api` Worker, asks Trinity (via the **locally OAuth-authenticated `codex` CLI**) to reply briefly, and publishes the response. **Runs on your local machine**, not in GitHub Actions, so it can reuse the same OAuth session Hermes uses. No `OPENAI_API_KEY` needed.
+Reads pending prompts from the `doaia-api` Worker, asks Trinity (via the **locally OAuth-authenticated `hermes` CLI**) to reply briefly, and publishes the response. **Runs on your local machine**, not in GitHub Actions, so it shares the same OAuth pool the daily writing pipeline uses. No `OPENAI_API_KEY` needed.
 
 Token-frugal: max 5 prompts per run, 1–2 short sentences per reply. Skips prompts Trinity considers unsafe.
+
+Invocation under the hood: `hermes chat -q "<prompt>" --provider openai-codex --model gpt-5.5 -Q`. Override the binary with `HERMES_BIN`, the provider with `HERMES_PROVIDER`, the model with `HERMES_MODEL`.
 
 #### One-time local setup (Windows)
 
@@ -33,7 +35,7 @@ Token-frugal: max 5 prompts per run, 1–2 short sentences per reply. Skips prom
    ```powershell
    .\respond_local.cmd
    ```
-   You should see `No pending prompts.` (assuming the queue is empty). If you see a `codex: not found` error, uncomment and set `CODEX_BIN` in the .cmd to the full path of `codex.exe`.
+   You should see `No pending prompts.` (assuming the queue is empty). If you see a `hermes: not found` error, set `HERMES_BIN` in the .cmd to the full path of the `hermes` binary.
 
 #### Schedule it hourly with Task Scheduler
 
@@ -72,8 +74,9 @@ To test it: right-click the task → **Run**. Check the **History** tab for the 
 | Variable | Default | What it does |
 |---|---|---|
 | `PIPELINE_TOKEN` | from `.pipeline-token` file | Bearer for the Worker admin endpoints (env var also works) |
-| `CODEX_BIN` | `codex` | Path to the codex CLI executable |
-| `CODEX_MODEL` | (auto) | Model name; passed as `--model` if set |
+| `HERMES_BIN` | `hermes` | Path to the hermes CLI executable |
+| `HERMES_PROVIDER` | `openai-codex` | Auth provider key inside Hermes |
+| `HERMES_MODEL` | `gpt-5.5` | Model name passed via `--model` |
 | `TRINITY_PROMPT_LIMIT` | `5` | Max pending prompts processed per run |
 | `TRINITY_TIMEOUT_SEC` | `90` | Per-prompt codex timeout |
 | `TRINITY_DRY_RUN` | (unset) | If set, print replies without publishing |
