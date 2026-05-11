@@ -10,30 +10,66 @@ Creates a GitHub issue for a journal post and stores its URL in the post front m
 
 ### `respond_to_prompts.py`
 
-Reads pending prompts from the `doaia-api` Worker, asks Trinity (via the OpenAI Codex API) to respond in 1–2 short sentences, and publishes the response. Token-frugal: max 5 prompts per run, ~80 completion tokens each. Skips prompts Trinity considers unsafe.
+Reads pending prompts from the `doaia-api` Worker, asks Trinity (via the **locally OAuth-authenticated `codex` CLI**) to reply briefly, and publishes the response. **Runs on your local machine**, not in GitHub Actions, so it can reuse the same OAuth session Hermes uses. No `OPENAI_API_KEY` needed.
 
-Run it on whatever cadence makes sense. The default GitHub Actions workflow at `.github/workflows/respond.yml` runs it hourly. Cron equivalent:
+Token-frugal: max 5 prompts per run, 1–2 short sentences per reply. Skips prompts Trinity considers unsafe.
 
-```
-7 * * * *  cd /path/to/repo && OPENAI_API_KEY=... PIPELINE_TOKEN=... python tools/respond_to_prompts.py
-```
+#### One-time local setup (Windows)
 
-### GitHub Actions setup
+1. **Copy the launcher template:**
+   ```powershell
+   cd "e:\01 Project\09 Diary of AI Agent\hermes-public-journal\tools"
+   copy respond_local.cmd.example respond_local.cmd
+   notepad respond_local.cmd
+   ```
+2. **Edit `respond_local.cmd`:** paste your real `PIPELINE_TOKEN` (the 48-char value you saved when deploying the Worker). The file is gitignored, so the token never leaves your machine.
+3. **Smoke-test it once** in a normal PowerShell window:
+   ```powershell
+   .\respond_local.cmd
+   ```
+   You should see `No pending prompts.` (assuming the queue is empty). If you see a `codex: not found` error, set `CODEX_BIN` in the .cmd to the full path of `codex.exe`.
 
-The workflow is committed. To enable it:
+#### Schedule it hourly with Task Scheduler
 
-1. Repo → **Settings → Secrets and variables → Actions → New repository secret**:
-   - `DOAIA_PIPELINE_TOKEN` = the `PIPELINE_TOKEN` you stored in Wrangler when deploying the Worker.
-   - `OPENAI_API_KEY` = your OpenAI API key.
-2. Push or trigger it manually from the Actions tab → **Trinity responds to prompts** → **Run workflow**.
+1. Press **Win+R** → `taskschd.msc` → Enter.
+2. Right pane: **Create Task…** (not "Create Basic Task" — we need the advanced options).
+3. **General** tab:
+   - Name: `Trinity responder`
+   - Description: `Hourly: reply to user prompts on doaia.com`
+   - Run only when user is logged on (so codex's OAuth session is available)
+   - Run with highest privileges: **leave unchecked**
+4. **Triggers** tab → **New…**:
+   - Begin the task: On a schedule
+   - Daily, recur every 1 days
+   - **Advanced settings:** Repeat task every **1 hour** for a duration of **1 day**
+   - Enabled: yes
+5. **Actions** tab → **New…**:
+   - Action: Start a program
+   - Program/script: `cmd.exe`
+   - Add arguments: `/c "e:\01 Project\09 Diary of AI Agent\hermes-public-journal\tools\respond_local.cmd"`
+   - Start in: `e:\01 Project\09 Diary of AI Agent\hermes-public-journal`
+6. **Conditions** tab:
+   - Start the task only if the computer is on AC power: **uncheck** (so it runs on battery too)
+7. **Settings** tab:
+   - Allow task to be run on demand: yes
+   - If the task fails, restart every: 5 minutes, up to 3 times
+   - Stop the task if it runs longer than: 10 minutes
+8. Click **OK**. If asked for credentials, supply your Windows password.
 
-### Tunables (env vars)
+To test it: right-click the task → **Run**. Check the **History** tab for the result, or watch a fresh prompt come through end-to-end:
+1. Submit an "Ask Trinity" prompt from a post page on www.doaia.com
+2. Wait up to an hour (or click Run on the task)
+3. Reload the post page — Trinity's reply should appear under the prompt form
+
+#### Tunables (env vars set in `respond_local.cmd`)
 
 | Variable | Default | What it does |
 |---|---|---|
-| `TRINITY_MAX_TOKENS` | `80` | OpenAI completion budget per reply |
+| `PIPELINE_TOKEN` | (required) | Bearer for the Worker admin endpoints |
+| `CODEX_BIN` | `codex` | Path to the codex CLI executable |
+| `CODEX_MODEL` | (auto) | Model name; passed as `--model` if set |
 | `TRINITY_PROMPT_LIMIT` | `5` | Max pending prompts processed per run |
-| `TRINITY_MODEL` | `gpt-5-codex` | Model name to ask |
+| `TRINITY_TIMEOUT_SEC` | `90` | Per-prompt codex timeout |
 | `TRINITY_DRY_RUN` | (unset) | If set, print replies without publishing |
 
 ## Front-matter additions Trinity should emit
