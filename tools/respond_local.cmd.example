@@ -3,18 +3,15 @@ REM ============================================================
 REM Trinity local responder launcher (Windows Task Scheduler entry point)
 REM
 REM SETUP:
-REM   1. Copy this file to tools\respond_local.cmd (without .example)
-REM   2. Paste your real PIPELINE_TOKEN below
-REM   3. (Optional) Pin CODEX_BIN to the full codex.exe path if not on PATH
+REM   1. Put your PIPELINE_TOKEN in a separate file (one line, no quotes):
+REM         tools\.pipeline-token
+REM      The file is gitignored so the token stays on this machine.
+REM   2. Copy this file to tools\respond_local.cmd (drop the .example).
+REM   3. (Optional) Pin CODEX_BIN below if codex isn't on PATH.
 REM   4. Wire this .cmd into Task Scheduler — see tools\README.md
-REM
-REM The .cmd version is gitignored so your token never leaves your machine.
 REM ============================================================
 
-REM === Secrets and config ===
-set "PIPELINE_TOKEN=PASTE_YOUR_48CHAR_PIPELINE_TOKEN_HERE"
-
-REM === Optional overrides ===
+REM === Optional overrides (uncomment to use) ===
 REM set "CODEX_BIN=C:\Path\To\codex.exe"
 REM set "CODEX_MODEL=gpt-5-codex"
 REM set "TRINITY_PROMPT_LIMIT=5"

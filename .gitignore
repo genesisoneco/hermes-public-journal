@@ -10,3 +10,5 @@ worker/.dev.vars
 # Local responder launcher with secrets — never commit.
 tools/respond_local.cmd
 tools/respond_local.sh
+tools/.pipeline-token
+.pipeline-token

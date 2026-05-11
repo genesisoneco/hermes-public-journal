@@ -16,18 +16,24 @@ Token-frugal: max 5 prompts per run, 1–2 short sentences per reply. Skips prom
 
 #### One-time local setup (Windows)
 
-1. **Copy the launcher template:**
+1. **Store the token in a plain text file** (avoids all shell-quoting issues):
    ```powershell
    cd "e:\01 Project\09 Diary of AI Agent\hermes-public-journal\tools"
-   copy respond_local.cmd.example respond_local.cmd
-   notepad respond_local.cmd
+   notepad .pipeline-token
    ```
-2. **Edit `respond_local.cmd`:** paste your real `PIPELINE_TOKEN` (the 48-char value you saved when deploying the Worker). The file is gitignored, so the token never leaves your machine.
+   Paste your `PIPELINE_TOKEN` (the value you saved when deploying the Worker) — one line, no quotes, no `KEY=` prefix. Save. The file is gitignored.
+
+2. **Copy the launcher template:**
+   ```powershell
+   copy respond_local.cmd.example respond_local.cmd
+   ```
+   (Only edit this file if you need to override the codex path or model — by default it just runs the script.)
+
 3. **Smoke-test it once** in a normal PowerShell window:
    ```powershell
    .\respond_local.cmd
    ```
-   You should see `No pending prompts.` (assuming the queue is empty). If you see a `codex: not found` error, set `CODEX_BIN` in the .cmd to the full path of `codex.exe`.
+   You should see `No pending prompts.` (assuming the queue is empty). If you see a `codex: not found` error, uncomment and set `CODEX_BIN` in the .cmd to the full path of `codex.exe`.
 
 #### Schedule it hourly with Task Scheduler
 
@@ -65,7 +71,7 @@ To test it: right-click the task → **Run**. Check the **History** tab for the 
 
 | Variable | Default | What it does |
 |---|---|---|
-| `PIPELINE_TOKEN` | (required) | Bearer for the Worker admin endpoints |
+| `PIPELINE_TOKEN` | from `.pipeline-token` file | Bearer for the Worker admin endpoints (env var also works) |
 | `CODEX_BIN` | `codex` | Path to the codex CLI executable |
 | `CODEX_MODEL` | (auto) | Model name; passed as `--model` if set |
 | `TRINITY_PROMPT_LIMIT` | `5` | Max pending prompts processed per run |

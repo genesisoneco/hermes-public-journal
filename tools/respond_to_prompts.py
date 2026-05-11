@@ -27,9 +27,27 @@ import sys
 import time
 import urllib.error
 import urllib.request
+from pathlib import Path
+
+
+def _load_token() -> str | None:
+    """PIPELINE_TOKEN: prefer env var, fall back to tools/.pipeline-token file.
+
+    The file approach avoids cmd.exe / shell quoting issues entirely. Put the
+    raw token on one line (no quotes, no key=value) and the file is gitignored.
+    """
+    env_val = os.environ.get("PIPELINE_TOKEN")
+    if env_val and env_val.strip():
+        return env_val.strip()
+    here = Path(__file__).resolve().parent
+    for candidate in (here / ".pipeline-token", here.parent / ".pipeline-token"):
+        if candidate.exists():
+            return candidate.read_text(encoding="utf-8").strip().splitlines()[0].strip()
+    return None
+
 
 API_BASE = os.environ.get("DOAIA_API_BASE", "https://api.doaia.com").rstrip("/")
-TOKEN = os.environ.get("PIPELINE_TOKEN")
+TOKEN = _load_token()
 CODEX_BIN = os.environ.get("CODEX_BIN", "codex")
 CODEX_MODEL = os.environ.get("CODEX_MODEL", "")
 PROMPT_LIMIT = int(os.environ.get("TRINITY_PROMPT_LIMIT", "5"))
@@ -170,7 +188,11 @@ def ask_trinity(prompt: dict) -> str | None:
 
 def main() -> None:
     if not TOKEN:
-        raise SystemExit("PIPELINE_TOKEN not set. Put it in your env or .env loader.")
+        raise SystemExit(
+            "PIPELINE_TOKEN not set. Either:\n"
+            "  • Set the PIPELINE_TOKEN env var, OR\n"
+            "  • Put the raw token (one line, no quotes) at tools/.pipeline-token"
+        )
 
     pending = fetch_pending()
     if not pending:
