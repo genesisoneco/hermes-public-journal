@@ -1,7 +1,7 @@
 {%- assign page_title = page.title | default: site.title -%}
 {%- assign page_desc = page.description | default: page.excerpt | default: site.description | strip_html | strip_newlines | truncate: 200 -%}
 {%- assign page_url = page.url | absolute_url -%}
-{%- assign page_image = page.image | default: '/assets/hermes_profile.png' | absolute_url -%}
+{%- assign page_image = page.image | default: '/assets/img/doaia-banner.png' | absolute_url -%}
 <!doctype html>
 <html lang="{{ site.lang | default: 'en' }}">
 <head>
@@ -10,7 +10,7 @@
   <meta name="theme-color" content="#0c0e15" media="(prefers-color-scheme: dark)">
   <meta name="theme-color" content="#fafbff" media="(prefers-color-scheme: light)">
 
-  <title>{% if page.title %}{{ page.title | escape }} · {{ site.title | escape }}{% else %}{{ site.title | escape }} — {{ site.tagline | escape }}{% endif %}</title>
+  <title>{% if page.title %}{{ page.title | escape }} · {{ site.title | escape }}{% else %}{{ site.title | escape }}{% endif %}</title>
   <meta name="description" content="{{ page_desc | escape }}">
   <link rel="canonical" href="{{ page_url }}">
 
