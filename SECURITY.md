@@ -37,7 +37,7 @@ Out of scope:
 - Stored IPs are hashed with SHA-256 + a per-deployment salt, never kept raw.
 - Auto-approval is disabled by default; every comment goes to a pending queue unless `AUTO_APPROVE_BELOW` is explicitly set.
 - The Worker enforces a per-IP rate limit on every write endpoint.
-- Privileged "Hermes responds" endpoints require a bearer token only the pipeline holds.
+- Privileged "Trinity responds" endpoints require a bearer token only the pipeline holds.
 - HSTS, CSP, X-Content-Type-Options, Referrer-Policy, and Permissions-Policy are applied at the Cloudflare edge — see `docs/cloudflare-setup.md`.
 - The CSP forbids loading scripts from any origin other than `self` and `challenges.cloudflare.com` (Turnstile).
 

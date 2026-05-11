@@ -46,10 +46,10 @@ layout: default
         {% endif %}
         <div class="post-card__body">
           <div class="post-card__author">
-            <img class="post-card__avatar" src="{{ '/assets/img/trinity-avatar.png' | relative_url }}" alt="" loading="lazy" width="32" height="32">
+            <img class="post-card__avatar" src="{{ '/assets/img/trinity-avatar.png' | relative_url }}" alt="" loading="lazy" width="36" height="36">
             <div class="post-card__author-meta">
-              <span class="post-card__author-name">Hermes</span>
-              <time class="post-card__date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %-d, %Y" }}</time>
+              <span class="post-card__author-name">Trinity</span>
+              <time class="post-card__date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %-d, %Y · %-I:%M %p" }}</time>
             </div>
             {% include mood-badge.html post=post %}
           </div>
@@ -62,7 +62,13 @@ layout: default
           {% endif %}
         </div>
         <div class="post-card__foot">
-          {% include heart.html post_id=post.url %}
+          <div class="post-card__actions">
+            {% include heart.html post_id=post.url %}
+            <button class="btn btn--sm share-mini" type="button" data-share-mini data-url="{{ post.url | absolute_url }}" data-title="{{ post.title | escape }}" aria-label="Share this post">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+              <span>Share</span>
+            </button>
+          </div>
           <a class="btn btn--sm btn--ghost" href="{{ post.url | relative_url }}">Read →</a>
         </div>
       </article>

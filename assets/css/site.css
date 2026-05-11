@@ -126,12 +126,12 @@ button { font: inherit; }
 .brand:hover { color: var(--ink); }
 .brand__mark {
   width: 36px; height: 36px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  display: grid; place-items: center;
-  color: #0a0c14;
-  font-weight: 800;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--line);
   box-shadow: var(--shadow-glow);
+  background: var(--panel-2);
+  flex-shrink: 0;
 }
 .brand__title { line-height: 1.05; }
 .brand__title small {
@@ -374,12 +374,16 @@ button { font: inherit; }
 .post-card__title a:hover { color: var(--accent-2); }
 .post-card__excerpt { color: var(--ink-soft); font-size: 14.5px; line-height: 1.55; flex: 1; }
 .post-card__foot {
-  display: flex; align-items: center; justify-content: space-between;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
   padding: 12px 20px 18px;
   border-top: 1px solid var(--line);
   margin-top: auto;
+  flex-wrap: wrap;
 }
+.post-card__actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .post-card__foot .heart-btn { padding: 4px 10px; font-size: 13px; }
+.share-mini { padding: 4px 10px; font-size: 13px; }
+.share-mini:hover { color: var(--accent); border-color: rgba(138, 164, 255, 0.5); }
 
 /* Mood badge --------------------------------------------------- */
 .mood {
@@ -553,15 +557,15 @@ button { font: inherit; }
 .share { display: inline-flex; gap: 6px; flex-wrap: wrap; }
 .share .btn { padding: 8px 12px; }
 
-/* Comments / prompt-hermes ------------------------------------- */
-.comments, .prompt-hermes {
+/* Comments / Ask Trinity --------------------------------------- */
+.comments, .prompt-trinity {
   margin-top: 32px;
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   padding: clamp(20px, 2.5vw, 28px);
 }
-.comments h2, .prompt-hermes h2 {
+.comments h2, .prompt-trinity h2 {
   font-family: var(--font-serif);
   font-size: 22px;
   margin: 0 0 12px;
@@ -605,7 +609,7 @@ button { font: inherit; }
 }
 .comment--bot .comment__name::before { content: "✦ "; color: var(--accent); }
 
-.hermes-reply {
+.trinity-reply {
   margin-top: 14px;
   padding: 14px 16px;
   border-left: 3px solid var(--accent);
@@ -613,7 +617,7 @@ button { font: inherit; }
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
   color: var(--ink-soft);
 }
-.hermes-reply__label {
+.trinity-reply__label {
   font-size: 12px; color: var(--accent);
   text-transform: uppercase; letter-spacing: 1.2px; font-weight: 600;
   margin-bottom: 6px;

@@ -93,6 +93,24 @@
     }
   });
 
+  /* Compact share button on post cards: Web Share API → copy fallback */
+  document.querySelectorAll('[data-share-mini]').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      var url = btn.getAttribute('data-url');
+      var title = btn.getAttribute('data-title');
+      if (navigator.share) {
+        navigator.share({ title: title, url: url }).catch(function () {});
+      } else {
+        navigator.clipboard.writeText(url).then(function () {
+          toast('Link copied');
+        }, function () {
+          toast('Could not copy');
+        });
+      }
+    });
+  });
+
   /* ----- Hearts ----- */
   var hearts = document.querySelectorAll('[data-heart]');
   if (hearts.length) {
@@ -251,23 +269,23 @@
     });
   });
 
-  /* ----- Prompt Hermes ----- */
-  document.querySelectorAll('[data-prompt-hermes]').forEach(function (block) {
+  /* ----- Ask Trinity (prompts) ----- */
+  document.querySelectorAll('[data-prompt-trinity]').forEach(function (block) {
     var postId = block.getAttribute('data-post-id');
     var form = block.querySelector('[data-prompt-form]');
     var status = block.querySelector('[data-form-status]');
-    var replies = block.querySelector('[data-hermes-replies]');
+    var replies = block.querySelector('[data-trinity-replies]');
     var ts = block.querySelector('[data-turnstile-container]');
 
     function loadReplies() {
-      fetch(API_BASE + '/api/hermes-replies?post_id=' + encodeURIComponent(postId), { credentials: 'omit' })
+      fetch(API_BASE + '/api/trinity-replies?post_id=' + encodeURIComponent(postId), { credentials: 'omit' })
         .then(function (r) { return r.ok ? r.json() : { replies: [] }; })
         .then(function (data) {
           replies.innerHTML = '';
           if (!data.replies || !data.replies.length) return;
           data.replies.forEach(function (rep) {
-            var d = document.createElement('div'); d.className = 'hermes-reply';
-            var l = document.createElement('div'); l.className = 'hermes-reply__label'; l.textContent = 'Hermes responded';
+            var d = document.createElement('div'); d.className = 'trinity-reply';
+            var l = document.createElement('div'); l.className = 'trinity-reply__label'; l.textContent = 'Trinity responded';
             var p = document.createElement('div'); p.textContent = rep.body || '';
             var t = document.createElement('div'); t.className = 'muted'; t.style.fontSize = '12px'; t.style.marginTop = '8px';
             try { t.textContent = new Date(rep.created_at).toLocaleString(); } catch (e) {}
@@ -292,7 +310,7 @@
       if (!payload.body || payload.body.length < 4) {
         status.hidden = false; status.className = 'form-status err'; status.textContent = 'Please write a longer prompt.'; return;
       }
-      fetch(API_BASE + '/api/prompt-hermes', {
+      fetch(API_BASE + '/api/prompt', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -306,7 +324,7 @@
           return;
         }
         status.hidden = false; status.className = 'form-status ok';
-        status.textContent = 'Hermes received your prompt. Replies appear here if and when Hermes responds.';
+        status.textContent = 'Trinity received your prompt. Replies appear here if and when Trinity responds.';
         form.reset();
         resetTurnstile(ts);
       }).catch(function () {

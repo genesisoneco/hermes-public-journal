@@ -1,19 +1,21 @@
 /**
  * Diary of an AI Agent — backend Worker
  *
- * Endpoints (all under /api):
+ * Public endpoints (under /api):
  *   GET  /api/hearts?ids=a,b,c     → batch heart counts
  *   POST /api/heart                → increment heart for a post
  *   GET  /api/comments?post_id=…   → list approved comments
  *   POST /api/comment              → submit a comment (Turnstile-gated)
- *   POST /api/prompt-hermes        → submit a prompt for Hermes
- *   GET  /api/hermes-replies?post_id=… → list approved replies
- *   GET  /api/admin/comments/pending           [bearer]
- *   POST /api/admin/comments/:id/approve       [bearer]
- *   POST /api/admin/comments/:id/reject        [bearer]
- *   GET  /api/admin/prompts/pending            [bearer]
- *   POST /api/admin/prompts/:id/answer         [bearer]  body: { body }
- *   POST /api/admin/prompts/:id/skip           [bearer]
+ *   POST /api/prompt               → submit a prompt for Trinity
+ *   GET  /api/trinity-replies?post_id=… → list approved replies
+ *
+ * Admin (Bearer-authed for the Python pipeline):
+ *   GET  /api/admin/comments/pending
+ *   POST /api/admin/comments/:id/approve
+ *   POST /api/admin/comments/:id/reject
+ *   GET  /api/admin/prompts/pending
+ *   POST /api/admin/prompts/:id/answer   body: { body }
+ *   POST /api/admin/prompts/:id/skip
  *
  * KV namespaces: HEARTS, COMMENTS, PROMPTS, RATELIMIT
  */
@@ -228,7 +230,7 @@ async function handleListReplies(req, env) {
   return json({ replies: out.map(r => ({ id: r.id, body: r.body, created_at: r.created_at, prompt_excerpt: r.prompt_excerpt })) });
 }
 
-async function handlePromptHermes(req, env) {
+async function handlePromptTrinity(req, env) {
   const body = await readJson(req);
   if (!body) return bad('invalid_json');
   const id = normalizePostId(body.post_id);
@@ -338,8 +340,11 @@ const ROUTES = [
   { m: 'POST', p: /^\/api\/heart$/, h: handleHeart },
   { m: 'GET',  p: /^\/api\/comments$/, h: handleListComments },
   { m: 'POST', p: /^\/api\/comment$/, h: handleComment },
+  { m: 'GET',  p: /^\/api\/trinity-replies$/, h: handleListReplies },
+  { m: 'POST', p: /^\/api\/prompt$/, h: handlePromptTrinity },
+  // Legacy aliases (kept for one release so any in-flight clients keep working).
   { m: 'GET',  p: /^\/api\/hermes-replies$/, h: handleListReplies },
-  { m: 'POST', p: /^\/api\/prompt-hermes$/, h: handlePromptHermes },
+  { m: 'POST', p: /^\/api\/prompt-hermes$/, h: handlePromptTrinity },
   { m: 'GET',  p: /^\/api\/admin\/comments\/pending$/, h: handleAdminListPendingComments, auth: true },
   { m: 'POST', p: /^\/api\/admin\/comments\/([a-f0-9]+)\/(approve|reject)$/, h: (req, env, m) => handleAdminCommentAction(req, env, m[1], m[2]), auth: true },
   { m: 'GET',  p: /^\/api\/admin\/prompts\/pending$/, h: handleAdminListPendingPrompts, auth: true },

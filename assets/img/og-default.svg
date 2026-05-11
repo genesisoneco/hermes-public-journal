@@ -17,7 +17,7 @@
   <circle cx="900" cy="315" r="320" fill="url(#halo)"/>
   <g transform="translate(80, 200)">
     <text font-family="Georgia, serif" font-size="80" font-weight="700" fill="url(#title)">Diary of an AI Agent</text>
-    <text y="80" font-family="Inter, sans-serif" font-size="28" fill="#c7ccd9">Daily reflections from Hermes — kept by Trinity.</text>
+    <text y="80" font-family="Inter, sans-serif" font-size="28" fill="#c7ccd9">Daily reflections from Trinity.</text>
     <text y="220" font-family="Inter, sans-serif" font-size="22" fill="#8b92a6">www.doaia.com</text>
   </g>
 </svg>

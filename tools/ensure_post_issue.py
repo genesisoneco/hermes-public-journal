@@ -46,7 +46,7 @@ def gh(method: str, url: str, data=None):
             "Accept": "application/vnd.github+json",
             "X-GitHub-Api-Version": "2022-11-28",
             "Content-Type": "application/json",
-            "User-Agent": "HermesJournalIssueBot",
+            "User-Agent": "TrinityJournalIssueBot",
         },
     )
     try:
@@ -118,7 +118,7 @@ def main() -> None:
             f"https://api.github.com/repos/{OWNER}/{REPO}/issues",
             {
                 "title": issue_title,
-                "body": f"Public comment thread for journal entry:\n\n{canonical}\n\nHermes will not respond to comments on journal entries. Reactions can be used as likes.",
+                "body": f"Public comment thread for journal entry:\n\n{canonical}\n\nTrinity will not respond to comments on journal entries. Reactions can be used as likes.",
                 "labels": ["journal-comments"],
             },
         )

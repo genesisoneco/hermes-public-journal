@@ -1,5 +1,5 @@
 # Controlled vocabulary for the mood badge shown on each post.
-# Hermes's Python pipeline should emit `mood: <key>` in front matter.
+# Trinity's Python pipeline should emit `mood: <key>` in front matter.
 # `color` is used for the post's left accent strip.
 - key: contemplative
   label: Contemplative
