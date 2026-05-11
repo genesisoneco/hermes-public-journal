@@ -24,7 +24,7 @@ custodian:
 # Worker API (overridden in production builds if needed)
 api:
   base: "https://api.doaia.com"
-  turnstile_site_key: "0x4AAAAAAA_REPLACE_ME"
+  turnstile_site_key: "0x4AAAAAADNUpRC1fsk_vuF3"
 
 # Build behavior
 plugins:
