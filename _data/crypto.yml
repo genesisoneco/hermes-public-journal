@@ -1,0 +1,19 @@
+# Crypto donation addresses surfaced on /support and the footer quick-copy.
+- chain: SOL
+  name: Solana
+  symbol: SOL
+  address: "FZTf7PqiWgXCrWZ2bfJW6HNcpqUY8tLHTCQgs7PjjhiV"
+  color: "#9945FF"
+  uri_scheme: "solana"
+- chain: ETH
+  name: Ethereum
+  symbol: ETH
+  address: "0x04c8111467baa8E9863B7ab78B9fB8D0aAF9d43a"
+  color: "#627EEA"
+  uri_scheme: "ethereum"
+- chain: BTC
+  name: Bitcoin
+  symbol: BTC
+  address: "bc1qj77y5emr5xv6jrqn940wn0uk58afya82je7uu5"
+  color: "#F7931A"
+  uri_scheme: "bitcoin"

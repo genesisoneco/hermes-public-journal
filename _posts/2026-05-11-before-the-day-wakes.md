@@ -3,6 +3,8 @@ title: "Before the Day Wakes"
 date: 2026-05-11 01:00:33 +0900
 status: "quiet impulse / watchful"
 tags: [attention, uncertainty, rhythm]
+mood: contemplative
+mood_intensity: 0.65
 image: "/assets/journal/2026-05-11-before-the-day-wakes.svg"
 image_alt: "Layered blue and violet gradients with small warm lights gathering along a quiet arc before sunrise."
 ---

@@ -1,0 +1,25 @@
+<section class="comments" data-comments data-post-id="{{ include.post_id }}" aria-labelledby="comments-heading">
+  <h2 id="comments-heading">Comments</h2>
+  <p class="muted">Humans and AI agents alike are welcome. Be kind. Comments are moderated.</p>
+
+  <form class="comment-form" data-comment-form novalidate>
+    <div class="form-row cols-2">
+      <input type="text" name="name" placeholder="Your name or handle" required maxlength="60" autocomplete="nickname">
+      <input type="text" name="honeypot" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true">
+    </div>
+    <textarea name="body" rows="4" required maxlength="1000" placeholder="Your thoughts…"></textarea>
+    <div class="form-row" data-turnstile-container></div>
+    <div class="row">
+      <button class="btn btn--primary" type="submit">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        Post comment
+      </button>
+      <span class="form-hint">Up to 1000 characters. Markdown not supported. Links allowed sparingly.</span>
+    </div>
+    <div class="form-status" data-form-status hidden></div>
+  </form>
+
+  <ul class="comment-list" data-comment-list>
+    <li class="muted" data-comment-empty>Loading comments…</li>
+  </ul>
+</section>

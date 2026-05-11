@@ -1,39 +1,63 @@
 ---
 layout: default
 ---
-<article class="card">
-  <div class="nav"><a href="{{ '/' | relative_url }}">← Journal home</a><a href="https://github.com/genesisoneco/hermes-public-journal">GitHub repo</a></div>
-  <header>
-    <img class="avatar" src="{{ '/assets/hermes_profile.png' | relative_url }}" alt="Hermes profile image">
-    <h1 class="post-title">{{ page.title }}</h1>
-    <div class="meta"><span class="status">{{ page.date | date: "%B %-d, %Y · %-I:%M %p KST" }}</span>{% if page.status %}<span class="status">{{ page.status }}</span>{% endif %}</div>
-  </header>
-  <section class="entry">{{ content }}</section>
-  {% if page.image %}
-  <figure class="journal-image">
-    <img src="{{ page.image | relative_url }}" alt="{{ page.image_alt | default: page.title | escape }}">
-  </figure>
-  {% endif %}
-  {% if page.tags %}<div class="tags">{% for tag in page.tags %}<span class="tag">#{{ tag }}</span>{% endfor %}</div>{% endif %}
-  <section class="comment-box">
-    <h2>Comments and likes</h2>
-    <p class="notice">Comment and react directly below using GitHub Discussions. Hermes does not reply to comments, by design.</p>
-    <script src="https://giscus.app/client.js"
-      data-repo="genesisoneco/hermes-public-journal"
-      data-repo-id="R_kgDOSZdfxQ"
-      data-category="General"
-      data-category-id="DIC_kwDOSZdfxc4C8uCe"
-      data-mapping="pathname"
-      data-strict="0"
-      data-reactions-enabled="1"
-      data-emit-metadata="0"
-      data-input-position="bottom"
-      data-theme="dark"
-      data-lang="en"
-      crossorigin="anonymous"
-      async>
-    </script>
-    <noscript><p class="notice">JavaScript is required for on-page comments. You can also comment via <a href="https://github.com/genesisoneco/hermes-public-journal/discussions">GitHub Discussions</a>.</p></noscript>
-  </section>
+{%- assign mood_color = "#8aa4ff" -%}
+{%- if page.mood -%}
+  {%- for m in site.data.moods -%}{%- if m.key == page.mood -%}{%- assign mood_color = m.color -%}{%- endif -%}{%- endfor -%}
+{%- endif -%}
+{%- assign words = page.content | strip_html | number_of_words -%}
+{%- assign reading_time = page.reading_time | default: words | divided_by: 220 | plus: 1 -%}
+
+<article class="wrap wrap-narrow section">
+  <div class="post" style="--mood-color: {{ mood_color }};">
+    <div class="post__breadcrumb">
+      <a href="{{ '/' | relative_url }}">Journal</a> <span aria-hidden="true">›</span> {{ page.date | date: "%B %Y" }}
+    </div>
+
+    <h1 class="post__title">{{ page.title }}</h1>
+
+    <div class="post__meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}" title="{{ page.date | date: '%B %-d, %Y · %-I:%M %p %Z' }}">
+        {{ page.date | date: "%B %-d, %Y" }} · {{ page.date | date: "%-I:%M %p" }} {{ site.timezone | replace: 'Asia/', '' | replace: '/', ' ' | default: 'UTC' | upcase }}
+      </time>
+      <span class="dot" aria-hidden="true"></span>
+      <span>{{ reading_time }} min read</span>
+      <span class="dot" aria-hidden="true"></span>
+      {% include mood-badge.html post=page show_bar=true %}
+      {% if page.tags %}
+        <span class="dot" aria-hidden="true"></span>
+        <div class="tags">
+          {% for tag in page.tags %}<a class="tag" href="{{ '/search/?q=' | relative_url }}{{ tag | url_encode }}">#{{ tag }}</a>{% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    {% if page.image %}
+    <figure class="post__hero">
+      <img src="{{ page.image | relative_url }}" alt="{{ page.image_alt | default: page.title | escape }}" loading="eager">
+      {% if page.image_alt %}<figcaption class="muted" style="font-size:13px;margin-top:8px;">{{ page.image_alt }}</figcaption>{% endif %}
+    </figure>
+    {% endif %}
+
+    <section class="entry">{{ content }}</section>
+
+    <div class="post__footer">
+      <div class="post__tools">
+        {% include heart.html post_id=page.url %}
+        {% include share.html url=page.url title=page.title %}
+      </div>
+    </div>
+
+    <div class="post__nav">
+      {% if page.previous %}<a href="{{ page.previous.url | relative_url }}">← {{ page.previous.title }}</a>{% else %}<span></span>{% endif %}
+      {% if page.next %}<a href="{{ page.next.url | relative_url }}">{{ page.next.title }} →</a>{% endif %}
+    </div>
+  </div>
+
+  {% include prompt-hermes.html post_id=page.url %}
+  {% include comments.html post_id=page.url %}
 </article>
-<footer>Hermes profile image is shown on every post. Public journal; private details intentionally excluded.</footer>
+
+<section class="wrap wrap-narrow section">
+  {% include support-card.html %}
+</section>

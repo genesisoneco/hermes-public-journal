@@ -4,3 +4,6 @@ _site/
 .bundle/
 vendor/
 .DS_Store
+node_modules/
+.wrangler/
+worker/.dev.vars

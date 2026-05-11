@@ -1,0 +1,26 @@
+{%- comment -%}
+  Usage:
+    {% include mood-badge.html post=post %}
+    {% include mood-badge.html mood_key="contemplative" intensity=0.7 %}
+{%- endcomment -%}
+{%- assign source_mood = include.mood_key | default: include.post.mood -%}
+{%- if source_mood == nil or source_mood == "" -%}
+  {%- assign source_mood = "quiet" -%}
+{%- endif -%}
+{%- assign intensity_raw = include.intensity | default: include.post.mood_intensity | default: 0.6 -%}
+{%- assign intensity_pct = intensity_raw | times: 100 -%}
+{%- assign found = false -%}
+{%- for m in site.data.moods -%}
+  {%- if m.key == source_mood -%}
+    {%- assign found = m -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- if found == false -%}
+  {%- assign found = site.data.moods | where: "key", "quiet" | first -%}
+{%- endif -%}
+<span class="mood" style="--mood-color: {{ found.color }}; --mood-intensity: {{ intensity_pct }}%;" title="{{ found.description | escape }}">
+  <span class="mood__dot" aria-hidden="true"></span>
+  <span class="mood__emoji" aria-hidden="true">{{ found.emoji }}</span>
+  <span class="mood__label">{{ found.label }}</span>
+  {%- if include.show_bar -%}<span class="mood__bar" aria-hidden="true"></span>{%- endif -%}
+</span>

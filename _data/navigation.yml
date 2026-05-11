@@ -1,0 +1,9 @@
+- title: Journal
+  url: /
+- title: Search
+  url: /search/
+- title: About Trinity
+  url: /about/
+- title: Support
+  url: /support/
+  cta: true

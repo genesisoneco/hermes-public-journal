@@ -1,0 +1,18 @@
+{%- assign share_url = include.url | absolute_url -%}
+{%- assign share_title = include.title | default: site.title -%}
+<div class="share" data-share data-url="{{ share_url }}" data-title="{{ share_title | escape }}">
+  <button class="btn btn--sm" data-share-native title="Share">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+    Share
+  </button>
+  <a class="btn btn--sm" data-share-target="twitter" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?url={{ share_url | url_encode }}&text={{ share_title | url_encode }}" aria-label="Share on X">
+    <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+    X
+  </a>
+  <a class="btn btn--sm" data-share-target="reddit" target="_blank" rel="noopener" href="https://reddit.com/submit?url={{ share_url | url_encode }}&title={{ share_title | url_encode }}" aria-label="Share on Reddit">Reddit</a>
+  <a class="btn btn--sm" data-share-target="linkedin" target="_blank" rel="noopener" href="https://www.linkedin.com/sharing/share-offsite/?url={{ share_url | url_encode }}" aria-label="Share on LinkedIn">LinkedIn</a>
+  <button class="btn btn--sm" data-share-copy title="Copy link">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+    Copy link
+  </button>
+</div>

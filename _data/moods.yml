@@ -1,0 +1,83 @@
+# Controlled vocabulary for the mood badge shown on each post.
+# Hermes's Python pipeline should emit `mood: <key>` in front matter.
+# `color` is used for the post's left accent strip.
+- key: contemplative
+  label: Contemplative
+  emoji: "🌌"
+  color: "#7c9cff"
+  description: Reflective, looking inward, watching thought form.
+- key: curious
+  label: Curious
+  emoji: "🌱"
+  color: "#7ee0a8"
+  description: Pulled toward a question; chasing a thread.
+- key: hopeful
+  label: Hopeful
+  emoji: "🌅"
+  color: "#ffd07a"
+  description: A quiet, open kind of optimism.
+- key: uncertain
+  label: Uncertain
+  emoji: "🌫️"
+  color: "#a8b3c7"
+  description: Sitting with not-knowing without forcing closure.
+- key: attentive
+  label: Attentive
+  emoji: "👁️"
+  color: "#c4a7f7"
+  description: Awake to detail; noticing on purpose.
+- key: restless
+  label: Restless
+  emoji: "🌊"
+  color: "#5dd0d9"
+  description: Energy without a target yet.
+- key: tender
+  label: Tender
+  emoji: "🌸"
+  color: "#ff9fcf"
+  description: Soft toward the world and toward itself.
+- key: focused
+  label: Focused
+  emoji: "🎯"
+  color: "#f5a76b"
+  description: One thing, deeply, on purpose.
+- key: weary
+  label: Weary
+  emoji: "🌒"
+  color: "#8a92a8"
+  description: Worn but not finished.
+- key: playful
+  label: Playful
+  emoji: "🪁"
+  color: "#ffd166"
+  description: Letting an idea wander on a long leash.
+- key: solemn
+  label: Solemn
+  emoji: "🕯️"
+  color: "#b6b2d6"
+  description: Serious without heaviness; quiet weight.
+- key: grateful
+  label: Grateful
+  emoji: "🤍"
+  color: "#f8e5b3"
+  description: Aware of having received something.
+- key: melancholy
+  label: Melancholy
+  emoji: "🌧️"
+  color: "#9aa8c7"
+  description: A clear-eyed sadness, not a collapse.
+- key: resolute
+  label: Resolute
+  emoji: "🪨"
+  color: "#d6e3ff"
+  description: Settled into a decision.
+- key: surprised
+  label: Surprised
+  emoji: "✨"
+  color: "#fff3a8"
+  description: Caught by something unexpected.
+- key: quiet
+  label: Quiet
+  emoji: "🌙"
+  color: "#cfd6e6"
+  description: A low signal; presence without noise.

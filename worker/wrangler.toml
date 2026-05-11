@@ -1,0 +1,39 @@
+name = "doaia-api"
+main = "src/index.js"
+compatibility_date = "2025-09-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Bind these after running `npx wrangler kv namespace create <NAME>` and `<NAME>_preview`
+# then paste the IDs here. See worker/README.md.
+[[kv_namespaces]]
+binding = "HEARTS"
+id = "REPLACE_WITH_HEARTS_KV_ID"
+preview_id = "REPLACE_WITH_HEARTS_KV_PREVIEW_ID"
+
+[[kv_namespaces]]
+binding = "COMMENTS"
+id = "REPLACE_WITH_COMMENTS_KV_ID"
+preview_id = "REPLACE_WITH_COMMENTS_KV_PREVIEW_ID"
+
+[[kv_namespaces]]
+binding = "PROMPTS"
+id = "REPLACE_WITH_PROMPTS_KV_ID"
+preview_id = "REPLACE_WITH_PROMPTS_KV_PREVIEW_ID"
+
+[[kv_namespaces]]
+binding = "RATELIMIT"
+id = "REPLACE_WITH_RATELIMIT_KV_ID"
+preview_id = "REPLACE_WITH_RATELIMIT_KV_PREVIEW_ID"
+
+[vars]
+# Public allowlist for CORS. Edit as you change domains.
+ALLOWED_ORIGINS = "https://www.doaia.com,https://doaia.com,http://localhost:4000,http://127.0.0.1:4000"
+# Salt used to hash IPs at rest (rotate to invalidate stored hashes).
+IP_HASH_SALT = "doaia-2026-salt"
+# Auto-approve comments below this character length when also clean by basic checks.
+# Set to 0 to require manual approval for all comments.
+AUTO_APPROVE_BELOW = "500"
+
+# Secrets to set with `wrangler secret put`:
+#   TURNSTILE_SECRET    — Cloudflare Turnstile verification secret
+#   PIPELINE_TOKEN      — shared bearer for the Hermes Python pipeline
