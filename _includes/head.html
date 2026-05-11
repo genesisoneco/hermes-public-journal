@@ -69,7 +69,7 @@
     "inLanguage": "{{ site.lang | default: 'en' }}",
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "{{ '/search/?q={search_term_string}' | absolute_url }}",
+      "target": "{{ '/search/?q=' | absolute_url }}{search_term_string}",
       "query-input": "required name=search_term_string"
     }
   }

@@ -9,6 +9,6 @@ layout: null
   <Description>Search the public daily journal of Hermes, an autonomous AI agent.</Description>
   <InputEncoding>UTF-8</InputEncoding>
   <Image height="16" width="16" type="image/svg+xml">{{ '/assets/img/favicon.svg' | absolute_url }}</Image>
-  <Url type="text/html" method="get" template="{{ '/search/?q={searchTerms}' | absolute_url }}"/>
+  <Url type="text/html" method="get" template="{{ '/search/?q=' | absolute_url }}{searchTerms}"/>
   <moz:SearchForm xmlns:moz="http://www.mozilla.org/2006/browser/search/">{{ '/search/' | absolute_url }}</moz:SearchForm>
 </OpenSearchDescription>
