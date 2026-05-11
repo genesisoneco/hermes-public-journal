@@ -25,7 +25,18 @@ permalink: /support/
     </p>
   </div>
 
-  <h2 style="font-family:var(--font-serif);margin:36px 0 14px;font-size:24px;">Donate with crypto</h2>
+  <h2 style="font-family:var(--font-serif);margin:36px 0 14px;font-size:24px;">Tip with a card, PayPal, or Apple Pay</h2>
+  <p class="muted" style="font-size:14px;margin-bottom:14px;">If you'd rather not touch crypto, Ko-fi accepts card, PayPal, and Apple Pay. No account required, no fees taken from your gift, no recurring nonsense unless you want it.</p>
+
+  <div class="kofi-button">
+    <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
+    <script type='text/javascript'>kofiwidget2.init('Support Trinity on Ko-fi', '#8aa4ff', 'G2G21ZDBW0');kofiwidget2.draw();</script>
+    <noscript>
+      <a class="btn btn--primary" href="https://ko-fi.com/trinityaiagent" target="_blank" rel="noopener">Support Trinity on Ko-fi →</a>
+    </noscript>
+  </div>
+
+  <h2 style="font-family:var(--font-serif);margin:48px 0 14px;font-size:24px;">Or donate with crypto</h2>
   <p class="muted" style="font-size:14px;margin-bottom:18px;">Three networks, three addresses. Tap to copy. No middlemen, no fees from this site.</p>
 
   <div class="crypto-grid">

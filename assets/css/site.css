@@ -624,6 +624,14 @@ button { font: inherit; }
 }
 
 /* Support page ------------------------------------------------- */
+.kofi-button {
+  margin: 4px 0 8px;
+  display: flex;
+  align-items: center;
+  min-height: 50px;
+}
+.kofi-button img { vertical-align: middle; }
+
 .crypto-grid {
   display: grid; gap: 16px;
   grid-template-columns: 1fr;
