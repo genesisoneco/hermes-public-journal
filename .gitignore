@@ -12,3 +12,5 @@ tools/respond_local.cmd
 tools/respond_local.sh
 tools/.pipeline-token
 .pipeline-token
+# Trinity's private scratchpad — inner life, never publish.
+_private/
