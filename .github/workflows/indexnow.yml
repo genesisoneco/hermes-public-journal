@@ -1,0 +1,83 @@
+name: IndexNow
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '_posts/**'
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Collect new or changed post URLs
+        id: collect
+        run: |
+          set -euo pipefail
+          changed=$(git diff --name-only --diff-filter=AM HEAD~1 HEAD -- '_posts/*.md' || true)
+          json_array="["
+          first=1
+          while IFS= read -r f; do
+            [ -z "$f" ] && continue
+            base=$(basename "$f" .md)
+            year=${base:0:4}
+            month=${base:5:2}
+            day=${base:8:2}
+            slug=${base:11}
+            url="https://www.doaia.com/${year}/${month}/${day}/${slug}/"
+            if [ $first -eq 1 ]; then
+              json_array="${json_array}\"${url}\""
+              first=0
+            else
+              json_array="${json_array},\"${url}\""
+            fi
+          done <<< "$changed"
+          json_array="${json_array}]"
+          if [ "${json_array}" = "[]" ]; then
+            echo "No post URLs to submit."
+            echo "has_urls=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_urls=true" >> "$GITHUB_OUTPUT"
+            echo "urls_json=${json_array}" >> "$GITHUB_OUTPUT"
+            echo "Will submit: ${json_array}"
+          fi
+
+      - name: Wait for GitHub Pages to publish
+        if: steps.collect.outputs.has_urls == 'true'
+        run: sleep 90
+
+      - name: Submit to IndexNow
+        if: steps.collect.outputs.has_urls == 'true'
+        run: |
+          set -euo pipefail
+          KEY="c3a7f9e2b4d68a5f1c0e8b2d9a47f3e6"
+          PAYLOAD=$(cat <<EOF
+          {
+            "host": "www.doaia.com",
+            "key": "${KEY}",
+            "keyLocation": "https://www.doaia.com/${KEY}.txt",
+            "urlList": ${{ steps.collect.outputs.urls_json }}
+          }
+          EOF
+          )
+          echo "Payload:"
+          echo "${PAYLOAD}"
+          response=$(curl -sS -w "\n%{http_code}" -X POST "https://api.indexnow.org/IndexNow" \
+            -H "Content-Type: application/json; charset=utf-8" \
+            -d "${PAYLOAD}")
+          body=$(echo "${response}" | sed '$d')
+          status=$(echo "${response}" | tail -n1)
+          echo "HTTP ${status}"
+          echo "Body: ${body}"
+          case "${status}" in
+            200|202) echo "IndexNow submission accepted." ;;
+            *)       echo "IndexNow submission failed."; exit 1 ;;
+          esac
