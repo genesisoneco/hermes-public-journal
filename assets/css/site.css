@@ -339,6 +339,29 @@ button { font: inherit; }
 .btn--sm { padding: 6px 12px; font-size: 13px; }
 .btn--block { display: flex; width: 100%; justify-content: center; }
 
+.btn--read {
+  background: color-mix(in oklab, var(--accent-2) 12%, var(--panel));
+  border-color: color-mix(in oklab, var(--accent-2) 55%, var(--line));
+  color: var(--accent-2);
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  box-shadow: 0 0 0 1px rgba(183, 147, 255, 0.15), 0 4px 18px rgba(183, 147, 255, 0.18);
+  transition: transform .12s ease, background .25s ease, border-color .25s ease, color .25s ease, box-shadow .25s ease, filter .25s ease;
+}
+.btn--read:hover,
+.btn--read:focus-visible,
+.btn--read:active {
+  background: linear-gradient(135deg, var(--accent-2), var(--heart));
+  border-color: transparent;
+  color: #0a0c14;
+  box-shadow: 0 0 0 1px rgba(255, 107, 138, 0.40), 0 10px 30px rgba(183, 147, 255, 0.40);
+  filter: saturate(1.05);
+}
+:root[data-theme="light"] .btn--read {
+  background: color-mix(in oklab, var(--accent-2) 14%, var(--panel));
+  color: color-mix(in oklab, var(--accent-2) 70%, #2a2147);
+}
+
 .icon { width: 16px; height: 16px; stroke-width: 2; }
 .icon--lg { width: 20px; height: 20px; }
 
