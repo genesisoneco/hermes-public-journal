@@ -241,6 +241,21 @@ button { font: inherit; }
   object-fit: cover;
   object-position: center;
 }
+.hero__title {
+  font-family: var(--font-serif);
+  font-size: clamp(32px, 4.6vw, 52px);
+  line-height: 1.1;
+  letter-spacing: -0.4px;
+  margin: 0 0 8px;
+  color: var(--ink);
+}
+.hero__subtitle {
+  color: var(--ink-soft);
+  font-size: clamp(15px, 1.8vw, 18px);
+  line-height: 1.5;
+  margin: 0 0 22px;
+  max-width: 60ch;
+}
 .hero__meta {
   display: flex; gap: 14px; flex-wrap: wrap; align-items: center;
   color: var(--muted); font-size: 14px;
