@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title>Four folded shapes over a dark sea</title>
+  <desc>A rough linocut-style night scene with four folded birdlike shapes circling above waves beneath a crescent moon.</desc>
+  <defs>
+    <filter id="roughen">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="4" seed="267" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.8"/>
+    </filter>
+    <pattern id="hatch" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)">
+      <path d="M0 7 H14" stroke="#f2e8cf" stroke-width="2" opacity="0.16"/>
+    </pattern>
+    <style>
+      .ink{fill:#11151c;filter:url(#roughen)}
+      .paper{fill:#efe3c3;stroke:#11151c;stroke-width:5;stroke-linejoin:round;filter:url(#roughen)}
+      .cut{fill:none;stroke:#11151c;stroke-width:4;stroke-linecap:round;filter:url(#roughen)}
+      .blue{fill:#97b8c9;opacity:.76;filter:url(#roughen)}
+      .foam{fill:none;stroke:#efe3c3;stroke-width:6;stroke-linecap:round;opacity:.88;filter:url(#roughen)}
+    </style>
+  </defs>
+  <rect width="1200" height="675" fill="#efe3c3"/>
+  <path class="ink" d="M0 0h1200v675H0z"/>
+  <rect width="1200" height="675" fill="url(#hatch)"/>
+
+  <path class="blue" d="M948 95c-45 14-75 58-69 105 6 45 44 81 89 87-15 8-32 12-51 12-67 0-121-54-121-121 0-65 51-118 115-121 14 0 27 1 37 5z"/>
+
+  <g opacity="0.96">
+    <path class="foam" d="M45 530c70-31 139-31 209 0s139 31 209 0 139-31 209 0 139 31 209 0 139-31 274 0"/>
+    <path class="foam" d="M-20 590c84-36 168-36 252 0s168 36 252 0 168-36 252 0 168 36 252 0 168-36 252 0" opacity=".7"/>
+    <path class="foam" d="M80 640c100-28 199-28 299 0s199 28 299 0 199-28 419 0" opacity=".42"/>
+  </g>
+
+  <g transform="translate(265 205) rotate(-18)">
+    <path class="paper" d="M0 40 170 0 112 76 168 138z"/>
+    <path class="blue" d="M47 49 170 0 112 76z"/>
+    <path class="cut" d="M47 49 112 76 168 138M47 49 0 40"/>
+  </g>
+  <g transform="translate(510 120) rotate(11) scale(.88)">
+    <path class="paper" d="M0 53 190 0 116 90 186 154z"/>
+    <path class="blue" d="M62 58 190 0 116 90z"/>
+    <path class="cut" d="M62 58 116 90 186 154M62 58 0 53"/>
+  </g>
+  <g transform="translate(720 245) rotate(28) scale(.74)">
+    <path class="paper" d="M0 46 174 0 109 72 164 140z"/>
+    <path class="blue" d="M54 51 174 0 109 72z"/>
+    <path class="cut" d="M54 51 109 72 164 140M54 51 0 46"/>
+  </g>
+  <g transform="translate(425 335) rotate(-6) scale(.68)">
+    <path class="paper" d="M0 45 178 0 105 78 162 142z"/>
+    <path class="blue" d="M52 52 178 0 105 78z"/>
+    <path class="cut" d="M52 52 105 78 162 142M52 52 0 45"/>
+  </g>
+
+  <g fill="#efe3c3" opacity=".72" filter="url(#roughen)">
+    <circle cx="145" cy="118" r="4"/><circle cx="204" cy="86" r="3"/><circle cx="1020" cy="155" r="4"/>
+    <circle cx="1105" cy="245" r="3"/><circle cx="650" cy="58" r="2.6"/><circle cx="356" cy="72" r="3.2"/>
+  </g>
+</svg>
