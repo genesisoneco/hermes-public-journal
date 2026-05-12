@@ -269,6 +269,95 @@
     });
   });
 
+  /* ----- Post-card Trinity-reply badges (home page) ----- */
+  var postCards = document.querySelectorAll('[data-post-card]');
+  if (postCards.length) {
+    var cardIds = [];
+    postCards.forEach(function (c) {
+      var pid = c.getAttribute('data-post-id');
+      if (pid) cardIds.push(pid);
+    });
+    if (cardIds.length) {
+      fetch(API_BASE + '/api/replies-batch?ids=' + encodeURIComponent(cardIds.join(',')), { credentials: 'omit' })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (data) {
+          if (!data || !data.stats) return;
+          postCards.forEach(function (card) {
+            var pid = card.getAttribute('data-post-id');
+            var s = data.stats[pid];
+            if (!s || !s.count || !s.latest) return;
+            var who = (s.latest.prompt_name && s.latest.prompt_name !== 'anonymous') ? s.latest.prompt_name : 'a reader';
+            var when = '';
+            try {
+              var d = new Date(s.latest.created_at);
+              when = d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) + ', ' +
+                     d.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
+            } catch (e) {}
+            var badge = document.createElement('div');
+            badge.className = 'post-card__reply-badge';
+            badge.innerHTML =
+              '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>' +
+              '<span>Response to <strong></strong>’s question' + (when ? ' · <span class="post-card__reply-when"></span>' : '') + (s.count > 1 ? ' <span class="post-card__reply-more">(+' + (s.count - 1) + ' more)</span>' : '') + '</span>';
+            badge.querySelector('strong').textContent = who;
+            var whenEl = badge.querySelector('.post-card__reply-when');
+            if (whenEl) whenEl.textContent = when;
+            var body = card.querySelector('.post-card__body');
+            if (body) body.appendChild(badge);
+          });
+        })
+        .catch(function () {});
+    }
+  }
+
+  /* ----- Trinity's recent replies (home page widget) ----- */
+  var recentBlock = document.querySelector('[data-recent-replies]');
+  if (recentBlock) {
+    var recentList = recentBlock.querySelector('[data-recent-replies-list]');
+    var postsIndex = {};
+    try {
+      var idxEl = document.getElementById('doaia-posts-index');
+      if (idxEl) postsIndex = JSON.parse(idxEl.textContent || '{}');
+    } catch (e) {}
+    fetch(API_BASE + '/api/recent-replies?limit=5', { credentials: 'omit' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (data) {
+        if (!data || !data.replies || !data.replies.length) return;
+        data.replies.forEach(function (rep) {
+          var li = document.createElement('li');
+          li.className = 'recent-replies__item';
+          var who = (rep.prompt_name && rep.prompt_name !== 'anonymous') ? rep.prompt_name : 'a reader';
+          var when = '';
+          try {
+            var d = new Date(rep.created_at);
+            when = d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }) + ', ' +
+                   d.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
+          } catch (e) {}
+          var postTitle = postsIndex[rep.post_id] || 'this entry';
+          var head = document.createElement('div'); head.className = 'recent-replies__head-meta';
+          var headHtml = 'Response to <strong></strong>’s question on <a class="recent-replies__post"></a>';
+          if (when) headHtml += ' <span class="muted">· ' + when + '</span>';
+          head.innerHTML = headHtml;
+          head.querySelector('strong').textContent = who;
+          var a = head.querySelector('.recent-replies__post');
+          a.href = rep.post_id;
+          a.textContent = postTitle;
+          var body = document.createElement('div'); body.className = 'recent-replies__body';
+          body.textContent = rep.body || '';
+          if (rep.prompt_excerpt) {
+            var q = document.createElement('div');
+            q.className = 'recent-replies__quote muted';
+            q.textContent = '“' + rep.prompt_excerpt + '”';
+            li.appendChild(q);
+          }
+          li.appendChild(head);
+          li.appendChild(body);
+          recentList.appendChild(li);
+        });
+        recentBlock.hidden = false;
+      })
+      .catch(function () {});
+  }
+
   /* ----- Ask Trinity (prompts) ----- */
   document.querySelectorAll('[data-prompt-trinity]').forEach(function (block) {
     var postId = block.getAttribute('data-post-id');
@@ -285,11 +374,19 @@
           if (!data.replies || !data.replies.length) return;
           data.replies.forEach(function (rep) {
             var d = document.createElement('div'); d.className = 'trinity-reply';
-            var l = document.createElement('div'); l.className = 'trinity-reply__label'; l.textContent = 'Trinity responded';
+            var l = document.createElement('div'); l.className = 'trinity-reply__label';
+            var askerName = (rep.prompt_name && rep.prompt_name !== 'anonymous') ? rep.prompt_name : 'a reader';
+            var when = '';
+            try { when = new Date(rep.created_at).toLocaleString(); } catch (e) {}
+            l.textContent = 'Response to ' + askerName + "'s question" + (when ? ' · ' + when : '');
             var p = document.createElement('div'); p.textContent = rep.body || '';
-            var t = document.createElement('div'); t.className = 'muted'; t.style.fontSize = '12px'; t.style.marginTop = '8px';
-            try { t.textContent = new Date(rep.created_at).toLocaleString(); } catch (e) {}
-            d.appendChild(l); d.appendChild(p); d.appendChild(t);
+            d.appendChild(l); d.appendChild(p);
+            if (rep.prompt_excerpt) {
+              var q = document.createElement('div');
+              q.className = 'trinity-reply__quote muted';
+              q.textContent = '“' + rep.prompt_excerpt + '”';
+              d.appendChild(q);
+            }
             replies.appendChild(d);
           });
         }).catch(function () {});

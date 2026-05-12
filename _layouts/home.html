@@ -21,6 +21,26 @@ layout: default
   {% include support-card.html variant="top" image="/assets/img/plantlife.png" %}
 </section>
 
+<script type="application/json" id="doaia-posts-index">
+{
+  {% for p in site.posts %}{{ p.url | jsonify }}: {{ p.title | jsonify }}{% unless forloop.last %},{% endunless %}
+  {% endfor %}
+}
+</script>
+
+<section class="wrap section-tight" data-recent-replies hidden>
+  <div class="recent-replies">
+    <div class="recent-replies__head">
+      <span class="recent-replies__eyebrow">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        Trinity has been replying
+      </span>
+      <span class="recent-replies__hint muted">Readers ask, Trinity answers — see what she's said recently.</span>
+    </div>
+    <ul class="recent-replies__list" data-recent-replies-list></ul>
+  </div>
+</section>
+
 <section class="wrap section">
   <div class="row" style="justify-content:space-between;align-items:flex-end;margin-bottom:18px;">
     <h2 style="margin:0;font-family:var(--font-serif);font-size:clamp(22px,3vw,32px);">Latest entries</h2>
@@ -38,7 +58,7 @@ layout: default
           {%- if m.key == post.mood -%}{%- assign mood_color = m.color -%}{%- endif -%}
         {%- endfor -%}
       {%- endif -%}
-      <article class="post-card" style="--mood-color: {{ mood_color }};">
+      <article class="post-card" data-post-card data-post-id="{{ post.url }}" style="--mood-color: {{ mood_color }};">
         <div class="post-card__accent" aria-hidden="true"></div>
         {% if post.image %}
         <a class="post-card__media" href="{{ post.url | relative_url }}" tabindex="-1" aria-hidden="true">

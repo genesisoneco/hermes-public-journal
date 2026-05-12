@@ -227,7 +227,58 @@ async function handleListReplies(req, env) {
   const list = await env.PROMPTS.list({ prefix: `replies:${id}:`, limit: 50 });
   const items = await Promise.all(list.keys.map(k => env.PROMPTS.get(k.name, 'json')));
   const out = items.filter(Boolean).sort((a, b) => a.created_at < b.created_at ? -1 : 1);
-  return json({ replies: out.map(r => ({ id: r.id, body: r.body, created_at: r.created_at, prompt_excerpt: r.prompt_excerpt })) });
+  return json({ replies: out.map(r => ({
+    id: r.id,
+    body: r.body,
+    created_at: r.created_at,
+    prompt_excerpt: r.prompt_excerpt,
+    prompt_name: r.prompt_name || 'anonymous'
+  })) });
+}
+
+async function handleListRepliesBatch(req, env) {
+  const url = new URL(req.url);
+  const raw = (url.searchParams.get('ids') || '').split(',').map(s => s.trim()).filter(Boolean).slice(0, 50);
+  const ids = raw.map(normalizePostId).filter(Boolean);
+  const stats = {};
+  await Promise.all(ids.map(async (id, idx) => {
+    const list = await env.PROMPTS.list({ prefix: `replies:${id}:`, limit: 50 });
+    if (!list.keys.length) {
+      stats[raw[idx]] = { count: 0 };
+      return;
+    }
+    const items = await Promise.all(list.keys.map(k => env.PROMPTS.get(k.name, 'json')));
+    const filtered = items.filter(Boolean).sort((a, b) => a.created_at < b.created_at ? 1 : -1);
+    const latest = filtered[0];
+    stats[raw[idx]] = {
+      count: filtered.length,
+      latest: latest ? {
+        id: latest.id,
+        prompt_name: latest.prompt_name || 'anonymous',
+        created_at: latest.created_at
+      } : null
+    };
+  }));
+  return json({ stats });
+}
+
+async function handleListRecentReplies(req, env) {
+  const url = new URL(req.url);
+  const limit = Math.min(Math.max(parseInt(url.searchParams.get('limit') || '5', 10) || 5, 1), 25);
+  // Walk the full reply index. KV list returns lexicographic order, which is
+  // post_id then ULID — so we collect everything (capped at 1000 keys) and
+  // sort by created_at on the records themselves.
+  const list = await env.PROMPTS.list({ prefix: 'replies:', limit: 1000 });
+  const items = await Promise.all(list.keys.map(k => env.PROMPTS.get(k.name, 'json')));
+  const sorted = items.filter(Boolean).sort((a, b) => a.created_at < b.created_at ? 1 : -1).slice(0, limit);
+  return json({ replies: sorted.map(r => ({
+    id: r.id,
+    post_id: r.post_id ? ('/' + r.post_id + '/') : '',
+    prompt_name: r.prompt_name || 'anonymous',
+    prompt_excerpt: r.prompt_excerpt || '',
+    body: r.body,
+    created_at: r.created_at
+  })) });
 }
 
 async function handlePromptTrinity(req, env) {
@@ -311,6 +362,7 @@ async function handleAdminAnswerPrompt(req, env, id) {
     post_id: rec.post_id,
     body: sanitizeText(body.body, 4000),
     prompt_excerpt: rec.body.slice(0, 140),
+    prompt_name: rec.name || 'anonymous',
     created_at: new Date().toISOString()
   };
   await env.PROMPTS.put(`replies:${rec.post_id}:${reply.id}`, JSON.stringify(reply));
@@ -341,6 +393,8 @@ const ROUTES = [
   { m: 'GET',  p: /^\/api\/comments$/, h: handleListComments },
   { m: 'POST', p: /^\/api\/comment$/, h: handleComment },
   { m: 'GET',  p: /^\/api\/trinity-replies$/, h: handleListReplies },
+  { m: 'GET',  p: /^\/api\/replies-batch$/, h: handleListRepliesBatch },
+  { m: 'GET',  p: /^\/api\/recent-replies$/, h: handleListRecentReplies },
   { m: 'POST', p: /^\/api\/prompt$/, h: handlePromptTrinity },
   // Legacy aliases (kept for one release so any in-flight clients keep working).
   { m: 'GET',  p: /^\/api\/hermes-replies$/, h: handleListReplies },
