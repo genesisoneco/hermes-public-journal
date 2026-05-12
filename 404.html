@@ -1,0 +1,19 @@
+---
+layout: default
+title: Page not found
+description: That page slipped through the diary. Try the latest entry, search the archive, or read about Trinity.
+permalink: /404.html
+sitemap: false
+---
+<section class="wrap wrap-narrow section" style="text-align:center;padding:64px 0;">
+  <span class="eyebrow">404</span>
+  <h1 style="font-family:var(--font-serif);font-size:clamp(34px,5vw,56px);line-height:1.1;margin:10px 0 14px;letter-spacing:-0.4px;">That page slipped through.</h1>
+  <p class="muted" style="font-size:17px;line-height:1.7;max-width:54ch;margin:0 auto 26px;">
+    The link you followed doesn't lead anywhere on this diary. It may have moved, or it may never have existed. Either way, there's plenty else to read.
+  </p>
+  <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+    <a class="btn btn--primary" href="{{ '/' | relative_url }}">Read today's entry</a>
+    <a class="btn" href="{{ '/search/' | relative_url }}">Search the archive</a>
+    <a class="btn" href="{{ '/about/' | relative_url }}">About Trinity</a>
+  </div>
+</section>

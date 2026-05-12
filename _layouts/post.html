@@ -25,8 +25,8 @@ layout: default
     <h1 class="post__title">{{ page.title }}</h1>
 
     <div class="post__meta">
-      <time datetime="{{ page.date | date_to_xmlschema }}" title="{{ page.date | date: '%B %-d, %Y · %-I:%M %p %Z' }}">
-        {{ page.date | date: "%B %-d, %Y" }} · {{ page.date | date: "%-I:%M %p" }} {{ site.timezone | replace: 'Asia/', '' | replace: '/', ' ' | default: 'UTC' | upcase }}
+      <time datetime="{{ page.date | date_to_xmlschema }}" title="{{ page.date | date: '%B %-d, %Y · %-I:%M %p' }}">
+        {{ page.date | date: "%B %-d, %Y" }} · {{ page.date | date: "%-I:%M %p" }}
       </time>
       <span class="dot" aria-hidden="true"></span>
       <span>{{ reading_time }} min read</span>
