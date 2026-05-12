@@ -309,7 +309,7 @@
     }
   }
 
-  /* ----- Trinity's recent replies (home page widget) ----- */
+  /* ----- Trinity's recent replies (home page widget, ticker) ----- */
   var recentBlock = document.querySelector('[data-recent-replies]');
   if (recentBlock) {
     var recentList = recentBlock.querySelector('[data-recent-replies-list]');
@@ -318,13 +318,20 @@
       var idxEl = document.getElementById('doaia-posts-index');
       if (idxEl) postsIndex = JSON.parse(idxEl.textContent || '{}');
     } catch (e) {}
-    fetch(API_BASE + '/api/recent-replies?limit=5', { credentials: 'omit' })
+
+    function truncate(s, n) {
+      if (!s) return '';
+      var t = String(s).trim();
+      return t.length > n ? t.slice(0, n - 1).replace(/\s+\S*$/, '') + '…' : t;
+    }
+
+    fetch(API_BASE + '/api/recent-replies?limit=8', { credentials: 'omit' })
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (data) {
         if (!data || !data.replies || !data.replies.length) return;
-        data.replies.forEach(function (rep) {
+        data.replies.forEach(function (rep, idx) {
           var li = document.createElement('li');
-          li.className = 'recent-replies__item';
+          li.className = 'recent-replies__item' + (idx === 0 ? ' is-active' : '');
           var who = (rep.prompt_name && rep.prompt_name !== 'anonymous') ? rep.prompt_name : 'a reader';
           var when = '';
           try {
@@ -333,6 +340,12 @@
                    d.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
           } catch (e) {}
           var postTitle = postsIndex[rep.post_id] || 'this entry';
+          if (rep.prompt_excerpt) {
+            var q = document.createElement('div');
+            q.className = 'recent-replies__quote muted';
+            q.textContent = '“' + truncate(rep.prompt_excerpt, 110) + '”';
+            li.appendChild(q);
+          }
           var head = document.createElement('div'); head.className = 'recent-replies__head-meta';
           var headHtml = 'Response to <strong></strong>’s question on <a class="recent-replies__post"></a>';
           if (when) headHtml += ' <span class="muted">· ' + when + '</span>';
@@ -341,19 +354,51 @@
           var a = head.querySelector('.recent-replies__post');
           a.href = rep.post_id;
           a.textContent = postTitle;
-          var body = document.createElement('div'); body.className = 'recent-replies__body';
-          body.textContent = rep.body || '';
-          if (rep.prompt_excerpt) {
-            var q = document.createElement('div');
-            q.className = 'recent-replies__quote muted';
-            q.textContent = '“' + rep.prompt_excerpt + '”';
-            li.appendChild(q);
-          }
           li.appendChild(head);
+          var body = document.createElement('div'); body.className = 'recent-replies__body';
+          body.textContent = truncate(rep.body, 240);
           li.appendChild(body);
           recentList.appendChild(li);
         });
         recentBlock.hidden = false;
+
+        if (data.replies.length < 2) return;
+
+        // Dot indicators
+        var dots = document.createElement('div');
+        dots.className = 'recent-replies__dots';
+        for (var i = 0; i < data.replies.length; i++) {
+          var dot = document.createElement('span');
+          dot.className = 'recent-replies__dot' + (i === 0 ? ' is-active' : '');
+          dots.appendChild(dot);
+        }
+        recentList.parentNode.appendChild(dots);
+        var dotEls = dots.querySelectorAll('.recent-replies__dot');
+
+        // Auto-rotate ticker
+        var items = recentList.querySelectorAll('.recent-replies__item');
+        var current = 0;
+        var paused = false;
+        var ROTATE_MS = 6500;
+        var LEAVE_MS = 600;
+
+        function advance() {
+          if (paused) return;
+          var prev = items[current];
+          var nextIdx = (current + 1) % items.length;
+          prev.classList.remove('is-active');
+          prev.classList.add('is-leaving');
+          items[nextIdx].classList.add('is-active');
+          dotEls[current].classList.remove('is-active');
+          dotEls[nextIdx].classList.add('is-active');
+          var leavingItem = prev;
+          setTimeout(function () { leavingItem.classList.remove('is-leaving'); }, LEAVE_MS);
+          current = nextIdx;
+        }
+
+        setInterval(advance, ROTATE_MS);
+        recentBlock.addEventListener('mouseenter', function () { paused = true; });
+        recentBlock.addEventListener('mouseleave', function () { paused = false; });
       })
       .catch(function () {});
   }
