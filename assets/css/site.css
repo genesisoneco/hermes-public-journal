@@ -1034,12 +1034,10 @@ button { font: inherit; }
   transition: transform .6s cubic-bezier(.22,.61,.36,1);
 }
 .live-layer svg { width: 100%; height: 100%; display: block; }
-.live-layer--back { transform: translate3d(calc(var(--parallax-x) * -6px), calc(var(--parallax-y) * -4px), 0) scale(1.04); }
-.live-layer--mid  { transform: translate3d(calc(var(--parallax-x) * -12px), calc(var(--parallax-y) * -6px), 0) scale(1.05); }
-.live-layer--fore { transform: translate3d(calc(var(--parallax-x) * -18px), calc(var(--parallax-y) * -10px), 0) scale(1.06); }
-/* While actively tracking the cursor, let the JS lerp drive motion frame-by-frame
-   (the CSS transition is only there to smooth the reset when the cursor leaves). */
-.live-stage.is-tracking .live-layer { transition: none; }
+/* Iso scene uses a fixed camera — layers don't translate. */
+.live-layer--back,
+.live-layer--mid,
+.live-layer--fore { transform: none; }
 
 /* Time-of-day tint overlay (set via [data-tod] on .live-stage) */
 .live-tint {
@@ -1064,16 +1062,21 @@ button { font: inherit; }
 /* Trinity character ------------------------------------------- */
 .live-character {
   position: absolute;
+  /* Trinity stands at (--trinity-x, --trinity-y) of the stage, where
+     y is the screen-y of her feet on the iso floor. */
   --trinity-x: 50%;
+  --trinity-y: 78%;
   --trinity-facing: 1;
   left: var(--trinity-x);
-  bottom: 12%;
-  width: 11%;
-  margin-left: -5.5%;
+  bottom: calc(100% - var(--trinity-y));
+  width: 5.5%;
+  margin-left: -2.75%;
   z-index: 3;
   pointer-events: none;
   transform-origin: center bottom;
-  transition: left 1.6s cubic-bezier(.45,.05,.55,.95), opacity .5s ease;
+  transition: left 1.6s cubic-bezier(.45,.05,.55,.95),
+              bottom 1.6s cubic-bezier(.45,.05,.55,.95),
+              opacity .5s ease;
 }
 .live-character .trinity-sprite {
   width: 100%;
@@ -1161,6 +1164,11 @@ button { font: inherit; }
 .live-character.is-sleeping .trinity-eyes--closed { display: block; }
 .live-character.is-sleeping .trinity-mouth--smile { display: none; }
 .live-character.is-sleeping .trinity-mouth--neutral { display: block; }
+/* Scale her down so she fits inside the iso pod */
+.live-character.is-sleeping .trinity-sprite {
+  transform: scaleX(var(--trinity-facing)) scale(0.65);
+  transform-origin: center bottom;
+}
 .live-character.is-sleeping .trinity-rig {
   animation: trinitySleepBreath 4.4s ease-in-out infinite;
 }
@@ -1230,10 +1238,7 @@ button { font: inherit; }
 .live-character.is-surprised .trinity-eyes--surprised { display: block; }
 
 /* --- State: away (off-screen) --- */
-.live-character.is-away {
-  opacity: 0;
-  left: -8% !important;
-}
+.live-character.is-away { opacity: 0; }
 
 /* Speech bubble ----------------------------------------------- */
 .trinity-bubble {
@@ -1271,9 +1276,10 @@ button { font: inherit; }
 /* Sticky note (away state) ------------------------------------ */
 .live-stickynote {
   position: absolute;
-  left: 55%;
-  top: 50%;
-  width: clamp(90px, 11vw, 130px);
+  /* sits on the iso monitor face (which is roughly at x≈49%, y≈63% of the stage) */
+  left: 48%;
+  top: 60%;
+  width: clamp(82px, 9vw, 120px);
   padding: 10px 12px 12px;
   background: #fff6c8;
   color: #2a200a;

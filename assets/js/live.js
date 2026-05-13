@@ -72,61 +72,25 @@
   setInterval(clockTick, 60 * 1000);
 
   /* ===========================================================
-     2. Parallax (cursor-driven, lerp-smoothed)
+     2. Parallax — disabled in iso (fixed camera). Kept as a no-op
+     comment for future side-view modes.
      =========================================================== */
-  if (!prefersReducedMotion) {
-    var rect = null;
-    var rafId = null;
-    var targetX = 0, targetY = 0;
-    var currentX = 0, currentY = 0;
-
-    var refreshRect = function () { rect = stage.getBoundingClientRect(); };
-    refreshRect();
-    window.addEventListener('resize', refreshRect, { passive: true });
-    window.addEventListener('scroll', refreshRect, { passive: true });
-
-    var applyParallax = function () {
-      currentX += (targetX - currentX) * 0.12;
-      currentY += (targetY - currentY) * 0.12;
-      stage.style.setProperty('--parallax-x', currentX.toFixed(3));
-      stage.style.setProperty('--parallax-y', currentY.toFixed(3));
-      if (Math.abs(targetX - currentX) > 0.002 || Math.abs(targetY - currentY) > 0.002) {
-        rafId = requestAnimationFrame(applyParallax);
-      } else {
-        rafId = null;
-      }
-    };
-
-    document.addEventListener('mousemove', function (e) {
-      if (!rect) refreshRect();
-      var nx = ((e.clientX - rect.left) / rect.width)  * 2 - 1;
-      var ny = ((e.clientY - rect.top)  / rect.height) * 2 - 1;
-      targetX = Math.max(-1, Math.min(1, nx));
-      targetY = Math.max(-1, Math.min(1, ny));
-      if (!rafId) rafId = requestAnimationFrame(applyParallax);
-    }, { passive: true });
-
-    document.addEventListener('mouseleave', function () {
-      targetX = 0; targetY = 0;
-      if (!rafId) rafId = requestAnimationFrame(applyParallax);
-    });
-
-    stage.addEventListener('mouseenter', function () { stage.classList.add('is-tracking'); });
-    stage.addEventListener('mouseleave', function () { stage.classList.remove('is-tracking'); });
-  }
 
   /* ===========================================================
      3. Trinity behavior state machine
      =========================================================== */
   if (!character) return;
 
-  // Zones (left-position as % of stage width, facing direction)
+  // Zones — iso floor positions where Trinity's feet land.
+  //   x: % of stage width  ·  y: % of stage height (of her feet/shadow)
+  //   facing: 1 = right (east) · -1 = left (west)
+  // These align with the iso scene in live.md (viewBox 1600x900).
   var ZONES = {
-    pod:    { x: '15%', facing: 1,  label: 'in her pod' },
-    desk:   { x: '49%', facing: 1,  label: 'at her desk' },
-    plants: { x: '83%', facing: -1, label: 'with the plants' },
-    center: { x: '50%', facing: 1,  label: 'wandering' },
-    off:    { x: '-8%', facing: 1,  label: 'stepped out' }
+    pod:    { x: '27%', y: '63%', facing: 1,  label: 'in her pod' },     // inside pod, on base
+    desk:   { x: '51%', y: '89%', facing: 1,  label: 'at her desk' },    // south of desk, facing monitor
+    plants: { x: '69%', y: '74%', facing: -1, label: 'with the plants' },// south of cabinet, facing it
+    center: { x: '50%', y: '82%', facing: 1,  label: 'wandering' },      // mid-floor
+    off:    { x: '-12%', y: '95%', facing: 1, label: 'stepped out' }
   };
 
   // States: where she sits, how long, what she's "doing"
@@ -213,6 +177,7 @@
     var z = ZONES[zoneKey];
     if (!z) return;
     character.style.setProperty('--trinity-x', z.x);
+    character.style.setProperty('--trinity-y', z.y);
     character.style.setProperty('--trinity-facing', z.facing);
     character.setAttribute('data-facing', z.facing);
   }

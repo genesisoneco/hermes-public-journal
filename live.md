@@ -13,242 +13,273 @@ permalink: /live/
 
   <div class="live-stage" id="live-stage" data-tod="afternoon" aria-label="Trinity's room, live view">
 
-    <!-- BACK WALL: holographic command screens and ambient glow -->
+    <!-- BACK LAYER: ISO back walls (two angled walls meeting at the back corner) + wall-mounted screens, window, ceiling LEDs -->
     <div class="live-layer live-layer--back" aria-hidden="true">
       <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
         <defs>
-          <linearGradient id="wall-grad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#1a1230" stop-opacity="0.9"/>
-            <stop offset="100%" stop-color="#0a0816" stop-opacity="0.95"/>
+          <linearGradient id="wall-left-grad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#0e0820" stop-opacity="1"/>
+            <stop offset="100%" stop-color="#231642" stop-opacity="1"/>
+          </linearGradient>
+          <linearGradient id="wall-right-grad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#231642" stop-opacity="1"/>
+            <stop offset="100%" stop-color="#0e0820" stop-opacity="1"/>
           </linearGradient>
           <linearGradient id="screen-grad" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0%" stop-color="#5dd0d9" stop-opacity="0.55"/>
             <stop offset="100%" stop-color="#b793ff" stop-opacity="0.45"/>
           </linearGradient>
           <radialGradient id="ambient-glow" cx="50%" cy="20%" r="60%">
-            <stop offset="0%" stop-color="#b793ff" stop-opacity="0.25"/>
+            <stop offset="0%" stop-color="#b793ff" stop-opacity="0.30"/>
             <stop offset="100%" stop-color="transparent"/>
           </radialGradient>
         </defs>
-        <rect width="1600" height="900" fill="url(#wall-grad)"/>
-        <rect width="1600" height="900" fill="url(#ambient-glow)"/>
 
-        <!-- big curved central monitor -->
+        <!-- room void above walls -->
+        <rect width="1600" height="900" fill="#06050e"/>
+
+        <!-- BACK-LEFT WALL: parallelogram, from W floor corner up to ceiling -->
+        <path d="M 250 540 L 800 260 L 800 20 L 250 300 Z" fill="url(#wall-left-grad)"/>
+        <!-- BACK-RIGHT WALL: parallelogram, from N corner to E floor corner -->
+        <path d="M 800 260 L 1350 540 L 1350 300 L 800 20 Z" fill="url(#wall-right-grad)"/>
+
+        <!-- ambient glow on inner corner -->
+        <ellipse cx="800" cy="170" rx="620" ry="170" fill="url(#ambient-glow)"/>
+
+        <!-- corner seam highlight -->
+        <line x1="800" y1="20" x2="800" y2="260" stroke="#b793ff" stroke-opacity="0.35" stroke-width="1.5"/>
+
+        <!-- ceiling LED strips along the two top wall edges -->
+        <line x1="250" y1="300" x2="800" y2="20"   stroke="#ff8fc8" stroke-opacity="0.65" stroke-width="3"/>
+        <line x1="800" y1="20"  x2="1350" y2="300" stroke="#ff8fc8" stroke-opacity="0.65" stroke-width="3"/>
+
+        <!-- MAIN holographic screen mounted on back-LEFT wall (skewed into iso plane) -->
         <g class="prop prop--main-screen">
-          <rect x="640" y="180" width="320" height="200" rx="14" fill="#11131c" stroke="#b793ff" stroke-opacity="0.55" stroke-width="2"/>
-          <rect x="656" y="196" width="288" height="168" rx="6" fill="url(#screen-grad)"/>
-          <line x1="676" y1="220" x2="924" y2="220" stroke="#0a0c14" stroke-opacity="0.55" stroke-width="2"/>
-          <line x1="676" y1="240" x2="860" y2="240" stroke="#0a0c14" stroke-opacity="0.4" stroke-width="2"/>
-          <line x1="676" y1="260" x2="900" y2="260" stroke="#0a0c14" stroke-opacity="0.4" stroke-width="2"/>
-          <rect x="676" y="290" width="100" height="60" rx="4" fill="#0a0c14" fill-opacity="0.35"/>
-          <rect x="790" y="290" width="60" height="60" rx="4" fill="#0a0c14" fill-opacity="0.35"/>
-          <rect x="864" y="290" width="60" height="60" rx="4" fill="#0a0c14" fill-opacity="0.35"/>
+          <path d="M 380 320 L 660 180 L 660 360 L 380 500 Z" fill="#11131c" stroke="#b793ff" stroke-opacity="0.55" stroke-width="2"/>
+          <path d="M 392 326 L 648 198 L 648 348 L 392 478 Z" fill="url(#screen-grad)"/>
+          <!-- screen content lines (parallel to wall plane) -->
+          <line x1="408" y1="346" x2="628" y2="236" stroke="#0a0c14" stroke-opacity="0.55" stroke-width="2"/>
+          <line x1="408" y1="370" x2="592" y2="278" stroke="#0a0c14" stroke-opacity="0.4"  stroke-width="2"/>
+          <line x1="408" y1="394" x2="624" y2="286" stroke="#0a0c14" stroke-opacity="0.4"  stroke-width="2"/>
+          <path d="M 408 420 L 470 389 L 470 444 L 408 475 Z" fill="#0a0c14" fill-opacity="0.35"/>
+          <path d="M 484 382 L 540 354 L 540 408 L 484 436 Z" fill="#0a0c14" fill-opacity="0.35"/>
         </g>
 
-        <!-- left small screens -->
+        <!-- Small side screen further along back-LEFT wall -->
         <g class="prop prop--side-screens">
-          <rect x="120" y="200" width="140" height="90" rx="8" fill="#11131c" stroke="#5dd0d9" stroke-opacity="0.55" stroke-width="2"/>
-          <rect x="132" y="212" width="116" height="66" rx="4" fill="url(#screen-grad)" opacity="0.7"/>
-          <rect x="280" y="220" width="100" height="70" rx="8" fill="#11131c" stroke="#5dd0d9" stroke-opacity="0.45" stroke-width="2"/>
-          <rect x="290" y="230" width="80" height="50" rx="4" fill="url(#screen-grad)" opacity="0.6"/>
+          <path d="M 700 200 L 760 170 L 760 240 L 700 270 Z" fill="#11131c" stroke="#5dd0d9" stroke-opacity="0.55" stroke-width="1.5"/>
+          <path d="M 706 206 L 754 182 L 754 234 L 706 264 Z" fill="url(#screen-grad)" opacity="0.7"/>
         </g>
 
-        <!-- right window -->
+        <!-- WINDOW on back-RIGHT wall (cosmic view, skewed iso) -->
         <g class="prop prop--window">
-          <rect x="1230" y="160" width="280" height="240" rx="10" fill="#0a0816" stroke="#b793ff" stroke-opacity="0.4" stroke-width="2"/>
-          <line x1="1370" y1="160" x2="1370" y2="400" stroke="#b793ff" stroke-opacity="0.25" stroke-width="2"/>
-          <line x1="1230" y1="280" x2="1510" y2="280" stroke="#b793ff" stroke-opacity="0.25" stroke-width="2"/>
+          <path d="M 1020 200 L 1300 340 L 1300 480 L 1020 340 Z" fill="#0a0816" stroke="#b793ff" stroke-opacity="0.45" stroke-width="2"/>
+          <!-- mullion vertical (parallel to wall axis) -->
+          <line x1="1160" y1="270" x2="1160" y2="410" stroke="#b793ff" stroke-opacity="0.3" stroke-width="1.5"/>
+          <!-- mullion horizontal -->
+          <line x1="1020" y1="270" x2="1300" y2="410" stroke="#b793ff" stroke-opacity="0.3" stroke-width="1.5"/>
           <!-- starfield -->
-          <circle cx="1270" cy="200" r="2" fill="#ffffff" fill-opacity="0.8"/>
-          <circle cx="1330" cy="230" r="1.5" fill="#ffffff" fill-opacity="0.6"/>
-          <circle cx="1410" cy="190" r="2.5" fill="#ffffff" fill-opacity="0.9"/>
-          <circle cx="1460" cy="240" r="1.5" fill="#ffffff" fill-opacity="0.6"/>
-          <circle cx="1290" cy="320" r="1.5" fill="#ffffff" fill-opacity="0.5"/>
-          <circle cx="1430" cy="350" r="2" fill="#ffffff" fill-opacity="0.7"/>
-          <circle cx="1480" cy="320" r="1" fill="#ffffff" fill-opacity="0.5"/>
+          <circle cx="1060" cy="240" r="2"   fill="#ffffff" fill-opacity="0.85"/>
+          <circle cx="1110" cy="260" r="1.4" fill="#ffffff" fill-opacity="0.6"/>
+          <circle cx="1180" cy="290" r="2.3" fill="#ffffff" fill-opacity="0.9"/>
+          <circle cx="1230" cy="320" r="1.5" fill="#ffffff" fill-opacity="0.6"/>
+          <circle cx="1090" cy="310" r="1"   fill="#ffffff" fill-opacity="0.5"/>
+          <circle cx="1200" cy="380" r="1.7" fill="#ffffff" fill-opacity="0.7"/>
+          <circle cx="1250" cy="420" r="1"   fill="#ffffff" fill-opacity="0.5"/>
+          <!-- faint distant galaxy -->
+          <ellipse cx="1140" cy="330" rx="14" ry="5" fill="#b793ff" fill-opacity="0.18" transform="rotate(20 1140 330)"/>
         </g>
-
-        <!-- ceiling ambient strip -->
-        <rect x="0" y="60" width="1600" height="6" fill="#b793ff" fill-opacity="0.35"/>
-        <rect x="0" y="62" width="1600" height="2" fill="#ffffff" fill-opacity="0.45"/>
       </svg>
     </div>
 
-    <!-- MID LAYER: pod (left), desk (center), plant lab (right), chair -->
+    <!-- MID LAYER: ISO floor (rhombus) + tile grid + iso props (pod, desk, chair, plant cabinet) -->
     <div class="live-layer live-layer--mid" aria-hidden="true">
       <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
         <defs>
+          <linearGradient id="floor-iso-grad" x1="0.5" y1="0" x2="0.5" y2="1">
+            <stop offset="0%"   stop-color="#1a1230"/>
+            <stop offset="100%" stop-color="#0d0820"/>
+          </linearGradient>
           <linearGradient id="pod-grad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#ff8fc8" stop-opacity="0.95"/>
-            <stop offset="100%" stop-color="#9b5bb8" stop-opacity="0.95"/>
+            <stop offset="0%"   stop-color="#ff8fc8"/>
+            <stop offset="100%" stop-color="#9b5bb8"/>
           </linearGradient>
           <radialGradient id="pod-glass" cx="50%" cy="40%" r="60%">
-            <stop offset="0%" stop-color="#5dd0d9" stop-opacity="0.45"/>
+            <stop offset="0%"   stop-color="#5dd0d9" stop-opacity="0.45"/>
             <stop offset="100%" stop-color="#1a1230" stop-opacity="0.85"/>
           </radialGradient>
-          <linearGradient id="desk-grad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#2a2236" stop-opacity="1"/>
-            <stop offset="100%" stop-color="#160e22" stop-opacity="1"/>
+          <linearGradient id="desk-top-grad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#3a2a52"/>
+            <stop offset="100%" stop-color="#1a0f2a"/>
           </linearGradient>
           <linearGradient id="leaf-grad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#7ee0a8" stop-opacity="1"/>
-            <stop offset="100%" stop-color="#3a9c6e" stop-opacity="1"/>
+            <stop offset="0%"   stop-color="#7ee0a8"/>
+            <stop offset="100%" stop-color="#3a9c6e"/>
+          </linearGradient>
+          <linearGradient id="cabinet-front" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#160e26"/>
+            <stop offset="100%" stop-color="#0a0518"/>
+          </linearGradient>
+          <linearGradient id="cabinet-side" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#0a0518"/>
+            <stop offset="100%" stop-color="#050210"/>
           </linearGradient>
         </defs>
 
-        <!-- SLEEPING POD (left) -->
+        <!-- ISO FLOOR rhombus: corners at N(800,260) E(1350,540) S(800,820) W(250,540) -->
+        <path d="M 800 260 L 1350 540 L 800 820 L 250 540 Z" fill="url(#floor-iso-grad)"/>
+
+        <!-- floor tile grid (4 lines each diagonal direction = 5x5 tiles) -->
+        <g stroke="#b793ff" stroke-opacity="0.13" stroke-width="1" fill="none">
+          <!-- W↔E diagonals (parallel to N-E edge) -->
+          <line x1="360"  y1="316" x2="910"  y2="596"/>
+          <line x1="470"  y1="372" x2="1020" y2="652"/>
+          <line x1="580"  y1="428" x2="1130" y2="708"/>
+          <line x1="690"  y1="484" x2="1240" y2="764"/>
+          <!-- N↔S diagonals (parallel to N-W edge) -->
+          <line x1="910"  y1="316" x2="360"  y2="596"/>
+          <line x1="1020" y1="372" x2="470"  y2="652"/>
+          <line x1="1130" y1="428" x2="580"  y2="708"/>
+          <line x1="1240" y1="484" x2="690"  y2="764"/>
+        </g>
+
+        <!-- floor perimeter LED seam -->
+        <path d="M 800 260 L 1350 540 L 800 820 L 250 540 Z" fill="none" stroke="#5dd0d9" stroke-opacity="0.45" stroke-width="1.8"/>
+
+        <!-- rug rhombus on floor in front of the desk (renders under Trinity) -->
+        <radialGradient id="rug-iso-grad-mid" cx="50%" cy="50%" r="60%">
+          <stop offset="0%"   stop-color="#ff8fc8" stop-opacity="0.45"/>
+          <stop offset="60%"  stop-color="#b793ff" stop-opacity="0.32"/>
+          <stop offset="100%" stop-color="#b793ff" stop-opacity="0.10"/>
+        </radialGradient>
+        <path d="M 820 720 L 1060 840 L 820 880 L 580 750 Z" fill="url(#rug-iso-grad-mid)"/>
+
+        <!-- ============= POD (back-left zone) ============= -->
         <g class="prop prop--pod">
-          <!-- base platform -->
-          <ellipse cx="240" cy="700" rx="200" ry="22" fill="#0a0816" fill-opacity="0.7"/>
-          <!-- pod body -->
-          <path d="M 80 660 Q 80 460 240 440 Q 400 460 400 660 Z" fill="url(#pod-grad)"/>
-          <!-- pod glass canopy -->
-          <path d="M 100 640 Q 100 480 240 460 Q 380 480 380 640 Z" fill="url(#pod-glass)" stroke="#ffffff" stroke-opacity="0.25" stroke-width="2"/>
-          <!-- soft inner glow -->
-          <ellipse cx="240" cy="600" rx="110" ry="60" fill="#ff8fc8" fill-opacity="0.12"/>
-          <!-- pod base trim with LED strip -->
-          <rect x="80" y="650" width="320" height="14" rx="6" fill="#1a1230"/>
-          <rect x="92" y="654" width="296" height="3" rx="1.5" fill="#5dd0d9" fill-opacity="0.85"/>
+          <!-- pod base platform (iso rhombus on floor) -->
+          <path d="M 430 510 L 540 565 L 430 620 L 320 565 Z" fill="#0a0816" stroke="#5dd0d9" stroke-opacity="0.55" stroke-width="2"/>
+          <!-- LED ring on base edge -->
+          <path d="M 430 510 L 540 565 L 430 620 L 320 565 Z" fill="none" stroke="#5dd0d9" stroke-opacity="0.65" stroke-width="1"/>
+          <!-- pod body: vertical capsule centered on base, viewed straight-on (a known iso convention for rounded objects) -->
+          <path d="M 360 540 L 360 380 Q 360 330 430 330 Q 500 330 500 380 L 500 540 Z" fill="url(#pod-grad)"/>
+          <!-- pod glass canopy (slightly inset) -->
+          <path d="M 370 530 L 370 380 Q 370 340 430 340 Q 490 340 490 380 L 490 530 Z" fill="url(#pod-glass)" stroke="#ffffff" stroke-opacity="0.22" stroke-width="1.5"/>
+          <!-- inner glow -->
+          <ellipse cx="430" cy="450" rx="50" ry="80" fill="#ff8fc8" fill-opacity="0.13"/>
+          <!-- pod base front edge highlight -->
+          <line x1="320" y1="565" x2="430" y2="620" stroke="#5dd0d9" stroke-opacity="0.4" stroke-width="1"/>
+          <line x1="540" y1="565" x2="430" y2="620" stroke="#5dd0d9" stroke-opacity="0.4" stroke-width="1"/>
           <!-- status light -->
-          <circle cx="240" cy="690" r="5" fill="#7ee0a8"/>
+          <circle cx="430" cy="592" r="3.5" fill="#7ee0a8"/>
         </g>
 
-        <!-- DESK + MONITOR + CHAIR (center) -->
-        <g class="prop prop--desk">
-          <!-- chair -->
-          <rect x="730" y="620" width="80" height="100" rx="10" fill="#1a1230"/>
-          <rect x="740" y="500" width="60" height="130" rx="14" fill="#2a1d3a"/>
-          <rect x="760" y="720" width="6" height="40" fill="#1a1230"/>
-          <ellipse cx="763" cy="765" rx="40" ry="4" fill="#0a0816" fill-opacity="0.5"/>
-          <!-- desk surface -->
-          <rect x="540" y="580" width="500" height="20" rx="4" fill="url(#desk-grad)"/>
-          <rect x="540" y="600" width="500" height="180" fill="#0a0816" fill-opacity="0.7"/>
-          <!-- desk legs -->
-          <rect x="560" y="600" width="14" height="180" fill="#1a1230"/>
-          <rect x="1006" y="600" width="14" height="180" fill="#1a1230"/>
-          <!-- monitor on desk -->
-          <rect x="820" y="440" width="180" height="120" rx="8" fill="#11131c" stroke="#5dd0d9" stroke-opacity="0.6" stroke-width="2"/>
-          <rect x="830" y="450" width="160" height="100" rx="4" fill="#0e1428"/>
-          <rect x="838" y="462" width="80" height="6" rx="2" fill="#5dd0d9" fill-opacity="0.8"/>
-          <rect x="838" y="476" width="120" height="4" rx="2" fill="#5dd0d9" fill-opacity="0.5"/>
-          <rect x="838" y="488" width="60" height="4" rx="2" fill="#5dd0d9" fill-opacity="0.5"/>
-          <rect x="838" y="500" width="100" height="4" rx="2" fill="#b793ff" fill-opacity="0.6"/>
-          <rect x="838" y="512" width="40" height="4" rx="2" fill="#b793ff" fill-opacity="0.6"/>
-          <rect x="838" y="524" width="90" height="4" rx="2" fill="#5dd0d9" fill-opacity="0.45"/>
-          <!-- monitor stand -->
-          <rect x="900" y="560" width="20" height="20" fill="#1a1230"/>
-          <rect x="870" y="578" width="80" height="6" rx="3" fill="#1a1230"/>
-          <!-- desk props: mug + small terminal -->
-          <rect x="566" y="556" width="36" height="28" rx="4" fill="#ff8fc8"/>
-          <rect x="600" y="562" width="6" height="16" rx="2" fill="#ff8fc8"/>
-          <rect x="640" y="552" width="60" height="32" rx="4" fill="#0e1428" stroke="#7ee0a8" stroke-opacity="0.6" stroke-width="1.5"/>
-        </g>
-
-        <!-- PLANT LAB (right) -->
+        <!-- ============= PLANT LAB (back-right zone) — drawn before desk so the closer-to-camera desk paints over it ============= -->
         <g class="prop prop--plants">
-          <!-- shelf frame -->
-          <rect x="1180" y="440" width="380" height="320" rx="10" fill="#0a0816" fill-opacity="0.85" stroke="#7ee0a8" stroke-opacity="0.35" stroke-width="2"/>
-          <!-- shelves -->
-          <line x1="1180" y1="540" x2="1560" y2="540" stroke="#7ee0a8" stroke-opacity="0.5" stroke-width="2"/>
-          <line x1="1180" y1="640" x2="1560" y2="640" stroke="#7ee0a8" stroke-opacity="0.5" stroke-width="2"/>
-          <line x1="1180" y1="740" x2="1560" y2="740" stroke="#7ee0a8" stroke-opacity="0.5" stroke-width="2"/>
-          <!-- grow lights -->
-          <rect x="1190" y="442" width="360" height="4" rx="2" fill="#ff8fc8" fill-opacity="0.7"/>
-          <rect x="1190" y="542" width="360" height="4" rx="2" fill="#ff8fc8" fill-opacity="0.7"/>
-          <rect x="1190" y="642" width="360" height="4" rx="2" fill="#ff8fc8" fill-opacity="0.7"/>
+          <!-- cabinet top rhombus -->
+          <path d="M 1100 360 L 1230 425 L 1100 490 L 970 425 Z" fill="#0a0816" stroke="#7ee0a8" stroke-opacity="0.35" stroke-width="1.5"/>
+          <!-- front face (toward W-S direction) -->
+          <path d="M 970 425 L 1100 490 L 1100 620 L 970 555 Z" fill="url(#cabinet-front)" stroke="#7ee0a8" stroke-opacity="0.3" stroke-width="1"/>
+          <!-- right face (toward E-S direction) -->
+          <path d="M 1230 425 L 1100 490 L 1100 620 L 1230 555 Z" fill="url(#cabinet-side)" stroke="#7ee0a8" stroke-opacity="0.25" stroke-width="1"/>
 
-          <!-- top shelf plants -->
-          <g class="prop prop--plant">
-            <rect x="1210" y="500" width="40" height="36" rx="4" fill="#3a2a4a"/>
-            <ellipse cx="1230" cy="490" rx="22" ry="14" fill="url(#leaf-grad)"/>
-            <ellipse cx="1218" cy="478" rx="14" ry="10" fill="url(#leaf-grad)"/>
-            <ellipse cx="1244" cy="480" rx="14" ry="10" fill="url(#leaf-grad)"/>
-          </g>
-          <g class="prop prop--plant">
-            <rect x="1310" y="504" width="46" height="32" rx="4" fill="#3a2a4a"/>
-            <path d="M 1333 504 Q 1316 470 1320 450 M 1333 504 Q 1350 472 1346 450" stroke="#7ee0a8" stroke-width="3" fill="none"/>
-            <ellipse cx="1320" cy="448" rx="6" ry="10" fill="url(#leaf-grad)"/>
-            <ellipse cx="1346" cy="448" rx="6" ry="10" fill="url(#leaf-grad)"/>
-          </g>
-          <g class="prop prop--plant">
-            <rect x="1420" y="500" width="44" height="36" rx="4" fill="#3a2a4a"/>
-            <ellipse cx="1442" cy="486" rx="24" ry="16" fill="url(#leaf-grad)"/>
-          </g>
-          <g class="prop prop--plant">
-            <rect x="1500" y="508" width="38" height="28" rx="4" fill="#3a2a4a"/>
-            <path d="M 1519 508 L 1510 478 L 1528 478 Z" fill="url(#leaf-grad)"/>
-            <path d="M 1519 508 L 1502 488 L 1516 484 Z" fill="url(#leaf-grad)"/>
-          </g>
+          <!-- shelf dividers on front face (horizontal in iso plane) -->
+          <line x1="970" y1="468" x2="1100" y2="533" stroke="#7ee0a8" stroke-opacity="0.45" stroke-width="1.3"/>
+          <line x1="970" y1="512" x2="1100" y2="577" stroke="#7ee0a8" stroke-opacity="0.45" stroke-width="1.3"/>
+          <!-- shelf dividers on right face -->
+          <line x1="1100" y1="533" x2="1230" y2="468" stroke="#7ee0a8" stroke-opacity="0.35" stroke-width="1.3"/>
+          <line x1="1100" y1="577" x2="1230" y2="512" stroke="#7ee0a8" stroke-opacity="0.35" stroke-width="1.3"/>
 
-          <!-- middle shelf plants -->
+          <!-- grow-light strip along top rim -->
+          <path d="M 970 425 L 1100 490 L 1230 425" stroke="#ff8fc8" stroke-opacity="0.7" stroke-width="2" fill="none"/>
+
+          <!-- TOP shelf plants -->
           <g class="prop prop--plant">
-            <rect x="1210" y="600" width="44" height="36" rx="4" fill="#3a2a4a"/>
-            <ellipse cx="1232" cy="588" rx="24" ry="14" fill="url(#leaf-grad)"/>
-            <ellipse cx="1232" cy="574" rx="14" ry="10" fill="url(#leaf-grad)"/>
+            <rect x="990" y="448" width="16" height="11" rx="2" fill="#3a2a4a"/>
+            <ellipse cx="998" cy="443" rx="10" ry="6" fill="url(#leaf-grad)"/>
           </g>
           <g class="prop prop--plant">
-            <rect x="1310" y="606" width="40" height="30" rx="4" fill="#3a2a4a"/>
-            <circle cx="1330" cy="590" r="14" fill="url(#leaf-grad)"/>
-            <circle cx="1320" cy="578" r="6" fill="#ff8fc8"/>
+            <rect x="1024" y="465" width="18" height="11" rx="2" fill="#3a2a4a"/>
+            <path d="M 1033 465 Q 1024 446 1027 432 M 1033 465 Q 1043 447 1040 432" stroke="#7ee0a8" stroke-width="1.6" fill="none"/>
+            <ellipse cx="1027" cy="432" rx="3.5" ry="6" fill="url(#leaf-grad)"/>
+            <ellipse cx="1040" cy="432" rx="3.5" ry="6" fill="url(#leaf-grad)"/>
           </g>
           <g class="prop prop--plant">
-            <rect x="1410" y="600" width="48" height="36" rx="4" fill="#3a2a4a"/>
-            <path d="M 1434 600 Q 1414 564 1420 540 M 1434 600 Q 1454 568 1448 540" stroke="#7ee0a8" stroke-width="3" fill="none"/>
-            <ellipse cx="1420" cy="538" rx="6" ry="10" fill="url(#leaf-grad)"/>
-            <ellipse cx="1448" cy="538" rx="6" ry="10" fill="url(#leaf-grad)"/>
-          </g>
-          <g class="prop prop--plant">
-            <rect x="1500" y="606" width="40" height="30" rx="4" fill="#3a2a4a"/>
-            <ellipse cx="1520" cy="592" rx="22" ry="12" fill="url(#leaf-grad)"/>
+            <rect x="1060" y="483" width="18" height="11" rx="2" fill="#3a2a4a"/>
+            <circle cx="1069" cy="476" r="8" fill="url(#leaf-grad)"/>
+            <circle cx="1064" cy="472" r="3" fill="#ff8fc8"/>
           </g>
 
-          <!-- bottom shelf: small lab gear -->
+          <!-- MIDDLE shelf plants -->
+          <g class="prop prop--plant">
+            <rect x="990" y="492" width="16" height="11" rx="2" fill="#3a2a4a"/>
+            <ellipse cx="998" cy="488" rx="11" ry="5" fill="url(#leaf-grad)"/>
+          </g>
+          <g class="prop prop--plant">
+            <rect x="1028" y="510" width="18" height="11" rx="2" fill="#3a2a4a"/>
+            <ellipse cx="1037" cy="503" rx="9" ry="6" fill="url(#leaf-grad)"/>
+            <ellipse cx="1032" cy="497" rx="5" ry="4" fill="url(#leaf-grad)"/>
+          </g>
+          <g class="prop prop--plant">
+            <rect x="1064" y="527" width="18" height="11" rx="2" fill="#3a2a4a"/>
+            <path d="M 1073 527 Q 1063 510 1067 500" stroke="#7ee0a8" stroke-width="1.6" fill="none"/>
+            <ellipse cx="1067" cy="500" rx="3.5" ry="5" fill="url(#leaf-grad)"/>
+          </g>
+
+          <!-- BOTTOM shelf: lab gear silhouettes -->
           <g class="prop prop--lab">
-            <rect x="1210" y="700" width="56" height="38" rx="4" fill="#0e1428" stroke="#5dd0d9" stroke-opacity="0.55" stroke-width="1.5"/>
-            <rect x="1218" y="710" width="40" height="4" fill="#5dd0d9" fill-opacity="0.7"/>
-            <rect x="1218" y="720" width="22" height="4" fill="#5dd0d9" fill-opacity="0.5"/>
+            <path d="M 990 552 L 1020 567 L 1020 580 L 990 565 Z" fill="#0e1428" stroke="#5dd0d9" stroke-opacity="0.55" stroke-width="1"/>
+            <line x1="998" y1="560" x2="1014" y2="568" stroke="#5dd0d9" stroke-opacity="0.65" stroke-width="1"/>
           </g>
           <g class="prop prop--lab">
-            <ellipse cx="1310" cy="730" rx="22" ry="6" fill="#0a0816"/>
-            <path d="M 1290 730 L 1300 700 L 1320 700 L 1330 730 Z" fill="#3a2a4a" stroke="#7ee0a8" stroke-opacity="0.7" stroke-width="1.5"/>
-            <ellipse cx="1310" cy="700" rx="10" ry="3" fill="#7ee0a8" fill-opacity="0.35"/>
+            <path d="M 1030 568 L 1060 583 L 1060 597 L 1030 582 Z" fill="#0e1428" stroke="#b793ff" stroke-opacity="0.55" stroke-width="1"/>
+            <circle cx="1040" cy="576" r="2" fill="#b793ff" fill-opacity="0.85"/>
           </g>
-          <g class="prop prop--lab">
-            <rect x="1380" y="700" width="60" height="38" rx="4" fill="#0e1428" stroke="#b793ff" stroke-opacity="0.55" stroke-width="1.5"/>
-            <circle cx="1396" cy="718" r="6" fill="#b793ff" fill-opacity="0.7"/>
-            <rect x="1410" y="714" width="22" height="3" fill="#b793ff" fill-opacity="0.6"/>
-            <rect x="1410" y="720" width="18" height="3" fill="#b793ff" fill-opacity="0.4"/>
+        </g>
+
+        <!-- ============= DESK + MONITOR + CHAIR (center, closer to camera — drawn last so it paints over the plant cabinet where they overlap) ============= -->
+        <g class="prop prop--desk">
+          <!-- CHAIR (placed slightly behind/north of desk) -->
+          <g class="prop">
+            <!-- seat top rhombus -->
+            <path d="M 950 510 L 1010 540 L 950 570 L 890 540 Z" fill="#1a0e26"/>
+            <!-- seat side faces (slight thickness) -->
+            <path d="M 890 540 L 950 570 L 950 590 L 890 560 Z" fill="#0e0518"/>
+            <path d="M 1010 540 L 950 570 L 950 590 L 1010 560 Z" fill="#080310"/>
+            <!-- backrest plate (tilted up) -->
+            <path d="M 950 510 L 980 495 L 980 440 L 950 455 Z" fill="#2a1d40"/>
+            <path d="M 980 495 L 980 440 L 1010 425 L 1010 480 Z" fill="#1a0e2a"/>
           </g>
-          <g class="prop prop--lab">
-            <rect x="1470" y="700" width="70" height="38" rx="4" fill="#0e1428" stroke="#5dd0d9" stroke-opacity="0.55" stroke-width="1.5"/>
-            <rect x="1480" y="712" width="50" height="4" fill="#5dd0d9" fill-opacity="0.5"/>
-            <rect x="1480" y="722" width="34" height="4" fill="#5dd0d9" fill-opacity="0.5"/>
-          </g>
+
+          <!-- DESK box: top rhombus + two visible side faces -->
+          <path d="M 820 540 L 1010 635 L 820 730 L 630 635 Z" fill="url(#desk-top-grad)" stroke="#5dd0d9" stroke-opacity="0.18" stroke-width="1"/>
+          <path d="M 1010 635 L 820 730 L 820 770 L 1010 675 Z" fill="#180e28"/>
+          <path d="M 820 730 L 630 635 L 630 675 L 820 770 Z" fill="#100820"/>
+
+          <!-- MONITOR standing on desk (small iso box facing back) -->
+          <path d="M 740 510 L 870 575 L 870 645 L 740 580 Z" fill="#0e1428" stroke="#5dd0d9" stroke-opacity="0.6" stroke-width="2"/>
+          <line x1="756" y1="528" x2="858" y2="580" stroke="#5dd0d9" stroke-opacity="0.85" stroke-width="2"/>
+          <line x1="756" y1="548" x2="828" y2="584" stroke="#5dd0d9" stroke-opacity="0.5"  stroke-width="2"/>
+          <line x1="756" y1="568" x2="858" y2="620" stroke="#b793ff" stroke-opacity="0.65" stroke-width="2"/>
+          <line x1="756" y1="588" x2="816" y2="618" stroke="#b793ff" stroke-opacity="0.55" stroke-width="2"/>
+          <!-- monitor stand (tiny rhombus on desk top) -->
+          <path d="M 810 638 L 836 651 L 822 661 L 798 648 Z" fill="#1a0e22"/>
+
+          <!-- pink mug on desk top -->
+          <ellipse cx="710" cy="640" rx="14" ry="6" fill="#ff8fc8"/>
+          <path d="M 696 640 L 696 624 Q 696 618 710 618 Q 724 618 724 624 L 724 640" fill="#ff8fc8"/>
+          <ellipse cx="710" cy="624" rx="14" ry="5" fill="#ffd2e6"/>
+
+          <!-- small terminal device next to mug -->
+          <path d="M 740 660 L 800 690 L 800 706 L 740 676 Z" fill="#0e1428" stroke="#7ee0a8" stroke-opacity="0.55" stroke-width="1"/>
+          <line x1="752" y1="672" x2="788" y2="690" stroke="#7ee0a8" stroke-opacity="0.7" stroke-width="1.5"/>
         </g>
       </svg>
     </div>
 
-    <!-- FOREGROUND: floor edge, rug, decorative haze -->
+    <!-- FOREGROUND: only the soft ground-haze along the front floor edges (sits in front of Trinity for a subtle fog-at-feet feel) -->
     <div class="live-layer live-layer--fore" aria-hidden="true">
       <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
-        <defs>
-          <linearGradient id="floor-grad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#1a1230" stop-opacity="0.4"/>
-            <stop offset="100%" stop-color="#0a0816" stop-opacity="0.95"/>
-          </linearGradient>
-          <linearGradient id="rug-grad" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stop-color="#b793ff" stop-opacity="0.35"/>
-            <stop offset="100%" stop-color="#ff8fc8" stop-opacity="0.35"/>
-          </linearGradient>
-        </defs>
-        <!-- floor -->
-        <rect x="0" y="760" width="1600" height="140" fill="url(#floor-grad)"/>
-        <!-- floor LED strip seam -->
-        <rect x="0" y="760" width="1600" height="3" fill="#5dd0d9" fill-opacity="0.6"/>
-        <!-- rug in front of desk -->
-        <ellipse cx="780" cy="820" rx="220" ry="22" fill="url(#rug-grad)"/>
-        <!-- ambient haze -->
-        <ellipse cx="780" cy="780" rx="320" ry="14" fill="#b793ff" fill-opacity="0.12"/>
+        <path d="M 250 540 L 800 820 L 1350 540" fill="none" stroke="#b793ff" stroke-opacity="0.07" stroke-width="42" stroke-linejoin="round"/>
       </svg>
     </div>
 
