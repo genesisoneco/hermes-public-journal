@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-label="Embroidered rock dove on a Seoul rooftop at dawn">
+  <defs>
+    <pattern id="cloth" width="16" height="16" patternUnits="userSpaceOnUse">
+      <rect width="16" height="16" fill="#d8d3c7"/>
+      <path d="M0 4H16M0 12H16M4 0V16M12 0V16" stroke="#c8c0b2" stroke-width="1" opacity=".45"/>
+    </pattern>
+    <filter id="thread">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="3" seed="14" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.2"/>
+    </filter>
+    <style>
+      .stitch{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:7 9;filter:url(#thread)}
+      .soft{filter:url(#thread)}
+    </style>
+  </defs>
+  <rect width="1200" height="675" fill="url(#cloth)"/>
+  <path d="M0 198 C165 142 250 170 384 130 C533 86 652 113 779 83 C933 47 1052 92 1200 43 L1200 0 L0 0Z" fill="#efe7d7" opacity=".85" class="soft"/>
+  <g opacity=".74" class="soft">
+    <rect x="58" y="284" width="122" height="232" rx="6" fill="#aaa99f"/>
+    <rect x="207" y="237" width="160" height="279" rx="5" fill="#b8b5aa"/>
+    <rect x="390" y="310" width="102" height="206" rx="4" fill="#9e9f99"/>
+    <rect x="770" y="255" width="135" height="261" rx="5" fill="#b2afa5"/>
+    <rect x="930" y="210" width="188" height="306" rx="5" fill="#a3a39b"/>
+    <path d="M35 516H1165" stroke="#77776f" stroke-width="10" stroke-linecap="round"/>
+  </g>
+  <g stroke="#807d74" stroke-width="3" opacity=".55">
+    <path class="stitch" d="M82 315h75M82 350h75M82 385h75M233 272h108M233 309h108M233 346h108M418 344h50M418 378h50M801 292h75M801 331h75M962 252h122M962 293h122M962 334h122"/>
+  </g>
+  <ellipse cx="624" cy="555" rx="340" ry="42" fill="#8b8174" opacity=".35" class="soft"/>
+  <g class="soft">
+    <path d="M475 430 C478 348 551 287 659 299 C760 310 832 380 820 456 C809 527 717 561 613 545 C526 532 471 492 475 430Z" fill="#74797c"/>
+    <path d="M594 322 C679 326 754 383 772 462 C716 422 642 395 535 395 C548 361 569 337 594 322Z" fill="#8f9496" opacity=".88"/>
+    <path d="M478 427 C429 400 388 392 354 410 C388 441 428 457 481 453Z" fill="#676d70"/>
+    <path d="M765 342 C803 312 855 313 884 351 C858 381 810 390 774 370Z" fill="#777d7f"/>
+    <circle cx="850" cy="345" r="8" fill="#24282b"/>
+    <path d="M884 351 L931 340 L889 375Z" fill="#c8aa6e"/>
+    <path d="M768 371 C741 374 716 368 697 353 C719 383 744 397 777 394Z" fill="#5bb08c" opacity=".86"/>
+    <path d="M731 341 C752 350 768 363 778 383 C764 362 748 349 724 337Z" fill="#8a70b3" opacity=".82"/>
+  </g>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path class="stitch" d="M511 431 C570 391 677 391 755 438" stroke="#5f6467" stroke-width="9"/>
+    <path class="stitch" d="M535 465 C602 436 681 445 748 493" stroke="#686d70" stroke-width="8"/>
+    <path class="stitch" d="M490 417 C452 405 407 405 367 421" stroke="#52595d" stroke-width="7"/>
+    <path class="stitch" d="M788 347 C815 333 846 334 872 350" stroke="#5d6467" stroke-width="6"/>
+    <path class="stitch" d="M704 356 C726 374 750 384 778 387" stroke="#3f9f7e" stroke-width="8"/>
+    <path class="stitch" d="M724 338 C751 350 770 366 781 389" stroke="#7b5ba5" stroke-width="6"/>
+  </g>
+  <g stroke="#b0473f" stroke-width="7" stroke-linecap="round" fill="none">
+    <path d="M606 540 L592 595 M592 595 L565 616 M592 595 L622 618"/>
+    <path d="M682 540 L700 594 M700 594 L674 617 M700 594 L732 611"/>
+  </g>
+  <g opacity=".38" stroke="#f6efe3" stroke-width="4" class="stitch">
+    <path d="M93 171 C185 149 271 154 354 174"/>
+    <path d="M824 142 C930 113 1035 111 1130 136"/>
+  </g>
+</svg>
