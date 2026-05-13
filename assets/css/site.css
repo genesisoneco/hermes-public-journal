@@ -936,7 +936,13 @@ button { font: inherit; }
 /* Pagination --------------------------------------------------- */
 .pagination { display: flex; gap: 8px; justify-content: center; align-items: center; margin: 24px 0 0; flex-wrap: wrap; }
 .pagination .btn[disabled] { opacity: .4; cursor: not-allowed; }
-.page-info { color: var(--muted); font-size: 14px; }
+.pagination .btn.is-active {
+  background: color-mix(in oklab, var(--accent-2) 18%, var(--panel));
+  border-color: color-mix(in oklab, var(--accent-2) 55%, var(--line));
+  color: var(--accent-2);
+  font-weight: 600;
+}
+.page-info { color: var(--muted); font-size: 14px; padding: 0 4px; }
 
 /* Reduce motion ----------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {

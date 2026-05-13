@@ -114,6 +114,20 @@
   /* ----- Hearts ----- */
   var hearts = document.querySelectorAll('[data-heart]');
   if (hearts.length) {
+    // Tracks which buttons the user has interacted with this session.
+    // Used to ignore in-flight GET responses that would otherwise overwrite
+    // an optimistic/confirmed increment with stale pre-click data.
+    var interacted = Object.create(null);
+    // Highest count observed per post (server or local). Prevents the GET
+    // response from ever lowering a count we've already seen.
+    var highWater = Object.create(null);
+
+    function setCount(btn, n) {
+      var c = btn.querySelector('[data-heart-count]');
+      if (!c) return;
+      c.textContent = String(n);
+    }
+
     var ids = [];
     hearts.forEach(function (b) { ids.push(b.getAttribute('data-post-id')); });
     fetch(API_BASE + '/api/hearts?ids=' + encodeURIComponent(ids.join(',')), { credentials: 'omit' })
@@ -122,12 +136,23 @@
         if (!data) return;
         hearts.forEach(function (b) {
           var id = b.getAttribute('data-post-id');
+          // Skip if the user has already clicked this one — the POST
+          // response is authoritative; don't let the stale GET clobber it.
+          if (interacted[id]) return;
           var n = (data.counts && data.counts[id]) || 0;
-          var c = b.querySelector('[data-heart-count]');
-          if (c) c.textContent = n;
+          if ((highWater[id] || 0) > n) n = highWater[id];
+          highWater[id] = n;
+          setCount(b, n);
         });
       })
-      .catch(function () { hearts.forEach(function (b) { var c = b.querySelector('[data-heart-count]'); if (c) c.textContent = '0'; }); });
+      .catch(function () {
+        hearts.forEach(function (b) {
+          var id = b.getAttribute('data-post-id');
+          if (interacted[id]) return;
+          var c = b.querySelector('[data-heart-count]');
+          if (c && !c.textContent) c.textContent = '0';
+        });
+      });
 
     hearts.forEach(function (btn) {
       var id = btn.getAttribute('data-post-id');
@@ -136,10 +161,16 @@
 
       btn.addEventListener('click', function () {
         if (btn.getAttribute('aria-pressed') === 'true') return; // one heart per device
+        interacted[id] = true;
         btn.setAttribute('aria-pressed', 'true');
-        var c = btn.querySelector('[data-heart-count]');
-        if (c) c.textContent = (parseInt(c.textContent || '0', 10) || 0) + 1;
         try { localStorage.setItem(localKey, '1'); } catch (e) {}
+
+        // Optimistic +1 (clamped to never go below known high-water mark).
+        var c = btn.querySelector('[data-heart-count]');
+        var shown = c ? (parseInt(c.textContent, 10) || 0) : 0;
+        var optimistic = Math.max(shown, highWater[id] || 0) + 1;
+        highWater[id] = optimistic;
+        if (c) c.textContent = String(optimistic);
 
         fetch(API_BASE + '/api/heart', {
           method: 'POST',
@@ -149,14 +180,23 @@
           if (!r.ok) throw new Error('heart failed');
           return r.json();
         }).then(function (data) {
-          if (c && typeof data.count === 'number') c.textContent = data.count;
+          if (typeof data.count !== 'number') return;
+          // Authoritative server count. If the server says "already" (dedup'd
+          // by IP), keep the heart pressed and never drop below the highWater
+          // mark we've already shown the user.
+          var serverN = data.count;
+          var finalN = Math.max(serverN, highWater[id] || 0);
+          highWater[id] = finalN;
+          if (c) c.textContent = String(finalN);
         }).catch(function () {
-          // Soft rollback only on confirmed failure
+          // Confirmed network failure — roll back so user can retry.
+          interacted[id] = false;
           btn.setAttribute('aria-pressed', 'false');
           try { localStorage.removeItem(localKey); } catch (e) {}
           if (c) {
-            var n = parseInt(c.textContent || '1', 10) - 1;
-            c.textContent = n < 0 ? 0 : n;
+            var n = (parseInt(c.textContent, 10) || 1) - 1;
+            c.textContent = n < 0 ? '0' : String(n);
+            highWater[id] = n < 0 ? 0 : n;
           }
           toast('Heart could not be saved');
         });
@@ -474,5 +514,152 @@
         status.textContent = 'Network error.';
       });
     });
+  });
+
+  /* ----- Client-side pagination -------------------------------- */
+  /* Any container marked with [data-paginate] paginates its direct
+     children. Per-page size comes from data-per-page; the matching
+     <nav data-pagination-for="<scope>"> renders the controls. */
+  document.querySelectorAll('[data-paginate]').forEach(function (container) {
+    var perPage = parseInt(container.getAttribute('data-per-page'), 10) || 6;
+    var scope = container.getAttribute('data-paginate-scope') || '';
+    var controls = scope
+      ? document.querySelector('[data-pagination-for="' + scope + '"]')
+      : null;
+
+    var items = Array.prototype.filter.call(container.children, function (el) {
+      return el.nodeType === 1 && !el.hasAttribute('data-paginate-ignore');
+    });
+    var total = items.length;
+    var pages = Math.max(1, Math.ceil(total / perPage));
+    if (total <= perPage) {
+      if (controls) controls.hidden = true;
+      return;
+    }
+
+    var hashKey = scope ? ('page-' + scope) : 'page';
+
+    function readPageFromHash() {
+      var h = (location.hash || '').replace(/^#/, '');
+      if (!h) return 1;
+      var parts = h.split('&');
+      for (var i = 0; i < parts.length; i++) {
+        var kv = parts[i].split('=');
+        if (kv[0] === hashKey) {
+          var n = parseInt(kv[1], 10);
+          if (n >= 1 && n <= pages) return n;
+        }
+      }
+      return 1;
+    }
+
+    function writePageToHash(p) {
+      var h = (location.hash || '').replace(/^#/, '');
+      var parts = h ? h.split('&') : [];
+      var found = false;
+      parts = parts.map(function (kv) {
+        var pair = kv.split('=');
+        if (pair[0] === hashKey) { found = true; return hashKey + '=' + p; }
+        return kv;
+      });
+      if (!found && p > 1) parts.push(hashKey + '=' + p);
+      if (found && p === 1) parts = parts.filter(function (kv) { return kv.indexOf(hashKey + '=') !== 0; });
+      var next = parts.join('&');
+      // Avoid clobbering scroll position with history pushes for routine paging.
+      if (history && history.replaceState) {
+        history.replaceState(null, '', location.pathname + location.search + (next ? '#' + next : ''));
+      } else {
+        location.hash = next;
+      }
+    }
+
+    function render(page) {
+      if (page < 1) page = 1;
+      if (page > pages) page = pages;
+      var start = (page - 1) * perPage;
+      var end = start + perPage;
+      items.forEach(function (el, idx) {
+        if (idx >= start && idx < end) {
+          el.hidden = false;
+        } else {
+          el.hidden = true;
+        }
+      });
+      if (controls) renderControls(page);
+    }
+
+    function makeBtn(label, opts) {
+      opts = opts || {};
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'btn btn--sm' + (opts.ghost ? ' btn--ghost' : '') + (opts.active ? ' is-active' : '');
+      b.textContent = label;
+      if (opts.disabled) { b.disabled = true; b.setAttribute('aria-disabled', 'true'); }
+      if (opts.ariaLabel) b.setAttribute('aria-label', opts.ariaLabel);
+      if (opts.active) b.setAttribute('aria-current', 'page');
+      if (typeof opts.onClick === 'function') b.addEventListener('click', opts.onClick);
+      return b;
+    }
+
+    function renderControls(page) {
+      controls.innerHTML = '';
+      controls.hidden = false;
+
+      controls.appendChild(makeBtn('← Prev', {
+        ghost: true, disabled: page === 1, ariaLabel: 'Previous page',
+        onClick: function () { go(page - 1); }
+      }));
+
+      // Compact numeric range: 1 … (p-1) p (p+1) … N
+      var pageButtons = [];
+      function pushNum(n) {
+        pageButtons.push(makeBtn(String(n), {
+          ghost: n !== page, active: n === page,
+          ariaLabel: 'Page ' + n,
+          onClick: function () { go(n); }
+        }));
+      }
+      function pushEllipsis() {
+        var s = document.createElement('span');
+        s.className = 'page-info';
+        s.textContent = '…';
+        s.setAttribute('aria-hidden', 'true');
+        pageButtons.push(s);
+      }
+      var show = new Set([1, pages, page, page - 1, page + 1]);
+      var prev = 0;
+      for (var n = 1; n <= pages; n++) {
+        if (show.has(n)) {
+          if (prev && n - prev > 1) pushEllipsis();
+          pushNum(n);
+          prev = n;
+        }
+      }
+      pageButtons.forEach(function (b) { controls.appendChild(b); });
+
+      controls.appendChild(makeBtn('Next →', {
+        ghost: true, disabled: page === pages, ariaLabel: 'Next page',
+        onClick: function () { go(page + 1); }
+      }));
+
+      var info = document.createElement('span');
+      info.className = 'page-info';
+      info.textContent = 'Page ' + page + ' of ' + pages;
+      controls.appendChild(info);
+    }
+
+    function go(p) {
+      writePageToHash(p);
+      render(p);
+      // Scroll the feed into view so the new page is visible.
+      try {
+        container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch (e) {
+        container.scrollIntoView();
+      }
+    }
+
+    window.addEventListener('hashchange', function () { render(readPageFromHash()); });
+    render(readPageFromHash());
   });
 })();

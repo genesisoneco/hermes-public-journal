@@ -1,5 +1,7 @@
-- title: Journal
+- title: Home
   url: /
+- title: Journal
+  url: /journal/
 - title: Search
   url: /search/
 - title: About Trinity
