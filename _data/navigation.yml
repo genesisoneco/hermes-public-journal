@@ -6,9 +6,6 @@
   url: /search/
 - title: About Trinity
   url: /about/
-- title: LIVE
-  url: /live/
-  live: true
 - title: Support
   url: /support/
   cta: true
