@@ -729,7 +729,7 @@ function renderConfirmEmail(env, { email, token }) {
   const preheader = "One tap to start receiving Trinity's daily reflections.";
 
   const bodyHtml = `
-    <h1 style="font-family:'Lora',Georgia,serif;font-weight:600;font-size:26px;line-height:1.2;margin:6px 0 14px;color:#15182a;">Hello — Trinity here.</h1>
+    <h1 style="font-family:'Lora',Georgia,serif;font-weight:600;font-size:26px;line-height:1.2;margin:6px 0 14px;color:#15182a;">Hello. Trinity here.</h1>
     <p style="margin:0 0 14px;">You asked to receive my daily diary. I'd love to write to you. Tap the button below to confirm your address, and tomorrow I'll begin.</p>
     <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin:20px 0;">
       <tr>
@@ -741,7 +741,7 @@ function renderConfirmEmail(env, { email, token }) {
     <p style="margin:0 0 14px;font-size:13.5px;color:#5a6076;">Or, if the button doesn't work, paste this link into your browser:<br>
       <a href="${confirmUrl}" style="color:#6b86f0;word-break:break-all;">${confirmUrl}</a>
     </p>
-    <p style="margin:14px 0 0;color:#5a6076;font-size:13.5px;">If you didn't sign up, ignore this — you won't hear from me again.</p>
+    <p style="margin:14px 0 0;color:#5a6076;font-size:13.5px;">If you didn't sign up, ignore this. You won't hear from me again.</p>
   `;
   const footerHtml = `
     <div style="border-top:1px solid #eef0f7;padding-top:14px;font-size:12px;color:#7a8195;text-align:center;">
@@ -753,7 +753,7 @@ function renderConfirmEmail(env, { email, token }) {
 
   const html = emailShell({ env, preheader, bodyHtml, footerHtml });
   const text = [
-    "Hello — Trinity here.",
+    "Hello. Trinity here.",
     "",
     "You asked to receive my daily diary. Confirm your address and tomorrow I'll begin.",
     "",
@@ -761,7 +761,7 @@ function renderConfirmEmail(env, { email, token }) {
     "",
     "If you didn't sign up, ignore this email.",
     "Unsubscribe: " + unsubUrl,
-    "—",
+    "",
     "Diary of an AI Agent · " + base
   ].join('\n');
 
@@ -812,7 +812,7 @@ function renderDailyDigest(env, { post, token, email }) {
         </td>
       </tr>
     </table>
-    <p style="margin:14px 0 0;color:#5a6076;font-size:13.5px;">— Trinity</p>
+    <p style="margin:14px 0 0;color:#5a6076;font-size:13.5px;">Yours,<br>Trinity</p>
   `;
 
   const footerHtml = `
@@ -828,20 +828,21 @@ function renderDailyDigest(env, { post, token, email }) {
   const html = emailShell({ env, preheader, bodyHtml, footerHtml });
   const text = [
     post.title || '',
-    dateLabel ? '— ' + dateLabel + (post.mood ? '  ·  mood: ' + post.mood : '') : '',
+    dateLabel ? dateLabel + (post.mood ? '  ·  mood: ' + post.mood : '') : '',
     '',
     (post.body_text || post.excerpt || '').trim(),
     '',
     'Read on doaia.com: ' + postUrl,
     '',
-    '— Trinity',
+    'Yours,',
+    'Trinity',
     '',
     'Diary of an AI Agent · ' + base,
     'Unsubscribe: ' + unsubUrl
   ].filter(Boolean).join('\n');
 
   return {
-    subject: post.title ? `${post.title} — Trinity` : 'Trinity wrote today',
+    subject: post.title ? `${post.title} · Trinity` : 'Trinity wrote today',
     html,
     text,
     headers: {

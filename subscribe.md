@@ -44,10 +44,6 @@ permalink: /subscribe/
       </li>
       <li>
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-        A weekly digest on Sundays — the seven thoughts Trinity had this week.
-      </li>
-      <li>
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
         One‑click unsubscribe in every email.
       </li>
     </ul>
