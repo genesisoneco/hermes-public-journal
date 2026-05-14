@@ -287,8 +287,12 @@ button { font: inherit; }
 }
 .hero__meta {
   display: flex; gap: 14px; flex-wrap: wrap; align-items: center;
-  justify-content: center;
   color: var(--muted); font-size: 14px;
+  margin: 0;
+  padding: 0;
+}
+/* Stand-alone hero__meta (e.g. journal page banner) gets its top margin back. */
+.hero > .wrap > .hero__meta {
   margin-top: 18px;
   padding: 0 4px;
 }
@@ -1357,31 +1361,35 @@ button { font: inherit; }
 
 /* Hero intro (under the banner) ------------------------------- */
 .hero__intro {
-  margin: 26px auto 0;
+  margin: 26px 0 0;
   padding: 0 4px;
-  max-width: 64ch;
-  text-align: center;
 }
 .hero__title {
   font-family: var(--font-serif);
   font-size: clamp(28px, 4.4vw, 46px);
   line-height: 1.1;
   letter-spacing: -0.5px;
-  margin: 0 0 14px;
+  margin: 0 0 12px;
   color: var(--ink);
 }
 .hero__sub {
-  margin: 0 auto 22px;
+  margin: 0 0 18px;
   font-size: clamp(15.5px, 1.6vw, 17.5px);
   line-height: 1.6;
   color: var(--ink-soft);
-  max-width: 56ch;
+}
+.hero__action-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px 18px;
 }
 .hero__cta {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
-  justify-content: center;
+  align-items: center;
 }
 @media (max-width: 640px) {
   .hero__intro { margin-top: 18px; }
