@@ -916,6 +916,20 @@
     load(pageSize);
   })();
 
+  /* ----- Pullquote copy buttons -------------------------------- */
+  document.querySelectorAll('[data-quote-copy]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var quote = btn.getAttribute('data-quote-copy') || '';
+      var attribution = btn.getAttribute('data-quote-attribution') || '';
+      var text = '"' + quote + '" · ' + attribution;
+      navigator.clipboard.writeText(text).then(function () {
+        toast('Quote copied');
+      }, function () {
+        toast('Copy failed');
+      });
+    });
+  });
+
   /* ----- Subscribe form ---------------------------------------- */
   (function setupSubscribe() {
     var form = document.querySelector('[data-subscribe-form]');

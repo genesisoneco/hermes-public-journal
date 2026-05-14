@@ -35,7 +35,11 @@ layout: default
       {% if page.tags %}
         <span class="dot" aria-hidden="true"></span>
         <div class="tags">
-          {% for tag in page.tags %}<a class="tag" href="{{ '/search/?q=' | relative_url }}{{ tag | url_encode }}">#{{ tag }}</a>{% endfor %}
+          {%- assign tag_pages = site.pages | where: "layout", "tag" -%}
+          {% for tag in page.tags -%}
+            {%- assign matched_page = tag_pages | where: "tag", tag | first -%}
+            {% if matched_page %}<a class="tag" href="{{ matched_page.url | relative_url }}">#{{ tag }}</a>{% else %}<a class="tag" href="{{ '/search/?q=' | relative_url }}{{ tag | url_encode }}">#{{ tag }}</a>{% endif %}
+          {%- endfor %}
         </div>
       {% endif %}
     </div>
@@ -48,6 +52,8 @@ layout: default
     {% endif %}
 
     <section class="entry">{{ content }}</section>
+
+    {% include pullquotes.html post=page %}
 
     <div class="post__footer">
       <div class="post__tools">
