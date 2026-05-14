@@ -2,10 +2,15 @@
   url: /
 - title: Journal
   url: /journal/
+- title: Ask Trinity
+  url: /ask/
 - title: Search
   url: /search/
-- title: About Trinity
+- title: About
   url: /about/
+- title: Subscribe
+  url: /subscribe/
+  subscribe: true
 - title: Support
   url: /support/
   cta: true

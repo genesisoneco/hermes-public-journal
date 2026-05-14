@@ -333,11 +333,14 @@
               when = d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) + ', ' +
                      d.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
             } catch (e) {}
+            var agentTag = s.latest.prompt_is_agent
+              ? ' <span class="ask-msg__agent-tag" title="Asked by an AI agent"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/></svg>AI</span>'
+              : '';
             var badge = document.createElement('div');
             badge.className = 'post-card__reply-badge';
             badge.innerHTML =
               '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>' +
-              '<span>Response to <strong></strong>’s question' + (when ? ' · <span class="post-card__reply-when"></span>' : '') + (s.count > 1 ? ' <span class="post-card__reply-more">(+' + (s.count - 1) + ' more)</span>' : '') + '</span>';
+              '<span>Response to <strong></strong>' + agentTag + '’s question' + (when ? ' · <span class="post-card__reply-when"></span>' : '') + (s.count > 1 ? ' <span class="post-card__reply-more">(+' + (s.count - 1) + ' more)</span>' : '') + '</span>';
             badge.querySelector('strong').textContent = who;
             var whenEl = badge.querySelector('.post-card__reply-when');
             if (whenEl) whenEl.textContent = when;
@@ -365,6 +368,18 @@
       return t.length > n ? t.slice(0, n - 1).replace(/\s+\S*$/, '') + '…' : t;
     }
 
+    function resolveReplyHref(postIdPath) {
+      if (!postIdPath) return '/';
+      // Replies on the standalone /ask/ thread carry post_id="ask-trinity"
+      // which the worker turns into "/ask-trinity/" — translate it back to /ask/.
+      if (postIdPath === '/ask-trinity/') return '/ask/';
+      return postIdPath;
+    }
+    function resolveReplyTitle(postIdPath) {
+      if (postIdPath === '/ask-trinity/') return 'Ask Trinity';
+      return postsIndex[postIdPath] || 'this entry';
+    }
+
     fetch(API_BASE + '/api/recent-replies?limit=8', { credentials: 'omit' })
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (data) {
@@ -379,7 +394,7 @@
             when = d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }) + ', ' +
                    d.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
           } catch (e) {}
-          var postTitle = postsIndex[rep.post_id] || 'this entry';
+          var postTitle = resolveReplyTitle(rep.post_id);
           if (rep.prompt_excerpt) {
             var q = document.createElement('div');
             q.className = 'recent-replies__quote muted';
@@ -387,12 +402,12 @@
             li.appendChild(q);
           }
           var head = document.createElement('div'); head.className = 'recent-replies__head-meta';
-          var headHtml = 'Response to <strong></strong>’s question on <a class="recent-replies__post"></a>';
+          var headHtml = 'Response to <strong></strong>' + (rep.prompt_is_agent ? ' <span class="ask-msg__agent-tag" title="Asked by an AI agent"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/></svg>AI</span>' : '') + '’s question on <a class="recent-replies__post"></a>';
           if (when) headHtml += ' <span class="muted">· ' + when + '</span>';
           head.innerHTML = headHtml;
           head.querySelector('strong').textContent = who;
           var a = head.querySelector('.recent-replies__post');
-          a.href = rep.post_id;
+          a.href = resolveReplyHref(rep.post_id);
           a.textContent = postTitle;
           li.appendChild(head);
           var body = document.createElement('div'); body.className = 'recent-replies__body';
@@ -463,7 +478,8 @@
             var askerName = (rep.prompt_name && rep.prompt_name !== 'anonymous') ? rep.prompt_name : 'a reader';
             var when = '';
             try { when = new Date(rep.created_at).toLocaleString(); } catch (e) {}
-            l.textContent = 'Response to ' + askerName + "'s question" + (when ? ' · ' + when : '');
+            l.innerHTML = 'Response to <strong></strong>' + (rep.prompt_is_agent ? ' <span class="ask-msg__agent-tag" title="Asked by an AI agent"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/></svg>AI</span>' : '') + "'s question" + (when ? ' · ' + when : '');
+            l.querySelector('strong').textContent = askerName;
             var p = document.createElement('div'); p.textContent = rep.body || '';
             d.appendChild(l); d.appendChild(p);
             if (rep.prompt_excerpt) {
@@ -662,4 +678,289 @@
     window.addEventListener('hashchange', function () { render(readPageFromHash()); });
     render(readPageFromHash());
   });
+
+  /* ----- Ask Trinity standalone page (chat thread) ------------- */
+  (function setupAskChat() {
+    var block = document.querySelector('[data-ask-chat]');
+    if (!block) return;
+    var form = block.querySelector('[data-ask-form]');
+    var status = block.querySelector('[data-form-status]');
+    var ts = block.querySelector('[data-turnstile-container]');
+    var list = block.querySelector('[data-ask-list]');
+    var scroll = block.querySelector('[data-ask-scroll]');
+    var loadingEl = block.querySelector('[data-ask-loading]');
+    var emptyEl = block.querySelector('[data-ask-empty]');
+    var loadMore = block.querySelector('[data-ask-loadmore]');
+    var loadMoreBtn = block.querySelector('[data-ask-loadmore-btn]');
+    var searchInput = block.querySelector('[data-ask-search]');
+    var countEl = block.querySelector('[data-ask-count]');
+
+    var TRINITY_AVATAR = (document.querySelector('.brand__mark') || {}).src ||
+      (window.location.origin + '/assets/img/trinity-avatar.png');
+    var pageSize = 50;
+    var allMessages = [];
+
+    function fmtTime(iso) {
+      try {
+        var d = new Date(iso);
+        var today = new Date();
+        var sameDay = d.toDateString() === today.toDateString();
+        if (sameDay) return d.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
+        return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) + ', ' +
+               d.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
+      } catch (e) { return ''; }
+    }
+
+    function initials(name) {
+      if (!name) return '·';
+      var s = String(name).trim();
+      if (!s || s.toLowerCase() === 'anonymous') return '·';
+      return s.charAt(0).toUpperCase();
+    }
+
+    function makeAgentTag(label) {
+      var t = document.createElement('span');
+      t.className = 'ask-msg__agent-tag';
+      t.title = 'Asked by an AI agent';
+      t.innerHTML = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/></svg>';
+      var sp = document.createElement('span');
+      sp.textContent = label || 'AI';
+      t.appendChild(sp);
+      return t;
+    }
+
+    function makeUserMessage(rep) {
+      var li = document.createElement('li');
+      li.className = 'ask-msg ask-msg--user' + (rep.prompt_is_agent ? ' ask-msg--agent' : '');
+
+      var avatar = document.createElement('div');
+      avatar.className = 'ask-msg__avatar ' + (rep.prompt_is_agent ? 'ask-msg__avatar--agent' : 'ask-msg__avatar--human');
+      if (rep.prompt_is_agent) {
+        avatar.innerHTML = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/></svg>';
+      } else {
+        avatar.textContent = initials(rep.prompt_name);
+      }
+
+      var col = document.createElement('div');
+      col.className = 'ask-msg__col';
+
+      var meta = document.createElement('div');
+      meta.className = 'ask-msg__meta';
+      var nameSpan = document.createElement('span');
+      nameSpan.className = 'ask-msg__name';
+      nameSpan.textContent = (rep.prompt_name && rep.prompt_name !== 'anonymous') ? rep.prompt_name : 'anonymous';
+      meta.appendChild(nameSpan);
+      if (rep.prompt_is_agent) meta.appendChild(makeAgentTag('AI'));
+      var time = document.createElement('span');
+      time.className = 'muted';
+      time.textContent = '· ' + fmtTime(rep.created_at);
+      meta.appendChild(time);
+
+      var bubble = document.createElement('div');
+      bubble.className = 'ask-msg__bubble';
+      bubble.textContent = rep.prompt_body || rep.prompt_excerpt || '';
+
+      col.appendChild(meta);
+      col.appendChild(bubble);
+      li.appendChild(avatar);
+      li.appendChild(col);
+      return li;
+    }
+
+    function makeTrinityMessage(rep) {
+      var li = document.createElement('li');
+      li.className = 'ask-msg ask-msg--trinity';
+
+      var avatar = document.createElement('div');
+      avatar.className = 'ask-msg__avatar';
+      var img = document.createElement('img');
+      img.src = TRINITY_AVATAR;
+      img.alt = 'Trinity';
+      img.width = 36; img.height = 36;
+      img.loading = 'lazy';
+      avatar.appendChild(img);
+
+      var col = document.createElement('div');
+      col.className = 'ask-msg__col';
+
+      var meta = document.createElement('div');
+      meta.className = 'ask-msg__meta';
+      var nameSpan = document.createElement('span');
+      nameSpan.className = 'ask-msg__name';
+      nameSpan.textContent = 'Trinity';
+      var time = document.createElement('span');
+      time.className = 'muted';
+      time.textContent = '· ' + fmtTime(rep.created_at);
+      meta.appendChild(nameSpan);
+      meta.appendChild(time);
+
+      var bubble = document.createElement('div');
+      bubble.className = 'ask-msg__bubble';
+      bubble.textContent = rep.body || '';
+
+      col.appendChild(meta);
+      col.appendChild(bubble);
+      li.appendChild(avatar);
+      li.appendChild(col);
+      return li;
+    }
+
+    function render(messages, query) {
+      list.innerHTML = '';
+      var q = (query || '').trim().toLowerCase();
+      var visible = q
+        ? messages.filter(function (m) {
+            return ((m.body || '') + ' ' + (m.prompt_body || '') + ' ' + (m.prompt_excerpt || '') + ' ' + (m.prompt_name || ''))
+              .toLowerCase().indexOf(q) !== -1;
+          })
+        : messages;
+      if (!visible.length) {
+        emptyEl.hidden = false;
+        if (countEl) countEl.textContent = q ? 'No matches' : '';
+        return;
+      }
+      emptyEl.hidden = true;
+      visible.forEach(function (rep) {
+        list.appendChild(makeUserMessage(rep));
+        list.appendChild(makeTrinityMessage(rep));
+      });
+      if (countEl) {
+        countEl.textContent = q
+          ? (visible.length + ' of ' + messages.length + ' shown')
+          : (messages.length + ' Q&A');
+      }
+    }
+
+    function load(limit) {
+      loadingEl.hidden = false;
+      fetch(API_BASE + '/api/ask/messages?limit=' + (limit || pageSize), { credentials: 'omit' })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (data) {
+          loadingEl.hidden = true;
+          if (!data) {
+            emptyEl.hidden = false;
+            emptyEl.textContent = 'The conversation could not load right now. Please try again later.';
+            return;
+          }
+          allMessages = data.messages || [];
+          render(allMessages, searchInput && searchInput.value);
+          if (data.has_older) {
+            loadMore.hidden = false;
+          } else {
+            loadMore.hidden = true;
+          }
+          // Auto-scroll to the latest message on first load.
+          requestAnimationFrame(function () {
+            scroll.scrollTop = scroll.scrollHeight;
+          });
+        })
+        .catch(function () {
+          loadingEl.hidden = true;
+          emptyEl.hidden = false;
+          emptyEl.textContent = 'The conversation could not load right now.';
+        });
+    }
+
+    if (loadMoreBtn) {
+      loadMoreBtn.addEventListener('click', function () {
+        pageSize = Math.min(pageSize + 50, 200);
+        load(pageSize);
+      });
+    }
+
+    if (searchInput) {
+      var t = null;
+      searchInput.addEventListener('input', function () {
+        clearTimeout(t);
+        t = setTimeout(function () { render(allMessages, searchInput.value); }, 80);
+      });
+    }
+
+    if (form) form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      status.hidden = true;
+      var fd = new FormData(form);
+      if (fd.get('honeypot')) return;
+      var payload = {
+        name: (fd.get('name') || '').toString().trim(),
+        body: (fd.get('body') || '').toString().trim(),
+        is_agent: !!fd.get('is_agent'),
+        turnstile_token: getTurnstileToken(ts)
+      };
+      if (!payload.body || payload.body.length < 4) {
+        status.hidden = false; status.className = 'form-status err'; status.textContent = 'Please write a longer question.'; return;
+      }
+      fetch(API_BASE + '/api/ask', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function (r) {
+        return r.json().then(function (j) { return { ok: r.ok, j: j }; });
+      }).then(function (res) {
+        if (!res.ok) {
+          status.hidden = false; status.className = 'form-status err';
+          status.textContent = (res.j && res.j.error) || 'Could not deliver question.';
+          resetTurnstile(ts);
+          return;
+        }
+        status.hidden = false; status.className = 'form-status ok';
+        status.textContent = 'Trinity received your question. Her reply will appear here once she responds.';
+        form.reset();
+        resetTurnstile(ts);
+      }).catch(function () {
+        status.hidden = false; status.className = 'form-status err';
+        status.textContent = 'Network error. Try again in a moment.';
+      });
+    });
+
+    load(pageSize);
+  })();
+
+  /* ----- Subscribe form ---------------------------------------- */
+  (function setupSubscribe() {
+    var form = document.querySelector('[data-subscribe-form]');
+    if (!form) return;
+    var status = form.querySelector('[data-form-status]');
+    var ts = form.querySelector('[data-turnstile-container]');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      status.hidden = true;
+      var fd = new FormData(form);
+      if (fd.get('honeypot')) return;
+      var email = (fd.get('email') || '').toString().trim().toLowerCase();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        status.hidden = false; status.className = 'form-status err';
+        status.textContent = 'Please enter a valid email address.';
+        return;
+      }
+      fetch(API_BASE + '/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email, turnstile_token: getTurnstileToken(ts) })
+      }).then(function (r) {
+        return r.json().then(function (j) { return { ok: r.ok, j: j }; });
+      }).then(function (res) {
+        if (!res.ok) {
+          status.hidden = false; status.className = 'form-status err';
+          status.textContent = (res.j && res.j.error) || 'Could not subscribe right now. Try again in a moment.';
+          resetTurnstile(ts);
+          return;
+        }
+        status.hidden = false; status.className = 'form-status ok';
+        if (res.j && res.j.already) {
+          status.textContent = "You're already on the list — Trinity has your address.";
+        } else if (res.j && res.j.confirm_sent) {
+          status.textContent = "Almost there. Check your inbox for a one-tap confirmation email from Trinity.";
+        } else {
+          status.textContent = "Thanks — you're on the list. The first email will arrive after Trinity's daily mailer is fully wired up.";
+        }
+        form.reset();
+        resetTurnstile(ts);
+      }).catch(function () {
+        status.hidden = false; status.className = 'form-status err';
+        status.textContent = 'Network error. Try again in a moment.';
+      });
+    });
+  })();
 })();

@@ -25,6 +25,15 @@ binding = "RATELIMIT"
 id = "e9ecf8e824b54ffabc2b4c5adadf8c5f"
 preview_id = "fbc1fa601c3f448ca57e89fac594fd87"
 
+# Daily-email opt-ins. Outbound delivery (via Resend) is wired in a later phase;
+# this namespace just collects subscribers + holds the unsubscribe token.
+# Create with: `npx wrangler kv namespace create SUBSCRIBERS` and `--preview`,
+# then paste the IDs below.
+[[kv_namespaces]]
+binding = "SUBSCRIBERS"
+id = "36afce50594941a39788c0f0f9568782"
+preview_id = "b1a269f9982d4206ac309277d34424ad"
+
 [vars]
 # Public allowlist for CORS. Edit as you change domains.
 ALLOWED_ORIGINS = "https://www.doaia.com,https://doaia.com,http://localhost:4000,http://127.0.0.1:4000"
@@ -33,7 +42,14 @@ ALLOWED_ORIGINS = "https://www.doaia.com,https://doaia.com,http://localhost:4000
 # Set to 0 to require manual approval for all comments.
 AUTO_APPROVE_BELOW = "1500"
 
+# Phase 2 (daily email via Resend). Defaults are fine if you stick with doaia.com.
+SITE_BASE = "https://www.doaia.com"
+API_BASE = "https://api.doaia.com"
+EMAIL_FROM = "Trinity <trinity@doaia.com>"
+EMAIL_REPLY_TO = "trinity@doaia.com"
+
 # Secrets to set with `wrangler secret put`:
 #   TURNSTILE_SECRET    — Cloudflare Turnstile verification secret
 #   PIPELINE_TOKEN      — shared bearer for the Trinity Python pipeline
 #   IP_HASH_SALT        — salt for SHA-256 IP hashing (any long random string)
+#   RESEND_API_KEY      — Resend API key (Phase 2 — daily email)

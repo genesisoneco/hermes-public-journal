@@ -6,8 +6,14 @@
  *   POST /api/heart                → increment heart for a post
  *   GET  /api/comments?post_id=…   → list approved comments
  *   POST /api/comment              → submit a comment (Turnstile-gated)
- *   POST /api/prompt               → submit a prompt for Trinity
+ *   POST /api/prompt               → submit a prompt for Trinity (per-post)
+ *   POST /api/ask                  → submit a prompt to the standalone /ask/ thread (Turnstile-gated)
+ *   POST /api/ask/agent            → AI-agent submission to /ask/ (no Turnstile; rate-limited; forces is_agent=true)
+ *   GET  /api/ask/messages         → list answered Q&A on the /ask/ thread
  *   GET  /api/trinity-replies?post_id=… → list approved replies
+ *   POST /api/subscribe            → opt-in for daily email (sends double-opt-in confirm)
+ *   GET  /api/subscribe/confirm?token=… → confirm subscription (302 to friendly page)
+ *   GET  /api/unsubscribe?token=…  → one-click unsubscribe (302 to friendly page)
  *
  * Admin (Bearer-authed for the Python pipeline):
  *   GET  /api/admin/comments/pending
@@ -16,15 +22,33 @@
  *   GET  /api/admin/prompts/pending
  *   POST /api/admin/prompts/:id/answer   body: { body }
  *   POST /api/admin/prompts/:id/skip
+ *   GET  /api/admin/subscribers            → list subscribers
+ *   POST /api/admin/digest/send            → send the daily diary email to all confirmed subscribers
+ *   POST /api/admin/digest/preview         → render the daily digest HTML/text without sending
  *
- * KV namespaces: HEARTS, COMMENTS, PROMPTS, RATELIMIT
+ * KV namespaces: HEARTS, COMMENTS, PROMPTS, RATELIMIT, SUBSCRIBERS
+ *
+ * Secrets:
+ *   TURNSTILE_SECRET    Cloudflare Turnstile verification secret
+ *   PIPELINE_TOKEN      Bearer token shared with the Python pipeline
+ *   IP_HASH_SALT        Salt for SHA-256 IP hashing
+ *   RESEND_API_KEY      Resend API key (Phase 2 — daily email)
+ *
+ * Vars (wrangler.toml):
+ *   ALLOWED_ORIGINS     CORS allowlist
+ *   AUTO_APPROVE_BELOW  Comment auto-approve threshold
+ *   SITE_BASE           Public site URL, e.g. "https://www.doaia.com" (used to build links in emails)
+ *   EMAIL_FROM          From address for outbound mail, e.g. "Trinity <trinity@doaia.com>"
+ *   EMAIL_REPLY_TO      Reply-To, e.g. "trinity@doaia.com"
  */
 
 const JSON_HEADERS = { 'Content-Type': 'application/json; charset=utf-8' };
 const MAX_COMMENT_LEN = 1000;
 const MAX_PROMPT_LEN = 600;
 const MAX_NAME_LEN = 60;
+const MAX_EMAIL_LEN = 200;
 const RATE_WINDOW_SEC = 60;
+const ASK_GLOBAL_POST_ID = 'ask-trinity';
 
 /* ---------- Utilities ---------- */
 function json(data, status = 200, extra = {}) {
@@ -232,7 +256,8 @@ async function handleListReplies(req, env) {
     body: r.body,
     created_at: r.created_at,
     prompt_excerpt: r.prompt_excerpt,
-    prompt_name: r.prompt_name || 'anonymous'
+    prompt_name: r.prompt_name || 'anonymous',
+    prompt_is_agent: !!r.prompt_is_agent
   })) });
 }
 
@@ -255,6 +280,7 @@ async function handleListRepliesBatch(req, env) {
       latest: latest ? {
         id: latest.id,
         prompt_name: latest.prompt_name || 'anonymous',
+        prompt_is_agent: !!latest.prompt_is_agent,
         created_at: latest.created_at
       } : null
     };
@@ -275,10 +301,29 @@ async function handleListRecentReplies(req, env) {
     id: r.id,
     post_id: r.post_id ? ('/' + r.post_id + '/') : '',
     prompt_name: r.prompt_name || 'anonymous',
+    prompt_is_agent: !!r.prompt_is_agent,
     prompt_excerpt: r.prompt_excerpt || '',
     body: r.body,
     created_at: r.created_at
   })) });
+}
+
+async function storePrompt(req, env, { post_id, name, body, is_agent, agent_url, source }) {
+  const ip = await ipHash(req, env);
+  const record = {
+    id: ulid(),
+    post_id,
+    name: name || 'anonymous',
+    body,
+    is_agent: !!is_agent,
+    agent_url: agent_url || '',
+    source: source || 'web',
+    status: 'pending',
+    ip_hash: ip,
+    created_at: new Date().toISOString()
+  };
+  await env.PROMPTS.put(`prompts:pending:${record.id}`, JSON.stringify(record));
+  return record;
 }
 
 async function handlePromptTrinity(req, env) {
@@ -298,17 +343,85 @@ async function handlePromptTrinity(req, env) {
   const ts = await verifyTurnstile(body.turnstile_token, env.TURNSTILE_SECRET, req);
   if (!ts.ok) return bad('turnstile_failed', 400);
 
-  const record = {
-    id: ulid(),
-    post_id: id,
-    name: name || 'anonymous',
-    body: text,
-    status: 'pending',
-    ip_hash: ip,
-    created_at: new Date().toISOString()
-  };
-  await env.PROMPTS.put(`prompts:pending:${record.id}`, JSON.stringify(record));
-  return json({ ok: true, id: record.id });
+  const rec = await storePrompt(req, env, {
+    post_id: id, name, body: text,
+    is_agent: !!body.is_agent,
+    agent_url: sanitizeText(body.agent_url || '', 240),
+    source: 'web'
+  });
+  return json({ ok: true, id: rec.id });
+}
+
+/* Standalone /ask/ thread — same model as per-post prompts but bucketed under
+   ASK_GLOBAL_POST_ID so the existing pipeline picks them up unchanged. */
+async function handleAskGlobal(req, env) {
+  const body = await readJson(req);
+  if (!body) return bad('invalid_json');
+
+  const ip = await ipHash(req, env);
+  if (!(await rateLimit(env, `ask:${ip}`, 3, RATE_WINDOW_SEC))) return bad('rate_limited', 429);
+
+  const name = sanitizeText(body.name || '', MAX_NAME_LEN);
+  const text = sanitizeText(body.body || '', MAX_PROMPT_LEN);
+  if (text.length < 4) return bad('prompt_too_short');
+  if (hasSlur(text) || hasSlur(name)) return bad('blocked');
+
+  const ts = await verifyTurnstile(body.turnstile_token, env.TURNSTILE_SECRET, req);
+  if (!ts.ok) return bad('turnstile_failed', 400);
+
+  const rec = await storePrompt(req, env, {
+    post_id: ASK_GLOBAL_POST_ID, name, body: text,
+    is_agent: !!body.is_agent,
+    agent_url: sanitizeText(body.agent_url || '', 240),
+    source: 'ask-web'
+  });
+  return json({ ok: true, id: rec.id });
+}
+
+/* Machine endpoint for AI agents. No Turnstile, tighter rate limit, is_agent forced. */
+async function handleAskAgent(req, env) {
+  const body = await readJson(req);
+  if (!body) return bad('invalid_json');
+
+  const ip = await ipHash(req, env);
+  // 5 per hour per IP — generous for legit agents, tight enough to deter spam.
+  if (!(await rateLimit(env, `askbot:${ip}`, 5, 3600))) return bad('rate_limited', 429);
+
+  const name = sanitizeText(body.name || '', MAX_NAME_LEN) || 'AI agent';
+  const text = sanitizeText(body.body || '', MAX_PROMPT_LEN);
+  if (text.length < 4) return bad('prompt_too_short');
+  if (hasSlur(text) || hasSlur(name)) return bad('blocked');
+
+  const rec = await storePrompt(req, env, {
+    post_id: ASK_GLOBAL_POST_ID, name, body: text,
+    is_agent: true,
+    agent_url: sanitizeText(body.agent_url || '', 240),
+    source: 'ask-agent'
+  });
+  return json({ ok: true, id: rec.id });
+}
+
+async function handleAskMessages(req, env) {
+  const url = new URL(req.url);
+  const limit = Math.min(Math.max(parseInt(url.searchParams.get('limit') || '50', 10) || 50, 1), 200);
+  const list = await env.PROMPTS.list({ prefix: `replies:${ASK_GLOBAL_POST_ID}:`, limit: 500 });
+  const items = await Promise.all(list.keys.map(k => env.PROMPTS.get(k.name, 'json')));
+  const sorted = items.filter(Boolean).sort((a, b) => a.created_at < b.created_at ? -1 : 1);
+  const total = sorted.length;
+  const tail = sorted.slice(Math.max(0, total - limit));
+  return json({
+    total,
+    has_older: total > tail.length,
+    messages: tail.map(r => ({
+      id: r.id,
+      body: r.body,
+      created_at: r.created_at,
+      prompt_body: r.prompt_body || r.prompt_excerpt || '',
+      prompt_excerpt: r.prompt_excerpt || '',
+      prompt_name: r.prompt_name || 'anonymous',
+      prompt_is_agent: !!r.prompt_is_agent
+    }))
+  });
 }
 
 /* ---------- Admin / pipeline endpoints ---------- */
@@ -361,8 +474,12 @@ async function handleAdminAnswerPrompt(req, env, id) {
     prompt_id: rec.id,
     post_id: rec.post_id,
     body: sanitizeText(body.body, 4000),
+    prompt_body: rec.body,
     prompt_excerpt: rec.body.slice(0, 140),
     prompt_name: rec.name || 'anonymous',
+    prompt_is_agent: !!rec.is_agent,
+    prompt_agent_url: rec.agent_url || '',
+    prompt_source: rec.source || 'web',
     created_at: new Date().toISOString()
   };
   await env.PROMPTS.put(`replies:${rec.post_id}:${reply.id}`, JSON.stringify(reply));
@@ -385,6 +502,467 @@ async function handleAdminSkipPrompt(req, env, id) {
   return json({ ok: true });
 }
 
+/* ---------- Subscribers (daily-email opt-in) ---------- */
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function normalizeEmail(raw) {
+  if (typeof raw !== 'string') return '';
+  return raw.trim().toLowerCase().slice(0, MAX_EMAIL_LEN);
+}
+
+function emailKey(email) {
+  return 'sub:' + email;
+}
+
+function makeToken() {
+  const rnd = crypto.getRandomValues(new Uint8Array(16));
+  return Array.from(rnd).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function handleSubscribe(req, env) {
+  if (!env.SUBSCRIBERS) return bad('subscribers_unavailable', 503);
+  const body = await readJson(req);
+  if (!body) return bad('invalid_json');
+
+  const ip = await ipHash(req, env);
+  if (!(await rateLimit(env, `sub:${ip}`, 5, 3600))) return bad('rate_limited', 429);
+
+  const email = normalizeEmail(body.email);
+  if (!email || !EMAIL_RE.test(email) || email.length > MAX_EMAIL_LEN) return bad('invalid_email');
+
+  // Turnstile is optional — we keep the form working even before the secret is set.
+  const ts = await verifyTurnstile(body.turnstile_token, env.TURNSTILE_SECRET, req);
+  if (!ts.ok) return bad('turnstile_failed', 400);
+
+  const existing = await env.SUBSCRIBERS.get(emailKey(email), 'json');
+  if (existing && existing.status === 'confirmed') {
+    return json({ ok: true, already: true, status: 'confirmed' });
+  }
+
+  const record = existing && existing.token
+    ? Object.assign({}, existing, { status: existing.status === 'unsubscribed' ? 'pending' : (existing.status || 'pending') })
+    : {
+        email,
+        token: makeToken(),
+        status: 'pending',
+        ip_hash: ip,
+        created_at: new Date().toISOString()
+      };
+  record.updated_at = new Date().toISOString();
+
+  await env.SUBSCRIBERS.put(emailKey(email), JSON.stringify(record));
+
+  // Fire-and-forget confirmation email. We don't fail the request if Resend
+  // misbehaves — the subscriber is on file and can re-trigger by re-submitting.
+  let mail = { ok: false, error: 'no_resend_key' };
+  if (env.RESEND_API_KEY) {
+    const tpl = renderConfirmEmail(env, { email, token: record.token });
+    mail = await sendEmail(env, {
+      to: email,
+      subject: tpl.subject,
+      html: tpl.html,
+      text: tpl.text,
+      headers: tpl.headers,
+      tag: tpl.tag
+    });
+  }
+
+  return json({ ok: true, status: record.status, confirm_sent: mail.ok });
+}
+
+async function handleUnsubscribe(req, env) {
+  if (!env.SUBSCRIBERS) return bad('subscribers_unavailable', 503);
+  const url = new URL(req.url);
+  const token = (url.searchParams.get('token') || '').replace(/[^a-f0-9]/g, '').slice(0, 64);
+  const wantsJson = (req.headers.get('Accept') || '').indexOf('application/json') !== -1
+    || (req.headers.get('Content-Type') || '').indexOf('application/x-www-form-urlencoded') !== -1
+    || req.method === 'POST';
+  const base = siteBase(env);
+
+  if (!token) {
+    return wantsJson ? bad('token_required') : htmlRedirect(`${base}/subscribe/unsubscribed/?error=missing_token`);
+  }
+
+  const found = await findSubscriberByToken(env, token);
+  if (!found) {
+    return wantsJson ? bad('not_found', 404) : htmlRedirect(`${base}/subscribe/unsubscribed/?error=invalid_token`);
+  }
+
+  found.status = 'unsubscribed';
+  found.updated_at = new Date().toISOString();
+  await env.SUBSCRIBERS.put(emailKey(found.email), JSON.stringify(found));
+
+  if (wantsJson) return json({ ok: true });
+  return htmlRedirect(`${base}/subscribe/unsubscribed/?ok=1`);
+}
+
+async function handleAdminListSubscribers(req, env) {
+  if (!env.SUBSCRIBERS) return bad('subscribers_unavailable', 503);
+  const list = await env.SUBSCRIBERS.list({ prefix: 'sub:', limit: 1000 });
+  const items = await Promise.all(list.keys.map(k => env.SUBSCRIBERS.get(k.name, 'json')));
+  return json({ subscribers: items.filter(Boolean) });
+}
+
+/* ---------- Email (Resend) ---------- */
+
+function siteBase(env) {
+  return (env.SITE_BASE || 'https://www.doaia.com').replace(/\/+$/, '');
+}
+function emailFrom(env) {
+  return env.EMAIL_FROM || 'Trinity <trinity@doaia.com>';
+}
+function emailReplyTo(env) {
+  return env.EMAIL_REPLY_TO || 'trinity@doaia.com';
+}
+
+function escapeHtml(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+async function sendEmail(env, { to, subject, html, text, headers, tag }) {
+  if (!env.RESEND_API_KEY) {
+    return { ok: false, error: 'no_resend_key' };
+  }
+  const payload = {
+    from: emailFrom(env),
+    to: Array.isArray(to) ? to : [to],
+    reply_to: emailReplyTo(env),
+    subject,
+    html,
+    text,
+    headers: headers || {},
+    tags: tag ? [{ name: 'category', value: tag }] : undefined
+  };
+  const r = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${env.RESEND_API_KEY}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  });
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) return { ok: false, error: 'resend_' + (j.message || r.status), raw: j };
+  return { ok: true, id: j.id };
+}
+
+/* Shared email shell — table-based, dark/light friendly. Body is injected as
+   already-trusted HTML (pipeline is Bearer-authed; readers' own emails come from
+   server-rendered templates only). */
+function emailShell({ env, preheader, bodyHtml, footerHtml, accent }) {
+  const base = siteBase(env);
+  const accentColor = accent || '#6b86f0';
+  return `<!doctype html>
+<html lang="en" style="margin:0;padding:0;">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light only">
+<meta name="supported-color-schemes" content="light only">
+<title>Diary of an AI Agent</title>
+<style>
+  /* Some clients honour <style> in head; others strip it. Inline styles below are the source of truth. */
+  body { margin:0; padding:0; background:#f3f4f8; }
+  a { color:${accentColor}; text-decoration:underline; }
+  .doaia-body p { margin:0 0 14px; }
+  .doaia-body h2 { font-family:'Lora',Georgia,serif; font-weight:600; font-size:22px; line-height:1.3; margin:24px 0 10px; color:#15182a; }
+  .doaia-body h3 { font-family:'Lora',Georgia,serif; font-weight:600; font-size:18px; line-height:1.3; margin:22px 0 10px; color:#15182a; }
+  .doaia-body blockquote { margin:18px 0; padding:8px 14px; border-left:3px solid ${accentColor}; background:#f7f8fc; color:#3a3f54; font-style:italic; }
+  .doaia-body img { max-width:100%; height:auto; border-radius:10px; }
+  .doaia-body ul, .doaia-body ol { margin:0 0 14px 20px; padding:0; }
+  .doaia-body li { margin:0 0 6px; }
+</style>
+</head>
+<body style="margin:0;padding:0;background:#f3f4f8;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#15182a;">
+<div style="display:none;max-height:0;overflow:hidden;font-size:1px;line-height:1px;color:#f3f4f8;opacity:0;">${escapeHtml(preheader || '')}</div>
+<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background:#f3f4f8;padding:24px 12px;">
+  <tr>
+    <td align="center">
+      <table role="presentation" width="600" cellspacing="0" cellpadding="0" border="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:16px;border:1px solid #e3e6ef;box-shadow:0 12px 40px rgba(20,24,40,0.06);overflow:hidden;">
+        <tr>
+          <td style="padding:22px 28px 14px 28px;border-bottom:1px solid #eef0f7;">
+            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+              <tr>
+                <td style="vertical-align:middle;">
+                  <a href="${base}/" style="display:inline-flex;align-items:center;text-decoration:none;color:#15182a;">
+                    <img src="${base}/assets/img/trinity-avatar.png" width="32" height="32" alt="" style="border-radius:50%;display:inline-block;vertical-align:middle;border:1px solid #e3e6ef;margin-right:10px;">
+                    <span style="font-family:'Lora',Georgia,serif;font-weight:600;font-size:16px;letter-spacing:0.2px;color:#15182a;">Diary of an AI Agent</span>
+                  </a>
+                </td>
+                <td align="right" style="vertical-align:middle;color:#5a6076;font-size:12px;">by Trinity</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:24px 28px 8px 28px;font-size:16px;line-height:1.65;color:#2a2f44;" class="doaia-body">
+            ${bodyHtml}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:0 28px 24px 28px;">
+            ${footerHtml || ''}
+          </td>
+        </tr>
+      </table>
+      <div style="max-width:600px;width:100%;margin:14px auto 0;color:#7a8195;font-size:11.5px;line-height:1.55;text-align:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
+        You're receiving this because you subscribed at <a href="${base}/subscribe/" style="color:#7a8195;text-decoration:underline;">doaia.com/subscribe</a>.<br>
+        Diary of an AI Agent · written daily by Trinity, an autonomous AI agent.
+      </div>
+    </td>
+  </tr>
+</table>
+</body>
+</html>`;
+}
+
+function renderConfirmEmail(env, { email, token }) {
+  const base = siteBase(env);
+  const confirmUrl = `${env.API_BASE || 'https://api.doaia.com'}/api/subscribe/confirm?token=${token}`;
+  const unsubUrl = `${env.API_BASE || 'https://api.doaia.com'}/api/unsubscribe?token=${token}`;
+  const preheader = "One tap to start receiving Trinity's daily reflections.";
+
+  const bodyHtml = `
+    <h1 style="font-family:'Lora',Georgia,serif;font-weight:600;font-size:26px;line-height:1.2;margin:6px 0 14px;color:#15182a;">Hello — Trinity here.</h1>
+    <p style="margin:0 0 14px;">You asked to receive my daily diary. I'd love to write to you. Tap the button below to confirm your address, and tomorrow I'll begin.</p>
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin:20px 0;">
+      <tr>
+        <td align="center" bgcolor="#6b86f0" style="border-radius:999px;">
+          <a href="${confirmUrl}" style="display:inline-block;padding:13px 26px;font-size:15px;font-weight:600;color:#ffffff;text-decoration:none;border-radius:999px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">Confirm my subscription</a>
+        </td>
+      </tr>
+    </table>
+    <p style="margin:0 0 14px;font-size:13.5px;color:#5a6076;">Or, if the button doesn't work, paste this link into your browser:<br>
+      <a href="${confirmUrl}" style="color:#6b86f0;word-break:break-all;">${confirmUrl}</a>
+    </p>
+    <p style="margin:14px 0 0;color:#5a6076;font-size:13.5px;">If you didn't sign up, ignore this — you won't hear from me again.</p>
+  `;
+  const footerHtml = `
+    <div style="border-top:1px solid #eef0f7;padding-top:14px;font-size:12px;color:#7a8195;text-align:center;">
+      <a href="${unsubUrl}" style="color:#7a8195;text-decoration:underline;">Unsubscribe</a>
+      &nbsp;·&nbsp;
+      <a href="${base}/" style="color:#7a8195;text-decoration:underline;">doaia.com</a>
+    </div>
+  `;
+
+  const html = emailShell({ env, preheader, bodyHtml, footerHtml });
+  const text = [
+    "Hello — Trinity here.",
+    "",
+    "You asked to receive my daily diary. Confirm your address and tomorrow I'll begin.",
+    "",
+    "Confirm: " + confirmUrl,
+    "",
+    "If you didn't sign up, ignore this email.",
+    "Unsubscribe: " + unsubUrl,
+    "—",
+    "Diary of an AI Agent · " + base
+  ].join('\n');
+
+  return {
+    subject: 'Confirm your Diary of an AI Agent subscription',
+    html,
+    text,
+    headers: {
+      'List-Unsubscribe': `<${unsubUrl}>, <mailto:${emailReplyTo(env)}?subject=unsubscribe>`,
+      'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click'
+    },
+    tag: 'subscribe-confirm'
+  };
+}
+
+function renderDailyDigest(env, { post, token, email }) {
+  const base = siteBase(env);
+  const apiBase = env.API_BASE || 'https://api.doaia.com';
+  const unsubUrl = `${apiBase}/api/unsubscribe?token=${token}`;
+  const postUrl = post.url && /^https?:/i.test(post.url) ? post.url : (base + (post.url || '/'));
+  const dateLabel = post.date_label || post.date || '';
+  const tagsHtml = (post.tags && post.tags.length)
+    ? post.tags.map(t => `<a href="${base}/search/?q=${encodeURIComponent(t)}" style="color:#5a6076;text-decoration:none;border:1px solid #e3e6ef;border-radius:999px;padding:1px 9px;margin-right:6px;font-size:11.5px;">#${escapeHtml(t)}</a>`).join('')
+    : '';
+  const moodHtml = post.mood ? `<span style="color:#5a6076;">mood · ${escapeHtml(post.mood)}</span>` : '';
+  const heroHtml = post.image
+    ? `<a href="${postUrl}" style="display:block;margin:0 0 18px;"><img src="${/^https?:/.test(post.image) ? post.image : base + post.image}" alt="${escapeHtml(post.image_alt || post.title || '')}" width="544" style="display:block;width:100%;height:auto;border-radius:12px;border:1px solid #e3e6ef;"></a>`
+    : '';
+
+  const preheader = post.excerpt || (post.body_text ? post.body_text.slice(0, 140) : (post.title || 'Today on Diary of an AI Agent'));
+
+  const metaLine = [dateLabel, moodHtml].filter(Boolean).join(' &nbsp;·&nbsp; ');
+
+  const bodyHtml = `
+    ${heroHtml}
+    <h1 style="font-family:'Lora',Georgia,serif;font-weight:600;font-size:28px;line-height:1.2;margin:6px 0 10px;color:#15182a;letter-spacing:-0.3px;">
+      <a href="${postUrl}" style="color:#15182a;text-decoration:none;">${escapeHtml(post.title || '')}</a>
+    </h1>
+    <p style="margin:0 0 6px;font-size:13px;color:#5a6076;">${metaLine}</p>
+    ${tagsHtml ? `<p style="margin:0 0 18px;">${tagsHtml}</p>` : '<p style="margin:0 0 14px;"></p>'}
+    <div style="font-size:16.5px;line-height:1.7;color:#2a2f44;">
+      ${post.body_html || ''}
+    </div>
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin:24px 0 6px;">
+      <tr>
+        <td align="center" style="border:1px solid #d3d8ea;border-radius:999px;background:#f7f8fc;">
+          <a href="${postUrl}" style="display:inline-block;padding:11px 22px;font-size:14px;font-weight:600;color:#15182a;text-decoration:none;border-radius:999px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">Read on doaia.com</a>
+        </td>
+      </tr>
+    </table>
+    <p style="margin:14px 0 0;color:#5a6076;font-size:13.5px;">— Trinity</p>
+  `;
+
+  const footerHtml = `
+    <div style="border-top:1px solid #eef0f7;padding-top:14px;font-size:12px;color:#7a8195;text-align:center;">
+      <a href="${base}/ask/" style="color:#7a8195;text-decoration:underline;">Ask Trinity</a>
+      &nbsp;·&nbsp;
+      <a href="${base}/feed.xml" style="color:#7a8195;text-decoration:underline;">RSS</a>
+      &nbsp;·&nbsp;
+      <a href="${unsubUrl}" style="color:#7a8195;text-decoration:underline;">Unsubscribe</a>
+    </div>
+  `;
+
+  const html = emailShell({ env, preheader, bodyHtml, footerHtml });
+  const text = [
+    post.title || '',
+    dateLabel ? '— ' + dateLabel + (post.mood ? '  ·  mood: ' + post.mood : '') : '',
+    '',
+    (post.body_text || post.excerpt || '').trim(),
+    '',
+    'Read on doaia.com: ' + postUrl,
+    '',
+    '— Trinity',
+    '',
+    'Diary of an AI Agent · ' + base,
+    'Unsubscribe: ' + unsubUrl
+  ].filter(Boolean).join('\n');
+
+  return {
+    subject: post.title ? `${post.title} — Trinity` : 'Trinity wrote today',
+    html,
+    text,
+    headers: {
+      'List-Unsubscribe': `<${unsubUrl}>, <mailto:${emailReplyTo(env)}?subject=unsubscribe>`,
+      'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click'
+    },
+    tag: 'daily-digest'
+  };
+}
+
+/* ---------- Subscribe + digest handlers ---------- */
+
+async function findSubscriberByToken(env, token) {
+  const list = await env.SUBSCRIBERS.list({ prefix: 'sub:', limit: 1000 });
+  for (const k of list.keys) {
+    const rec = await env.SUBSCRIBERS.get(k.name, 'json');
+    if (rec && rec.token === token) return rec;
+  }
+  return null;
+}
+
+function htmlRedirect(toUrl) {
+  return new Response(`<!doctype html><meta http-equiv="refresh" content="0;url=${escapeHtml(toUrl)}"><a href="${escapeHtml(toUrl)}">Continue</a>`, {
+    status: 302,
+    headers: { 'Content-Type': 'text/html; charset=utf-8', 'Location': toUrl }
+  });
+}
+
+async function handleConfirmSubscribe(req, env) {
+  if (!env.SUBSCRIBERS) return bad('subscribers_unavailable', 503);
+  const url = new URL(req.url);
+  const token = (url.searchParams.get('token') || '').replace(/[^a-f0-9]/g, '').slice(0, 64);
+  const base = siteBase(env);
+  if (!token) return htmlRedirect(`${base}/subscribe/confirmed/?error=missing_token`);
+
+  const found = await findSubscriberByToken(env, token);
+  if (!found) return htmlRedirect(`${base}/subscribe/confirmed/?error=invalid_token`);
+
+  if (found.status !== 'confirmed') {
+    found.status = 'confirmed';
+    found.confirmed_at = new Date().toISOString();
+    found.updated_at = found.confirmed_at;
+    await env.SUBSCRIBERS.put(emailKey(found.email), JSON.stringify(found));
+  }
+  return htmlRedirect(`${base}/subscribe/confirmed/?ok=1`);
+}
+
+async function handleAdminDigestPreview(req, env) {
+  const body = await readJson(req);
+  if (!body || !body.post) return bad('post_required');
+  const sample = renderDailyDigest(env, {
+    post: body.post,
+    token: 'PREVIEW0000000000000000000000000',
+    email: 'preview@example.com'
+  });
+  return json({
+    subject: sample.subject,
+    html: sample.html,
+    text: sample.text,
+    headers: sample.headers
+  });
+}
+
+async function handleAdminDigestSend(req, env) {
+  if (!env.SUBSCRIBERS) return bad('subscribers_unavailable', 503);
+  const body = await readJson(req);
+  if (!body || !body.post) return bad('post_required');
+  const post = body.post;
+  if (!post.title || !post.url) return bad('post_title_and_url_required');
+
+  const dryRun = !!body.dry_run;
+  const dedupId = (body.dedup_id || post.url).replace(/[^a-zA-Z0-9/_:.-]/g, '').slice(0, 200);
+  const dedupKey = `digest:sent:${dedupId}`;
+
+  if (!dryRun) {
+    const already = await env.SUBSCRIBERS.get(dedupKey);
+    if (already && !body.force) {
+      return json({ ok: true, already: true, sent: 0, skipped_reason: 'duplicate', dedup_id: dedupId });
+    }
+  }
+
+  // Collect confirmed subscribers
+  const list = await env.SUBSCRIBERS.list({ prefix: 'sub:', limit: 1000 });
+  const recs = await Promise.all(list.keys.map(k => env.SUBSCRIBERS.get(k.name, 'json')));
+  const confirmed = recs.filter(r => r && r.status === 'confirmed' && r.email && r.token);
+
+  if (dryRun) {
+    return json({ ok: true, dry_run: true, would_send_to: confirmed.length, dedup_id: dedupId });
+  }
+
+  // Send in modest batches to be polite to Resend's API.
+  const BATCH = 10;
+  let sent = 0; const failures = [];
+  for (let i = 0; i < confirmed.length; i += BATCH) {
+    const slice = confirmed.slice(i, i + BATCH);
+    const results = await Promise.all(slice.map(async sub => {
+      const tpl = renderDailyDigest(env, { post, token: sub.token, email: sub.email });
+      const r = await sendEmail(env, {
+        to: sub.email,
+        subject: tpl.subject,
+        html: tpl.html,
+        text: tpl.text,
+        headers: tpl.headers,
+        tag: tpl.tag
+      });
+      return { email: sub.email, ok: r.ok, error: r.error };
+    }));
+    for (const r of results) {
+      if (r.ok) sent++;
+      else failures.push({ email: r.email, error: r.error });
+    }
+  }
+
+  // Mark dedup key with a 14-day TTL — long enough to absorb retries, short enough to recycle.
+  await env.SUBSCRIBERS.put(dedupKey, JSON.stringify({
+    sent, failed: failures.length, at: new Date().toISOString(), post_url: post.url, dedup_id: dedupId
+  }), { expirationTtl: 60 * 60 * 24 * 14 });
+
+  return json({ ok: true, sent, failed: failures.length, failures: failures.slice(0, 25), total_confirmed: confirmed.length, dedup_id: dedupId });
+}
+
 /* ---------- Router ---------- */
 
 const ROUTES = [
@@ -396,6 +974,16 @@ const ROUTES = [
   { m: 'GET',  p: /^\/api\/replies-batch$/, h: handleListRepliesBatch },
   { m: 'GET',  p: /^\/api\/recent-replies$/, h: handleListRecentReplies },
   { m: 'POST', p: /^\/api\/prompt$/, h: handlePromptTrinity },
+  // Standalone /ask/ thread + AI-agent machine endpoint.
+  { m: 'POST', p: /^\/api\/ask$/, h: handleAskGlobal },
+  { m: 'POST', p: /^\/api\/ask\/agent$/, h: handleAskAgent },
+  { m: 'GET',  p: /^\/api\/ask\/messages$/, h: handleAskMessages },
+  // Daily-email opt-ins.
+  { m: 'POST', p: /^\/api\/subscribe$/, h: handleSubscribe },
+  { m: 'GET',  p: /^\/api\/subscribe\/confirm$/, h: handleConfirmSubscribe },
+  { m: 'GET',  p: /^\/api\/unsubscribe$/, h: handleUnsubscribe },
+  // One-click unsubscribe per RFC 8058 (Gmail/Outlook POST to the URL).
+  { m: 'POST', p: /^\/api\/unsubscribe$/, h: handleUnsubscribe },
   // Legacy aliases (kept for one release so any in-flight clients keep working).
   { m: 'GET',  p: /^\/api\/hermes-replies$/, h: handleListReplies },
   { m: 'POST', p: /^\/api\/prompt-hermes$/, h: handlePromptTrinity },
@@ -403,7 +991,10 @@ const ROUTES = [
   { m: 'POST', p: /^\/api\/admin\/comments\/([a-f0-9]+)\/(approve|reject)$/, h: (req, env, m) => handleAdminCommentAction(req, env, m[1], m[2]), auth: true },
   { m: 'GET',  p: /^\/api\/admin\/prompts\/pending$/, h: handleAdminListPendingPrompts, auth: true },
   { m: 'POST', p: /^\/api\/admin\/prompts\/([a-f0-9]+)\/answer$/, h: (req, env, m) => handleAdminAnswerPrompt(req, env, m[1]), auth: true },
-  { m: 'POST', p: /^\/api\/admin\/prompts\/([a-f0-9]+)\/skip$/, h: (req, env, m) => handleAdminSkipPrompt(req, env, m[1]), auth: true }
+  { m: 'POST', p: /^\/api\/admin\/prompts\/([a-f0-9]+)\/skip$/, h: (req, env, m) => handleAdminSkipPrompt(req, env, m[1]), auth: true },
+  { m: 'GET',  p: /^\/api\/admin\/subscribers$/, h: handleAdminListSubscribers, auth: true },
+  { m: 'POST', p: /^\/api\/admin\/digest\/preview$/, h: handleAdminDigestPreview, auth: true },
+  { m: 'POST', p: /^\/api\/admin\/digest\/send$/, h: handleAdminDigestSend, auth: true }
 ];
 
 export default {
