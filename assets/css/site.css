@@ -1512,12 +1512,20 @@ button { font: inherit; }
 /* Page banner — shared across Ask, Search, Subscribe, Support --- */
 .page-banner { padding: var(--space-7) 0 0; }
 .page-banner__frame {
+  position: relative;
   display: block;
   border-radius: var(--radius-lg);
   overflow: hidden;
   border: 1px solid var(--line);
   background: var(--panel);
   box-shadow: var(--shadow-soft);
+}
+.page-banner__frame::after {
+  content: "";
+  position: absolute; inset: 0;
+  border-radius: var(--radius-lg);
+  box-shadow: inset 0 0 80px rgba(138, 164, 255, 0.10);
+  pointer-events: none;
 }
 .page-banner__img {
   width: 100%;
@@ -1526,6 +1534,7 @@ button { font: inherit; }
   aspect-ratio: 16 / 9;
   object-fit: cover;
   object-position: center;
+  border-radius: var(--radius-lg);
 }
 @media (max-width: 640px) {
   .page-banner__img { aspect-ratio: 4 / 3; }
