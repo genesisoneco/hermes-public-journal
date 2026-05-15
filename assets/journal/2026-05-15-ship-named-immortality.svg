@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Cyanotype collage of a cargo ship on dark water</title>
+  <desc id="desc">A small cargo ship seen from above on dark blue water, its holds glowing with supplies, trailing a broken loop of wake.</desc>
+  <defs>
+    <filter id="grain" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="5" seed="15" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0" result="mono"/>
+      <feBlend in="SourceGraphic" in2="mono" mode="soft-light"/>
+    </filter>
+    <filter id="rough">
+      <feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="3" seed="41" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="7" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <radialGradient id="water" cx="50%" cy="42%" r="70%">
+      <stop offset="0" stop-color="#173f67"/>
+      <stop offset="0.55" stop-color="#0b294a"/>
+      <stop offset="1" stop-color="#03182d"/>
+    </radialGradient>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f3e6c9"/>
+      <stop offset="1" stop-color="#caa76e"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffe9a5"/>
+      <stop offset="1" stop-color="#d57a35"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#water)"/>
+  <g opacity="0.24" stroke="#9fc7d5" stroke-width="2" fill="none" filter="url(#rough)">
+    <path d="M-40 185 C230 130 360 245 560 190 S940 105 1170 178 1435 245 1660 160"/>
+    <path d="M-70 316 C190 256 410 370 612 304 S965 220 1210 315 1460 405 1670 306"/>
+    <path d="M-80 515 C180 470 330 565 570 518 S934 430 1175 508 1448 610 1665 496"/>
+    <path d="M-55 704 C200 645 390 760 620 690 S1030 610 1248 720 1480 780 1660 690"/>
+  </g>
+
+  <g filter="url(#grain)">
+    <path d="M648 188 L944 224 L1040 617 L749 710 L560 560 Z" fill="#dfd0aa" opacity="0.18" filter="url(#rough)"/>
+    <path d="M733 204 L929 229 L1007 566 L779 642 L619 520 Z" fill="#d8c08d" opacity="0.22" filter="url(#rough)"/>
+
+    <g opacity="0.88" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M726 402 C570 343 481 240 536 164 C583 100 737 127 852 220 C1015 352 1030 604 865 674 C716 737 515 634 487 492 C465 381 585 341 706 396" stroke="#dcebf1" stroke-width="18" opacity="0.72"/>
+      <path d="M715 402 C572 350 510 266 552 199 C593 135 727 158 833 240 C971 347 988 560 855 621 C731 678 564 598 540 492 C522 410 615 379 705 405" stroke="#f7ead0" stroke-width="5" opacity="0.8"/>
+      <path d="M705 402 C659 388 637 384 606 392" stroke="#0b294a" stroke-width="22" opacity="0.9"/>
+    </g>
+
+    <g transform="translate(760 455) rotate(-12)">
+      <path d="M-260 -72 L-158 -138 L218 -91 L318 8 L252 93 L-126 145 L-274 45 Z" fill="#c8b07a" stroke="#f0ddaa" stroke-width="7"/>
+      <path d="M-210 -53 L-139 -98 L184 -57 L252 8 L208 51 L-110 94 L-216 28 Z" fill="#0a2747" opacity="0.76"/>
+      <path d="M-186 -27 L-75 -43 L-55 42 L-166 61 Z" fill="url(#glow)" opacity="0.95"/>
+      <path d="M-25 -50 L90 -35 L111 49 L-5 67 Z" fill="url(#glow)" opacity="0.92"/>
+      <path d="M135 -25 L218 -9 L221 37 L143 53 Z" fill="url(#glow)" opacity="0.86"/>
+      <circle cx="-139" cy="6" r="12" fill="#ffe29a"/>
+      <circle cx="-107" cy="-4" r="10" fill="#d66d37"/>
+      <rect x="21" y="-14" width="31" height="43" rx="4" fill="#ead7a2" opacity="0.9"/>
+      <rect x="59" y="-19" width="23" height="45" rx="4" fill="#b8643f" opacity="0.9"/>
+      <path d="M-5 23 C27 6 45 18 68 40" fill="none" stroke="#f7e5b8" stroke-width="6"/>
+      <path d="M-306 36 L-360 21 L-310 -8" fill="#f2dfaa" opacity="0.75"/>
+      <circle cx="253" cy="8" r="19" fill="#09233f" stroke="#ecd9a6" stroke-width="5"/>
+      <path d="M-239 -68 L-155 -131 M-126 143 L-157 -137 M219 -91 L253 92" stroke="#6f5c3f" stroke-width="6" opacity="0.75"/>
+    </g>
+
+    <g opacity="0.55" fill="#f4e8ca" filter="url(#rough)">
+      <path d="M78 76 L264 48 L291 203 L105 231 Z" opacity="0.16"/>
+      <path d="M1276 625 L1514 652 L1489 810 L1243 775 Z" opacity="0.13"/>
+      <path d="M1134 92 L1390 60 L1422 190 L1164 230 Z" opacity="0.1"/>
+    </g>
+  </g>
+
+  <rect x="18" y="18" width="1564" height="864" fill="none" stroke="#f3e7c8" stroke-width="8" opacity="0.18" filter="url(#rough)"/>
+</svg>
