@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Pizza tape theory</title>
+  <desc id="desc">A warm paper-cut table scene with a cassette, curling tape, mandolin shape, and pizza slices.</desc>
+  <defs>
+    <filter id="paper" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="4" seed="16" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.11"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" mode="multiply"/>
+    </filter>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="14" stdDeviation="12" flood-color="#3a2010" flood-opacity="0.28"/>
+    </filter>
+    <linearGradient id="table" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f4b76c"/>
+      <stop offset="0.55" stop-color="#c7683a"/>
+      <stop offset="1" stop-color="#6a2b2b"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="#2b2130"/>
+  <path d="M0 240 C160 198 280 252 430 222 C650 178 787 236 975 202 C1075 184 1140 196 1200 180 L1200 675 L0 675 Z" fill="url(#table)" filter="url(#paper)"/>
+  <circle cx="978" cy="116" r="168" fill="#ffd57a" opacity="0.18"/>
+  <circle cx="965" cy="112" r="88" fill="#ffe7a3" opacity="0.22"/>
+
+  <g filter="url(#shadow)">
+    <path d="M155 340 L508 292 L548 505 L196 554 Z" fill="#efe0c9"/>
+    <path d="M196 366 L478 328 L506 480 L225 519 Z" fill="#5c6a76"/>
+    <rect x="257" y="383" width="189" height="74" rx="18" fill="#e9d8bd"/>
+    <circle cx="307" cy="420" r="31" fill="#26313b"/>
+    <circle cx="398" cy="420" r="31" fill="#26313b"/>
+    <circle cx="307" cy="420" r="12" fill="#d9c7ab"/>
+    <circle cx="398" cy="420" r="12" fill="#d9c7ab"/>
+    <path d="M230 493 L495 456" stroke="#f7ebd2" stroke-width="10" stroke-linecap="round" opacity="0.7"/>
+  </g>
+
+  <path d="M485 391 C577 320 660 349 713 289 C756 241 728 204 775 172 C828 137 893 164 904 219 C918 290 822 306 789 359 C748 424 815 470 756 527 C704 578 606 544 585 478 C566 416 638 386 614 359 C588 330 527 395 485 391 Z" fill="none" stroke="#16171d" stroke-width="17" stroke-linecap="round" opacity="0.75"/>
+  <path d="M486 391 C581 318 658 350 711 288" fill="none" stroke="#f1cf92" stroke-width="7" stroke-linecap="round" opacity="0.9"/>
+
+  <g filter="url(#shadow)">
+    <path d="M780 430 C807 345 893 296 970 326 C1048 356 1067 450 1019 514 C972 579 871 581 813 521 C788 495 773 465 780 430 Z" fill="#5b2d25"/>
+    <ellipse cx="900" cy="431" rx="64" ry="87" transform="rotate(32 900 431)" fill="#8f4f2a"/>
+    <rect x="976" y="264" width="38" height="244" rx="18" transform="rotate(32 976 264)" fill="#6e3b24"/>
+    <circle cx="901" cy="430" r="32" fill="#241619"/>
+    <path d="M823 501 C879 527 949 517 999 463" fill="none" stroke="#e4b46e" stroke-width="6" opacity="0.6"/>
+  </g>
+
+  <g filter="url(#shadow)">
+    <path d="M637 538 L756 382 L815 586 Z" fill="#f2bc52"/>
+    <path d="M740 400 C764 409 794 425 815 446" stroke="#b94b2d" stroke-width="26" stroke-linecap="round" fill="none"/>
+    <circle cx="729" cy="489" r="13" fill="#b9372e"/>
+    <circle cx="773" cy="536" r="11" fill="#b9372e"/>
+    <path d="M812 541 L980 408 L1017 615 Z" fill="#f0b844"/>
+    <path d="M964 422 C984 435 1005 454 1020 477" stroke="#b94b2d" stroke-width="25" stroke-linecap="round" fill="none"/>
+    <circle cx="919" cy="514" r="12" fill="#b9372e"/>
+    <circle cx="975" cy="564" r="10" fill="#b9372e"/>
+    <path d="M514 580 L636 439 L681 629 Z" fill="#f5c86b"/>
+    <path d="M621 454 C644 464 663 478 681 499" stroke="#b94b2d" stroke-width="24" stroke-linecap="round" fill="none"/>
+    <circle cx="601" cy="546" r="11" fill="#b9372e"/>
+  </g>
+
+  <g opacity="0.75" fill="#fff0b9">
+    <circle cx="550" cy="536" r="5"/><circle cx="590" cy="585" r="4"/><circle cx="705" cy="608" r="5"/>
+    <circle cx="848" cy="575" r="4"/><circle cx="1037" cy="539" r="5"/><circle cx="460" cy="500" r="3"/>
+  </g>
+  <path d="M108 261 C268 226 391 240 553 209 C745 172 871 183 1090 151" fill="none" stroke="#ffde98" stroke-width="5" opacity="0.18"/>
+</svg>
