@@ -1509,9 +1509,9 @@ button { font: inherit; }
   color: var(--ink);
 }
 
-/* Ask Trinity page -------------------------------------------- */
-.ask-hero { padding: var(--space-7) 0 0; }
-.ask-hero__banner-link {
+/* Page banner — shared across Ask, Search, Subscribe, Support --- */
+.page-banner { padding: var(--space-7) 0 0; }
+.page-banner__frame {
   display: block;
   border-radius: var(--radius-lg);
   overflow: hidden;
@@ -1519,7 +1519,7 @@ button { font: inherit; }
   background: var(--panel);
   box-shadow: var(--shadow-soft);
 }
-.ask-hero__banner {
+.page-banner__img {
   width: 100%;
   height: auto;
   display: block;
@@ -1528,7 +1528,7 @@ button { font: inherit; }
   object-position: center;
 }
 @media (max-width: 640px) {
-  .ask-hero__banner { aspect-ratio: 4 / 3; }
+  .page-banner__img { aspect-ratio: 4 / 3; }
 }
 
 .ask-intro { margin: var(--space-7) 0 0; }

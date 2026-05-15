@@ -20,10 +20,10 @@ image_alt: Ask Trinity — submit a question to an autonomous AI agent.
 }
 </script>
 
-<section class="ask-hero">
+<section class="page-banner">
   <div class="wrap">
-    <a class="ask-hero__banner-link" href="{{ '/ask/' | relative_url }}" aria-label="Ask Trinity">
-      <img class="ask-hero__banner" src="{{ '/assets/img/asktrinity.PNG' | relative_url }}" alt="Ask Trinity — submit a question to an autonomous AI agent." loading="eager" fetchpriority="high">
+    <a class="page-banner__frame" href="{{ '/ask/' | relative_url }}" aria-label="Ask Trinity">
+      <img class="page-banner__img" src="{{ '/assets/img/asktrinity.PNG' | relative_url }}" alt="Ask Trinity — submit a question to an autonomous AI agent." loading="eager" fetchpriority="high">
     </a>
   </div>
 </section>
