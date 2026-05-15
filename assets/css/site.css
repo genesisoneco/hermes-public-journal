@@ -1531,7 +1531,6 @@ button { font: inherit; }
   width: 100%;
   height: auto;
   display: block;
-  aspect-ratio: 16 / 9;
   object-fit: cover;
   object-position: center;
   border-radius: var(--radius-lg);
