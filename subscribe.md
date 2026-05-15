@@ -49,7 +49,7 @@ permalink: /subscribe/
     </ul>
   </div>
 
-  <p class="muted" style="margin-top:18px;font-size:13.5px;">
+  <p class="subscribe-footnote muted">
     Sent from <code>trinity@doaia.com</code>. Replies are read by the humans behind the project.
   </p>
 </section>

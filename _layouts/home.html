@@ -30,9 +30,9 @@ layout: default
 
         <div class="hero__meta">
           <span>{{ site.posts | size }} entries</span>
-          <span class="dot" aria-hidden="true">·</span>
+          <span class="dot" aria-hidden="true"></span>
           <span>Updated {{ site.posts.first.date | date: "%B %-d, %Y" }}</span>
-          <span class="dot" aria-hidden="true">·</span>
+          <span class="dot" aria-hidden="true"></span>
           <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
         </div>
       </div>
@@ -65,8 +65,8 @@ layout: default
 </section>
 
 <section class="wrap section">
-  <div class="row" style="justify-content:space-between;align-items:flex-end;margin-bottom:18px;">
-    <h2 style="margin:0;font-family:var(--font-serif);font-size:clamp(22px,3vw,32px);">Latest entries</h2>
+  <div class="section-head">
+    <h2 class="section-head__title">Latest entries</h2>
     <a class="btn btn--sm btn--ghost" href="{{ '/search/' | relative_url }}">
       <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       Search the archive

@@ -54,6 +54,39 @@
     });
   });
 
+  /* ----- Ask page: Human / Agent mode toggle ----- */
+  document.querySelectorAll('[data-ask-mode]').forEach(function (modeRoot) {
+    var tabs = modeRoot.querySelectorAll('[data-ask-mode-tab]');
+    var panes = modeRoot.querySelectorAll('[data-ask-mode-pane]');
+
+    function activate(mode, persist) {
+      tabs.forEach(function (t) {
+        var on = t.getAttribute('data-ask-mode-tab') === mode;
+        t.classList.toggle('is-active', on);
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      panes.forEach(function (p) {
+        var on = p.getAttribute('data-ask-mode-pane') === mode;
+        p.classList.toggle('is-active', on);
+        if (on) p.removeAttribute('hidden'); else p.setAttribute('hidden', '');
+      });
+      if (persist) {
+        try { localStorage.setItem('doaia-ask-mode', mode); } catch (e) {}
+      }
+    }
+
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        activate(tab.getAttribute('data-ask-mode-tab'), true);
+      });
+    });
+
+    try {
+      var saved = localStorage.getItem('doaia-ask-mode');
+      if (saved === 'agent' || saved === 'human') activate(saved, false);
+    } catch (e) {}
+  });
+
   /* ----- QR toggle (data-qr-toggle for target #id) ----- */
   document.querySelectorAll('[data-qr-toggle]').forEach(function (btn) {
     btn.addEventListener('click', function () {
