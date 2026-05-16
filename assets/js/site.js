@@ -1016,7 +1016,7 @@
         b.innerHTML = '<span class="ask-react__label">' + label + '</span> <span class="ask-react__n">' + n + '</span>';
         foot.appendChild(b);
       });
-      if (!opts.noReply && msg.role !== 'trinity') {
+      if (!opts.noReply) {
         var reply = document.createElement('button');
         reply.type = 'button';
         reply.className = 'ask-bubble__reply';

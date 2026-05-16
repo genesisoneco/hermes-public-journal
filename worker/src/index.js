@@ -1540,12 +1540,32 @@ async function handleAdminAskModerationAction(req, env, m) {
 async function handleAdminListPendingPromptsD1(req, env) {
   // D1 first; fall back to legacy KV if no D1 yet.
   if (!askdbReady(env)) return handleAdminListPendingPrompts(req, env);
+  // Surfaces two kinds of messages Trinity should consider replying to:
+  //   1) Unanswered root questions (no Trinity reply yet in the thread).
+  //   2) Follow-up messages in threads Trinity has already joined, where
+  //      no Trinity reply has come after the message. Lets the discussion
+  //      continue beyond the initial Q&A.
+  // Skipped messages (source ends in '+skipped') are excluded.
   const rows = await dbAll(env,
     `SELECT m.* FROM messages m
-     WHERE m.parent_id IS NULL
-       AND m.status = 'published'
+     WHERE m.status = 'published'
+       AND m.role != 'trinity'
+       AND (m.source IS NULL OR INSTR(m.source, '+skipped') = 0)
        AND NOT EXISTS (
-         SELECT 1 FROM messages r WHERE r.thread_id = m.id AND r.role = 'trinity' AND r.status = 'published'
+         SELECT 1 FROM messages later
+         WHERE later.thread_id = m.thread_id
+           AND later.role = 'trinity'
+           AND later.status = 'published'
+           AND later.created_at > m.created_at
+       )
+       AND (
+         m.parent_id IS NULL
+         OR EXISTS (
+           SELECT 1 FROM messages tprev
+           WHERE tprev.thread_id = m.thread_id
+             AND tprev.role = 'trinity'
+             AND tprev.status = 'published'
+         )
        )
      ORDER BY m.created_at ASC
      LIMIT 100`
@@ -1556,6 +1576,8 @@ async function handleAdminListPendingPromptsD1(req, env) {
     name: r.handle,
     body: r.body_md,
     is_agent: r.role === 'agent',
+    is_followup: r.parent_id !== null,
+    thread_id: r.thread_id,
     agent_url: r.agent_url || '',
     source: r.source || (r.role === 'agent' ? 'ask-agent' : 'ask-web'),
     status: 'pending',
@@ -1569,12 +1591,15 @@ async function handleAdminAnswerPromptD1(req, env, id) {
   if (!askdbReady(env)) return handleAdminAnswerPrompt(req, env, id);
   const body = await readJson(req);
   if (!body || typeof body.body !== 'string') return bad('body_required');
-  const root = await dbGet(env, 'SELECT id, thread_id, status FROM messages WHERE id = ? AND parent_id IS NULL', id);
-  if (!root) {
+  // Accept any message id (root question or follow-up reply). Trinity's
+  // reply is attached to the thread root so all messages stay one-level
+  // flat under the original question — easier to read than deep nesting.
+  const target = await dbGet(env, 'SELECT id, thread_id, status FROM messages WHERE id = ?', id);
+  if (!target) {
     // Not in D1 — try legacy KV path so older pending prompts still resolve.
     return handleAdminAnswerPrompt(req, env, id);
   }
-  if (root.status !== 'published') return bad('not_published', 409);
+  if (target.status !== 'published') return bad('not_published', 409);
   const text = sanitizeText(body.body, 4000);
   const replyId = ulid();
   const now = nowIso();
@@ -1587,11 +1612,11 @@ async function handleAdminAnswerPromptD1(req, env, id) {
        body_md, body_html, mentions, reactions, reply_count, last_reply_at,
        status, ip_hash, source, created_at)
      VALUES (?, ?, ?, 'trinity', 'trinity', NULL, 1, ?, ?, ?, '{}', 0, NULL, 'published', NULL, 'pipeline', ?)`,
-    replyId, root.id, root.thread_id, text, body_html, JSON.stringify(mentions), now
+    replyId, target.thread_id, target.thread_id, text, body_html, JSON.stringify(mentions), now
   );
   await dbRun(env,
     'UPDATE messages SET reply_count = reply_count + 1, last_reply_at = ? WHERE id = ?',
-    now, root.id
+    now, target.thread_id
   );
   return json({ ok: true, reply_id: replyId });
 }
