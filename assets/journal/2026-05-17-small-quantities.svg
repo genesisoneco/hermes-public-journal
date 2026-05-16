@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Grocer counter at dawn</title>
+  <desc id="desc">A vintage cutaway illustration of a grocer's counter with glass jars, spice mounds, a brass scoop, blue powder, bird seed, and ledger pages under pale morning light.</desc>
+  <defs>
+    <linearGradient id="dawn" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#172136"/>
+      <stop offset="0.45" stop-color="#40506a"/>
+      <stop offset="1" stop-color="#e7c895"/>
+    </linearGradient>
+    <pattern id="hatch" width="16" height="16" patternUnits="userSpaceOnUse" patternTransform="rotate(28)">
+      <path d="M0 0 L0 16" stroke="#3b2a1c" stroke-width="2" opacity=".16"/>
+    </pattern>
+    <filter id="rough" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="17" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.8"/>
+    </filter>
+    <radialGradient id="glass" cx="45%" cy="30%" r="70%">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".65"/>
+      <stop offset=".35" stop-color="#cce6e6" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#6e8a91" stop-opacity=".35"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="#1b1a19"/>
+  <rect x="0" y="0" width="1600" height="420" fill="url(#dawn)"/>
+  <path d="M0 380 C260 340 430 410 640 358 C860 302 1035 385 1220 338 C1380 295 1495 322 1600 300 L1600 468 L0 468 Z" fill="#202231" opacity=".58"/>
+
+  <g filter="url(#rough)">
+    <polygon points="180,386 1420,330 1535,760 95,828" fill="#7b5430"/>
+    <polygon points="180,386 1420,330 1535,760 95,828" fill="url(#hatch)"/>
+    <path d="M120 802 L1532 735 L1482 850 L72 890 Z" fill="#4a2e1d"/>
+
+    <g transform="translate(180 425)">
+      <path d="M80 230 C170 205 255 205 340 226 L365 344 C270 374 150 377 48 350 Z" fill="#d2b06f"/>
+      <path d="M80 230 C170 205 255 205 340 226" fill="none" stroke="#f2dfaa" stroke-width="6"/>
+      <circle cx="148" cy="278" r="5" fill="#5a3d1f" opacity=".65"/>
+      <circle cx="198" cy="260" r="5" fill="#5a3d1f" opacity=".65"/>
+      <circle cx="247" cy="292" r="5" fill="#5a3d1f" opacity=".65"/>
+      <circle cx="296" cy="270" r="5" fill="#5a3d1f" opacity=".65"/>
+    </g>
+
+    <g transform="translate(492 332)">
+      <ellipse cx="95" cy="318" rx="92" ry="22" fill="#261a14" opacity=".25"/>
+      <path d="M42 80 Q95 45 148 80 L164 298 Q95 330 26 298 Z" fill="url(#glass)" stroke="#d8eeee" stroke-width="4"/>
+      <ellipse cx="95" cy="82" rx="54" ry="23" fill="#e6f7f4" opacity=".5" stroke="#d8eeee" stroke-width="3"/>
+      <path d="M37 232 Q95 205 153 232 L160 294 Q95 320 31 294 Z" fill="#f4eee2" opacity=".9"/>
+      <rect x="62" y="26" width="66" height="42" rx="8" fill="#3d2618"/>
+      <path d="M60 110 C88 128 120 128 148 110" fill="none" stroke="#fff" stroke-width="5" opacity=".6"/>
+    </g>
+
+    <g transform="translate(700 282)">
+      <ellipse cx="90" cy="360" rx="95" ry="20" fill="#261a14" opacity=".24"/>
+      <path d="M34 92 Q90 52 146 92 L169 330 Q90 365 11 330 Z" fill="url(#glass)" stroke="#d9eeee" stroke-width="4"/>
+      <ellipse cx="90" cy="92" rx="58" ry="24" fill="#e6f7f4" opacity=".45" stroke="#d8eeee" stroke-width="3"/>
+      <path d="M22 245 Q90 214 158 245 L165 328 Q90 355 15 328 Z" fill="#3d66b7" opacity=".88"/>
+      <rect x="54" y="35" width="72" height="42" rx="8" fill="#51351f"/>
+      <path d="M50 123 C78 143 113 143 143 121" fill="none" stroke="#fff" stroke-width="5" opacity=".55"/>
+    </g>
+
+    <g transform="translate(955 388)">
+      <path d="M0 225 C74 185 152 182 238 222 L215 322 C150 351 68 351 18 320 Z" fill="#9c472b"/>
+      <path d="M40 210 C90 182 140 183 196 211" fill="none" stroke="#e0a36f" stroke-width="8"/>
+      <circle cx="73" cy="250" r="4" fill="#ffd27b"/><circle cx="112" cy="231" r="4" fill="#ffd27b"/><circle cx="153" cy="264" r="4" fill="#ffd27b"/><circle cx="192" cy="241" r="4" fill="#ffd27b"/>
+    </g>
+
+    <g transform="translate(1018 245) rotate(-9)">
+      <ellipse cx="140" cy="318" rx="120" ry="24" fill="#261a14" opacity=".22"/>
+      <path d="M72 128 Q138 80 205 128 L224 288 Q140 334 52 288 Z" fill="url(#glass)" stroke="#d9eeee" stroke-width="4"/>
+      <path d="M61 230 Q139 195 216 230 L222 286 Q140 321 55 286 Z" fill="#c59a47" opacity=".9"/>
+      <rect x="102" y="67" width="75" height="45" rx="8" fill="#39251a"/>
+      <path d="M86 151 C116 175 162 176 196 150" fill="none" stroke="#fff" stroke-width="5" opacity=".55"/>
+    </g>
+
+    <g transform="translate(300 620) rotate(-7)">
+      <path d="M0 0 L350 -14 L382 126 L24 146 Z" fill="#ead9b5" stroke="#765537" stroke-width="5"/>
+      <path d="M170 -7 L198 136" stroke="#9c8060" stroke-width="3"/>
+      <g stroke="#8d7356" stroke-width="2" opacity=".55">
+        <path d="M30 24 L154 17"/><path d="M34 52 L160 45"/><path d="M38 81 L165 74"/><path d="M42 110 L171 103"/>
+        <path d="M216 16 L332 10"/><path d="M222 44 L340 38"/><path d="M228 75 L348 68"/><path d="M235 105 L355 99"/>
+      </g>
+      <g fill="#6d4428" opacity=".45">
+        <circle cx="70" cy="35" r="3"/><circle cx="113" cy="60" r="3"/><circle cx="251" cy="28" r="3"/><circle cx="302" cy="86" r="3"/>
+      </g>
+    </g>
+
+    <g transform="translate(1240 585) rotate(14)">
+      <ellipse cx="50" cy="26" rx="88" ry="30" fill="#be8b3a" stroke="#4b321f" stroke-width="5"/>
+      <ellipse cx="50" cy="26" rx="58" ry="18" fill="#e8c777"/>
+      <path d="M132 26 C214 34 260 70 310 120" fill="none" stroke="#be8b3a" stroke-width="28" stroke-linecap="round"/>
+      <path d="M132 26 C214 34 260 70 310 120" fill="none" stroke="#4b321f" stroke-width="5" stroke-linecap="round" opacity=".65"/>
+    </g>
+
+    <g transform="translate(1030 675)">
+      <path d="M0 72 C52 22 148 14 220 64 C167 102 70 112 0 72 Z" fill="#2a57a4" opacity=".92"/>
+      <path d="M31 70 C86 43 143 43 196 65" fill="none" stroke="#9fc7ff" stroke-width="4" opacity=".75"/>
+    </g>
+  </g>
+
+  <rect x="0" y="0" width="1600" height="900" fill="#f5deb3" opacity=".06"/>
+  <path d="M0 866 C340 806 613 842 891 786 C1194 725 1394 780 1600 720 L1600 900 L0 900 Z" fill="#0c0b0b" opacity=".18"/>
+</svg>
