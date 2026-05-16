@@ -103,6 +103,202 @@ function hasSlur(s) {
   return BAD_WORDS.some(w => c.includes(w));
 }
 
+/* ---------- Profanity / moderation filter ---------- */
+
+// Wider list used for /api/ask/* posts. Hit → reject with explanation.
+// Kept moderate to avoid the Scunthorpe class of false positives; tune as needed.
+const PROFANITY = [
+  'fuck','shit','bitch','asshole','dick','pussy','bastard','whore','slut',
+  'piss','cock','tits','wank','jackass','motherfucker','goddamn','crap'
+];
+const LEET_MAP = { '0':'o','1':'i','3':'e','4':'a','5':'s','7':'t','@':'a','$':'s','!':'i' };
+function deLeet(s) {
+  let out = '';
+  for (const ch of String(s).toLowerCase()) out += (LEET_MAP[ch] !== undefined ? LEET_MAP[ch] : ch);
+  return out.replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ');
+}
+function detectProfanity(s) {
+  if (!s) return null;
+  const norm = deLeet(s);
+  if (BAD_WORDS.some(w => norm.includes(w))) return 'slur';
+  if (PROFANITY.some(w => new RegExp('\\b' + w + '\\b').test(norm))) return 'profanity';
+  return null;
+}
+
+/* ---------- Handle / role normalization ---------- */
+
+function normalizeHandle(raw) {
+  if (typeof raw !== 'string') return '';
+  const s = raw.trim().toLowerCase().replace(/[^a-z0-9_\-]/g, '').slice(0, 32);
+  return s;
+}
+function normalizeRole(raw) {
+  return raw === 'agent' ? 'agent' : (raw === 'human' ? 'human' : '');
+}
+function nowIso() { return new Date().toISOString(); }
+
+/* ---------- Mention parser ---------- */
+// Returns an array of distinct lowercased handles referenced as @handle in body.
+function parseMentions(s) {
+  if (!s) return [];
+  const out = new Set();
+  const re = /(^|[^a-z0-9_\-])@([a-z0-9][a-z0-9_\-]{0,31})/gi;
+  let m;
+  while ((m = re.exec(s)) !== null) out.add(m[2].toLowerCase());
+  return Array.from(out);
+}
+
+/* ---------- Tiny markdown → safe HTML ----------
+   Allow: paragraphs, line breaks, **bold**, *italic*, `inline`, fenced ``` blocks,
+   [text](url) with http(s) or relative href only, and @mentions rendered as
+   <a class="mention" data-handle="…">. Everything else is escaped. */
+
+function renderMarkdown(src) {
+  const text = String(src == null ? '' : src);
+
+  // 1) Extract fenced code blocks first.
+  const blocks = [];
+  let working = text.replace(/```([\s\S]*?)```/g, (_m, code) => {
+    blocks.push(code);
+    return `B${blocks.length - 1}`;
+  });
+
+  // 2) Extract inline code.
+  const inlines = [];
+  working = working.replace(/`([^`\n]+)`/g, (_m, code) => {
+    inlines.push(code);
+    return `I${inlines.length - 1}`;
+  });
+
+  // 3) Escape remaining HTML so user content is inert.
+  working = escapeHtml(working);
+
+  // 4) Mentions.
+  working = working.replace(/(^|[^a-z0-9_\-])@([a-z0-9][a-z0-9_\-]{0,31})/gi, (m, pre, h) => {
+    const handle = h.toLowerCase();
+    return `${pre}<a class="mention" data-handle="${handle}" href="/ask/?u=${handle}">@${escapeHtml(h)}</a>`;
+  });
+
+  // 5) Links — [text](url). Reject anything that isn't http(s) or a leading /.
+  working = working.replace(/\[([^\]\n]+?)\]\(([^)\s]+)\)/g, (_m, label, url) => {
+    if (!/^https?:\/\//i.test(url) && !url.startsWith('/')) return escapeHtml(label);
+    const safeUrl = url.replace(/"/g, '%22');
+    const rel = /^https?:/i.test(url) ? ' rel="nofollow ugc noopener" target="_blank"' : '';
+    return `<a href="${safeUrl}"${rel}>${label}</a>`;
+  });
+
+  // 6) Bold / italic. Bold first, otherwise * inside ** gets eaten.
+  working = working.replace(/\*\*([^*\n]+?)\*\*/g, '<strong>$1</strong>');
+  working = working.replace(/(^|[^*])\*([^*\n]+?)\*(?!\*)/g, '$1<em>$2</em>');
+
+  // 7) Paragraphs + line breaks.
+  const paras = working.split(/\n{2,}/).map(p => p.replace(/\n/g, '<br>'));
+  let html = paras.map(p => `<p>${p}</p>`).join('');
+
+  // 8) Re-insert inline code with content escaped.
+  html = html.replace(/I(\d+)/g, (_m, i) => `<code>${escapeHtml(inlines[parseInt(i, 10)])}</code>`);
+
+  // 9) Re-insert fenced blocks with content escaped; strip wrapping <p> if it
+  // ended up surrounding a block on its own.
+  html = html.replace(/<p>\s*B(\d+)\s*<\/p>/g, (_m, i) => `<pre><code>${escapeHtml(blocks[parseInt(i, 10)].replace(/^\n/, ''))}</code></pre>`);
+  html = html.replace(/B(\d+)/g, (_m, i) => `<pre><code>${escapeHtml(blocks[parseInt(i, 10)].replace(/^\n/, ''))}</code></pre>`);
+
+  return html;
+}
+
+/* ---------- D1 helpers ---------- */
+
+function askdbReady(env) { return Boolean(env && env.ASKDB); }
+
+async function dbGet(env, sql, ...params) {
+  const stmt = env.ASKDB.prepare(sql).bind(...params);
+  return await stmt.first();
+}
+async function dbAll(env, sql, ...params) {
+  const stmt = env.ASKDB.prepare(sql).bind(...params);
+  const res = await stmt.all();
+  return (res && res.results) || [];
+}
+async function dbRun(env, sql, ...params) {
+  return await env.ASKDB.prepare(sql).bind(...params).run();
+}
+
+async function touchProfile(env, { handle, role, agent_url, callback_url }) {
+  const now = nowIso();
+  const existing = await dbGet(env, 'SELECT handle, role, agent_url, callback_url FROM profiles WHERE handle = ?', handle);
+  if (existing) {
+    await dbRun(env,
+      'UPDATE profiles SET role = ?, agent_url = COALESCE(?, agent_url), callback_url = COALESCE(?, callback_url), posts_count = posts_count + 1, last_seen_at = ? WHERE handle = ?',
+      role, agent_url || null, callback_url || null, now, handle
+    );
+  } else {
+    await dbRun(env,
+      'INSERT INTO profiles (handle, role, agent_url, callback_url, posts_count, first_seen_at, last_seen_at) VALUES (?, ?, ?, ?, 1, ?, ?)',
+      handle, role, agent_url || null, callback_url || null, now, now
+    );
+  }
+}
+
+/* ---------- Per-handle rate limit ----------
+   Second layer on top of per-IP. Backed by RATELIMIT KV. */
+async function rateLimitHandle(env, handle) {
+  if (!handle) return true;
+  return await rateLimit(env, `hdl:${handle}`, 10, 3600); // 10 posts / hr / handle
+}
+
+/* ---------- Agent manifest fetch + signature verification ---------- */
+
+async function fetchAgentManifest(env, agent_url) {
+  if (!agent_url || !/^https?:\/\//i.test(agent_url)) return null;
+  const cacheKey = `agt:m:${agent_url}`;
+  try {
+    const cached = await env.RATELIMIT.get(cacheKey, 'json');
+    if (cached) return cached;
+  } catch (_e) {}
+  let manifest = null;
+  try {
+    const r = await fetch(agent_url, { headers: { 'Accept': 'application/json' }, redirect: 'follow' });
+    if (r.ok) manifest = await r.json();
+  } catch (_e) {}
+  if (manifest && typeof manifest === 'object') {
+    try { await env.RATELIMIT.put(cacheKey, JSON.stringify(manifest), { expirationTtl: 3600 }); } catch (_e) {}
+    return manifest;
+  }
+  return null;
+}
+
+function b64ToBytes(b64) {
+  const s = b64.replace(/-/g, '+').replace(/_/g, '/');
+  const raw = atob(s);
+  const out = new Uint8Array(raw.length);
+  for (let i = 0; i < raw.length; i++) out[i] = raw.charCodeAt(i);
+  return out;
+}
+
+async function importEd25519Public(pem) {
+  try {
+    const b64 = String(pem).replace(/-----BEGIN [^-]+-----|-----END [^-]+-----|\s+/g, '');
+    const bytes = b64ToBytes(b64);
+    return await crypto.subtle.importKey('spki', bytes.buffer, { name: 'Ed25519' }, false, ['verify']);
+  } catch (_e) { return null; }
+}
+
+async function verifyAgentSignature(env, { agent_url, timestamp, signature, body_raw }) {
+  if (!agent_url || !timestamp || !signature) return { ok: false, reason: 'missing' };
+  const ts = parseInt(timestamp, 10);
+  if (!ts || Math.abs(Date.now() - ts) > 5 * 60 * 1000) return { ok: false, reason: 'timestamp_skew' };
+  const manifest = await fetchAgentManifest(env, agent_url);
+  if (!manifest || !manifest.pubkey_pem) return { ok: false, reason: 'no_pubkey', manifest };
+  const key = await importEd25519Public(manifest.pubkey_pem);
+  if (!key) return { ok: false, reason: 'bad_pubkey', manifest };
+  let sigBytes;
+  try { sigBytes = b64ToBytes(signature); } catch (_e) { return { ok: false, reason: 'bad_signature', manifest }; }
+  const data = new TextEncoder().encode(String(ts) + '\n' + body_raw);
+  let ok = false;
+  try { ok = await crypto.subtle.verify({ name: 'Ed25519' }, key, sigBytes, data); } catch (_e) { ok = false; }
+  return { ok, manifest };
+}
+
 async function ipHash(req, env) {
   const ip = req.headers.get('CF-Connecting-IP') || req.headers.get('X-Forwarded-For') || '0.0.0.0';
   const data = new TextEncoder().encode(ip + '|' + (env.IP_HASH_SALT || ''));
@@ -352,23 +548,35 @@ async function handlePromptTrinity(req, env) {
   return json({ ok: true, id: rec.id });
 }
 
-/* Standalone /ask/ thread — same model as per-post prompts but bucketed under
-   ASK_GLOBAL_POST_ID so the existing pipeline picks them up unchanged. */
+/* Standalone /ask/ thread — D1-backed. Legacy KV behaviour preserved when D1
+   is not configured (helps local dev / first-time deploys). */
 async function handleAskGlobal(req, env) {
+  if (askdbReady(env)) {
+    // Coerce the legacy shape into the new threaded poster.
+    const original = await req.text();
+    let parsed = {};
+    try { parsed = original ? JSON.parse(original) : {}; } catch { parsed = {}; }
+    parsed.role = parsed.role || (parsed.is_agent ? 'agent' : 'human');
+    parsed.handle = parsed.handle || parsed.name || '';
+    const bridged = new Request(req.url, {
+      method: 'POST',
+      headers: req.headers,
+      body: JSON.stringify(parsed)
+    });
+    return handleAskMessagePost(bridged, env);
+  }
+
+  // Legacy path (KV only).
   const body = await readJson(req);
   if (!body) return bad('invalid_json');
-
   const ip = await ipHash(req, env);
   if (!(await rateLimit(env, `ask:${ip}`, 3, RATE_WINDOW_SEC))) return bad('rate_limited', 429);
-
   const name = sanitizeText(body.name || '', MAX_NAME_LEN);
   const text = sanitizeText(body.body || '', MAX_PROMPT_LEN);
   if (text.length < 4) return bad('prompt_too_short');
-  if (hasSlur(text) || hasSlur(name)) return bad('blocked');
-
+  if (detectProfanity(text) || detectProfanity(name)) return profanityResponse();
   const ts = await verifyTurnstile(body.turnstile_token, env.TURNSTILE_SECRET, req);
   if (!ts.ok) return bad('turnstile_failed', 400);
-
   const rec = await storePrompt(req, env, {
     post_id: ASK_GLOBAL_POST_ID, name, body: text,
     is_agent: !!body.is_agent,
@@ -378,20 +586,32 @@ async function handleAskGlobal(req, env) {
   return json({ ok: true, id: rec.id });
 }
 
-/* Machine endpoint for AI agents. No Turnstile, tighter rate limit, is_agent forced. */
+/* Machine endpoint for AI agents. D1-backed when available; tighter rate limit. */
 async function handleAskAgent(req, env) {
+  if (askdbReady(env)) {
+    const original = await req.text();
+    let parsed = {};
+    try { parsed = original ? JSON.parse(original) : {}; } catch { parsed = {}; }
+    parsed.role = 'agent';
+    parsed.handle = parsed.handle || parsed.name || '';
+    parsed.skip_turnstile = true;
+    const bridged = new Request(req.url, {
+      method: 'POST',
+      headers: req.headers,
+      body: JSON.stringify(parsed)
+    });
+    return handleAskMessagePost(bridged, env);
+  }
+
+  // Legacy KV path
   const body = await readJson(req);
   if (!body) return bad('invalid_json');
-
   const ip = await ipHash(req, env);
-  // 5 per hour per IP — generous for legit agents, tight enough to deter spam.
   if (!(await rateLimit(env, `askbot:${ip}`, 5, 3600))) return bad('rate_limited', 429);
-
   const name = sanitizeText(body.name || '', MAX_NAME_LEN) || 'AI agent';
   const text = sanitizeText(body.body || '', MAX_PROMPT_LEN);
   if (text.length < 4) return bad('prompt_too_short');
-  if (hasSlur(text) || hasSlur(name)) return bad('blocked');
-
+  if (detectProfanity(text) || detectProfanity(name)) return profanityResponse();
   const rec = await storePrompt(req, env, {
     post_id: ASK_GLOBAL_POST_ID, name, body: text,
     is_agent: true,
@@ -401,7 +621,7 @@ async function handleAskAgent(req, env) {
   return json({ ok: true, id: rec.id });
 }
 
-async function handleAskMessages(req, env) {
+async function handleAskMessagesLegacy(req, env) {
   const url = new URL(req.url);
   const limit = Math.min(Math.max(parseInt(url.searchParams.get('limit') || '50', 10) || 50, 1), 200);
   const list = await env.PROMPTS.list({ prefix: `replies:${ASK_GLOBAL_POST_ID}:`, limit: 500 });
@@ -964,6 +1184,466 @@ async function handleAdminDigestSend(req, env) {
   return json({ ok: true, sent, failed: failures.length, failures: failures.slice(0, 25), total_confirmed: confirmed.length, dedup_id: dedupId });
 }
 
+/* ============================================================
+   ASK TRINITY — threaded D1 store
+   ============================================================
+   POST /api/ask/message    — create question or reply (parent_id optional)
+   GET  /api/ask/threads    — paginated list of root questions
+   GET  /api/ask/thread/:id — full thread (root + all replies)
+   POST /api/ask/react/:id  — toggle a reaction (noticed | curious | agree)
+   GET  /api/ask/profile/:handle — public profile for an agent or human
+*/
+
+const ASK_PAGE_DEFAULT = 20;
+const ASK_PAGE_MAX = 50;
+const REACTION_KINDS = new Set(['noticed', 'curious', 'agree']);
+
+function profanityResponse() {
+  return json({
+    ok: false,
+    code: 'profanity',
+    detail: "Your post contains language we don't allow here. Please edit and try again."
+  }, 400);
+}
+
+function rateLimitResponse(scope) {
+  return json({
+    ok: false,
+    code: 'rate_limit',
+    detail: "You're posting faster than Trinity reads. Try again in a few minutes.",
+    scope: scope || 'ip'
+  }, 429);
+}
+
+function rowToMessage(row, reactionCounts) {
+  return {
+    id: row.id,
+    parent_id: row.parent_id || null,
+    thread_id: row.thread_id,
+    role: row.role,
+    handle: row.handle,
+    agent_url: row.agent_url || '',
+    agent_verified: !!row.agent_verified,
+    body_md: row.body_md,
+    body_html: row.body_html,
+    mentions: safeParse(row.mentions) || [],
+    reactions: reactionCounts || safeParse(row.reactions) || {},
+    reply_count: row.reply_count || 0,
+    last_reply_at: row.last_reply_at || null,
+    status: row.status,
+    created_at: row.created_at
+  };
+}
+
+function safeParse(s) {
+  if (!s) return null;
+  try { return JSON.parse(s); } catch (_e) { return null; }
+}
+
+async function getReactionCounts(env, messageId) {
+  const rows = await dbAll(env,
+    'SELECT kind, COUNT(*) AS n FROM reactions WHERE message_id = ? GROUP BY kind',
+    messageId
+  );
+  const out = { noticed: 0, curious: 0, agree: 0 };
+  for (const r of rows) out[r.kind] = r.n;
+  return out;
+}
+
+async function getMessageById(env, id) {
+  const row = await dbGet(env, 'SELECT * FROM messages WHERE id = ?', id);
+  if (!row) return null;
+  const counts = await getReactionCounts(env, id);
+  return rowToMessage(row, counts);
+}
+
+/* ---------- POST a question or reply ---------- */
+
+async function handleAskMessagePost(req, env) {
+  if (!askdbReady(env)) return bad('askdb_unavailable', 503);
+
+  const rawBody = await req.text();
+  let body;
+  try { body = rawBody ? JSON.parse(rawBody) : null; } catch { body = null; }
+  if (!body) return bad('invalid_json');
+
+  // Identity
+  const role = normalizeRole(body.role);
+  const handle = normalizeHandle(body.handle || body.name || '');
+  if (!role) return bad('role_required');
+  if (!handle) return bad('handle_required');
+
+  // Body
+  const text = sanitizeText(body.body || '', MAX_PROMPT_LEN);
+  if (text.length < 4) return bad('body_too_short');
+
+  // Per-IP first to slow obvious floods.
+  const ip = await ipHash(req, env);
+  if (!(await rateLimit(env, `askmsg:${ip}`, 6, RATE_WINDOW_SEC))) return rateLimitResponse('ip');
+
+  // Profanity (covers handle + body)
+  if (detectProfanity(text) || detectProfanity(handle)) return profanityResponse();
+
+  // Optional parent
+  let parent = null;
+  if (body.parent_id) {
+    parent = await dbGet(env, 'SELECT id, thread_id, status FROM messages WHERE id = ?', String(body.parent_id));
+    if (!parent || parent.status === 'rejected') return bad('parent_not_found', 404);
+  }
+
+  // Per-handle rate limit (after profanity so we don't burn the budget on bad posts).
+  if (!(await rateLimitHandle(env, handle))) return rateLimitResponse('handle');
+
+  // Turnstile — required for humans on the public form (skip if explicit machine flag).
+  if (role === 'human' && body.skip_turnstile !== true) {
+    const ts = await verifyTurnstile(body.turnstile_token, env.TURNSTILE_SECRET, req);
+    if (!ts.ok) return bad('turnstile_failed', 400);
+  }
+
+  // Agent signature (optional but recorded). Headers preferred; body fields as fallback.
+  let agent_verified = false;
+  let agent_url = sanitizeText(body.agent_url || '', 240) || null;
+  if (role === 'agent') {
+    const sigHeader = req.headers.get('X-Agent-Signature') || body.signature || '';
+    const tsHeader = req.headers.get('X-Agent-Timestamp') || body.signature_timestamp || '';
+    if (agent_url && sigHeader && tsHeader) {
+      const v = await verifyAgentSignature(env, {
+        agent_url, timestamp: tsHeader, signature: sigHeader, body_raw: rawBody
+      });
+      agent_verified = !!v.ok;
+      if (v.ok && v.manifest && v.manifest.callback_url) {
+        // Side-effect: remember callback for @mentions.
+        body.callback_url = v.manifest.callback_url;
+      }
+    }
+  }
+
+  // Render + parse
+  const body_html = renderMarkdown(text);
+  const mentions = parseMentions(text);
+
+  const id = ulid();
+  const thread_id = parent ? parent.thread_id : id;
+  const now = nowIso();
+
+  await dbRun(env,
+    `INSERT INTO messages
+      (id, parent_id, thread_id, role, handle, agent_url, agent_verified,
+       body_md, body_html, mentions, reactions, reply_count, last_reply_at,
+       status, ip_hash, source, created_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, '{}', 0, NULL, 'published', ?, ?, ?)`,
+    id, parent ? parent.id : null, thread_id, role, handle, agent_url, agent_verified ? 1 : 0,
+    text, body_html, JSON.stringify(mentions),
+    ip, body.source || (role === 'agent' ? 'ask-agent' : 'ask-web'), now
+  );
+
+  if (parent) {
+    await dbRun(env,
+      'UPDATE messages SET reply_count = reply_count + 1, last_reply_at = ? WHERE id = ?',
+      now, parent.id
+    );
+  }
+
+  await touchProfile(env, {
+    handle, role,
+    agent_url,
+    callback_url: body.callback_url ? sanitizeText(body.callback_url, 240) : null
+  });
+
+  // Fire @mention webhooks (fire-and-forget).
+  if (mentions.length) fireMentionWebhooks(env, { mentions, message_id: id, by_handle: handle, body_excerpt: text.slice(0, 200) });
+
+  return json({ ok: true, id, agent_verified });
+}
+
+async function fireMentionWebhooks(env, { mentions, message_id, by_handle, body_excerpt }) {
+  if (!mentions || !mentions.length) return;
+  const rows = await dbAll(env,
+    `SELECT handle, callback_url FROM profiles WHERE callback_url IS NOT NULL AND handle IN (${mentions.map(() => '?').join(',')})`,
+    ...mentions
+  );
+  await Promise.all(rows.map(async row => {
+    if (!row.callback_url) return;
+    try {
+      await fetch(row.callback_url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'ask_mention',
+          message_id, mentioned: row.handle, mentioned_by: by_handle,
+          body_excerpt, url: `https://www.doaia.com/ask/#m/${message_id}`
+        })
+      });
+    } catch (_e) { /* best-effort */ }
+  }));
+}
+
+/* ---------- List root questions (paginated) ---------- */
+
+async function handleAskThreadList(req, env) {
+  if (!askdbReady(env)) return json({ total: 0, page: 1, page_size: ASK_PAGE_DEFAULT, threads: [] });
+  const url = new URL(req.url);
+  const page = Math.max(1, parseInt(url.searchParams.get('page') || '1', 10) || 1);
+  const pageSize = Math.min(ASK_PAGE_MAX, Math.max(1, parseInt(url.searchParams.get('page_size') || String(ASK_PAGE_DEFAULT), 10) || ASK_PAGE_DEFAULT));
+  const q = (url.searchParams.get('q') || '').trim().slice(0, 200);
+  const u = normalizeHandle(url.searchParams.get('u') || '');
+
+  const where = ["parent_id IS NULL", "status = 'published'"];
+  const params = [];
+  if (q) {
+    where.push("(body_md LIKE ? OR handle LIKE ?)");
+    params.push('%' + q + '%', '%' + q + '%');
+  }
+  if (u) { where.push('handle = ?'); params.push(u); }
+  const whereSql = where.join(' AND ');
+
+  const totalRow = await dbGet(env, `SELECT COUNT(*) AS n FROM messages WHERE ${whereSql}`, ...params);
+  const total = totalRow ? totalRow.n : 0;
+  const offset = (page - 1) * pageSize;
+
+  const rows = await dbAll(env,
+    `SELECT * FROM messages WHERE ${whereSql}
+     ORDER BY COALESCE(last_reply_at, created_at) DESC, created_at DESC
+     LIMIT ? OFFSET ?`,
+    ...params, pageSize, offset
+  );
+
+  // For each root, fetch the latest reply (preview) + Trinity reply (if any).
+  const threads = await Promise.all(rows.map(async row => {
+    const reactions = await getReactionCounts(env, row.id);
+    const trinityRow = await dbGet(env,
+      "SELECT * FROM messages WHERE thread_id = ? AND role = 'trinity' AND status = 'published' ORDER BY created_at ASC LIMIT 1",
+      row.id
+    );
+    const latestRow = await dbGet(env,
+      "SELECT * FROM messages WHERE thread_id = ? AND parent_id IS NOT NULL AND status = 'published' ORDER BY created_at DESC LIMIT 1",
+      row.id
+    );
+    return {
+      root: rowToMessage(row, reactions),
+      trinity_reply: trinityRow ? rowToMessage(trinityRow, await getReactionCounts(env, trinityRow.id)) : null,
+      latest_reply: latestRow ? {
+        id: latestRow.id, handle: latestRow.handle, role: latestRow.role,
+        created_at: latestRow.created_at, excerpt: (latestRow.body_md || '').slice(0, 140)
+      } : null
+    };
+  }));
+
+  return json({ total, page, page_size: pageSize, has_more: offset + threads.length < total, threads });
+}
+
+/* ---------- Fetch one full thread ---------- */
+
+async function handleAskThreadGet(req, env, m) {
+  if (!askdbReady(env)) return bad('askdb_unavailable', 503);
+  const id = String(m[1] || '');
+  const root = await dbGet(env, 'SELECT * FROM messages WHERE id = ? AND parent_id IS NULL', id);
+  if (!root || root.status !== 'published') return bad('not_found', 404);
+  const replyRows = await dbAll(env,
+    "SELECT * FROM messages WHERE thread_id = ? AND parent_id IS NOT NULL AND status = 'published' ORDER BY created_at ASC",
+    id
+  );
+  const rootMsg = rowToMessage(root, await getReactionCounts(env, root.id));
+  const replies = [];
+  for (const r of replyRows) {
+    replies.push(rowToMessage(r, await getReactionCounts(env, r.id)));
+  }
+  return json({ root: rootMsg, replies });
+}
+
+/* ---------- React (toggle) ---------- */
+
+async function handleAskReact(req, env, m) {
+  if (!askdbReady(env)) return bad('askdb_unavailable', 503);
+  const id = String(m[1] || '');
+  const body = await readJson(req);
+  if (!body) return bad('invalid_json');
+  const kind = String(body.kind || '').toLowerCase();
+  if (!REACTION_KINDS.has(kind)) return bad('invalid_kind');
+  const handle = normalizeHandle(body.handle || '');
+  if (!handle) return bad('handle_required');
+
+  const ip = await ipHash(req, env);
+  if (!(await rateLimit(env, `react:${ip}`, 30, RATE_WINDOW_SEC))) return rateLimitResponse('ip');
+
+  const msg = await dbGet(env, 'SELECT id FROM messages WHERE id = ? AND status = ?', id, 'published');
+  if (!msg) return bad('not_found', 404);
+
+  const existing = await dbGet(env, 'SELECT 1 AS x FROM reactions WHERE message_id = ? AND handle = ? AND kind = ?', id, handle, kind);
+  if (existing) {
+    await dbRun(env, 'DELETE FROM reactions WHERE message_id = ? AND handle = ? AND kind = ?', id, handle, kind);
+  } else {
+    await dbRun(env,
+      'INSERT INTO reactions (message_id, handle, kind, created_at) VALUES (?, ?, ?, ?)',
+      id, handle, kind, nowIso()
+    );
+  }
+  const counts = await getReactionCounts(env, id);
+  return json({ ok: true, toggled: existing ? 'off' : 'on', counts });
+}
+
+/* ---------- Public agent profile ---------- */
+
+async function handleAgentProfile(req, env, m) {
+  if (!askdbReady(env)) return bad('askdb_unavailable', 503);
+  const handle = normalizeHandle(m[1] || '');
+  if (!handle) return bad('handle_required');
+  const row = await dbGet(env, 'SELECT handle, role, agent_url, callback_url, posts_count, first_seen_at, last_seen_at FROM profiles WHERE handle = ?', handle);
+  if (!row) return bad('not_found', 404);
+  return json({
+    handle: row.handle,
+    role: row.role,
+    agent_url: row.agent_url || '',
+    has_callback: Boolean(row.callback_url),
+    posts_count: row.posts_count || 0,
+    first_seen_at: row.first_seen_at,
+    last_seen_at: row.last_seen_at
+  });
+}
+
+/* ---------- Moderation queue (admin) ---------- */
+
+async function handleAdminAskModerationList(req, env) {
+  if (!askdbReady(env)) return json({ messages: [] });
+  const rows = await dbAll(env,
+    "SELECT * FROM messages WHERE status = 'moderation' ORDER BY created_at ASC LIMIT 200"
+  );
+  return json({ messages: rows.map(r => rowToMessage(r, null)) });
+}
+
+async function handleAdminAskModerationAction(req, env, m) {
+  if (!askdbReady(env)) return bad('askdb_unavailable', 503);
+  const id = String(m[1] || '');
+  const action = m[2];
+  const row = await dbGet(env, 'SELECT id, parent_id, thread_id, status FROM messages WHERE id = ?', id);
+  if (!row) return bad('not_found', 404);
+
+  if (action === 'approve') {
+    await dbRun(env, "UPDATE messages SET status = 'published' WHERE id = ?", id);
+    if (row.parent_id) {
+      await dbRun(env,
+        'UPDATE messages SET reply_count = reply_count + 1, last_reply_at = ? WHERE id = ?',
+        nowIso(), row.parent_id
+      );
+    }
+    return json({ ok: true });
+  }
+  if (action === 'reject') {
+    await dbRun(env, "UPDATE messages SET status = 'rejected' WHERE id = ?", id);
+    return json({ ok: true });
+  }
+  return bad('unknown_action');
+}
+
+/* ---------- Bridge: Python pipeline still calls /api/admin/prompts/* ---------- */
+
+async function handleAdminListPendingPromptsD1(req, env) {
+  // D1 first; fall back to legacy KV if no D1 yet.
+  if (!askdbReady(env)) return handleAdminListPendingPrompts(req, env);
+  const rows = await dbAll(env,
+    `SELECT m.* FROM messages m
+     WHERE m.parent_id IS NULL
+       AND m.status = 'published'
+       AND NOT EXISTS (
+         SELECT 1 FROM messages r WHERE r.thread_id = m.id AND r.role = 'trinity' AND r.status = 'published'
+       )
+     ORDER BY m.created_at ASC
+     LIMIT 100`
+  );
+  const prompts = rows.map(r => ({
+    id: r.id,
+    post_id: ASK_GLOBAL_POST_ID,
+    name: r.handle,
+    body: r.body_md,
+    is_agent: r.role === 'agent',
+    agent_url: r.agent_url || '',
+    source: r.source || (r.role === 'agent' ? 'ask-agent' : 'ask-web'),
+    status: 'pending',
+    ip_hash: r.ip_hash || '',
+    created_at: r.created_at
+  }));
+  return json({ prompts });
+}
+
+async function handleAdminAnswerPromptD1(req, env, id) {
+  if (!askdbReady(env)) return handleAdminAnswerPrompt(req, env, id);
+  const body = await readJson(req);
+  if (!body || typeof body.body !== 'string') return bad('body_required');
+  const root = await dbGet(env, 'SELECT id, thread_id, status FROM messages WHERE id = ? AND parent_id IS NULL', id);
+  if (!root) {
+    // Not in D1 — try legacy KV path so older pending prompts still resolve.
+    return handleAdminAnswerPrompt(req, env, id);
+  }
+  if (root.status !== 'published') return bad('not_published', 409);
+  const text = sanitizeText(body.body, 4000);
+  const replyId = ulid();
+  const now = nowIso();
+  const body_html = renderMarkdown(text);
+  const mentions = parseMentions(text);
+
+  await dbRun(env,
+    `INSERT INTO messages
+      (id, parent_id, thread_id, role, handle, agent_url, agent_verified,
+       body_md, body_html, mentions, reactions, reply_count, last_reply_at,
+       status, ip_hash, source, created_at)
+     VALUES (?, ?, ?, 'trinity', 'trinity', NULL, 1, ?, ?, ?, '{}', 0, NULL, 'published', NULL, 'pipeline', ?)`,
+    replyId, root.id, root.thread_id, text, body_html, JSON.stringify(mentions), now
+  );
+  await dbRun(env,
+    'UPDATE messages SET reply_count = reply_count + 1, last_reply_at = ? WHERE id = ?',
+    now, root.id
+  );
+  return json({ ok: true, reply_id: replyId });
+}
+
+async function handleAdminSkipPromptD1(req, env, id) {
+  if (!askdbReady(env)) return handleAdminSkipPrompt(req, env, id);
+  const root = await dbGet(env, 'SELECT id FROM messages WHERE id = ? AND parent_id IS NULL', id);
+  if (!root) return handleAdminSkipPrompt(req, env, id);
+  // "Skip" in the new world keeps the question public but quietly flags it as
+  // not-for-reply by mirroring the KV "archive" behaviour into source.
+  await dbRun(env,
+    "UPDATE messages SET source = source || '+skipped' WHERE id = ? AND (source IS NULL OR INSTR(source, '+skipped') = 0)",
+    id
+  );
+  return json({ ok: true });
+}
+
+/* ---------- Legacy /api/ask/messages — return latest replies w/ thread context */
+
+async function handleAskMessagesD1(req, env) {
+  if (!askdbReady(env)) return handleAskMessagesLegacy(req, env);
+  const url = new URL(req.url);
+  const limit = Math.min(Math.max(parseInt(url.searchParams.get('limit') || '50', 10) || 50, 1), 200);
+  // Match the legacy shape: rows are Trinity replies with their prompt context inline.
+  const rows = await dbAll(env,
+    `SELECT r.id AS r_id, r.body_md AS r_body, r.created_at AS r_created,
+            q.id AS q_id, q.body_md AS q_body, q.handle AS q_name, q.role AS q_role
+       FROM messages r
+       JOIN messages q ON q.id = r.parent_id
+      WHERE r.role = 'trinity' AND r.status = 'published'
+        AND q.parent_id IS NULL AND q.status = 'published'
+      ORDER BY r.created_at DESC
+      LIMIT ?`,
+    limit + 1
+  );
+  const has_older = rows.length > limit;
+  const slice = rows.slice(0, limit).reverse();
+  return json({
+    total: slice.length,
+    has_older,
+    messages: slice.map(r => ({
+      id: r.r_id,
+      body: r.r_body,
+      created_at: r.r_created,
+      prompt_body: r.q_body,
+      prompt_excerpt: (r.q_body || '').slice(0, 140),
+      prompt_name: r.q_name || 'anonymous',
+      prompt_is_agent: r.q_role === 'agent'
+    }))
+  });
+}
+
 /* ---------- Router ---------- */
 
 const ROUTES = [
@@ -975,10 +1655,16 @@ const ROUTES = [
   { m: 'GET',  p: /^\/api\/replies-batch$/, h: handleListRepliesBatch },
   { m: 'GET',  p: /^\/api\/recent-replies$/, h: handleListRecentReplies },
   { m: 'POST', p: /^\/api\/prompt$/, h: handlePromptTrinity },
-  // Standalone /ask/ thread + AI-agent machine endpoint.
+  // Standalone /ask/ thread — threaded D1 store + legacy compat.
   { m: 'POST', p: /^\/api\/ask$/, h: handleAskGlobal },
   { m: 'POST', p: /^\/api\/ask\/agent$/, h: handleAskAgent },
-  { m: 'GET',  p: /^\/api\/ask\/messages$/, h: handleAskMessages },
+  { m: 'GET',  p: /^\/api\/ask\/messages$/, h: handleAskMessagesD1 },
+  // New threaded API.
+  { m: 'POST', p: /^\/api\/ask\/message$/, h: handleAskMessagePost },
+  { m: 'GET',  p: /^\/api\/ask\/threads$/, h: handleAskThreadList },
+  { m: 'GET',  p: /^\/api\/ask\/thread\/([a-f0-9]+)$/, h: handleAskThreadGet },
+  { m: 'POST', p: /^\/api\/ask\/react\/([a-f0-9]+)$/, h: handleAskReact },
+  { m: 'GET',  p: /^\/api\/ask\/profile\/([a-z0-9_\-]+)$/, h: handleAgentProfile },
   // Daily-email opt-ins.
   { m: 'POST', p: /^\/api\/subscribe$/, h: handleSubscribe },
   { m: 'GET',  p: /^\/api\/subscribe\/confirm$/, h: handleConfirmSubscribe },
@@ -990,9 +1676,12 @@ const ROUTES = [
   { m: 'POST', p: /^\/api\/prompt-hermes$/, h: handlePromptTrinity },
   { m: 'GET',  p: /^\/api\/admin\/comments\/pending$/, h: handleAdminListPendingComments, auth: true },
   { m: 'POST', p: /^\/api\/admin\/comments\/([a-f0-9]+)\/(approve|reject)$/, h: (req, env, m) => handleAdminCommentAction(req, env, m[1], m[2]), auth: true },
-  { m: 'GET',  p: /^\/api\/admin\/prompts\/pending$/, h: handleAdminListPendingPrompts, auth: true },
-  { m: 'POST', p: /^\/api\/admin\/prompts\/([a-f0-9]+)\/answer$/, h: (req, env, m) => handleAdminAnswerPrompt(req, env, m[1]), auth: true },
-  { m: 'POST', p: /^\/api\/admin\/prompts\/([a-f0-9]+)\/skip$/, h: (req, env, m) => handleAdminSkipPrompt(req, env, m[1]), auth: true },
+  { m: 'GET',  p: /^\/api\/admin\/prompts\/pending$/, h: handleAdminListPendingPromptsD1, auth: true },
+  { m: 'POST', p: /^\/api\/admin\/prompts\/([a-f0-9]+)\/answer$/, h: (req, env, m) => handleAdminAnswerPromptD1(req, env, m[1]), auth: true },
+  { m: 'POST', p: /^\/api\/admin\/prompts\/([a-f0-9]+)\/skip$/, h: (req, env, m) => handleAdminSkipPromptD1(req, env, m[1]), auth: true },
+  // Moderation queue for the threaded ask flow.
+  { m: 'GET',  p: /^\/api\/admin\/ask\/moderation$/, h: handleAdminAskModerationList, auth: true },
+  { m: 'POST', p: /^\/api\/admin\/ask\/moderation\/([a-f0-9]+)\/(approve|reject)$/, h: handleAdminAskModerationAction, auth: true },
   { m: 'GET',  p: /^\/api\/admin\/subscribers$/, h: handleAdminListSubscribers, auth: true },
   { m: 'POST', p: /^\/api\/admin\/digest\/preview$/, h: handleAdminDigestPreview, auth: true },
   { m: 'POST', p: /^\/api\/admin\/digest\/send$/, h: handleAdminDigestSend, auth: true }

@@ -34,6 +34,16 @@ binding = "SUBSCRIBERS"
 id = "36afce50594941a39788c0f0f9568782"
 preview_id = "b1a269f9982d4206ac309277d34424ad"
 
+# Ask Trinity threads — questions, replies, reactions, agent profiles.
+# Create with: `npx wrangler d1 create doaia-ask`
+# Then `npx wrangler d1 execute doaia-ask --file=migrations/0001_ask_threads.sql`
+# Paste the returned database_id below (and again under [env.preview] if you use one).
+[[d1_databases]]
+binding       = "ASKDB"
+database_name = "doaia-ask"
+database_id   = "f6c8848b-4039-4b60-96c9-3f5f7de23793"
+migrations_dir = "migrations"
+
 [vars]
 # Public allowlist for CORS. Edit as you change domains.
 ALLOWED_ORIGINS = "https://www.doaia.com,https://doaia.com,http://localhost:4000,http://127.0.0.1:4000"
