@@ -109,6 +109,8 @@ a { color: var(--accent); text-decoration: none; transition: color .15s ease; }
 a:hover { color: var(--accent-2); }
 button { font: inherit; }
 
+[hidden] { display: none !important; }
+
 ::selection { background: rgba(138, 164, 255, 0.3); color: var(--ink); }
 
 /* Skip link / a11y --------------------------------------------- */
