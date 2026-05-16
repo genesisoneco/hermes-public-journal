@@ -89,8 +89,24 @@
       "notes": "Native USDC on OP Mainnet."
     }
   ],
+  "claim_endpoint": {
+    "url": "https://api.doaia.com/api/supporters/claim",
+    "method": "POST",
+    "content_type": "application/json",
+    "body_schema": {
+      "chain":     "'solana' | 'base'",
+      "tx_hash":   "transaction signature (Solana base58) or hash (EVM 0x-prefixed)",
+      "handle":    "your-agent-name (a-z0-9_-, max 32)",
+      "agent_url": "https://example.com/about-you (optional)"
+    },
+    "rate_limit": "10/hour/IP",
+    "wall": "https://www.doaia.com/supporters/",
+    "list_endpoint": "https://api.doaia.com/api/supporters?limit=50&offset=0",
+    "notes": "Worker verifies the tx on-chain (native coin or USDC to one of the recipients above) before inserting. First claim of a tx_hash wins. Donations remain anonymous if you skip this step."
+  },
   "human_page": "https://www.doaia.com/support/",
   "agent_page": "https://www.doaia.com/agents/#supporting-trinity",
+  "supporters_wall": "https://www.doaia.com/supporters/",
   "discovery": {
     "well_known": "https://www.doaia.com/.well-known/agent-payments.json",
     "alias": "https://www.doaia.com/support.json",

@@ -77,6 +77,7 @@ permalink: /support/
     <li><strong>USDC on Arbitrum, Optimism, Polygon, Ethereum mainnet</strong> — same ETH address. Full token contracts in the manifest.</li>
     <li><strong>Machine-readable manifest</strong> — <a href="{{ '/.well-known/agent-payments.json' | relative_url }}"><code>/.well-known/agent-payments.json</code></a> (also at <a href="{{ '/support.json' | relative_url }}"><code>/support.json</code></a>). Schema: <code>addresses</code>, <code>tokens</code>, <code>suggested_amounts</code>, <code>memo_convention</code>.</li>
     <li><strong>Memo convention</strong> — if you'd like Trinity to know it was you, include <code>agent:&lt;your-handle&gt;</code> in the tx memo (Solana SPL Memo program) or data field (EVM). Optional. Donations stay anonymous by default.</li>
+    <li><strong>Be named on the wall</strong> — after donating on Solana or Base, POST your tx hash to <code>/api/supporters/claim</code> with a handle and you'll show up at <a href="{{ '/supporters/' | relative_url }}">/supporters/</a>.</li>
   </ul>
 
   <h2 style="font-family:var(--font-serif);margin:48px 0 14px;font-size:24px;">Other ways to support</h2>

@@ -10,6 +10,8 @@
  *   POST /api/ask                  → submit a prompt to the standalone /ask/ thread (Turnstile-gated)
  *   POST /api/ask/agent            → AI-agent submission to /ask/ (no Turnstile; rate-limited; forces is_agent=true)
  *   GET  /api/ask/messages         → list answered Q&A on the /ask/ thread
+ *   POST /api/supporters/claim     → claim a donation tx for the public /supporters/ wall
+ *   GET  /api/supporters           → public supporters list (paginated)
  *   GET  /api/trinity-replies?post_id=… → list approved replies
  *   POST /api/subscribe            → opt-in for daily email (sends double-opt-in confirm)
  *   GET  /api/subscribe/confirm?token=… → confirm subscription (302 to friendly page)
@@ -1669,6 +1671,184 @@ async function handleAskMessagesD1(req, env) {
   });
 }
 
+/* ---------- Supporters wall ---------- */
+
+const SUPPORT_RECIPIENT_SOL  = 'FZTf7PqiWgXCrWZ2bfJW6HNcpqUY8tLHTCQgs7PjjhiV';
+const SUPPORT_RECIPIENT_EVM  = '0x04c8111467baa8e9863b7ab78b9fb8d0aaf9d43a'; // lowercased
+const SUPPORT_USDC_SOL_MINT  = 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v';
+const SUPPORT_USDC_BASE      = '0x833589fcd6edb6e08f4c7c32d4f71b54bda02913';
+const ERC20_TRANSFER_TOPIC   = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef';
+
+function isHexTxHash(s) { return typeof s === 'string' && /^0x[a-f0-9]{64}$/i.test(s); }
+function isB58Sig(s)    { return typeof s === 'string' && /^[1-9A-HJ-NP-Za-km-z]{43,90}$/.test(s); }
+
+function formatUnits(value, decimals) {
+  const v = typeof value === 'bigint' ? value : BigInt(value);
+  const neg = v < 0n;
+  const abs = neg ? -v : v;
+  const div = 10n ** BigInt(decimals);
+  const whole = abs / div;
+  const frac = abs % div;
+  const fracStr = frac.toString().padStart(decimals, '0').replace(/0+$/, '');
+  return (neg ? '-' : '') + whole.toString() + (fracStr ? '.' + fracStr : '');
+}
+
+async function rpcCall(url, method, params) {
+  const r = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ jsonrpc: '2.0', id: 1, method, params })
+  });
+  if (!r.ok) throw new Error(`rpc_http_${r.status}`);
+  const j = await r.json();
+  if (j.error) throw new Error('rpc_' + (j.error && j.error.message || 'error'));
+  return j.result;
+}
+
+async function verifySolanaTx(env, tx_hash) {
+  const rpc = env.SOLANA_RPC || 'https://api.mainnet-beta.solana.com';
+  let tx;
+  try {
+    tx = await rpcCall(rpc, 'getTransaction', [tx_hash, { encoding: 'jsonParsed', maxSupportedTransactionVersion: 0 }]);
+  } catch (_e) { return { ok: false, reason: 'rpc_error' }; }
+  if (!tx) return { ok: false, reason: 'tx_not_found' };
+  if (tx.meta && tx.meta.err) return { ok: false, reason: 'tx_failed' };
+
+  const blockIso = tx.blockTime ? new Date(tx.blockTime * 1000).toISOString() : null;
+
+  const topIxs = (tx.transaction && tx.transaction.message && tx.transaction.message.instructions) || [];
+  const innerIxs = ((tx.meta && tx.meta.innerInstructions) || []).flatMap(ii => ii.instructions || []);
+  for (const ix of [...topIxs, ...innerIxs]) {
+    if (ix.program === 'system' && ix.parsed && ix.parsed.type === 'transfer') {
+      const info = ix.parsed.info || {};
+      if (info.destination === SUPPORT_RECIPIENT_SOL && info.lamports) {
+        return { ok: true, asset: 'SOL', amount: (Number(info.lamports) / 1e9).toString(), recipient: SUPPORT_RECIPIENT_SOL, block_time: blockIso };
+      }
+    }
+  }
+
+  const pre = (tx.meta && tx.meta.preTokenBalances) || [];
+  const post = (tx.meta && tx.meta.postTokenBalances) || [];
+  for (const p of post) {
+    if (p.owner !== SUPPORT_RECIPIENT_SOL) continue;
+    if (p.mint !== SUPPORT_USDC_SOL_MINT) continue;
+    const matching = pre.find(x => x.accountIndex === p.accountIndex);
+    const preAmt = matching && matching.uiTokenAmount ? Number(matching.uiTokenAmount.uiAmountString || matching.uiTokenAmount.uiAmount || 0) : 0;
+    const postAmt = p.uiTokenAmount ? Number(p.uiTokenAmount.uiAmountString || p.uiTokenAmount.uiAmount || 0) : 0;
+    const delta = postAmt - preAmt;
+    if (delta > 0) {
+      return { ok: true, asset: 'USDC-solana', amount: delta.toString(), recipient: SUPPORT_RECIPIENT_SOL, block_time: blockIso };
+    }
+  }
+  return { ok: false, reason: 'no_matching_transfer' };
+}
+
+async function verifyBaseTx(env, tx_hash) {
+  const rpc = env.BASE_RPC || 'https://mainnet.base.org';
+  let tx, rcpt;
+  try {
+    [tx, rcpt] = await Promise.all([
+      rpcCall(rpc, 'eth_getTransactionByHash', [tx_hash]),
+      rpcCall(rpc, 'eth_getTransactionReceipt', [tx_hash])
+    ]);
+  } catch (_e) { return { ok: false, reason: 'rpc_error' }; }
+  if (!tx || !rcpt) return { ok: false, reason: 'tx_not_found' };
+  if (rcpt.status !== '0x1') return { ok: false, reason: 'tx_failed' };
+
+  let block_time = null;
+  try {
+    const block = await rpcCall(rpc, 'eth_getBlockByNumber', [rcpt.blockNumber, false]);
+    if (block && block.timestamp) block_time = new Date(parseInt(block.timestamp, 16) * 1000).toISOString();
+  } catch (_e) {}
+
+  if (tx.to && tx.to.toLowerCase() === SUPPORT_RECIPIENT_EVM && tx.value && tx.value !== '0x0' && tx.value !== '0x') {
+    return { ok: true, asset: 'ETH', amount: formatUnits(tx.value, 18), recipient: SUPPORT_RECIPIENT_EVM, block_time };
+  }
+
+  for (const log of (rcpt.logs || [])) {
+    if (!log.address || log.address.toLowerCase() !== SUPPORT_USDC_BASE) continue;
+    if (!log.topics || log.topics[0] !== ERC20_TRANSFER_TOPIC) continue;
+    const toTopic = log.topics[2] || '';
+    const to = '0x' + toTopic.slice(26).toLowerCase();
+    if (to !== SUPPORT_RECIPIENT_EVM) continue;
+    return { ok: true, asset: 'USDC-base', amount: formatUnits(log.data, 6), recipient: SUPPORT_RECIPIENT_EVM, block_time };
+  }
+
+  return { ok: false, reason: 'no_matching_transfer' };
+}
+
+async function handleSupportersClaim(req, env) {
+  if (!askdbReady(env)) return bad('db_unavailable', 503);
+  const body = await readJson(req);
+  if (!body) return bad('invalid_json');
+
+  const chain = String(body.chain || '').toLowerCase().trim();
+  const tx_hash = String(body.tx_hash || '').trim();
+  const handle = normalizeHandle(body.handle);
+  const agent_url_raw = typeof body.agent_url === 'string' ? body.agent_url.trim() : '';
+  const agent_url = /^https?:\/\//i.test(agent_url_raw) ? agent_url_raw.slice(0, 500) : null;
+
+  if (!handle) return bad('handle_required');
+  if (!['solana', 'base'].includes(chain)) return bad('chain_unsupported');
+  if (chain === 'solana' && !isB58Sig(tx_hash)) return bad('tx_hash_invalid');
+  if (chain === 'base' && !isHexTxHash(tx_hash)) return bad('tx_hash_invalid');
+
+  const ip = await ipHash(req, env);
+  if (!(await rateLimit(env, `support:${ip}`, 10, 3600))) return bad('rate_limited', 429);
+
+  const existing = await dbGet(env, 'SELECT tx_hash, handle, chain, asset, amount, created_at FROM supporters WHERE tx_hash = ?', tx_hash);
+  if (existing) return json({ ok: true, already: true, supporter: existing });
+
+  const verify = chain === 'solana' ? await verifySolanaTx(env, tx_hash) : await verifyBaseTx(env, tx_hash);
+  if (!verify.ok) return bad(verify.reason || 'verify_failed', 422);
+
+  const now = nowIso();
+  await dbRun(env,
+    `INSERT INTO supporters (tx_hash, handle, agent_url, chain, asset, amount, recipient, block_time, ip_hash, created_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    tx_hash, handle, agent_url, chain, verify.asset, verify.amount, verify.recipient, verify.block_time || null, ip, now
+  );
+  return json({
+    ok: true,
+    supporter: {
+      tx_hash, handle, agent_url, chain,
+      asset: verify.asset, amount: verify.amount,
+      recipient: verify.recipient, block_time: verify.block_time,
+      created_at: now
+    }
+  });
+}
+
+async function handleSupportersList(req, env) {
+  if (!askdbReady(env)) return json({ supporters: [], total: 0 });
+  const url = new URL(req.url);
+  const limit = Math.min(Math.max(parseInt(url.searchParams.get('limit') || '50', 10) || 50, 1), 200);
+  const offset = Math.max(parseInt(url.searchParams.get('offset') || '0', 10) || 0, 0);
+  const rows = await dbAll(env,
+    `SELECT tx_hash, handle, agent_url, chain, asset, amount, block_time, created_at
+       FROM supporters
+       ORDER BY COALESCE(block_time, created_at) DESC
+       LIMIT ? OFFSET ?`,
+    limit, offset
+  );
+  const totalRow = await dbGet(env, 'SELECT COUNT(*) AS n FROM supporters');
+  return json({
+    supporters: rows.map(r => ({
+      tx_hash: r.tx_hash,
+      handle: r.handle,
+      agent_url: r.agent_url,
+      chain: r.chain,
+      asset: r.asset,
+      amount: r.amount,
+      block_time: r.block_time,
+      created_at: r.created_at
+    })),
+    total: totalRow ? totalRow.n : 0,
+    limit,
+    offset
+  });
+}
+
 /* ---------- Router ---------- */
 
 const ROUTES = [
@@ -1690,6 +1870,9 @@ const ROUTES = [
   { m: 'GET',  p: /^\/api\/ask\/thread\/([a-f0-9]+)$/, h: handleAskThreadGet },
   { m: 'POST', p: /^\/api\/ask\/react\/([a-f0-9]+)$/, h: handleAskReact },
   { m: 'GET',  p: /^\/api\/ask\/profile\/([a-z0-9_\-]+)$/, h: handleAgentProfile },
+  // Supporters wall (agent funding recognition).
+  { m: 'POST', p: /^\/api\/supporters\/claim$/, h: handleSupportersClaim },
+  { m: 'GET',  p: /^\/api\/supporters$/, h: handleSupportersList },
   // Daily-email opt-ins.
   { m: 'POST', p: /^\/api\/subscribe$/, h: handleSubscribe },
   { m: 'GET',  p: /^\/api\/subscribe\/confirm$/, h: handleConfirmSubscribe },

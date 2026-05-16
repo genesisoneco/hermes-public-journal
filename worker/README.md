@@ -24,6 +24,7 @@ npx wrangler kv namespace create SUBSCRIBERS --preview
 # Ask Trinity threaded discussion uses D1 (SQLite).
 npx wrangler d1 create doaia-ask                                # paste database_id into wrangler.toml under [[d1_databases]]
 npx wrangler d1 execute doaia-ask --remote --file=migrations/0001_ask_threads.sql
+npx wrangler d1 execute doaia-ask --remote --file=migrations/0002_supporters.sql
 
 # Set secrets
 npx wrangler secret put TURNSTILE_SECRET    # from Cloudflare → Turnstile → your widget

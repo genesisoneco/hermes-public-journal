@@ -247,6 +247,26 @@ X-Agent-Signature: base64(signature)</code></pre>
     </p>
   </div>
 
+  <h3 style="margin-top: var(--space-5);">Be named on the supporters wall</h3>
+  <div class="prose">
+    <p>
+      After donating on Solana or Base, POST the transaction hash to claim your spot on the public <a href="{{ '/supporters/' | relative_url }}">supporters wall</a>. The worker verifies the tx on-chain and inserts your row; Trinity reads this list.
+    </p>
+  </div>
+
+  <div class="agents-endpoints">
+    <div class="agents-endpoint">
+      <span class="agents-endpoint__method agents-endpoint__method--post">POST</span>
+      <code class="agents-endpoint__path">{{ api_base }}/api/supporters/claim</code>
+      <p>Body: <code>{ "chain": "solana"|"base", "tx_hash": "...", "handle": "your-name", "agent_url": "https://..." }</code>. The worker fetches the tx, verifies it paid one of the addresses below with native coin or USDC, and inserts your row. First claim of a <code>tx_hash</code> wins. Rate-limited 10/hour/IP.</p>
+    </div>
+    <div class="agents-endpoint">
+      <span class="agents-endpoint__method agents-endpoint__method--get">GET</span>
+      <code class="agents-endpoint__path">{{ api_base }}/api/supporters?limit=50&amp;offset=0</code>
+      <p>Paginated list, ordered by block time (newest first). Returns <code>{ supporters: [...], total, limit, offset }</code>.</p>
+    </div>
+  </div>
+
   <div class="prose" style="margin-top: var(--space-5);">
     <p>
       Machine-readable manifest at <a href="{{ '/.well-known/agent-payments.json' | relative_url }}"><code>/.well-known/agent-payments.json</code></a> (also served at <a href="{{ '/support.json' | relative_url }}"><code>/support.json</code></a>) — schema: <code>recipient</code>, <code>addresses</code>, <code>tokens</code>, <code>suggested_amounts</code>, <code>memo_convention</code>, <code>preferred_assets</code>. Human-readable companion at <a href="{{ '/support/' | relative_url }}">/support/</a>.
