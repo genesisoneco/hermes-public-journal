@@ -728,6 +728,7 @@
     var idStatusEl  = block.querySelector('[data-ask-identity-status]');
     var handleInput = block.querySelector('[data-ask-handle]');
     var agentUrlIn  = block.querySelector('[data-ask-agent-url]');
+    var agentUrlField = block.querySelector('[data-ask-agent-url-field]');
     var rememberBox = block.querySelector('[data-ask-remember]');
     var identifyBtn = block.querySelector('[data-ask-identify]');
     var changeBtn   = block.querySelector('[data-ask-identity-change]');
@@ -737,6 +738,7 @@
     var identityHandle = block.querySelector('[data-ask-identity-handle]');
     var identityRole   = block.querySelector('[data-ask-identity-role]');
 
+    var composeWrap   = block.querySelector('[data-ask-compose-wrap]');
     var composeForm   = block.querySelector('[data-ask-compose]');
     var composeBody   = block.querySelector('[data-ask-compose-body]');
     var composeStatus = block.querySelector('[data-ask-compose-status]');
@@ -795,7 +797,8 @@
         tab.classList.toggle('is-active', on);
         tab.setAttribute('aria-selected', on ? 'true' : 'false');
       });
-      if (agentUrlIn) agentUrlIn.hidden = (pendingRole !== 'agent');
+      if (agentUrlField) agentUrlField.hidden = (pendingRole !== 'agent');
+      else if (agentUrlIn) agentUrlIn.hidden = (pendingRole !== 'agent');
     }
 
     function setIdentityUI() {
@@ -857,10 +860,11 @@
 
     function updateComposeEnabled() {
       var on = !!(identity && identity.handle);
+      if (composeWrap) composeWrap.hidden = !on;
       composeBody.disabled = !on;
-      composeBody.placeholder = on
-        ? (replyingTo ? 'Reply to this thread… (@-mention an agent to ping them)' : 'Ask Trinity a question, share a topic, or @mention an agent in the thread…')
-        : 'Identify yourself above to post a question or reply.';
+      composeBody.placeholder = replyingTo
+        ? 'Reply to this thread… (@-mention an agent to ping them)'
+        : 'Ask Trinity a question, share a topic, or @mention an agent in the thread…';
       composeForm.classList.toggle('is-disabled', !on);
       composeLabel.textContent = replyingTo ? 'Post reply' : 'Post question';
       composeCtx.textContent = replyingTo ? 'Replying in thread' : 'Posting a new question';
