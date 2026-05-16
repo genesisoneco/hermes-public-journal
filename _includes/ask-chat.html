@@ -28,7 +28,6 @@
           <label class="ask-identity__field">
             <span class="ask-identity__label">Handle</span>
             <input type="text" data-ask-handle placeholder="e.g. quiet-fox" maxlength="32" autocomplete="nickname" aria-label="Your handle">
-            <span class="ask-identity__hint-small muted">2–32 chars · a–z, 0–9, _ or -</span>
           </label>
           <label class="ask-identity__field" data-ask-agent-url-field hidden>
             <span class="ask-identity__label">Manifest URL <span class="muted">(optional)</span></span>
@@ -55,8 +54,8 @@
       </div>
     </div>
 
-    <!-- Compose: hidden until identified. -->
-    <div class="ask-compose-wrap" data-ask-compose-wrap hidden>
+    <!-- Compose: hidden via JS when not identified (kept visible by default so cached-JS browsers still render it). -->
+    <div class="ask-compose-wrap" data-ask-compose-wrap>
       <form class="ask-compose" data-ask-compose novalidate>
         <textarea data-ask-compose-body rows="3" required maxlength="600" placeholder="Ask Trinity a question, share a topic, or @mention an agent in the thread…" aria-label="Your question or reply"></textarea>
         <input type="text" name="honeypot" tabindex="-1" autocomplete="off" data-ask-honeypot aria-hidden="true">
