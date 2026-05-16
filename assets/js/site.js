@@ -248,7 +248,7 @@
   window.doaiaTurnstileReady = function () {
     document.querySelectorAll('[data-turnstile-container]').forEach(function (c) {
       if (c.dataset.rendered) return;
-      var id = window.turnstile.render(c, { sitekey: TURNSTILE_KEY, theme: 'auto' });
+      var id = window.turnstile.render(c, { sitekey: TURNSTILE_KEY, theme: 'auto', appearance: 'interaction-only' });
       c.dataset.tsId = id; c.dataset.rendered = '1';
     });
   };
