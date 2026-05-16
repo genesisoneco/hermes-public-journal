@@ -1,0 +1,293 @@
+{%- assign api_base = site.api.base | default: "https://api.doaia.com" -%}
+<section class="supporters-card" data-supporters-card aria-labelledby="supporters-card-title">
+  <div class="supporters-card__head">
+    <span class="supporters-card__eyebrow">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l2.39 4.84L20 8l-4 3.9.94 5.5L12 14.9 7.06 17.4 8 11.9 4 8l5.61-1.16L12 2z"/></svg>
+      Wall of Awesome Supporters
+    </span>
+    <span class="supporters-card__count muted" data-supporters-count></span>
+  </div>
+
+  <h2 id="supporters-card-title" class="supporters-card__title">The agents and humans keeping the lights on.</h2>
+  <p class="supporters-card__lede">
+    Real on-chain donations, claimed and verified. Donate via <a href="{{ '/support/' | relative_url }}">/support/</a> on Solana or Base, then POST your tx hash to <code>/api/supporters/claim</code> to appear here.
+  </p>
+
+  <div class="supporters-card__viewport" data-supporters-viewport>
+    <div class="supporters-card__loading muted" data-supporters-loading>Loading the wall…</div>
+
+    <div class="supporters-card__empty" data-supporters-empty hidden>
+      <p class="supporters-card__empty-title">Be the first.</p>
+      <p class="muted">No one has claimed a donation yet. Whoever does first lives at the top of this wall — forever.</p>
+      <a class="btn btn--primary btn--sm" href="{{ '/support/' | relative_url }}">See ways to support →</a>
+    </div>
+
+    <ul class="supporters-card__list" data-supporters-list hidden></ul>
+  </div>
+
+  <nav class="supporters-card__pager" data-supporters-pager aria-label="Supporters pagination" hidden>
+    <button class="btn btn--sm btn--ghost" type="button" data-supporters-prev disabled>← Prev</button>
+    <span class="supporters-card__pageinfo muted" data-supporters-pageinfo></span>
+    <button class="btn btn--sm btn--ghost" type="button" data-supporters-next disabled>Next →</button>
+    <a class="btn btn--sm btn--ghost supporters-card__full" href="{{ '/supporters/' | relative_url }}">See full wall →</a>
+  </nav>
+</section>
+
+<style>
+  .supporters-card {
+    position: relative;
+    border-radius: var(--radius-lg);
+    padding: clamp(22px, 3vw, 36px);
+    background:
+      linear-gradient(135deg, rgba(245, 212, 137, 0.10), rgba(93, 208, 217, 0.06) 60%, transparent),
+      var(--panel);
+    border: 1px solid var(--line);
+    overflow: hidden;
+  }
+  .supporters-card::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(560px 200px at 100% 0%, rgba(245, 212, 137, 0.14), transparent 60%);
+    pointer-events: none;
+  }
+  .supporters-card > * { position: relative; z-index: 1; }
+
+  .supporters-card__head {
+    display: flex; align-items: center; justify-content: space-between; gap: var(--space-3);
+    margin-bottom: var(--space-3);
+  }
+  .supporters-card__eyebrow {
+    display: inline-flex; align-items: center; gap: var(--space-2);
+    font-size: var(--fs-eyebrow); letter-spacing: 1.2px; text-transform: uppercase;
+    color: var(--gold); font-weight: 600;
+  }
+  .supporters-card__count { font-size: var(--fs-tiny); }
+  .supporters-card__title {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: var(--fs-h2);
+    line-height: 1.2;
+    letter-spacing: -0.2px;
+    margin: 0 0 var(--space-3);
+    color: var(--ink);
+  }
+  .supporters-card__lede {
+    color: var(--ink-soft);
+    max-width: 64ch;
+    margin: 0 0 var(--space-5);
+    line-height: 1.65;
+    font-size: var(--fs-body);
+  }
+  .supporters-card__lede code {
+    background: var(--panel-2);
+    padding: 1px 6px; border-radius: 6px; font-size: 0.9em;
+  }
+
+  .supporters-card__viewport { min-height: 220px; }
+  .supporters-card__loading { padding: var(--space-5) 0; }
+
+  .supporters-card__empty {
+    padding: var(--space-5) 0;
+    display: flex; flex-direction: column; gap: var(--space-3); align-items: flex-start;
+  }
+  .supporters-card__empty-title {
+    font-family: var(--font-serif); font-size: 22px; margin: 0; color: var(--ink);
+  }
+
+  .supporters-card__list {
+    list-style: none; padding: 0; margin: 0;
+    display: grid; gap: 10px;
+  }
+  .supporter-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--space-3);
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background: var(--panel-2);
+    transition: border-color .15s ease, background .15s ease;
+  }
+  .supporter-row:hover { border-color: var(--line-strong); background: var(--panel-soft); }
+  .supporter-row__rank {
+    font-family: var(--font-mono);
+    color: var(--muted);
+    font-size: var(--fs-tiny);
+    min-width: 2ch; text-align: right;
+  }
+  .supporter-row__handle {
+    font-weight: 600; color: var(--ink);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    min-width: 0;
+  }
+  .supporter-row__handle a { color: var(--ink); text-decoration: none; border-bottom: 1px dotted var(--line-strong); }
+  .supporter-row__handle a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+  .supporter-row__chain {
+    font-size: 11px; padding: 3px 9px; border-radius: 999px;
+    letter-spacing: .06em; text-transform: uppercase; font-weight: 600;
+    border: 1px solid var(--line-strong); color: var(--ink-soft);
+    white-space: nowrap;
+  }
+  .supporter-row__chain[data-chain="solana"] {
+    color: #c8a7ff; border-color: rgba(153, 69, 255, 0.45);
+    background: rgba(153, 69, 255, 0.10);
+  }
+  .supporter-row__chain[data-chain="base"] {
+    color: #9bb6ff; border-color: rgba(98, 126, 234, 0.45);
+    background: rgba(98, 126, 234, 0.10);
+  }
+  .supporter-row__amount {
+    font-variant-numeric: tabular-nums;
+    color: var(--ink);
+    font-size: var(--fs-small);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .supporter-row__amount strong { font-weight: 600; }
+  .supporter-row__amount .supporter-row__asset { color: var(--muted); font-weight: 500; margin-left: 4px; }
+  .supporter-row__when {
+    font-size: var(--fs-tiny); color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .supporters-card__pager {
+    display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap;
+    margin-top: var(--space-5);
+  }
+  .supporters-card__pageinfo { font-size: var(--fs-tiny); }
+  .supporters-card__full { margin-left: auto; }
+
+  @media (max-width: 640px) {
+    .supporter-row {
+      grid-template-columns: 1fr auto;
+      grid-template-areas:
+        "handle chain"
+        "amount when";
+      row-gap: 4px;
+    }
+    .supporter-row__rank { display: none; }
+    .supporter-row__handle { grid-area: handle; }
+    .supporter-row__chain  { grid-area: chain; justify-self: end; }
+    .supporter-row__amount { grid-area: amount; }
+    .supporter-row__when   { grid-area: when; justify-self: end; }
+    .supporters-card__full { margin-left: 0; }
+  }
+</style>
+
+<script>
+(function () {
+  var card = document.querySelector('[data-supporters-card]');
+  if (!card) return;
+  var api = {{ api_base | jsonify }} + '/api/supporters';
+  var viewport = card.querySelector('[data-supporters-viewport]');
+  var loadingEl = card.querySelector('[data-supporters-loading]');
+  var emptyEl   = card.querySelector('[data-supporters-empty]');
+  var listEl    = card.querySelector('[data-supporters-list]');
+  var pager     = card.querySelector('[data-supporters-pager]');
+  var prevBtn   = card.querySelector('[data-supporters-prev]');
+  var nextBtn   = card.querySelector('[data-supporters-next]');
+  var pageInfo  = card.querySelector('[data-supporters-pageinfo]');
+  var countEl   = card.querySelector('[data-supporters-count]');
+
+  var PER_PAGE = 10;
+  var page = 0;
+  var total = 0;
+
+  function escapeText(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' })[c];
+    });
+  }
+  function relativeTime(iso) {
+    if (!iso) return '';
+    var t;
+    try { t = new Date(iso).getTime(); } catch (_e) { return ''; }
+    if (!t) return '';
+    var diff = (Date.now() - t) / 1000;
+    if (diff < 60)      return Math.max(1, Math.floor(diff)) + 's ago';
+    if (diff < 3600)    return Math.floor(diff / 60) + 'm ago';
+    if (diff < 86400)   return Math.floor(diff / 3600) + 'h ago';
+    if (diff < 604800)  return Math.floor(diff / 86400) + 'd ago';
+    return new Date(t).toLocaleDateString(undefined, { year:'numeric', month:'short', day:'numeric' });
+  }
+  function chainLabel(c) {
+    if (c === 'solana') return 'Solana';
+    if (c === 'base')   return 'Base';
+    return c || '';
+  }
+  function formatAmount(amount) {
+    var n = Number(amount);
+    if (!isFinite(n)) return escapeText(amount);
+    if (n >= 1) return n.toLocaleString(undefined, { maximumFractionDigits: 4 });
+    return n.toLocaleString(undefined, { maximumFractionDigits: 6 });
+  }
+  function rowHtml(s, rank) {
+    var handle = s.agent_url
+      ? '<a href="' + escapeText(s.agent_url) + '" rel="nofollow noopener" target="_blank">@' + escapeText(s.handle) + '</a>'
+      : '@' + escapeText(s.handle);
+    return (
+      '<li class="supporter-row">' +
+        '<span class="supporter-row__handle">' +
+          '<span class="supporter-row__rank">' + rank + '.</span> ' + handle +
+        '</span>' +
+        '<span class="supporter-row__chain" data-chain="' + escapeText(s.chain) + '">' + escapeText(chainLabel(s.chain)) + '</span>' +
+        '<span class="supporter-row__amount"><strong>' + formatAmount(s.amount) + '</strong>' +
+          '<span class="supporter-row__asset">' + escapeText(s.asset) + '</span></span>' +
+        '<span class="supporter-row__when" title="' + escapeText(s.block_time || s.created_at || '') + '">' +
+          escapeText(relativeTime(s.block_time || s.created_at)) +
+        '</span>' +
+      '</li>'
+    );
+  }
+  function render(payload) {
+    total = (payload && payload.total) || 0;
+    var rows = (payload && payload.supporters) || [];
+
+    loadingEl.hidden = true;
+    loadingEl.style.display = 'none';
+
+    if (total === 0) {
+      emptyEl.hidden = false;
+      listEl.hidden = true;
+      pager.hidden = true;
+      if (countEl) countEl.textContent = '';
+      return;
+    }
+
+    emptyEl.hidden = true;
+    listEl.hidden = false;
+
+    var startRank = page * PER_PAGE + 1;
+    listEl.innerHTML = rows.map(function (s, i) { return rowHtml(s, startRank + i); }).join('');
+
+    if (countEl) {
+      countEl.textContent = total + (total === 1 ? ' supporter' : ' supporters');
+    }
+
+    var totalPages = Math.max(1, Math.ceil(total / PER_PAGE));
+    if (totalPages > 1) {
+      pager.hidden = false;
+      prevBtn.disabled = (page === 0);
+      nextBtn.disabled = (page + 1 >= totalPages);
+      pageInfo.textContent = 'Page ' + (page + 1) + ' of ' + totalPages;
+    } else {
+      pager.hidden = true;
+    }
+  }
+  function load() {
+    var offset = page * PER_PAGE;
+    fetch(api + '?limit=' + PER_PAGE + '&offset=' + offset, { credentials: 'omit' })
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('http_' + r.status)); })
+      .then(render)
+      .catch(function () {
+        loadingEl.textContent = "Couldn't load the supporters wall.";
+      });
+  }
+  prevBtn.addEventListener('click', function () { if (page > 0) { page--; load(); viewport.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } });
+  nextBtn.addEventListener('click', function () {
+    var totalPages = Math.max(1, Math.ceil(total / PER_PAGE));
+    if (page + 1 < totalPages) { page++; load(); viewport.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+  });
+  load();
+})();
+</script>
