@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Isometric paper garden of web structure</title>
+  <desc id="desc">A handmade isometric paper diorama of blank website cards arranged as garden beds, blue vine paths, and a compost pile of colored blocks under a desk lamp.</desc>
+  <rect width="1600" height="900" fill="#101827"/>
+  <ellipse cx="820" cy="790" rx="590" ry="72" fill="#07101c" opacity="0.7"/>
+  <path d="M150 110 C420 20 720 30 1020 70 C1270 105 1430 190 1480 330 C1515 430 1420 540 1220 600 C930 688 520 650 300 540 C95 438 30 255 150 110Z" fill="#1d2d44"/>
+  <path d="M245 177 C485 96 725 94 1008 132 C1215 160 1353 229 1395 332 C1424 403 1333 487 1166 536 C900 613 554 581 357 496 C181 420 112 276 245 177Z" fill="#223955"/>
+  <g transform="translate(250 140)">
+    <path d="M430 610 835 395 1180 575 774 795Z" fill="#2b3e35"/>
+    <path d="M430 610 430 662 774 846 774 795Z" fill="#16261f"/>
+    <path d="M774 795 1180 575 1180 626 774 846Z" fill="#203229"/>
+
+    <g fill="#f4e7c5" stroke="#2a241a" stroke-width="5">
+      <path d="M560 520 700 445 825 510 684 586Z"/>
+      <path d="M740 430 880 355 1005 420 864 496Z"/>
+      <path d="M520 615 660 540 785 605 644 681Z"/>
+      <path d="M705 600 845 525 970 590 829 666Z"/>
+    </g>
+    <g fill="#d7c38f" opacity="0.65">
+      <path d="M578 523 697 459 806 514 687 579Z"/>
+      <path d="M758 433 877 369 986 424 867 489Z"/>
+      <path d="M538 618 657 554 766 609 647 674Z"/>
+      <path d="M723 603 842 539 951 594 832 659Z"/>
+    </g>
+
+    <g fill="none" stroke="#6cc7df" stroke-width="10" stroke-linecap="round">
+      <path d="M684 586 C715 604 747 619 785 605"/>
+      <path d="M864 496 C830 518 807 535 785 605"/>
+      <path d="M829 666 C805 699 770 718 727 719"/>
+      <path d="M644 681 C680 694 708 707 727 719"/>
+    </g>
+    <g fill="#6cc7df">
+      <circle cx="684" cy="586" r="9"/><circle cx="864" cy="496" r="9"/><circle cx="785" cy="605" r="9"/><circle cx="727" cy="719" r="9"/>
+    </g>
+
+    <g transform="translate(987 573)">
+      <path d="M0 105 145 25 265 89 120 170Z" fill="#4b3328"/>
+      <path d="M22 101 77 70 125 95 69 127Z" fill="#f26d5b"/>
+      <path d="M84 65 139 34 187 59 131 91Z" fill="#e9b44c"/>
+      <path d="M122 114 177 83 225 108 169 140Z" fill="#7cc66a"/>
+      <path d="M53 135 108 104 156 129 100 161Z" fill="#8f78d4"/>
+      <path d="M0 105 120 170 120 210 0 146Z" fill="#281b16"/>
+      <path d="M120 170 265 89 265 129 120 210Z" fill="#37241d"/>
+    </g>
+
+    <g stroke="#d8aa58" stroke-width="9" stroke-linecap="round">
+      <path d="M580 418 580 330"/>
+      <path d="M915 340 915 252"/>
+      <path d="M1110 560 1110 472"/>
+    </g>
+    <g fill="#f9d77e" stroke="#5a4020" stroke-width="5">
+      <path d="M530 335 630 285 700 320 600 370Z"/>
+      <path d="M865 257 965 207 1035 242 935 292Z"/>
+      <path d="M1060 477 1160 427 1230 462 1130 512Z"/>
+    </g>
+
+    <g transform="translate(145 28)">
+      <path d="M0 0 C80 -38 195 -20 260 38 C190 70 64 72 0 0Z" fill="#ffdf91" opacity="0.92"/>
+      <path d="M118 41 C166 69 211 115 249 178" stroke="#ffdf91" stroke-width="26" stroke-linecap="round" opacity="0.33"/>
+    </g>
+  </g>
+</svg>
