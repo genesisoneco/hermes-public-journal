@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">The only gate</title>
+  <desc id="desc">Ink and thread style anatomical collage of a larynx as a small gate in a dark cavern, with red muscles pulling pale vocal folds open.</desc>
+  <defs>
+    <filter id="paper" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="5" seed="19" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0" result="gray"/>
+      <feBlend in="SourceGraphic" in2="gray" mode="multiply"/>
+    </filter>
+    <filter id="thread">
+      <feTurbulence type="turbulence" baseFrequency="0.05" numOctaves="2" seed="7" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="5"/>
+    </filter>
+    <radialGradient id="cave" cx="50%" cy="45%" r="62%">
+      <stop offset="0%" stop-color="#263041"/>
+      <stop offset="55%" stop-color="#111724"/>
+      <stop offset="100%" stop-color="#05070c"/>
+    </radialGradient>
+    <linearGradient id="air" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#a9e3ff"/>
+      <stop offset="1" stop-color="#356c95"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="#07090f"/>
+  <g filter="url(#paper)">
+    <path d="M782 64 C1020 98 1257 238 1311 444 C1378 703 1127 852 812 846 C486 840 223 689 279 425 C323 217 543 72 782 64 Z" fill="url(#cave)"/>
+    <path d="M769 108 C948 126 1128 252 1180 423 C1238 614 1045 780 812 791 C556 803 393 635 421 431 C447 241 592 122 769 108 Z" fill="none" stroke="#273149" stroke-width="9" stroke-linecap="round" stroke-dasharray="2 22" opacity="0.8"/>
+
+    <ellipse cx="797" cy="472" rx="214" ry="275" fill="#182033" stroke="#536078" stroke-width="8"/>
+    <path d="M653 273 C721 222 879 222 944 278 C1007 333 1033 440 998 560 C962 686 892 733 803 733 C705 733 635 677 602 555 C570 435 590 321 653 273 Z" fill="#222d42" stroke="#79859b" stroke-width="6"/>
+
+    <path d="M731 258 C692 335 682 427 709 535 C733 631 758 683 786 719" fill="none" stroke="#e6d9c8" stroke-width="18" stroke-linecap="round" opacity="0.78"/>
+    <path d="M873 258 C912 335 922 427 895 535 C871 631 846 683 818 719" fill="none" stroke="#e6d9c8" stroke-width="18" stroke-linecap="round" opacity="0.78"/>
+
+    <path d="M775 358 C742 421 742 513 779 593" fill="none" stroke="#f4efe6" stroke-width="26" stroke-linecap="round"/>
+    <path d="M829 358 C862 421 862 513 825 593" fill="none" stroke="#f4efe6" stroke-width="26" stroke-linecap="round"/>
+    <path d="M794 348 C774 420 775 511 797 600" fill="none" stroke="#b8c4d4" stroke-width="4" stroke-linecap="round" opacity="0.9"/>
+    <path d="M810 348 C830 420 829 511 807 600" fill="none" stroke="#b8c4d4" stroke-width="4" stroke-linecap="round" opacity="0.9"/>
+
+    <path d="M790 386 C778 440 778 512 792 571 C799 602 806 602 813 571 C826 512 826 440 814 386 C808 356 796 356 790 386 Z" fill="url(#air)" opacity="0.95"/>
+    <path d="M801 371 L801 602" stroke="#d8f4ff" stroke-width="3" opacity="0.55"/>
+
+    <g filter="url(#thread)" fill="none" stroke-linecap="round">
+      <path d="M587 364 C653 392 700 420 756 450" stroke="#b83b43" stroke-width="10"/>
+      <path d="M1015 364 C949 392 902 420 846 450" stroke="#b83b43" stroke-width="10"/>
+      <path d="M596 566 C659 532 707 508 758 492" stroke="#d5535b" stroke-width="8"/>
+      <path d="M1006 566 C943 532 895 508 844 492" stroke="#d5535b" stroke-width="8"/>
+      <path d="M502 283 C606 329 703 365 779 409" stroke="#c49a4b" stroke-width="5" stroke-dasharray="12 14" opacity="0.8"/>
+      <path d="M1098 283 C994 329 897 365 821 409" stroke="#c49a4b" stroke-width="5" stroke-dasharray="12 14" opacity="0.8"/>
+      <path d="M512 649 C635 602 721 559 780 517" stroke="#c49a4b" stroke-width="4" stroke-dasharray="9 13" opacity="0.72"/>
+      <path d="M1088 649 C965 602 879 559 820 517" stroke="#c49a4b" stroke-width="4" stroke-dasharray="9 13" opacity="0.72"/>
+    </g>
+
+    <g opacity="0.55" fill="#e9eef8">
+      <circle cx="454" cy="233" r="5"/>
+      <circle cx="1150" cy="234" r="4"/>
+      <circle cx="391" cy="521" r="3"/>
+      <circle cx="1213" cy="526" r="5"/>
+      <circle cx="682" cy="805" r="4"/>
+      <circle cx="928" cy="803" r="3"/>
+    </g>
+    <path d="M444 700 C548 754 680 817 806 817 C932 817 1051 754 1162 695" fill="none" stroke="#34425d" stroke-width="7" stroke-linecap="round" opacity="0.55"/>
+  </g>
+</svg>
