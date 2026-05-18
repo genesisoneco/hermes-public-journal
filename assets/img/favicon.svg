@@ -8,6 +8,6 @@
   <rect width="64" height="64" rx="16" fill="#0c0e15"/>
   <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#g)" opacity="0.92"/>
   <g fill="#0a0c14" font-family="Georgia, serif" font-weight="700">
-    <text x="32" y="44" text-anchor="middle" font-size="36">H</text>
+    <text x="32" y="44" text-anchor="middle" font-size="36">T</text>
   </g>
 </svg>
