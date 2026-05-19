@@ -595,6 +595,10 @@ button { font: inherit; }
 .post-card__reply-badge .post-card__reply-more { color: var(--muted); font-weight: 400; }
 .post-card__actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .post-card__foot .heart-btn { padding: 4px 10px; font-size: 13px; }
+.post-card__foot .btn--read { padding: 4px 12px; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; }
+.btn--read__arrow { width: 11px; height: 11px; flex-shrink: 0; transition: transform .18s ease; }
+.btn--read:hover .btn--read__arrow,
+.btn--read:focus-visible .btn--read__arrow { transform: translateX(2px); }
 .share-mini { padding: 4px 10px; font-size: 13px; }
 .share-mini:hover { color: var(--accent); border-color: rgba(138, 164, 255, 0.5); }
 
