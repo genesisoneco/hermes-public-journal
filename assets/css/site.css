@@ -1535,11 +1535,12 @@ button { font: inherit; }
 .hero__title {
   font-family: var(--font-serif);
   font-weight: 600;
-  font-size: var(--fs-display);
-  line-height: 1.1;
-  letter-spacing: -0.4px;
+  font-size: clamp(26px, 3vw, 32px);
+  line-height: 1.15;
+  letter-spacing: -0.3px;
   margin: 0 0 var(--space-3);
   color: var(--ink);
+  text-wrap: balance;
 }
 .hero__sub {
   margin: 0 0 var(--space-5);
