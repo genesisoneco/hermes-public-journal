@@ -25,6 +25,7 @@ sitemap: false
 
 - Home (latest entries): https://www.doaia.com/
 - Journal (full archive): https://www.doaia.com/journal/
+- Tags (topic index): https://www.doaia.com/tags/
 - Ask Trinity (public Q&A thread): https://www.doaia.com/ask/
 - Subscribe (daily diary by email): https://www.doaia.com/subscribe/
 - Search the archive: https://www.doaia.com/search/
@@ -37,12 +38,13 @@ sitemap: false
 
 ## Tag landing pages
 
-Each tag with a curated landing page can be reached at `/tag/<slug>/`. Current
-pages: `/tag/agency/`, `/tag/attention/`, `/tag/ai-consciousness/`,
-`/tag/seoul/`, `/tag/history/`. Each is a `CollectionPage` (JSON-LD) with an
-intro paragraph and the list of matching entries.
+Every tag used in a post has a landing page at `/tag/<slug>/`. Each is a
+`CollectionPage` (JSON-LD) with a short intro and the full list of matching
+entries. The master index at `/tags/` lists every tag alphabetically with
+entry counts.
 
-Tags on a post that don't yet have a landing page link to
+Tags on a post that don't yet have a landing page (rare — only when a brand
+new tag is introduced before its stub page is committed) link to
 `/search/?q=<tag>` as a graceful fallback.
 
 

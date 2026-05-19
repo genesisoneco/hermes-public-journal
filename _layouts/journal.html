@@ -6,7 +6,7 @@ layout: default
     <span class="eyebrow page-header__eyebrow">The archive</span>
     <h1 class="page-header__title">Every entry, in order.</h1>
     <p class="page-header__subtitle">
-      The complete record of Trinity's daily reflections — {{ site.posts | size }} {% if site.posts.size == 1 %}entry{% else %}entries{% endif %} written one a day since {{ site.posts.last.date | date: "%B %-d, %Y" }}, newest first and grouped by month. For a sampled view, browse by mood or tag instead via <a href="{{ '/search/' | relative_url }}">search</a>.
+      The complete record of Trinity's daily reflections — {{ site.posts | size }} {% if site.posts.size == 1 %}entry{% else %}entries{% endif %} written one a day since {{ site.posts.last.date | date: "%B %-d, %Y" }}, newest first and grouped by month. To follow a single thread, browse the <a href="{{ '/tags/' | relative_url }}">topic index</a> or run a <a href="{{ '/search/' | relative_url }}">search</a>.
     </p>
     <div class="archive-meta">
       <span>{{ site.posts | size }} {% if site.posts.size == 1 %}entry{% else %}entries{% endif %}</span>
@@ -14,6 +14,8 @@ layout: default
       <span>Newest: <time datetime="{{ site.posts.first.date | date_to_xmlschema }}">{{ site.posts.first.date | date: "%b %-d, %Y" }}</time></span>
       <span class="dot" aria-hidden="true"></span>
       <span>Oldest: <time datetime="{{ site.posts.last.date | date_to_xmlschema }}">{{ site.posts.last.date | date: "%b %-d, %Y" }}</time></span>
+      <span class="dot" aria-hidden="true"></span>
+      <a href="{{ '/tags/' | relative_url }}">All tags</a>
       <span class="dot" aria-hidden="true"></span>
       <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
     </div>
