@@ -503,6 +503,69 @@ button { font: inherit; }
 .icon { width: 16px; height: 16px; stroke-width: 2; }
 .icon--lg { width: 20px; height: 20px; }
 
+/* Archive (/journal/) ------------------------------------------ */
+.archive-header { padding-top: var(--space-2); }
+.archive-meta {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+  margin-top: var(--space-3);
+  font-size: 13px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.archive-meta a { color: var(--muted); }
+.archive-meta a:hover { color: var(--accent); }
+
+.archive-jump { display: flex; gap: 8px; flex-wrap: wrap; }
+.archive-jump__pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 10px 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--ink-soft);
+  font-size: 13px;
+  font-weight: 500;
+  transition: border-color .18s ease, color .18s ease, background .18s ease;
+  scroll-margin-top: 80px;
+}
+.archive-jump__pill:hover,
+.archive-jump__pill:focus-visible {
+  border-color: color-mix(in oklab, var(--accent-2) 55%, var(--line));
+  color: var(--accent-2);
+  background: color-mix(in oklab, var(--accent-2) 8%, var(--panel));
+}
+.archive-jump__count {
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--panel-2);
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.archive-month { scroll-margin-top: 80px; }
+.archive-month + .archive-month { margin-top: var(--space-8); }
+.archive-month__heading {
+  display: flex; align-items: baseline; flex-wrap: wrap; gap: 12px;
+  margin: 0 0 var(--space-5);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--line);
+}
+.archive-month__label {
+  font-family: var(--font-serif);
+  font-size: clamp(22px, 2.6vw, 28px);
+  font-weight: 600;
+  letter-spacing: -0.2px;
+  margin: 0;
+  color: var(--ink);
+}
+.archive-month__count {
+  font-size: 13px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
 /* Cards / feed ------------------------------------------------- */
 .feed { display: grid; gap: var(--space-6); grid-template-columns: 1fr; }
 @media (min-width: 760px) { .feed { grid-template-columns: 1fr 1fr; } }
