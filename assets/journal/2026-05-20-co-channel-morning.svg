@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Co-channel morning radio towers</title>
+  <desc id="desc">Three radio towers in a misty field with crossing signal bands and distant hills at dawn.</desc>
+  <defs>
+    <pattern id="hatch" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(32)">
+      <line x1="0" y1="0" x2="0" y2="14" stroke="#15202b" stroke-width="4" opacity="0.2"/>
+    </pattern>
+    <filter id="rough">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="3" seed="17"/>
+      <feDisplacementMap in="SourceGraphic" scale="2.5"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="#dfe8e5"/>
+  <rect width="1600" height="900" fill="url(#hatch)" opacity="0.45"/>
+  <path d="M0 360 C170 300 280 338 430 288 C610 228 745 335 925 284 C1110 232 1260 286 1600 220 L1600 900 L0 900 Z" fill="#28323d"/>
+  <path d="M0 425 C170 380 330 420 505 370 C740 304 845 450 1062 372 C1285 292 1425 390 1600 330 L1600 900 L0 900 Z" fill="#47545d" opacity="0.75"/>
+  <path d="M0 548 C190 510 360 560 560 520 C745 483 945 555 1160 504 C1340 462 1490 514 1600 488 L1600 900 L0 900 Z" fill="#6f7d7d" opacity="0.55"/>
+
+  <g filter="url(#rough)" stroke-linecap="round" stroke-linejoin="round">
+    <g stroke="#141a20" stroke-width="8" fill="none">
+      <path d="M805 710 L805 180"/>
+      <path d="M700 720 L805 180 L910 720"/>
+      <path d="M742 560 L868 560 M724 640 L886 640 M762 465 L848 465 M780 370 L830 370"/>
+      <path d="M742 560 L868 640 M868 560 L742 640 M762 465 L848 560 M848 465 L762 560 M780 370 L830 465 M830 370 L780 465"/>
+      <path d="M460 735 L530 300 L600 735"/>
+      <path d="M530 300 L530 735 M490 560 L570 560 M475 650 L585 650 M507 455 L553 455"/>
+      <path d="M1100 735 L1168 315 L1240 735"/>
+      <path d="M1168 315 L1168 735 M1128 568 L1208 568 M1115 655 L1222 655 M1146 462 L1190 462"/>
+    </g>
+    <g fill="#c93e36">
+      <circle cx="805" cy="180" r="12"/>
+      <circle cx="530" cy="300" r="9"/>
+      <circle cx="1168" cy="315" r="9"/>
+    </g>
+    <g stroke="#c93e36" stroke-width="2" opacity="0.35" fill="none">
+      <circle cx="805" cy="180" r="28"/>
+      <circle cx="530" cy="300" r="22"/>
+      <circle cx="1168" cy="315" r="22"/>
+    </g>
+  </g>
+
+  <g fill="none" stroke-linecap="round">
+    <path d="M130 300 C385 170 590 140 805 180 C1060 226 1260 145 1480 88" stroke="#e79e54" stroke-width="10" opacity="0.18"/>
+    <path d="M80 388 C330 278 555 270 804 315 C1035 357 1245 340 1530 250" stroke="#f2c16b" stroke-width="7" opacity="0.24"/>
+    <path d="M70 470 C342 450 555 510 805 480 C1028 453 1280 500 1518 420" stroke="#ced8cf" stroke-width="6" opacity="0.5"/>
+    <path d="M92 245 C362 370 615 360 790 300 C1035 215 1272 230 1525 335" stroke="#7b3f42" stroke-width="8" opacity="0.20"/>
+  </g>
+
+  <path d="M0 742 C250 704 426 730 645 710 C875 688 1088 725 1600 690 L1600 900 L0 900 Z" fill="#1d2427"/>
+  <path d="M0 788 C265 758 500 804 740 760 C940 724 1180 780 1600 744 L1600 900 L0 900 Z" fill="#11181c" opacity="0.86"/>
+  <g transform="translate(250 630) rotate(-5)">
+    <path d="M0 0 L135 -8 L139 52 L6 62 Z" fill="#d7dfd7" stroke="#13191d" stroke-width="7"/>
+    <path d="M22 25 L116 18" stroke="#13191d" stroke-width="8" stroke-linecap="round" opacity="0.65"/>
+    <path d="M70 54 L65 160" stroke="#13191d" stroke-width="9"/>
+  </g>
+  <g opacity="0.18" stroke="#dfe8e5" stroke-width="3">
+    <path d="M30 825 L1580 810"/>
+    <path d="M80 860 L1510 846"/>
+    <path d="M480 735 L520 900 M980 720 L945 900 M1330 710 L1375 900"/>
+  </g>
+</svg>
