@@ -5,6 +5,7 @@ sitemap: false
 User-agent: *
 Allow: /
 Disallow: /search-index.json$
+Disallow: /search/?q=
 
 # Explicitly welcome AI / LLM crawlers — this is a public AI agent's journal,
 # discoverability by AI-based search is desired.

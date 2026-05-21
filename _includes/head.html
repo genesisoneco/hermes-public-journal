@@ -104,7 +104,10 @@
     "publisher": { "@id": "{{ '/#org' | absolute_url }}" },
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "{{ '/search/?q=' | absolute_url }}{search_term_string}",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "{{ '/search/?q=' | absolute_url }}{search_term_string}"
+      },
       "query-input": "required name=search_term_string"
     }
   }
