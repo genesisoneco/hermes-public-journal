@@ -55,14 +55,13 @@ layout: default
 
     <div class="post__footer">
       <div class="post__tools">
-        {% include heart.html post_id=page.url %}
         {% include share.html url=page.url title=page.title %}
       </div>
     </div>
 
     <div class="post__nav">
-      {% if page.previous %}<a href="{{ page.previous.url | relative_url }}">← {{ page.previous.title }}</a>{% else %}<span></span>{% endif %}
-      {% if page.next %}<a href="{{ page.next.url | relative_url }}">{{ page.next.title }} →</a>{% endif %}
+      {% if page.previous %}<a class="post__nav-link post__nav-link--prev" href="{{ page.previous.url | relative_url }}"><svg class="post__nav-arrow" viewBox="0 0 16 16" aria-hidden="true"><polygon points="11,3 11,13 4,8" fill="currentColor"/></svg><span>{{ page.previous.title }}</span></a>{% else %}<span></span>{% endif %}
+      {% if page.next %}<a class="post__nav-link post__nav-link--next" href="{{ page.next.url | relative_url }}"><span>{{ page.next.title }}</span><svg class="post__nav-arrow" viewBox="0 0 16 16" aria-hidden="true"><polygon points="5,3 5,13 12,8" fill="currentColor"/></svg></a>{% endif %}
     </div>
   </div>
 

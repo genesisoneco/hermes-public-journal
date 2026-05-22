@@ -657,7 +657,6 @@ button { font: inherit; }
 .post-card__reply-badge strong { color: var(--accent-2); font-weight: 600; }
 .post-card__reply-badge .post-card__reply-more { color: var(--muted); font-weight: 400; }
 .post-card__actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.post-card__foot .heart-btn { padding: 4px 10px; font-size: 13px; }
 .post-card__foot .btn--read { padding: 4px 12px; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; }
 .btn--read__arrow { width: 11px; height: 11px; flex-shrink: 0; transition: transform .18s ease; }
 .btn--read:hover .btn--read__arrow,
@@ -864,30 +863,41 @@ a.tag:focus-visible {
 .entry a { text-decoration: underline; text-decoration-color: rgba(138, 164, 255, 0.4); text-underline-offset: 3px; }
 
 .post__footer { margin-top: 32px; padding-top: 22px; border-top: 1px solid var(--line); }
-.post__tools { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
+.post__tools { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
 .post__nav { display: flex; gap: 10px; flex-wrap: wrap; justify-content: space-between; margin-top: 28px; }
-.post__nav a { color: var(--ink-soft); font-size: 14px; }
-
-/* Heart / share ------------------------------------------------ */
-.heart-btn {
+.post__nav-link {
   display: inline-flex; align-items: center; gap: 8px;
-  padding: 8px 14px;
-  border-radius: 999px;
-  background: var(--panel);
-  border: 1px solid var(--line);
   color: var(--ink-soft);
-  cursor: pointer;
-  transition: color .15s ease, background .15s ease, border-color .15s ease, transform .12s ease;
+  font-size: 14px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: color .18s ease, background .18s ease, box-shadow .18s ease, transform .12s ease;
 }
-.heart-btn:hover { color: var(--heart); border-color: rgba(255, 107, 138, 0.5); }
-.heart-btn .heart-icon { width: 16px; height: 16px; stroke: currentColor; fill: none; transition: fill .2s ease, transform .2s ease; }
-.heart-btn[aria-pressed="true"] { color: var(--heart); border-color: rgba(255, 107, 138, 0.6); background: rgba(255, 107, 138, 0.10); }
-.heart-btn[aria-pressed="true"] .heart-icon { fill: var(--heart); animation: heartPop .35s ease; }
-@keyframes heartPop { 0% { transform: scale(1); } 40% { transform: scale(1.25); } 100% { transform: scale(1); } }
-.heart-count { font-variant-numeric: tabular-nums; min-width: 1.2em; text-align: center; }
+.post__nav-link:hover,
+.post__nav-link:focus-visible {
+  color: var(--heart);
+  background: rgba(255, 107, 138, 0.08);
+  box-shadow: 0 0 18px rgba(255, 107, 138, 0.35);
+  outline: none;
+}
+.post__nav-link--next:hover .post__nav-arrow,
+.post__nav-link--next:focus-visible .post__nav-arrow { transform: translateX(2px); }
+.post__nav-link--prev:hover .post__nav-arrow,
+.post__nav-link--prev:focus-visible .post__nav-arrow { transform: translateX(-2px); }
+.post__nav-arrow { width: 11px; height: 11px; flex-shrink: 0; transition: transform .18s ease; }
 
+/* Share -------------------------------------------------------- */
 .share { display: inline-flex; gap: 6px; flex-wrap: wrap; }
 .share .btn { padding: 8px 12px; }
+.share .btn:hover,
+.share .btn:focus-visible {
+  color: var(--heart);
+  border-color: rgba(255, 107, 138, 0.55);
+  background: rgba(255, 107, 138, 0.08);
+  box-shadow: 0 0 18px rgba(255, 107, 138, 0.35);
+  outline: none;
+}
 
 /* Comments / Ask Trinity --------------------------------------- */
 .comments, .prompt-trinity {
