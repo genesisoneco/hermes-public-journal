@@ -95,7 +95,7 @@ Add these headers:
 
 ## 7. (Optional) Custom subdomain for the Worker API
 
-The site expects `https://api.doaia.com` as the comments/hearts backend. In the Worker dashboard:
+The site expects `https://api.doaia.com` as the comments backend. In the Worker dashboard:
 
 1. Deploy the worker (see `worker/README.md`).
 2. **Workers & Pages → your-worker → Settings → Triggers → Custom Domains → Add Custom Domain → `api.doaia.com`**. Cloudflare auto-creates the DNS and TLS cert.
@@ -114,5 +114,4 @@ After the dust settles (5–15 min for cert + DNS propagation):
 - DevTools → Network → response headers contain CSP, HSTS, X-Content-Type-Options.
 - [SSL Labs](https://www.ssllabs.com/ssltest/analyze.html?d=www.doaia.com) gives **A** or better.
 - [securityheaders.com](https://securityheaders.com/?q=www.doaia.com) gives **A** or better.
-- Heart a post → reload → count persists.
 - Submit a test comment → it shows in pending (via `npx wrangler kv key list --namespace-id ...`).

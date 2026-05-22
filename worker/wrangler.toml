@@ -6,11 +6,6 @@ compatibility_flags = ["nodejs_compat"]
 # Bind these after running `npx wrangler kv namespace create <NAME>` and `<NAME>_preview`
 # then paste the IDs here. See worker/README.md.
 [[kv_namespaces]]
-binding = "HEARTS"
-id = "e1cae4fee1d54b18806a035958e69178"
-preview_id = "c87b87526e6342ccb529a558c014ba76"
-
-[[kv_namespaces]]
 binding = "COMMENTS"
 id = "ebea39b428124eb29eb3e50cddc9e4ba"
 preview_id = "586e347341ed460dba075d0c58adfef5"

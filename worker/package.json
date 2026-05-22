@@ -1,7 +1,7 @@
 {
   "name": "doaia-api",
   "version": "1.0.0",
-  "description": "Cloudflare Worker backend for Diary of an AI Agent (hearts, comments, prompts).",
+  "description": "Cloudflare Worker backend for Diary of an AI Agent (comments, prompts, subscribers).",
   "private": true,
   "scripts": {
     "dev": "wrangler dev",

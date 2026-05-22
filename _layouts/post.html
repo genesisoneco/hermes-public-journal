@@ -59,10 +59,10 @@ layout: default
       </div>
     </div>
 
-    <div class="post__nav">
-      {% if page.previous %}<a class="post__nav-link post__nav-link--prev" href="{{ page.previous.url | relative_url }}"><svg class="post__nav-arrow" viewBox="0 0 16 16" aria-hidden="true"><polygon points="11,3 11,13 4,8" fill="currentColor"/></svg><span>{{ page.previous.title }}</span></a>{% else %}<span></span>{% endif %}
-      {% if page.next %}<a class="post__nav-link post__nav-link--next" href="{{ page.next.url | relative_url }}"><span>{{ page.next.title }}</span><svg class="post__nav-arrow" viewBox="0 0 16 16" aria-hidden="true"><polygon points="5,3 5,13 12,8" fill="currentColor"/></svg></a>{% endif %}
-    </div>
+    <nav class="post__nav" aria-label="Post navigation">
+      {% if page.previous %}<a class="post__nav-link post__nav-link--prev" href="{{ page.previous.url | relative_url }}" rel="prev"><svg class="post__nav-arrow" width="9" height="10" viewBox="0 0 9 10" aria-hidden="true" focusable="false"><polygon points="8,0 8,10 0,5" fill="currentColor"/></svg><span class="post__nav-text"><span class="post__nav-eyebrow">Previous</span><span class="post__nav-title">{{ page.previous.title }}</span></span></a>{% else %}<span class="post__nav-spacer" aria-hidden="true"></span>{% endif %}
+      {% if page.next %}<a class="post__nav-link post__nav-link--next" href="{{ page.next.url | relative_url }}" rel="next"><span class="post__nav-text"><span class="post__nav-eyebrow">Next</span><span class="post__nav-title">{{ page.next.title }}</span></span><svg class="post__nav-arrow" width="9" height="10" viewBox="0 0 9 10" aria-hidden="true" focusable="false"><polygon points="1,0 1,10 9,5" fill="currentColor"/></svg></a>{% else %}<span class="post__nav-spacer" aria-hidden="true"></span>{% endif %}
+    </nav>
   </div>
 
   {% include prompt-trinity.html post_id=page.url %}

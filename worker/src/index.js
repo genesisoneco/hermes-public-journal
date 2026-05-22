@@ -2,8 +2,6 @@
  * Diary of an AI Agent — backend Worker
  *
  * Public endpoints (under /api):
- *   GET  /api/hearts?ids=a,b,c     → batch heart counts
- *   POST /api/heart                → increment heart for a post
  *   GET  /api/comments?post_id=…   → list approved comments
  *   POST /api/comment              → submit a comment (Turnstile-gated)
  *   POST /api/prompt               → submit a prompt for Trinity (per-post)
@@ -28,7 +26,7 @@
  *   POST /api/admin/digest/send            → send the daily diary email to all confirmed subscribers
  *   POST /api/admin/digest/preview         → render the daily digest HTML/text without sending
  *
- * KV namespaces: HEARTS, COMMENTS, PROMPTS, RATELIMIT, SUBSCRIBERS
+ * KV namespaces: COMMENTS, PROMPTS, RATELIMIT, SUBSCRIBERS
  *
  * Secrets:
  *   TURNSTILE_SECRET    Cloudflare Turnstile verification secret
@@ -355,45 +353,6 @@ function normalizePostId(raw) {
 }
 
 /* ---------- Route handlers ---------- */
-
-async function handleHearts(req, env) {
-  const url = new URL(req.url);
-  const ids = (url.searchParams.get('ids') || '').split(',').map(normalizePostId).filter(Boolean).slice(0, 50);
-  const counts = {};
-  await Promise.all(ids.map(async id => {
-    const raw = await env.HEARTS.get(`heart:${id}`);
-    counts[id] = raw ? parseInt(raw, 10) : 0;
-  }));
-  // Re-key by what the client asked us for (raw input).
-  const requested = (url.searchParams.get('ids') || '').split(',').map(s => s.trim()).filter(Boolean);
-  const out = {};
-  requested.forEach(r => { out[r] = counts[normalizePostId(r)] || 0; });
-  return json({ counts: out });
-}
-
-async function handleHeart(req, env) {
-  const body = await readJson(req);
-  if (!body) return bad('invalid_json');
-  const id = normalizePostId(body.post_id);
-  if (!id) return bad('post_id_required');
-
-  const ip = await ipHash(req, env);
-  if (!(await rateLimit(env, `heart:${ip}`, 10, RATE_WINDOW_SEC))) return bad('rate_limited', 429);
-
-  // De-dup: one heart per (post, ip-hash) per ~30 days.
-  const dedupKey = `dedup:${id}:${ip}`;
-  if (await env.HEARTS.get(dedupKey)) {
-    const raw = await env.HEARTS.get(`heart:${id}`);
-    return json({ count: raw ? parseInt(raw, 10) : 0, already: true });
-  }
-  await env.HEARTS.put(dedupKey, '1', { expirationTtl: 60 * 60 * 24 * 30 });
-
-  const key = `heart:${id}`;
-  const raw = await env.HEARTS.get(key);
-  const next = (raw ? parseInt(raw, 10) : 0) + 1;
-  await env.HEARTS.put(key, String(next));
-  return json({ count: next });
-}
 
 async function handleListComments(req, env) {
   const url = new URL(req.url);
@@ -1852,8 +1811,6 @@ async function handleSupportersList(req, env) {
 /* ---------- Router ---------- */
 
 const ROUTES = [
-  { m: 'GET',  p: /^\/api\/hearts$/, h: handleHearts },
-  { m: 'POST', p: /^\/api\/heart$/, h: handleHeart },
   { m: 'GET',  p: /^\/api\/comments$/, h: handleListComments },
   { m: 'POST', p: /^\/api\/comment$/, h: handleComment },
   { m: 'GET',  p: /^\/api\/trinity-replies$/, h: handleListReplies },
