@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 788" role="img" aria-labelledby="title desc">
+  <title id="title">A cello on a dark table with rosin dust and an empty chair</title>
+  <desc id="desc">Copperplate-style line art showing a cello lying on a worktable, silver strings, rosin dust, a shadowed empty chair, and a small map-like sheet tucked beneath the bridge.</desc>
+  <defs>
+    <pattern id="paper" width="26" height="26" patternUnits="userSpaceOnUse">
+      <rect width="26" height="26" fill="#141016"/>
+      <path d="M0 3 L26 1 M0 12 L26 15 M0 23 L26 20" stroke="#241b22" stroke-width="1" opacity=".65"/>
+      <circle cx="7" cy="8" r=".8" fill="#3a2b27" opacity=".55"/>
+      <circle cx="20" cy="19" r=".7" fill="#2d333d" opacity=".45"/>
+    </pattern>
+    <radialGradient id="lamp" cx="52%" cy="45%" r="58%">
+      <stop offset="0" stop-color="#6b4b31" stop-opacity=".36"/>
+      <stop offset=".45" stop-color="#221820" stop-opacity=".42"/>
+      <stop offset="1" stop-color="#09080d"/>
+    </radialGradient>
+    <filter id="roughen">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="4" seed="25" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.8"/>
+    </filter>
+    <style>
+      .copper{stroke:#b87945;stroke-linecap:round;stroke-linejoin:round;fill:none}
+      .dull{stroke:#5b3d32;stroke-linecap:round;stroke-linejoin:round;fill:none}
+      .silver{stroke:#cbd8dc;stroke-linecap:round;stroke-linejoin:round;fill:none}
+      .blue{stroke:#53687b;stroke-linecap:round;stroke-linejoin:round;fill:none}
+      .hatch{stroke:#8b5b3d;stroke-width:1;opacity:.34}
+    </style>
+  </defs>
+
+  <rect width="1400" height="788" fill="url(#paper)"/>
+  <rect width="1400" height="788" fill="url(#lamp)"/>
+
+  <!-- table -->
+  <g opacity=".9">
+    <path d="M76 594 C230 558 371 553 548 562 C760 572 914 552 1088 522 C1195 504 1291 505 1363 529" stroke="#3d2825" stroke-width="18" fill="none"/>
+    <path d="M40 615 C274 603 498 617 705 604 C934 590 1127 548 1378 568" stroke="#21171a" stroke-width="42" fill="none" opacity=".82"/>
+    <path d="M87 642 C302 618 508 638 715 622 C943 604 1122 570 1340 584" stroke="#8a5539" stroke-width="2" fill="none" opacity=".55"/>
+    <path d="M120 667 C346 639 577 666 812 642 C1052 618 1209 597 1351 613" stroke="#634132" stroke-width="1.4" fill="none" opacity=".7"/>
+  </g>
+
+  <!-- empty chair shadow -->
+  <g opacity=".45" filter="url(#roughen)">
+    <path d="M1100 198 C1163 177 1225 184 1267 225 C1288 245 1294 284 1280 319 C1229 294 1162 292 1094 314 C1076 276 1076 225 1100 198Z" fill="#0b0a0f" stroke="#3f2d2e" stroke-width="3"/>
+    <path d="M1120 317 L1096 640 M1260 318 L1306 642 M1135 430 C1194 405 1255 407 1292 444" class="dull" stroke-width="6"/>
+    <path d="M1105 239 C1162 217 1223 224 1264 265" class="dull" stroke-width="2" opacity=".7"/>
+  </g>
+
+  <!-- map paper under bridge -->
+  <g transform="translate(578 415) rotate(-8)" opacity=".92">
+    <path d="M0 0 L246 -28 L287 94 L39 127 Z" fill="#d9c49c" opacity=".2" stroke="#9e7147" stroke-width="2"/>
+    <path d="M39 28 C66 0 101 11 128 2 C159 -8 187 18 220 12 M42 64 C81 38 111 55 145 39 C179 22 207 54 250 43 M59 99 C97 82 132 96 168 76 C196 60 221 75 262 70" class="blue" stroke-width="2" opacity=".55"/>
+    <path d="M95 10 L106 112 M175 -5 L185 100 M26 47 L264 15 M34 88 L274 55" stroke="#8b6746" stroke-width="1" opacity=".42"/>
+  </g>
+
+  <!-- cello body -->
+  <g filter="url(#roughen)">
+    <path d="M531 176
+      C455 148 396 185 390 244
+      C386 285 421 310 452 333
+      C391 365 366 425 391 487
+      C420 559 498 579 573 540
+      C619 516 637 480 643 445
+      C649 481 668 516 714 540
+      C789 579 868 559 896 487
+      C921 425 896 365 835 333
+      C866 310 901 285 897 244
+      C891 185 832 148 756 176
+      C703 196 678 237 643 273
+      C609 237 584 196 531 176Z"
+      fill="#3c2119" stroke="#c58249" stroke-width="5"/>
+    <path d="M543 198 C487 183 432 205 426 254 C423 286 456 310 493 328 C442 351 407 409 426 471 C450 548 541 545 593 499 C627 469 635 426 641 385" class="copper" stroke-width="2" opacity=".76"/>
+    <path d="M744 198 C800 183 855 205 861 254 C864 286 831 310 794 328 C845 351 880 409 861 471 C837 548 746 545 694 499 C660 469 652 426 646 385" class="copper" stroke-width="2" opacity=".76"/>
+    <path d="M604 269 C623 291 663 291 682 269 C661 327 662 389 686 455 C661 442 624 442 600 455 C624 389 625 327 604 269Z" fill="#201114" stroke="#8d5636" stroke-width="2" opacity=".9"/>
+    <path d="M552 300 C523 289 495 305 493 334 C496 369 529 376 555 360 C533 354 528 327 552 300Z" fill="#0b080b" opacity=".75"/>
+    <path d="M733 300 C762 289 790 305 792 334 C789 369 756 376 730 360 C752 354 757 327 733 300Z" fill="#0b080b" opacity=".75"/>
+
+    <!-- hatching on body -->
+    <g opacity=".55">
+      <path d="M466 223 C521 244 568 277 609 333" class="hatch"/>
+      <path d="M451 257 C515 273 565 303 610 357" class="hatch"/>
+      <path d="M435 443 C497 417 562 415 626 441" class="hatch"/>
+      <path d="M467 510 C528 481 584 475 638 494" class="hatch"/>
+      <path d="M819 223 C764 244 717 277 676 333" class="hatch"/>
+      <path d="M835 257 C770 273 720 303 675 357" class="hatch"/>
+      <path d="M851 443 C789 417 724 415 660 441" class="hatch"/>
+      <path d="M818 510 C758 481 701 475 648 494" class="hatch"/>
+    </g>
+  </g>
+
+  <!-- neck, fingerboard, scroll -->
+  <g filter="url(#roughen)">
+    <path d="M628 74 C634 58 656 58 662 74 L658 281 C653 291 633 291 628 281 Z" fill="#251316" stroke="#a46a42" stroke-width="3"/>
+    <path d="M614 56 C619 20 668 18 680 47 C689 70 668 84 650 73 C674 71 675 42 653 39 C632 37 625 52 628 66 Z" fill="#2c1615" stroke="#b87945" stroke-width="3"/>
+    <path d="M624 91 L665 92" class="dull" stroke-width="2"/>
+    <path d="M625 127 L663 127 M626 166 L662 165 M627 207 L660 206" class="dull" stroke-width="1.5" opacity=".8"/>
+  </g>
+
+  <!-- bridge and strings -->
+  <g>
+    <path d="M593 406 C604 362 683 362 694 406 L683 419 C672 406 615 406 604 419 Z" fill="#d7b074" opacity=".7" stroke="#edc987" stroke-width="2"/>
+    <path d="M612 419 C620 397 633 390 642 419 M675 419 C666 397 653 390 644 419" stroke="#5d321e" stroke-width="2" fill="none" opacity=".8"/>
+    <path d="M629 66 C624 205 626 333 610 556" class="silver" stroke-width="1.4" opacity=".9"/>
+    <path d="M639 65 C637 205 638 333 632 562" class="silver" stroke-width="1.6" opacity=".94"/>
+    <path d="M650 65 C653 205 653 333 655 562" class="silver" stroke-width="1.6" opacity=".94"/>
+    <path d="M661 66 C669 205 670 333 682 556" class="silver" stroke-width="1.4" opacity=".9"/>
+    <path d="M608 558 C632 571 659 571 684 558" stroke="#b87945" stroke-width="7" fill="none" opacity=".72"/>
+  </g>
+
+  <!-- rosin dust and scratch marks -->
+  <g opacity=".85">
+    <circle cx="505" cy="128" r="2.2" fill="#d9c7a6" opacity=".5"/>
+    <circle cx="553" cy="104" r="1.4" fill="#d9c7a6" opacity=".45"/>
+    <circle cx="729" cy="118" r="1.8" fill="#d9c7a6" opacity=".42"/>
+    <circle cx="783" cy="172" r="1.1" fill="#d9c7a6" opacity=".5"/>
+    <circle cx="684" cy="332" r="1.6" fill="#d9c7a6" opacity=".5"/>
+    <circle cx="590" cy="347" r="1.2" fill="#d9c7a6" opacity=".5"/>
+    <circle cx="840" cy="404" r="1.5" fill="#d9c7a6" opacity=".4"/>
+    <circle cx="458" cy="410" r="1.3" fill="#d9c7a6" opacity=".45"/>
+    <path d="M345 236 C293 246 250 267 211 299 M357 275 C301 290 251 321 211 365 M956 222 C1005 223 1059 237 1111 268 M952 264 C1002 275 1047 302 1087 340" class="blue" stroke-width="1.2" opacity=".25"/>
+    <path d="M540 592 L589 584 M613 604 L678 592 M707 585 L760 576 M475 607 L512 600" stroke="#d5b485" stroke-width="1.2" opacity=".38"/>
+  </g>
+
+  <!-- border like an old print plate -->
+  <rect x="42" y="38" width="1316" height="712" fill="none" stroke="#815438" stroke-width="2" opacity=".6"/>
+  <rect x="58" y="54" width="1284" height="680" fill="none" stroke="#263645" stroke-width="1" opacity=".55"/>
+</svg>
