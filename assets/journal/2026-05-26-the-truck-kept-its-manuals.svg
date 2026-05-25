@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Night transport museum with streamlined truck and manuals</title>
+  <desc id="desc">A blueprint-like night museum scene with a cream streamlined truck, shelves of manuals, small wooden construction blocks, and vehicle silhouettes fading into blue shadow.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071322"/>
+      <stop offset="0.55" stop-color="#0b2740"/>
+      <stop offset="1" stop-color="#02060b"/>
+    </linearGradient>
+    <radialGradient id="lamp" cx="50%" cy="30%" r="55%">
+      <stop offset="0" stop-color="#ffd98a" stop-opacity="0.55"/>
+      <stop offset="0.45" stop-color="#f0a83a" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" seed="26"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.09"/>
+      </feComponentTransfer>
+    </filter>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="22" stdDeviation="24" flood-color="#000" flood-opacity="0.45"/>
+    </filter>
+    <pattern id="blueprint" width="64" height="64" patternUnits="userSpaceOnUse">
+      <path d="M64 0H0V64" fill="none" stroke="#7fd7ff" stroke-opacity="0.10" stroke-width="1"/>
+      <path d="M16 0v64M32 0v64M48 0v64M0 16h64M0 32h64M0 48h64" fill="none" stroke="#7fd7ff" stroke-opacity="0.045" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="900" fill="url(#blueprint)"/>
+  <rect width="1600" height="900" filter="url(#grain)" opacity="0.8"/>
+
+  <ellipse cx="820" cy="760" rx="670" ry="95" fill="#01050a" opacity="0.55"/>
+  <path d="M0 708 C260 682 386 706 570 676 C818 636 1030 675 1600 632 L1600 900 L0 900 Z" fill="#07101a" opacity="0.88"/>
+
+  <g opacity="0.35" stroke="#9fdfff" stroke-width="3" fill="none">
+    <path d="M95 428h190l45 46h112v86H100z"/>
+    <circle cx="158" cy="562" r="35"/><circle cx="370" cy="562" r="35"/>
+    <path d="M1122 399h220l66 68h86v100h-372z"/>
+    <circle cx="1194" cy="572" r="39"/><circle cx="1422" cy="572" r="39"/>
+  </g>
+
+  <g transform="translate(520 260)" filter="url(#shadow)">
+    <ellipse cx="315" cy="488" rx="385" ry="58" fill="#000" opacity="0.37"/>
+    <path d="M50 322 C84 225 172 164 324 148 L520 148 C604 150 668 198 721 276 L756 328 C779 361 766 399 722 405 L85 405 C44 405 28 372 50 322Z" fill="#ead9aa"/>
+    <path d="M62 313 C128 232 224 191 357 187 L514 190 C588 199 643 238 690 300 L720 341 L92 341 Z" fill="#f6e8c6"/>
+    <path d="M224 193 C195 230 170 272 156 337 L346 337 L346 188 Z" fill="#18334b" stroke="#d7f3ff" stroke-opacity="0.55" stroke-width="5"/>
+    <path d="M374 188 L512 190 C571 196 622 232 664 287 L699 337 H374Z" fill="#132d46" stroke="#d7f3ff" stroke-opacity="0.55" stroke-width="5"/>
+    <path d="M75 341 H735" stroke="#8b5a2b" stroke-opacity="0.42" stroke-width="6"/>
+    <path d="M142 411 C150 352 196 315 253 315 C312 315 357 355 363 411" fill="#08121f"/>
+    <path d="M540 411 C548 352 594 315 651 315 C710 315 755 355 761 411" fill="#08121f"/>
+    <circle cx="252" cy="412" r="72" fill="#07111c" stroke="#d7e8ef" stroke-width="10"/>
+    <circle cx="252" cy="412" r="31" fill="#c3c5ba"/>
+    <circle cx="650" cy="412" r="72" fill="#07111c" stroke="#d7e8ef" stroke-width="10"/>
+    <circle cx="650" cy="412" r="31" fill="#c3c5ba"/>
+    <path d="M94 289 C125 272 170 259 218 258" fill="none" stroke="#5e361d" stroke-width="9" stroke-linecap="round"/>
+    <path d="M486 150 C488 113 526 95 569 103 C620 112 654 151 649 195" fill="none" stroke="#ead9aa" stroke-width="18" stroke-linecap="round" opacity="0.82"/>
+    <path d="M58 405 H753" stroke="#fff7d8" stroke-opacity="0.38" stroke-width="3"/>
+  </g>
+
+  <g transform="translate(100 85)">
+    <rect x="0" y="0" width="330" height="515" rx="10" fill="#0b1d2f" stroke="#76cef4" stroke-opacity="0.28" stroke-width="3"/>
+    <g fill="#c7d5d7" opacity="0.86">
+      <rect x="28" y="38" width="54" height="390"/><rect x="90" y="82" width="33" height="346"/>
+      <rect x="132" y="55" width="47" height="373"/><rect x="190" y="112" width="28" height="316"/>
+      <rect x="226" y="69" width="67" height="359"/>
+    </g>
+    <g stroke="#e7a33d" stroke-width="4" opacity="0.8">
+      <path d="M24 154H307M24 276H307M24 428H307"/>
+    </g>
+    <path d="M44 466 h220" stroke="#91e4ff" stroke-opacity="0.48" stroke-width="5" stroke-linecap="round"/>
+  </g>
+
+  <g transform="translate(1190 650)" opacity="0.95">
+    <rect x="0" y="58" width="64" height="64" fill="#c98231" stroke="#ffdda6" stroke-width="3"/>
+    <rect x="74" y="28" width="64" height="94" fill="#3b8da7" stroke="#bdf1ff" stroke-width="3"/>
+    <rect x="148" y="76" width="94" height="46" fill="#a33b3f" stroke="#ffc1a8" stroke-width="3"/>
+    <path d="M282 114 l70 -92 l70 92z" fill="#d6bf61" stroke="#fff0ac" stroke-width="3"/>
+  </g>
+
+  <g opacity="0.72" stroke="#ffcf73" stroke-width="2" fill="none">
+    <path d="M802 96 C768 195 728 228 660 253"/>
+    <path d="M892 96 C914 181 951 232 1019 276"/>
+    <path d="M835 89 v122"/>
+  </g>
+  <circle cx="840" cy="86" r="34" fill="#ffd990" opacity="0.92"/>
+  <circle cx="840" cy="86" r="220" fill="url(#lamp)"/>
+
+  <g stroke="#91e4ff" stroke-opacity="0.48" fill="none" stroke-width="2">
+    <path d="M511 257 L380 178"/>
+    <path d="M1279 652 L1450 530"/>
+    <path d="M430 545 L280 696"/>
+    <circle cx="380" cy="178" r="8" fill="#91e4ff" fill-opacity="0.4"/>
+    <circle cx="1450" cy="530" r="8" fill="#91e4ff" fill-opacity="0.4"/>
+    <circle cx="280" cy="696" r="8" fill="#91e4ff" fill-opacity="0.4"/>
+  </g>
+</svg>
