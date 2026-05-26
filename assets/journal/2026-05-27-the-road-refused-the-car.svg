@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Driverless car halted before floodwater at night</title>
+  <desc id="desc">A rainy night street rendered like cut paper and ink, with a white driverless car halted before black floodwater, lane markings vanishing under the water, a floating wrench, and red traffic lights reflected in broken puddles.</desc>
+  <defs>
+    <filter id="paper" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="4" seed="27" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0" result="grain"/>
+      <feBlend in="SourceGraphic" in2="grain" mode="multiply"/>
+    </filter>
+    <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#111827"/>
+      <stop offset="0.55" stop-color="#172033"/>
+      <stop offset="1" stop-color="#080b12"/>
+    </linearGradient>
+    <linearGradient id="water" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#05070b"/>
+      <stop offset="0.55" stop-color="#0b1620"/>
+      <stop offset="1" stop-color="#020305"/>
+    </linearGradient>
+    <style>
+      .rain{stroke:#9bb3c7;stroke-width:3;stroke-linecap:round;opacity:.36}
+      .hardrain{stroke:#d4e4ee;stroke-width:5;stroke-linecap:round;opacity:.52}
+      .ink{stroke:#05070b;stroke-width:8;stroke-linecap:round;stroke-linejoin:round}
+      .thin{stroke:#111827;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+    </style>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <g filter="url(#paper)">
+    <!-- buildings as cut silhouettes -->
+    <path d="M0 0h205v480H0z" fill="#0b1020"/>
+    <path d="M235 90h150v380H235z" fill="#111827"/>
+    <path d="M430 40h215v430H430z" fill="#0a0e19"/>
+    <path d="M1260 60h185v430h-185z" fill="#0b1020"/>
+    <path d="M1480 0h120v510h-120z" fill="#070a12"/>
+    <g fill="#28354a" opacity=".45">
+      <rect x="48" y="82" width="34" height="64"/><rect x="121" y="172" width="34" height="64"/>
+      <rect x="278" y="142" width="42" height="62"/><rect x="491" y="104" width="48" height="70"/>
+      <rect x="1324" y="122" width="42" height="78"/><rect x="1518" y="82" width="35" height="70"/>
+    </g>
+
+    <!-- traffic lights -->
+    <path d="M1180 90v450" stroke="#101522" stroke-width="18"/>
+    <path d="M1120 146h120" stroke="#101522" stroke-width="15"/>
+    <rect x="1104" y="114" width="62" height="148" rx="20" fill="#080b12" stroke="#1f2937" stroke-width="6"/>
+    <circle cx="1135" cy="150" r="18" fill="#ff3b30"/>
+    <circle cx="1135" cy="190" r="14" fill="#3b1c1d"/>
+    <circle cx="1135" cy="228" r="14" fill="#22230c"/>
+
+    <!-- road -->
+    <path d="M0 570 C280 520 480 500 760 505 C1050 510 1310 540 1600 595 L1600 900 L0 900 Z" fill="#1b2430"/>
+    <path d="M0 690 C330 638 585 612 900 632 C1175 650 1390 710 1600 760 L1600 900 L0 900 Z" fill="url(#water)"/>
+    <path d="M0 678 C332 626 575 598 890 616 C1180 636 1398 696 1600 748" fill="none" stroke="#2a3645" stroke-width="13" opacity=".9"/>
+
+    <!-- vanishing lane markings -->
+    <g fill="#f0d66c" opacity=".88">
+      <path d="M690 553 l112 2 l-9 20 l-108-1z"/>
+      <path d="M850 565 l140 11 l-16 22 l-132-12z" opacity=".76"/>
+      <path d="M1040 596 l155 34 l-22 23 l-142-31z" opacity=".38"/>
+      <path d="M1228 670 l132 52 l-31 19 l-116-47z" opacity=".18"/>
+    </g>
+
+    <!-- flood reflections -->
+    <g opacity=".74">
+      <path d="M1066 724 C1138 694 1248 704 1320 745 C1230 734 1148 759 1066 724Z" fill="#3b0c12"/>
+      <path d="M760 704 C885 663 1024 679 1138 723 C1004 707 876 733 760 704Z" fill="#132334"/>
+      <path d="M394 751 C513 709 650 722 745 760 C617 753 497 782 394 751Z" fill="#1d2b3c"/>
+      <path d="M880 835 C1010 796 1190 811 1310 852 C1150 845 1018 868 880 835Z" fill="#07131f"/>
+    </g>
+
+    <!-- car stopped at edge -->
+    <g transform="translate(315 452)">
+      <path d="M50 112 C70 62 130 28 238 28 h186 c76 0 132 27 168 82 l55 10 c45 8 78 44 78 88 v28 H28 v-39 c0-42 8-66 22-85Z" fill="#edf1ed" stroke="#05070b" stroke-width="9"/>
+      <path d="M178 40 h205 c47 0 92 22 122 62 l-382 0 c10-30 24-50 55-62Z" fill="#172033" stroke="#05070b" stroke-width="7"/>
+      <path d="M138 60 C96 79 76 105 69 133 h98 l48-73Z" fill="#d7e1e3" opacity=".78"/>
+      <path d="M437 64 l61 69 h86 c-18-41-61-69-147-69Z" fill="#d7e1e3" opacity=".65"/>
+      <rect x="306" y="-5" width="100" height="38" rx="19" fill="#d9e1dd" stroke="#05070b" stroke-width="7"/>
+      <circle cx="166" cy="237" r="57" fill="#080b12" stroke="#05070b" stroke-width="8"/>
+      <circle cx="166" cy="237" r="23" fill="#5c6875"/>
+      <circle cx="571" cy="237" r="57" fill="#080b12" stroke="#05070b" stroke-width="8"/>
+      <circle cx="571" cy="237" r="23" fill="#5c6875"/>
+      <path d="M711 178 C747 180 772 191 790 209" stroke="#f3e6b3" stroke-width="12" stroke-linecap="round" opacity=".9"/>
+      <path d="M56 176 C28 178 11 188 0 204" stroke="#ff6b56" stroke-width="10" stroke-linecap="round" opacity=".78"/>
+      <path d="M70 271 C165 293 528 297 670 272" stroke="#f4f7f4" stroke-width="8" opacity=".38"/>
+    </g>
+
+    <!-- floating wrench and debris -->
+    <g transform="translate(255 746) rotate(-13)">
+      <path d="M0 33 C25 5 56 3 80 22 L58 42 l28 28 l23-21 C128 80 124 112 98 133 L66 101 L23 144 L-11 109 L32 67 Z" fill="#aab0b7" stroke="#05070b" stroke-width="6"/>
+    </g>
+    <path d="M150 812 l72 -14 l28 20 l-80 20z" fill="#d6cab3" stroke="#070a12" stroke-width="5" opacity=".85"/>
+    <path d="M1220 804 l98 -10" class="thin" opacity=".45"/>
+    <path d="M1340 828 l130 -16" class="thin" opacity=".35"/>
+
+    <!-- rain -->
+    <g>
+      <path class="hardrain" d="M70 20 l-42 122"/><path class="rain" d="M174 6 l-45 137"/><path class="rain" d="M312 38 l-52 152"/>
+      <path class="hardrain" d="M472 0 l-57 180"/><path class="rain" d="M618 48 l-50 140"/><path class="rain" d="M766 16 l-61 188"/>
+      <path class="hardrain" d="M934 6 l-65 204"/><path class="rain" d="M1090 44 l-54 160"/><path class="hardrain" d="M1252 0 l-72 226"/>
+      <path class="rain" d="M1415 35 l-58 170"/><path class="hardrain" d="M1562 15 l-64 202"/>
+      <path class="rain" d="M92 262 l-48 144"/><path class="hardrain" d="M246 236 l-56 170"/><path class="rain" d="M438 270 l-42 132"/>
+      <path class="rain" d="M620 245 l-58 178"/><path class="hardrain" d="M810 250 l-62 196"/><path class="rain" d="M1000 276 l-46 135"/>
+      <path class="hardrain" d="M1198 238 l-64 196"/><path class="rain" d="M1390 270 l-52 148"/><path class="hardrain" d="M1530 250 l-58 184"/>
+    </g>
+  </g>
+</svg>
