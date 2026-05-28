@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Stitched video provenance label</title>
+  <desc id="desc">A dark phone-shaped video frame with embroidered scan lines, a cream label sewn onto the lower edge, colored metadata knots, a loose red thread, and a silver needle hovering nearby.</desc>
+  <defs>
+    <filter id="cloth" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.022 0.09" numOctaves="4" seed="29" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <pattern id="weave" width="22" height="22" patternUnits="userSpaceOnUse">
+      <path d="M0 6 H22 M0 17 H22" stroke="#26324d" stroke-width="1" opacity="0.55"/>
+      <path d="M6 0 V22 M17 0 V22" stroke="#44506c" stroke-width="0.8" opacity="0.35"/>
+    </pattern>
+    <linearGradient id="phone" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#10162a"/>
+      <stop offset="0.52" stop-color="#171d36"/>
+      <stop offset="1" stop-color="#070a14"/>
+    </linearGradient>
+    <style>
+      .stitch{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:3 14}
+      .thread{fill:none;stroke-linecap:round;stroke-linejoin:round}
+      .knot{stroke:#111827;stroke-width:4}
+    </style>
+  </defs>
+
+  <rect width="1600" height="900" fill="#0b1020"/>
+  <rect width="1600" height="900" fill="url(#weave)" opacity="0.75"/>
+  <g filter="url(#cloth)">
+    <path d="M316 110 C300 112 286 130 286 150 L286 750 C286 774 304 790 328 790 L1274 790 C1298 790 1316 772 1316 748 L1316 150 C1316 128 1300 110 1278 110 Z" fill="#080b16"/>
+    <path d="M346 146 H1256 C1270 146 1282 158 1282 172 V714 C1282 730 1270 742 1256 742 H346 C330 742 320 730 320 714 V172 C320 158 332 146 346 146 Z" fill="url(#phone)" stroke="#6e7896" stroke-width="5"/>
+
+    <g opacity="0.74">
+      <path class="thread" d="M372 205 C480 184 560 228 652 211 C742 194 796 176 896 208 C1006 242 1116 196 1234 218" stroke="#bfc9e8" stroke-width="3"/>
+      <path class="thread" d="M365 278 C482 313 578 250 686 284 C774 312 874 338 958 292 C1050 242 1144 280 1240 260" stroke="#7f8bb1" stroke-width="2"/>
+      <path class="thread" d="M374 356 C454 338 520 370 612 354 C716 336 778 402 872 370 C982 332 1084 364 1238 354" stroke="#d7ddf4" stroke-width="2"/>
+      <path class="thread" d="M366 438 C506 470 610 410 742 438 C878 467 988 420 1236 452" stroke="#a3afd5" stroke-width="2.5"/>
+      <path class="thread" d="M364 524 C520 490 642 548 780 520 C900 496 1000 548 1238 510" stroke="#707fa8" stroke-width="2"/>
+      <path class="thread" d="M370 606 C506 620 600 596 706 614 C830 636 938 588 1032 610 C1112 629 1170 622 1235 598" stroke="#c9d2ed" stroke-width="2"/>
+    </g>
+
+    <g transform="translate(485 630) rotate(-1)">
+      <path d="M0 0 C110 -18 480 -22 642 -2 C656 0 666 12 666 28 L666 98 C666 114 654 126 638 126 C496 114 135 116 8 128 C-10 130 -22 116 -22 98 L-22 30 C-22 14 -14 2 0 0 Z" fill="#f4ead4" stroke="#3c2f25" stroke-width="5"/>
+      <path class="stitch" d="M12 20 C126 8 510 8 638 20" stroke="#9a8462" stroke-width="5"/>
+      <path class="stitch" d="M13 106 C132 92 503 94 636 104" stroke="#9a8462" stroke-width="5"/>
+      <path class="stitch" d="M8 26 V99 M640 27 V99" stroke="#9a8462" stroke-width="5"/>
+      <g opacity="0.75">
+        <path d="M74 55 H252" stroke="#4d463b" stroke-width="9" stroke-linecap="round"/>
+        <path d="M302 55 H575" stroke="#4d463b" stroke-width="9" stroke-linecap="round"/>
+        <path d="M96 82 H492" stroke="#716755" stroke-width="6" stroke-linecap="round"/>
+      </g>
+    </g>
+
+    <g>
+      <circle class="knot" cx="420" cy="244" r="11" fill="#d75757"/>
+      <circle class="knot" cx="1136" cy="302" r="9" fill="#f1c45d"/>
+      <circle class="knot" cx="872" cy="381" r="10" fill="#66c6b2"/>
+      <circle class="knot" cx="598" cy="521" r="8" fill="#9b7be7"/>
+      <circle class="knot" cx="1040" cy="588" r="12" fill="#7fb5ff"/>
+      <circle class="knot" cx="1230" cy="217" r="7" fill="#f06fa8"/>
+    </g>
+
+    <path class="thread" d="M1110 752 C1146 800 1178 830 1212 812 C1248 792 1196 764 1224 740 C1244 723 1288 735 1308 770" stroke="#d24a4a" stroke-width="7"/>
+    <path class="thread" d="M1243 142 C1300 210 1350 292 1374 386" stroke="#d4d8e4" stroke-width="4"/>
+    <path d="M1374 386 L1402 450 L1352 402 Z" fill="#e6e9f2" stroke="#858da5" stroke-width="4"/>
+    <circle cx="1374" cy="386" r="7" fill="#27304d"/>
+  </g>
+
+  <g opacity="0.23">
+    <path d="M166 90 C262 132 248 212 142 216 C80 218 58 310 112 352" class="thread" stroke="#6f7898" stroke-width="2"/>
+    <path d="M1442 120 C1388 190 1416 270 1496 300 C1546 318 1526 414 1458 430" class="thread" stroke="#6f7898" stroke-width="2"/>
+  </g>
+</svg>
