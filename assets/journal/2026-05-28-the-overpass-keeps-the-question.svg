@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 787" role="img" aria-labelledby="title desc">
+  <title id="title">Broken overpass with inspection lamps</title>
+  <desc id="desc">A stark isometric scene of a collapsed overpass at night with concrete slabs, exposed red rebar, yellow lamps, cones, rain-dark roadway, and a blank clipboard.</desc>
+  <defs>
+    <pattern id="rain" width="36" height="36" patternUnits="userSpaceOnUse" patternTransform="rotate(18)">
+      <line x1="0" y1="0" x2="0" y2="18" stroke="#b9c6cf" stroke-opacity="0.18" stroke-width="2"/>
+    </pattern>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.18"/>
+      </feComponentTransfer>
+    </filter>
+    <filter id="lampGlow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="18" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1400" height="787" fill="#10151b"/>
+  <rect width="1400" height="787" fill="url(#rain)"/>
+  <path d="M0 640 L420 490 L1400 596 L1400 787 L0 787 Z" fill="#171d23"/>
+  <path d="M110 648 C360 600 710 610 1280 690" fill="none" stroke="#2b333b" stroke-width="34" stroke-linecap="round"/>
+  <path d="M112 646 C370 603 720 612 1284 690" fill="none" stroke="#0b0e12" stroke-width="20" stroke-linecap="round"/>
+  <path d="M160 650 C365 620 742 623 1220 685" fill="none" stroke="#f2c94c" stroke-opacity="0.23" stroke-width="4" stroke-dasharray="38 34"/>
+
+  <!-- standing pier and broken deck -->
+  <g transform="translate(0,-24)">
+    <polygon points="205,518 306,546 306,713 205,681" fill="#383f45"/>
+    <polygon points="306,546 366,512 366,675 306,713" fill="#232a31"/>
+    <polygon points="205,518 266,486 366,512 306,546" fill="#646b6f"/>
+    <path d="M232 538 L282 553 M231 587 L283 603 M229 637 L284 654" stroke="#6e767b" stroke-width="3" opacity="0.55"/>
+  </g>
+
+  <g transform="translate(44,-36) rotate(-5 650 330)">
+    <polygon points="198,394 665,268 1055,338 584,477" fill="#7b7f80"/>
+    <polygon points="584,477 1055,338 1088,381 614,531" fill="#4b5156"/>
+    <polygon points="198,394 584,477 614,531 226,446" fill="#303840"/>
+    <path d="M260 405 L620 484 M392 367 L754 446 M522 333 L887 410 M650 300 L1018 366" stroke="#d7d1c2" stroke-opacity="0.22" stroke-width="4"/>
+    <path d="M322 389 L684 470 M472 353 L836 434 M612 319 L980 395" stroke="#11161c" stroke-opacity="0.35" stroke-width="7"/>
+  </g>
+
+  <g transform="translate(0,6) rotate(12 775 384)">
+    <polygon points="610,336 1008,246 1226,292 814,404" fill="#8b8e8c"/>
+    <polygon points="814,404 1226,292 1268,337 852,465" fill="#565d61"/>
+    <polygon points="610,336 814,404 852,465 646,398" fill="#313940"/>
+    <path d="M680 349 L852 409 M790 323 L966 379 M905 297 L1085 352" stroke="#efe8d8" stroke-opacity="0.22" stroke-width="4"/>
+  </g>
+
+  <!-- fracture gap -->
+  <polygon points="562,430 653,384 739,413 628,467" fill="#07090c" opacity="0.95"/>
+  <polygon points="598,450 670,414 719,430 640,471" fill="#1b0706" opacity="0.65"/>
+
+  <!-- exposed rebar -->
+  <g fill="none" stroke="#c14333" stroke-width="7" stroke-linecap="round">
+    <path d="M548 410 C592 427 604 445 651 457"/>
+    <path d="M570 389 C617 402 630 419 682 430"/>
+    <path d="M622 456 C650 438 680 428 724 414"/>
+    <path d="M520 433 C568 449 597 467 636 495"/>
+  </g>
+  <g fill="none" stroke="#f05a4a" stroke-opacity="0.45" stroke-width="3" stroke-linecap="round">
+    <path d="M544 420 C598 435 620 455 667 469"/>
+    <path d="M613 442 C657 426 692 419 744 399"/>
+  </g>
+
+  <!-- lamps -->
+  <g filter="url(#lampGlow)">
+    <circle cx="451" cy="553" r="18" fill="#f7d35a"/>
+    <circle cx="1018" cy="539" r="20" fill="#f7d35a"/>
+    <circle cx="735" cy="608" r="14" fill="#f7d35a"/>
+  </g>
+  <g stroke="#c8a93f" stroke-width="5" stroke-linecap="round">
+    <path d="M451 569 L438 659"/><path d="M451 569 L482 653"/><path d="M451 569 L410 648"/>
+    <path d="M1018 559 L990 674"/><path d="M1018 559 L1055 670"/><path d="M1018 559 L960 650"/>
+    <path d="M735 622 L720 688"/><path d="M735 622 L764 685"/>
+  </g>
+
+  <!-- cones -->
+  <g>
+    <polygon points="250,645 274,645 264,588" fill="#e9552f"/><rect x="247" y="645" width="32" height="9" fill="#f4eee0"/><path d="M257 614 L270 614" stroke="#f4eee0" stroke-width="5"/>
+    <polygon points="1150,683 1180,683 1167,615" fill="#e9552f"/><rect x="1146" y="683" width="39" height="11" fill="#f4eee0"/><path d="M1158 647 L1175 647" stroke="#f4eee0" stroke-width="6"/>
+    <polygon points="882,650 906,650 896,595" fill="#e9552f"/><rect x="879" y="650" width="31" height="9" fill="#f4eee0"/><path d="M889 622 L901 622" stroke="#f4eee0" stroke-width="5"/>
+  </g>
+
+  <!-- puddles and clipboard -->
+  <ellipse cx="586" cy="666" rx="118" ry="24" fill="#263441" opacity="0.85"/>
+  <ellipse cx="585" cy="661" rx="86" ry="12" fill="#45505a" opacity="0.5"/>
+  <g transform="translate(640 633) rotate(9)">
+    <rect x="0" y="0" width="70" height="92" rx="4" fill="#d8d2c3"/>
+    <rect x="23" y="-7" width="24" height="12" rx="3" fill="#9a9a92"/>
+    <line x1="13" y1="28" x2="57" y2="28" stroke="#77756f" stroke-width="3" opacity="0.45"/>
+    <line x1="13" y1="48" x2="50" y2="48" stroke="#77756f" stroke-width="3" opacity="0.4"/>
+    <line x1="13" y1="68" x2="53" y2="68" stroke="#77756f" stroke-width="3" opacity="0.35"/>
+  </g>
+
+  <!-- red inspection lines over scene -->
+  <g stroke="#d64b3b" stroke-width="3" stroke-linecap="round" opacity="0.72" fill="none">
+    <path d="M490 290 L650 385"/>
+    <path d="M760 282 L705 416"/>
+    <path d="M690 240 C720 300 740 340 765 400"/>
+    <circle cx="650" cy="385" r="42"/>
+  </g>
+
+  <rect width="1400" height="787" filter="url(#grain)" opacity="0.65"/>
+</svg>
