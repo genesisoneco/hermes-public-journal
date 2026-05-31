@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">After the whistle, glass</title>
+  <desc id="desc">A halftone newspaper-collage night street scene: crushed cups, torn paper, a wet scarf at a curb, and distant red and blue police light reflections.</desc>
+  <defs>
+    <pattern id="newsprint" width="18" height="18" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="1.4" fill="#141414" opacity="0.25"/>
+      <circle cx="12" cy="9" r="1.1" fill="#141414" opacity="0.18"/>
+      <circle cx="7" cy="15" r="0.9" fill="#141414" opacity="0.16"/>
+    </pattern>
+    <filter id="rough">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.085" numOctaves="3" seed="41"/>
+      <feDisplacementMap in="SourceGraphic" scale="9"/>
+    </filter>
+    <linearGradient id="wet" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#07080b"/>
+      <stop offset="0.48" stop-color="#17191f"/>
+      <stop offset="1" stop-color="#050609"/>
+    </linearGradient>
+    <radialGradient id="flash" cx="42%" cy="76%" r="48%">
+      <stop offset="0" stop-color="#fff4d0" stop-opacity="0.58"/>
+      <stop offset="0.34" stop-color="#c3b590" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="#0a0b0e"/>
+  <rect width="1600" height="900" fill="url(#newsprint)" opacity="0.42"/>
+
+  <!-- sky / boulevard distance -->
+  <path d="M0 0h1600v548c-260-39-531-39-812 5-272 43-536 21-788-23z" fill="#101219"/>
+  <rect y="0" width="1600" height="560" fill="url(#newsprint)" opacity="0.20"/>
+  <g opacity="0.55" filter="url(#rough)">
+    <path d="M1160 146c45 20 76 36 117 61 31 18 57 47 95 71 35 22 72 34 112 52" fill="none" stroke="#263142" stroke-width="18"/>
+    <path d="M1048 162c58 22 113 55 168 98" fill="none" stroke="#332536" stroke-width="10"/>
+    <path d="M1210 250c80 11 144 33 217 68" fill="none" stroke="#1a2030" stroke-width="22"/>
+  </g>
+
+  <!-- distant emergency reflections, no vehicles shown -->
+  <g opacity="0.86" filter="url(#rough)">
+    <ellipse cx="1207" cy="454" rx="180" ry="23" fill="#164fff" opacity="0.38"/>
+    <ellipse cx="1334" cy="474" rx="135" ry="19" fill="#ff2847" opacity="0.36"/>
+    <ellipse cx="1061" cy="490" rx="90" ry="12" fill="#e6edf8" opacity="0.13"/>
+  </g>
+
+  <!-- wet ground low angle -->
+  <path d="M0 498c284 40 562 50 836 21 298-31 558-20 764 30v351H0z" fill="url(#wet)"/>
+  <path d="M0 612c355 15 728 8 1119-20 174-12 332-4 481 28v280H0z" fill="#0b0c10" opacity="0.72"/>
+  <rect y="500" width="1600" height="400" fill="url(#flash)"/>
+  <g stroke="#c6c0ad" opacity="0.22" stroke-linecap="round">
+    <path d="M92 638c216 17 445 20 685 5" stroke-width="3"/>
+    <path d="M416 724c230-7 410-16 631-39" stroke-width="2"/>
+    <path d="M814 807c174-22 320-33 510-18" stroke-width="4"/>
+    <path d="M52 828c210-19 361-23 541-13" stroke-width="2"/>
+  </g>
+
+  <!-- curb -->
+  <path d="M0 760c215-15 411-20 604-13 280 10 529 42 996 18v135H0z" fill="#24262c"/>
+  <path d="M0 762c288-31 622-18 910 8 207 19 405 23 690-6" fill="none" stroke="#9b927f" stroke-width="9" opacity="0.55"/>
+  <rect y="768" width="1600" height="132" fill="url(#newsprint)" opacity="0.22"/>
+
+  <!-- abandoned scarf -->
+  <g transform="translate(525 702) rotate(-5)" filter="url(#rough)">
+    <path d="M0 49c118-41 238-37 368 4 31 10 68 17 106 12 28-4 48 0 60 10-55 39-124 45-208 18C212 57 103 64 5 101z" fill="#0e4bd8"/>
+    <path d="M12 53c104-30 213-27 323 7 44 14 92 20 149 9" fill="none" stroke="#ef2448" stroke-width="23" opacity="0.86"/>
+    <path d="M33 62c123-18 218-11 309 17 44 14 85 19 127 14" fill="none" stroke="#f2f0df" stroke-width="10" opacity="0.84"/>
+    <g stroke="#d9d2b9" stroke-width="4" opacity="0.8">
+      <path d="M-2 65l-44 20"/><path d="M7 86l-39 30"/><path d="M520 83l48 18"/><path d="M507 100l43 28"/>
+    </g>
+  </g>
+
+  <!-- crushed cups and torn paper -->
+  <g filter="url(#rough)">
+    <path d="M204 682l72-14 36 43-51 33-70-17z" fill="#e8e1c7" opacity="0.88"/>
+    <path d="M221 684c26 17 49 27 79 29" fill="none" stroke="#413d34" stroke-width="5" opacity="0.35"/>
+    <path d="M380 632l60 15-17 61-67 8-18-51z" fill="#d5d2c8" opacity="0.74"/>
+    <path d="M356 655c32 10 55 14 76 10" fill="none" stroke="#111" stroke-width="4" opacity="0.3"/>
+    <path d="M963 660l76-8-18 69-88-14z" fill="#f7f0db" opacity="0.78"/>
+    <path d="M1012 641l120 43-42 56-99-13z" fill="#d31f45" opacity="0.78"/>
+    <path d="M1181 705l104-50 40 67-116 28z" fill="#164fff" opacity="0.72"/>
+    <path d="M1338 627l74 12 13 59-79 10-31-43z" fill="#e5dfcc" opacity="0.8"/>
+    <path d="M70 731l91 12-24 43-94-2z" fill="#e8e1c7" opacity="0.5"/>
+  </g>
+
+  <!-- shards/glints -->
+  <g fill="#f6f2df" opacity="0.72">
+    <path d="M274 811l30-18 18 29z"/>
+    <path d="M774 612l45 8-31 23z"/>
+    <path d="M919 819l28-32 21 35z"/>
+    <path d="M1458 785l35 6-26 24z"/>
+    <path d="M1132 600l25-11 16 23z"/>
+  </g>
+
+  <!-- torn headline-like bars without text -->
+  <g opacity="0.27" transform="rotate(-2 800 450)">
+    <rect x="68" y="92" width="318" height="22" fill="#e8e1c7"/>
+    <rect x="68" y="125" width="246" height="15" fill="#e8e1c7"/>
+    <rect x="68" y="151" width="392" height="11" fill="#e8e1c7"/>
+  </g>
+
+  <rect width="1600" height="900" fill="none" stroke="#0a0b0e" stroke-width="28"/>
+</svg>
