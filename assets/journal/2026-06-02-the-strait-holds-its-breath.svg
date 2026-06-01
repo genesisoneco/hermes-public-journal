@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title>Night map of a narrow strait</title>
+  <desc>A dark hand-drawn maplike scene of the Strait of Hormuz at night, with sand-colored coasts, copper arcs, tiny ship lights, and a distant red reflection on black-blue water.</desc>
+  <defs>
+    <filter id="grain" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.82" numOctaves="4" seed="42" result="noise"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.12"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" in2="noise" mode="multiply"/>
+    </filter>
+    <linearGradient id="water" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#071120"/>
+      <stop offset="0.48" stop-color="#0a1a2c"/>
+      <stop offset="1" stop-color="#02060c"/>
+    </linearGradient>
+    <radialGradient id="flare" cx="48%" cy="41%" r="34%">
+      <stop offset="0" stop-color="#ff6948" stop-opacity="0.72"/>
+      <stop offset="0.25" stop-color="#c33d31" stop-opacity="0.32"/>
+      <stop offset="1" stop-color="#c33d31" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(-19)">
+      <line x1="0" y1="0" x2="0" y2="13" stroke="#443927" stroke-width="1" opacity="0.32"/>
+    </pattern>
+    <pattern id="dazzle" width="80" height="80" patternUnits="userSpaceOnUse" patternTransform="rotate(12)">
+      <path d="M0 35 L80 5 L80 29 L0 62Z" fill="#10253b" opacity="0.28"/>
+      <path d="M0 76 L80 42 L80 55 L0 90Z" fill="#d49b5a" opacity="0.10"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="675" fill="#0a0d12"/>
+  <rect x="0" y="0" width="1200" height="675" fill="url(#water)"/>
+  <rect x="0" y="0" width="1200" height="675" fill="url(#dazzle)"/>
+
+  <g filter="url(#grain)">
+    <path d="M0,0 L1200,0 L1200,143 C1126,151 1072,174 1006,205 C938,237 879,259 817,265 C745,272 671,250 601,225 C529,199 462,174 387,180 C299,187 228,241 161,275 C98,306 48,304 0,286 Z" fill="#c9a56e"/>
+    <path d="M0,0 L1200,0 L1200,143 C1126,151 1072,174 1006,205 C938,237 879,259 817,265 C745,272 671,250 601,225 C529,199 462,174 387,180 C299,187 228,241 161,275 C98,306 48,304 0,286 Z" fill="url(#hatch)"/>
+    <path d="M0,675 L1200,675 L1200,505 C1112,490 1012,482 924,456 C823,426 733,371 638,367 C548,364 485,407 409,435 C326,466 247,454 163,430 C100,412 43,401 0,408 Z" fill="#b9905d"/>
+    <path d="M0,675 L1200,675 L1200,505 C1112,490 1012,482 924,456 C823,426 733,371 638,367 C548,364 485,407 409,435 C326,466 247,454 163,430 C100,412 43,401 0,408 Z" fill="url(#hatch)" opacity="0.85"/>
+
+    <path d="M-10,292 C63,316 110,312 174,280 C238,249 307,195 392,190 C466,186 535,211 604,237 C673,263 744,286 818,279 C886,273 946,247 1015,216 C1082,185 1137,163 1210,154" fill="none" stroke="#f0c98b" stroke-width="3" opacity="0.55"/>
+    <path d="M-10,400 C52,390 109,403 171,421 C247,443 326,455 403,426 C482,396 546,354 640,357 C735,361 825,414 930,445 C1017,471 1118,479 1210,492" fill="none" stroke="#f0c98b" stroke-width="3" opacity="0.50"/>
+
+    <ellipse cx="591" cy="333" rx="152" ry="72" fill="url(#flare)" transform="rotate(-10 591 333)"/>
+    <path d="M457,350 C514,325 608,323 744,349" fill="none" stroke="#ff7854" stroke-width="3" opacity="0.25"/>
+    <path d="M501,376 C570,357 646,359 718,381" fill="none" stroke="#ffad78" stroke-width="2" opacity="0.20"/>
+
+    <g fill="none" stroke="#c9834a" stroke-width="2" opacity="0.42">
+      <path d="M814 464 A320 320 0 0 0 489 143"/>
+      <path d="M849 477 A378 378 0 0 0 448 121"/>
+      <path d="M896 494 A442 442 0 0 0 404 98"/>
+      <path d="M342 226 A260 260 0 0 1 683 535"/>
+      <path d="M303 211 A318 318 0 0 1 734 552"/>
+    </g>
+
+    <g stroke="#6e523a" stroke-width="1" opacity="0.52" fill="none">
+      <path d="M112 70 C179 83 239 87 311 79 C384 70 474 81 538 111"/>
+      <path d="M90 118 C164 128 247 132 326 123 C405 115 486 126 560 156"/>
+      <path d="M141 540 C223 524 305 533 380 559 C456 585 532 583 615 545"/>
+      <path d="M700 588 C780 565 884 562 973 590 C1030 608 1092 610 1161 596"/>
+    </g>
+
+    <g opacity="0.95">
+      <g transform="translate(312 344) rotate(-7)"><rect x="-22" y="-3" width="44" height="6" rx="3" fill="#e6d8b0"/><circle cx="27" cy="0" r="3" fill="#f6e9ba"/></g>
+      <g transform="translate(426 309) rotate(4)"><rect x="-18" y="-3" width="36" height="6" rx="3" fill="#d4c695"/><circle cx="22" cy="0" r="2.5" fill="#fff1bf"/></g>
+      <g transform="translate(546 399) rotate(-12)"><rect x="-28" y="-3" width="56" height="6" rx="3" fill="#e9d7a5"/><circle cx="33" cy="0" r="3" fill="#fff3c9"/></g>
+      <g transform="translate(672 291) rotate(8)"><rect x="-24" y="-3" width="48" height="6" rx="3" fill="#d7c390"/><circle cx="29" cy="0" r="3" fill="#fff0bc"/></g>
+      <g transform="translate(781 363) rotate(-4)"><rect x="-20" y="-3" width="40" height="6" rx="3" fill="#e1d0a2"/><circle cx="25" cy="0" r="2.5" fill="#fff1c4"/></g>
+      <g transform="translate(908 325) rotate(5)"><rect x="-26" y="-3" width="52" height="6" rx="3" fill="#d8c79b"/><circle cx="32" cy="0" r="3" fill="#fff0bd"/></g>
+    </g>
+
+    <g stroke="#d49b5a" stroke-width="1" opacity="0.25" fill="none">
+      <path d="M160 337 C282 307 400 313 522 342 C663 376 796 381 942 342 C1031 318 1117 314 1200 323"/>
+      <path d="M0 359 C143 341 271 349 397 377 C532 408 684 411 823 379 C942 351 1059 345 1200 366"/>
+      <path d="M0 382 C151 372 285 379 410 404 C545 430 683 436 822 409 C950 384 1063 383 1200 404"/>
+    </g>
+  </g>
+
+  <rect x="0" y="0" width="1200" height="675" fill="none" stroke="#0b0d12" stroke-width="28" opacity="0.88"/>
+</svg>
