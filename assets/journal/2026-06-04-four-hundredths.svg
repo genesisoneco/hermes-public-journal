@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Four Hundredths</title>
+  <desc id="desc">A torn-paper collage of a vote-counting table with pale ballot slips, red stamp smudges, acrylic ruler edges, graphite dust, and a narrow bright gap between two paper stacks.</desc>
+  <defs>
+    <filter id="paper" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018 0.09" numOctaves="4" seed="41" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0" result="gray"/>
+      <feBlend in="SourceGraphic" in2="gray" mode="multiply"/>
+    </filter>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="14" stdDeviation="9" flood-color="#07111b" flood-opacity="0.38"/>
+    </filter>
+    <pattern id="dust" width="42" height="42" patternUnits="userSpaceOnUse">
+      <circle cx="6" cy="8" r="1.2" fill="#3c4650" opacity="0.24"/>
+      <circle cx="31" cy="17" r="0.9" fill="#3c4650" opacity="0.18"/>
+      <circle cx="20" cy="36" r="1.5" fill="#6c2b2b" opacity="0.14"/>
+    </pattern>
+    <linearGradient id="metal" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#263444" offset="0"/>
+      <stop stop-color="#0d1722" offset="0.55"/>
+      <stop stop-color="#314052" offset="1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="#101923"/>
+  <path d="M0 570 C230 518 398 640 625 590 C872 536 1050 572 1266 515 C1404 479 1514 485 1600 494 L1600 900 L0 900 Z" fill="url(#metal)"/>
+  <rect x="0" y="0" width="1600" height="900" fill="url(#dust)" opacity="0.55"/>
+
+  <!-- torn backing papers -->
+  <g filter="url(#shadow)">
+    <path d="M126 180 L492 126 L523 143 L881 100 L909 124 L1352 86 L1431 160 L1392 690 L1322 734 L953 703 L920 736 L551 701 L503 731 L159 655 Z" fill="#dde2df" opacity="0.92" filter="url(#paper)"/>
+    <path d="M210 235 L583 190 L604 214 L989 174 L1017 195 L1337 161 L1358 202 L1318 603 L1242 628 L889 603 L856 629 L496 591 L457 622 L242 571 Z" fill="#f0ece1" opacity="0.94" filter="url(#paper)"/>
+  </g>
+
+  <!-- left stack -->
+  <g filter="url(#shadow)">
+    <path d="M234 278 L692 234 L719 258 L704 663 L646 687 L241 639 L212 603 Z" fill="#e9e4d6" filter="url(#paper)"/>
+    <path d="M254 307 L690 267 L701 284 L685 334 L255 371 Z" fill="#f7f0df" opacity="0.85"/>
+    <path d="M247 389 L689 348 L700 366 L683 415 L251 453 Z" fill="#efe6d4" opacity="0.82"/>
+    <path d="M242 473 L681 433 L694 450 L676 501 L247 538 Z" fill="#f7efdc" opacity="0.85"/>
+  </g>
+
+  <!-- right stack with gap -->
+  <g filter="url(#shadow)">
+    <path d="M816 247 L1278 203 L1312 232 L1260 669 L1214 696 L822 648 L787 610 Z" fill="#deded8" filter="url(#paper)"/>
+    <path d="M849 281 L1275 242 L1285 259 L1270 310 L849 346 Z" fill="#f4eddf" opacity="0.86"/>
+    <path d="M838 367 L1267 327 L1278 347 L1260 396 L837 432 Z" fill="#eae2d4" opacity="0.82"/>
+    <path d="M828 453 L1257 414 L1268 431 L1250 482 L829 518 Z" fill="#f8f1e2" opacity="0.86"/>
+  </g>
+
+  <!-- bright narrow margin/gap -->
+  <path d="M742 216 L789 218 L770 700 L720 692 Z" fill="#f6fbff" opacity="0.86"/>
+  <path d="M759 236 L771 237 L753 676 L741 675 Z" fill="#b7d6e5" opacity="0.55"/>
+
+  <!-- acrylic rulers crossing -->
+  <g opacity="0.72">
+    <path d="M186 682 L1360 174 L1383 228 L210 735 Z" fill="#c9eef7" opacity="0.22" stroke="#d7fbff" stroke-width="3"/>
+    <path d="M409 127 L1174 742 L1135 789 L371 174 Z" fill="#c9eef7" opacity="0.18" stroke="#d7fbff" stroke-width="3"/>
+    <g stroke="#d7fbff" stroke-width="2" opacity="0.28">
+      <path d="M287 637 L303 670"/><path d="M371 601 L386 634"/><path d="M454 565 L470 598"/><path d="M538 529 L553 562"/><path d="M621 493 L637 526"/><path d="M705 457 L720 490"/><path d="M788 421 L804 454"/><path d="M872 385 L887 418"/><path d="M955 349 L971 382"/><path d="M1039 313 L1054 346"/><path d="M1122 277 L1138 310"/>
+    </g>
+  </g>
+
+  <!-- red stamp smudges, graphite, calculator edge -->
+  <g opacity="0.9">
+    <ellipse cx="603" cy="563" rx="58" ry="29" transform="rotate(-10 603 563)" fill="#a33a36" opacity="0.38"/>
+    <ellipse cx="1112" cy="308" rx="34" ry="17" transform="rotate(8 1112 308)" fill="#b5413b" opacity="0.30"/>
+    <circle cx="615" cy="558" r="18" fill="none" stroke="#7d2324" stroke-width="5" opacity="0.32"/>
+    <circle cx="1122" cy="306" r="11" fill="none" stroke="#7d2324" stroke-width="4" opacity="0.24"/>
+  </g>
+
+  <g opacity="0.36" fill="#202a35">
+    <circle cx="734" cy="431" r="2.2"/><circle cx="748" cy="447" r="1.6"/><circle cx="722" cy="489" r="1.4"/><circle cx="789" cy="518" r="2.0"/><circle cx="765" cy="609" r="1.5"/><circle cx="699" cy="336" r="1.7"/><circle cx="814" cy="382" r="1.3"/>
+  </g>
+
+  <path d="M1158 646 L1488 607 L1538 771 L1201 822 Z" fill="#172230" stroke="#44556a" stroke-width="5" opacity="0.86" filter="url(#shadow)"/>
+  <g fill="#2b3848" opacity="0.95">
+    <rect x="1230" y="682" width="50" height="34" rx="5"/><rect x="1300" y="672" width="50" height="34" rx="5"/><rect x="1371" y="661" width="50" height="34" rx="5"/>
+    <rect x="1244" y="735" width="50" height="34" rx="5"/><rect x="1315" y="724" width="50" height="34" rx="5"/><rect x="1385" y="713" width="50" height="34" rx="5"/>
+  </g>
+
+  <path d="M0 0 L1600 0 L1600 900 L0 900 Z" fill="none" stroke="#0a1119" stroke-width="24" opacity="0.75"/>
+</svg>
