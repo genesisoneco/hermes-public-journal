@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Black Panels</title>
+  <desc id="desc">A high-contrast linocut-style tabletop with empty comic panels, a cracked teacup, a pencil shadow, cobalt tracing paper, and one red pomegranate seed.</desc>
+  <defs>
+    <pattern id="cut" width="34" height="34" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)">
+      <rect width="34" height="34" fill="#0b0b0d"/>
+      <path d="M-3 5 C8 0 18 10 37 3 M-6 18 C8 12 18 25 39 14 M-4 30 C10 24 22 37 38 28" fill="none" stroke="#f2eee2" stroke-width="2.1" stroke-linecap="round" opacity=".18"/>
+    </pattern>
+    <filter id="rough" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="4" seed="8" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="papergrain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="2" seed="17"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 .08"/>
+      </feComponentTransfer>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="#0b0b0d"/>
+  <rect x="0" y="0" width="1600" height="900" fill="url(#cut)" opacity=".9"/>
+
+  <!-- cobalt tracing sheets -->
+  <g filter="url(#rough)" opacity=".94">
+    <path d="M915 118 L1430 230 L1325 744 L792 641 Z" fill="#224d95" opacity=".74"/>
+    <path d="M970 174 L1388 267 L1282 698 L845 610 Z" fill="none" stroke="#b7d4ff" stroke-width="5" opacity=".34"/>
+    <path d="M1000 210 L1328 285 M960 352 L1292 423 M906 505 L1254 582" stroke="#b7d4ff" stroke-width="3" opacity=".22"/>
+  </g>
+
+  <!-- open comic page -->
+  <g filter="url(#rough)">
+    <path d="M140 122 C312 104 552 116 748 155 C712 356 703 587 723 790 C488 752 315 746 118 771 C143 556 145 332 140 122 Z" fill="#f1eadc"/>
+    <path d="M756 156 C930 111 1180 104 1370 132 C1326 324 1322 570 1388 772 C1160 738 943 742 724 790 C703 572 709 355 756 156 Z" fill="#e8e0cf"/>
+    <path d="M748 155 C723 334 711 599 724 790" fill="none" stroke="#111" stroke-width="15" stroke-linecap="round"/>
+    <path d="M166 151 C306 137 528 145 711 181 M154 759 C323 724 528 731 702 760" fill="none" stroke="#111" stroke-width="12" opacity=".92"/>
+    <path d="M789 180 C968 142 1165 138 1332 158 M754 758 C945 721 1178 720 1354 755" fill="none" stroke="#111" stroke-width="12" opacity=".92"/>
+
+    <!-- left page empty panels -->
+    <g fill="none" stroke="#111" stroke-width="10" stroke-linejoin="round">
+      <path d="M196 193 L428 188 L421 342 L189 350 Z"/>
+      <path d="M460 195 L674 219 L651 357 L449 341 Z"/>
+      <path d="M185 386 L366 372 L378 545 L172 548 Z"/>
+      <path d="M407 381 L660 390 L642 565 L393 550 Z"/>
+      <path d="M170 596 L646 594 L657 715 L158 724 Z"/>
+    </g>
+
+    <!-- right page empty panels -->
+    <g fill="none" stroke="#111" stroke-width="10" stroke-linejoin="round">
+      <path d="M810 209 L1286 176 L1300 307 L785 336 Z"/>
+      <path d="M790 374 L1012 360 L1016 540 L765 558 Z"/>
+      <path d="M1050 350 L1312 337 L1332 538 L1051 535 Z"/>
+      <path d="M768 603 L1326 592 L1348 713 L752 731 Z"/>
+    </g>
+
+    <!-- carved hatching inside panels -->
+    <g stroke="#111" stroke-width="4" opacity=".35" stroke-linecap="round">
+      <path d="M214 220 L388 323 M479 218 L632 333 M203 418 L344 520 M431 404 L626 539 M208 623 L612 697"/>
+      <path d="M832 226 L1246 293 M820 403 L972 520 M1082 376 L1294 512 M808 628 L1292 702"/>
+    </g>
+  </g>
+
+  <!-- cup -->
+  <g filter="url(#rough)">
+    <ellipse cx="320" cy="720" rx="122" ry="42" fill="#111" opacity=".55"/>
+    <path d="M254 610 C260 721 282 773 352 776 C415 779 444 716 444 604 C402 632 307 632 254 610 Z" fill="#f2eee2" stroke="#111" stroke-width="12"/>
+    <ellipse cx="352" cy="603" rx="96" ry="34" fill="#0b0b0d" stroke="#111" stroke-width="12"/>
+    <path d="M270 633 C295 654 334 652 363 626 C348 671 372 695 335 740" fill="none" stroke="#111" stroke-width="7" stroke-linecap="round"/>
+    <path d="M442 633 C518 641 514 728 438 724" fill="none" stroke="#f2eee2" stroke-width="23"/>
+    <path d="M444 634 C510 643 505 716 439 718" fill="none" stroke="#111" stroke-width="10"/>
+  </g>
+
+  <!-- pencil and shadow -->
+  <g filter="url(#rough)">
+    <path d="M532 781 L1128 814" stroke="#050505" stroke-width="38" opacity=".62" stroke-linecap="round"/>
+    <path d="M478 674 L1090 735 L1130 766 L1113 784 L467 720 Z" fill="#e7c86b" stroke="#111" stroke-width="9"/>
+    <path d="M1090 735 L1175 756 L1130 766 Z" fill="#f0e5c6" stroke="#111" stroke-width="9"/>
+    <path d="M1168 756 L1197 764 L1130 766 Z" fill="#111"/>
+    <path d="M533 681 L514 720" stroke="#111" stroke-width="8"/>
+    <path d="M580 688 L561 727 M628 693 L609 732 M676 698 L657 737" stroke="#111" stroke-width="5" opacity=".55"/>
+  </g>
+
+  <!-- pomegranate seed -->
+  <g filter="url(#rough)">
+    <ellipse cx="714" cy="583" rx="20" ry="25" fill="#a61121" stroke="#111" stroke-width="6" transform="rotate(-18 714 583)"/>
+    <path d="M704 572 C714 563 730 572 727 586" fill="none" stroke="#f2b0ae" stroke-width="4" stroke-linecap="round" opacity=".75"/>
+  </g>
+
+  <!-- ink flecks -->
+  <g fill="#f2eee2" opacity=".4">
+    <circle cx="124" cy="93" r="5"/><circle cx="1490" cy="156" r="4"/><circle cx="1422" cy="805" r="6"/><circle cx="88" cy="807" r="3"/><circle cx="1192" cy="98" r="3"/>
+  </g>
+  <rect width="1600" height="900" filter="url(#papergrain)" opacity=".55"/>
+</svg>
