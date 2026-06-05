@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 788" role="img" aria-labelledby="title desc">
+  <title id="title">Emergency route collage with desert lorry, station hatch, barbecue smoke, and blocked counting door</title>
+  <desc id="desc">A diagonal emergency-route collage shows a broken desert lorry, tiny walkers, a space-station hatch, barbecue smoke crossing circuit traces, and a blocked counting doorway.</desc>
+  <defs>
+    <filter id="paper" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="4" seed="17" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0" result="grain"/>
+      <feBlend in="SourceGraphic" in2="grain" mode="multiply"/>
+    </filter>
+    <filter id="rough"><feTurbulence baseFrequency="0.09" numOctaves="2" seed="8"/><feDisplacementMap in="SourceGraphic" scale="2.2"/></filter>
+    <pattern id="dots" width="12" height="12" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.1" fill="#13263f" opacity="0.28"/></pattern>
+    <marker id="arrow" markerWidth="18" markerHeight="18" refX="12" refY="6" orient="auto"><path d="M0,0 L14,6 L0,12 z" fill="#ff6b2b"/></marker>
+  </defs>
+  <rect width="1400" height="788" fill="#ece4d0"/>
+  <rect width="1400" height="788" fill="url(#dots)" opacity="0.55"/>
+  <g filter="url(#paper)">
+    <polygon points="0,0 580,0 390,788 0,788" fill="#f7e8b6"/>
+    <polygon points="475,0 980,0 735,788 330,788" fill="#184160" opacity="0.94"/>
+    <polygon points="860,0 1400,0 1400,788 705,788" fill="#d7eadf"/>
+    <path d="M76 652 C230 594, 312 502, 445 438 S650 338, 782 287 S1025 195, 1268 92" stroke="#ff6b2b" stroke-width="19" fill="none" marker-end="url(#arrow)" opacity="0.92"/>
+    <path d="M85 682 C239 623, 323 531, 456 467 S663 365, 796 315 S1040 222, 1282 120" stroke="#111827" stroke-width="3" fill="none" stroke-dasharray="12 14" opacity="0.75"/>
+    <!-- desert fragment -->
+    <g transform="translate(70 430) rotate(-6)">
+      <polygon points="0,52 292,14 350,206 35,226" fill="#f4c25b" stroke="#1a2735" stroke-width="5"/>
+      <path d="M34 168 C80 144, 143 181, 198 154 C243 133, 287 152, 330 136" stroke="#9b5a32" stroke-width="6" fill="none" opacity="0.55"/>
+      <g transform="translate(82 89)">
+        <rect x="0" y="42" width="150" height="45" fill="#334155" stroke="#111827" stroke-width="5"/>
+        <polygon points="38,10 102,0 133,42 28,42" fill="#64748b" stroke="#111827" stroke-width="5"/>
+        <circle cx="37" cy="91" r="18" fill="#111827"/><circle cx="130" cy="91" r="18" fill="#111827"/>
+        <path d="M153 59 l42 -10" stroke="#111827" stroke-width="8" stroke-linecap="round"/>
+      </g>
+      <g fill="#111827" opacity="0.88">
+        <circle cx="250" cy="98" r="5"/><path d="M250 103 l-6 28 m6-22 l13 7 m-7 13 l14 17" stroke="#111827" stroke-width="4" fill="none"/>
+        <circle cx="286" cy="119" r="5"/><path d="M286 124 l-5 24 m5-18 l12 9 m-8 11 l11 15" stroke="#111827" stroke-width="4" fill="none"/>
+        <circle cx="315" cy="101" r="5"/><path d="M315 106 l-4 25 m4-18 l-12 7 m8 13 l-13 14" stroke="#111827" stroke-width="4" fill="none"/>
+      </g>
+      <circle cx="42" cy="45" r="32" fill="#fff7d6" opacity="0.75"/>
+    </g>
+    <!-- station / hatch fragment -->
+    <g transform="translate(472 110) rotate(8)">
+      <polygon points="0,0 340,42 292,260 18,226" fill="#a8d6e7" stroke="#071d2e" stroke-width="5"/>
+      <ellipse cx="158" cy="127" rx="92" ry="70" fill="#09283d" stroke="#e7f7ff" stroke-width="10"/>
+      <ellipse cx="158" cy="127" rx="53" ry="39" fill="#d6f0f8" stroke="#071d2e" stroke-width="5"/>
+      <path d="M34 37 l250 28 M29 202 l258 -106 M75 222 l36 -174 M243 233 l-33 -178" stroke="#2d607f" stroke-width="4" opacity="0.55"/>
+      <g stroke="#071d2e" stroke-width="5" fill="none" stroke-linecap="round">
+        <path d="M76 155 c26 -23 52 -24 79 -4"/><circle cx="70" cy="160" r="13" fill="#e7f7ff"/>
+        <path d="M218 98 c-22 27 -48 35 -77 28"/><circle cx="226" cy="90" r="13" fill="#e7f7ff"/>
+      </g>
+      <path d="M306 32 l-33 199" stroke="#ff6b2b" stroke-width="7" stroke-dasharray="10 8"/>
+    </g>
+    <!-- barbecue/circuit fragment -->
+    <g transform="translate(735 385) rotate(-10)">
+      <polygon points="0,28 362,0 382,221 34,248" fill="#fff2e1" stroke="#111827" stroke-width="5"/>
+      <rect x="95" y="69" width="146" height="100" rx="18" fill="#20242e" stroke="#111827" stroke-width="6"/>
+      <g stroke="#f59e0b" stroke-width="6" stroke-linecap="round">
+        <path d="M116 96 c25 -23 54 -23 87 -2"/><path d="M117 128 c37 -21 68 -19 100 4"/><path d="M130 153 c27 -16 50 -14 75 3"/>
+      </g>
+      <g fill="none" stroke="#2aa198" stroke-width="4" opacity="0.8">
+        <path d="M250 72 h56 v34 h43"/><path d="M246 123 h75 v68"/><path d="M69 85 h-42 v84 h74"/>
+        <circle cx="310" cy="106" r="8" fill="#2aa198"/><circle cx="321" cy="191" r="8" fill="#2aa198"/><circle cx="27" cy="169" r="8" fill="#2aa198"/>
+      </g>
+      <g fill="none" stroke="#6b7280" stroke-width="9" opacity="0.46" filter="url(#rough)">
+        <path d="M154 72 C123 27, 202 23, 170 -19"/><path d="M214 81 C262 27, 172 20, 236 -31"/><path d="M104 77 C68 42, 112 10, 91 -20"/>
+      </g>
+    </g>
+    <!-- blocked counting doorway -->
+    <g transform="translate(1020 120) rotate(5)">
+      <polygon points="0,31 275,0 310,302 32,322" fill="#f8fafc" stroke="#111827" stroke-width="5"/>
+      <rect x="84" y="70" width="134" height="195" fill="#c7d2fe" stroke="#111827" stroke-width="7"/>
+      <path d="M62 177 h181" stroke="#111827" stroke-width="13" stroke-linecap="round"/>
+      <path d="M95 209 h133" stroke="#ff6b2b" stroke-width="9" stroke-linecap="round"/>
+      <g fill="#e5e7eb" stroke="#111827" stroke-width="3">
+        <rect x="24" y="242" width="57" height="13"/><rect x="27" y="255" width="57" height="13"/><rect x="31" y="268" width="57" height="13"/>
+        <rect x="227" y="222" width="58" height="13"/><rect x="222" y="235" width="58" height="13"/><rect x="218" y="248" width="58" height="13"/>
+      </g>
+      <g fill="#111827"><circle cx="59" cy="151" r="8"/><circle cx="250" cy="155" r="8"/><circle cx="271" cy="183" r="8"/></g>
+    </g>
+    <g opacity="0.7" stroke="#111827" stroke-width="2" fill="none">
+      <path d="M35 46 h240 m-240 22 h180 m-180 22 h210"/>
+      <path d="M1090 708 h240 m-205 24 h195"/>
+      <circle cx="1172" cy="687" r="34"/><path d="M1172 653 v68 M1138 687 h68"/>
+    </g>
+    <rect x="0" y="0" width="1400" height="788" fill="none" stroke="#111827" stroke-width="18" opacity="0.9"/>
+  </g>
+</svg>
