@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Night storage roof with stitched signal marks</title>
+  <desc id="desc">A dark industrial storage building near a forest, with a small amber impact glow, pale fuel-cask silhouettes, wet asphalt reflections, and stitched white signal marks in a blue-black sky.</desc>
+  <rect width="1600" height="900" fill="#08111b"/>
+  <rect y="612" width="1600" height="288" fill="#0b0e12"/>
+
+  <!-- exclusion-zone forest, cut like torn paper -->
+  <g fill="#111f24">
+    <path d="M0 401 C90 381 154 412 232 386 C311 360 393 398 471 373 C565 344 640 384 722 365 C820 342 912 379 1003 352 C1101 323 1195 364 1284 337 C1412 299 1503 337 1600 316 L1600 658 L0 658 Z"/>
+    <path d="M35 377 l18-62 22 69 17-92 31 111 24-79 18 79 18-108 28 112 17-61 29 76 18-52 36 91 15-113 35 116 17-72 23 68 16-50 34 95 22-74 19 68 31-111 22 100 26-58 21 71 25-83 21 88 31-126 34 126 24-58 19 67 32-95 26 113 18-61 28 68 19-94 37 121 18-66 25 86 31-142 35 151 25-77 18 59 28-88 35 103 25-69 27 80 18-101 43 124 21-61 26 83 31-106 39 123 27-74 28 81 23-119 42 144 20-69 33 86 0 145-1600 0z" opacity="0.55"/>
+  </g>
+
+  <!-- reinforced storage building -->
+  <g>
+    <polygon points="344,496 1134,456 1290,600 465,642" fill="#1d2730" stroke="#5b6872" stroke-width="4"/>
+    <polygon points="465,642 1290,600 1290,726 463,760" fill="#151d24" stroke="#4c5962" stroke-width="4"/>
+    <polygon points="344,496 465,642 463,760 344,614" fill="#111820" stroke="#45525c" stroke-width="4"/>
+    <path d="M418 574 L1207 531" stroke="#71808a" stroke-width="3" opacity="0.7"/>
+    <path d="M496 637 L1290 598" stroke="#89959c" stroke-width="2" opacity="0.55"/>
+    <g opacity="0.45" stroke="#74818a" stroke-width="2">
+      <path d="M548 638 l0 116"/><path d="M638 634 l0 116"/><path d="M728 629 l0 116"/><path d="M818 624 l0 116"/>
+      <path d="M908 620 l0 116"/><path d="M998 615 l0 116"/><path d="M1088 611 l0 116"/><path d="M1178 606 l0 116"/>
+    </g>
+  </g>
+
+  <!-- pale cask hints behind wall -->
+  <g opacity="0.38">
+    <ellipse cx="641" cy="590" rx="42" ry="13" fill="#c3c8bd"/><rect x="599" y="590" width="84" height="61" fill="#aeb5ad"/><ellipse cx="641" cy="651" rx="42" ry="13" fill="#828a85"/>
+    <ellipse cx="759" cy="584" rx="42" ry="13" fill="#c3c8bd"/><rect x="717" y="584" width="84" height="61" fill="#aeb5ad"/><ellipse cx="759" cy="645" rx="42" ry="13" fill="#828a85"/>
+    <ellipse cx="878" cy="578" rx="42" ry="13" fill="#c3c8bd"/><rect x="836" y="578" width="84" height="61" fill="#aeb5ad"/><ellipse cx="878" cy="639" rx="42" ry="13" fill="#828a85"/>
+  </g>
+
+  <!-- impact glow, not explosion -->
+  <g>
+    <circle cx="1127" cy="462" r="18" fill="#ffb451" opacity="0.95"/>
+    <circle cx="1127" cy="462" r="56" fill="#ff8b27" opacity="0.16"/>
+    <circle cx="1127" cy="462" r="104" fill="#ff8b27" opacity="0.06"/>
+    <path d="M1089 458 c21 8 42 7 68-5" stroke="#ffd28a" stroke-width="3" fill="none" opacity="0.75"/>
+  </g>
+
+  <!-- stitched contour / radiation ticks in sky -->
+  <g fill="none" stroke="#d7e4ea" stroke-linecap="round" opacity="0.72">
+    <path d="M186 164 C330 101 453 144 581 116 C740 81 873 123 1013 95 C1189 59 1325 91 1458 55" stroke-dasharray="3 19" stroke-width="5"/>
+    <path d="M96 267 C246 226 402 261 556 224 C728 182 888 231 1044 191 C1213 148 1377 185 1537 145" stroke-dasharray="3 18" stroke-width="4"/>
+    <path d="M247 348 C414 316 578 344 732 306 C900 265 1065 300 1231 266 C1359 239 1470 255 1568 230" stroke-dasharray="3 17" stroke-width="3"/>
+  </g>
+  <g stroke="#f2f7fb" stroke-width="4" stroke-linecap="round" opacity="0.82">
+    <path d="M210 129 l20 0"/><path d="M248 132 l18 0"/><path d="M317 117 l16 0"/><path d="M919 98 l24 0"/><path d="M1327 80 l18 0"/>
+    <path d="M472 252 l21 0"/><path d="M688 211 l19 0"/><path d="M1114 174 l23 0"/><path d="M1422 158 l19 0"/>
+  </g>
+
+  <!-- wet asphalt reflections -->
+  <g opacity="0.9">
+    <path d="M378 799 C537 763 660 786 827 747 C1008 704 1149 738 1355 695" stroke="#6f7e88" stroke-width="3" fill="none" opacity="0.36"/>
+    <path d="M1007 767 C1079 746 1130 755 1190 728" stroke="#ffb451" stroke-width="8" opacity="0.34"/>
+    <path d="M1091 812 C1136 797 1173 802 1213 783" stroke="#ffb451" stroke-width="3" opacity="0.2"/>
+    <path d="M427 844 C617 817 818 829 1015 797" stroke="#24313b" stroke-width="18" fill="none" opacity="0.8"/>
+  </g>
+
+  <!-- map-thread border and coordinate dots -->
+  <g fill="#cbd6d8" opacity="0.55">
+    <circle cx="142" cy="713" r="4"/><circle cx="183" cy="705" r="3"/><circle cx="229" cy="701" r="3"/><circle cx="1391" cy="626" r="4"/><circle cx="1438" cy="619" r="3"/>
+  </g>
+  <path d="M72 682 C151 655 252 674 332 641" stroke="#b8c7ca" stroke-width="2" stroke-dasharray="1 13" stroke-linecap="round" fill="none" opacity="0.55"/>
+  <path d="M1335 602 C1407 575 1494 588 1562 551" stroke="#b8c7ca" stroke-width="2" stroke-dasharray="1 13" stroke-linecap="round" fill="none" opacity="0.55"/>
+</svg>
