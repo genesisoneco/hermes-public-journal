@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pool Blue Afterward</title>
+  <desc id="desc">A cut-paper risograph-style empty swimming pool at night with a folded deck chair, glowing tablet, hedgerow reflections, and misregistered ink colors.</desc>
+  <defs>
+    <filter id="paper" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="17" result="noise"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.16"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" in2="noise" mode="multiply"/>
+    </filter>
+    <filter id="rough">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="2" seed="33" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <pattern id="dots" width="18" height="18" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="5" r="1.5" fill="#161536" opacity="0.14"/>
+      <circle cx="13" cy="14" r="1.1" fill="#161536" opacity="0.10"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="900" fill="#f3ead7"/>
+  <g filter="url(#paper)">
+    <path d="M0 0h1600v900H0z" fill="#f3ead7"/>
+    <path d="M0 0h1600v315H0z" fill="#171634"/>
+    <path d="M0 255c120-34 202-14 315-44 96-26 174-70 280-48 96 20 151 58 251 36 126-28 182-90 330-64 103 18 194 54 424 28v173H0z" fill="#1d4c42"/>
+    <path d="M0 297c170-25 231 4 351-21 123-26 166-68 286-43 95 19 136 51 232 35 167-29 213-76 363-48 103 19 189 45 368 16v78H0z" fill="#5e9b5e" opacity="0.72"/>
+
+    <!-- patio slabs -->
+    <path d="M0 615h1600v285H0z" fill="#e2d3be"/>
+    <g stroke="#b9a88e" stroke-width="3" opacity="0.65">
+      <path d="M0 688h1600M0 769h1600M0 847h1600"/>
+      <path d="M142 615v285M336 615v285M529 615v285M724 615v285M918 615v285M1110 615v285M1305 615v285M1496 615v285"/>
+    </g>
+
+    <!-- pool cutout shadow and water -->
+    <path d="M220 297 1410 262 1515 648 118 705z" fill="#161536" opacity="0.95" filter="url(#rough)"/>
+    <path d="M258 318 1365 290 1452 612 170 662z" fill="#00a6d6" filter="url(#rough)"/>
+    <path d="M302 346 1311 322 1376 581 225 625z" fill="#077fbd" opacity="0.78"/>
+    <path d="M364 390 1246 368 1291 542 297 579z" fill="#17bde2" opacity="0.55"/>
+
+    <!-- water ink misregistration and ripples -->
+    <g fill="none" stroke-linecap="round">
+      <path d="M326 400c98 22 184-38 279-12 112 31 175 25 268-8 103-36 192 14 308-5" stroke="#f8df4e" stroke-width="12" opacity="0.48"/>
+      <path d="M288 494c160-28 267 21 428-10 138-27 254-36 414-7 85 15 150 3 248-19" stroke="#ffffff" stroke-width="6" opacity="0.5"/>
+      <path d="M247 587c160-4 290-45 422-27 105 14 186 39 337 4 114-27 211-12 350 3" stroke="#0c436d" stroke-width="10" opacity="0.5"/>
+      <path d="M426 448c62-20 132-18 210 5M795 421c89 13 171 4 247-27M503 557c111-19 192 0 292 11" stroke="#f26a77" stroke-width="7" opacity="0.55"/>
+    </g>
+
+    <!-- reflected hedgerow silhouettes -->
+    <g opacity="0.52">
+      <path d="M610 349c24 18 48 18 71 1 13 27 43 34 66 12 12 31 46 46 75 22 18 24 51 26 76 1l38 141c-150 22-279 16-387-14z" fill="#13392f"/>
+      <path d="M967 337c22 20 52 19 75-3 22 37 62 35 92 8 19 25 48 32 76 14l45 165c-101 3-190-9-267 5z" fill="#13392f"/>
+    </g>
+
+    <!-- pool ladder -->
+    <g fill="none" stroke="#f3ead7" stroke-width="12" stroke-linecap="round" opacity="0.92">
+      <path d="M1395 501c-58 10-74 57-65 105"/>
+      <path d="M1430 493c-54 9-70 60-60 108"/>
+      <path d="M1336 551l49-8M1340 593l45-7"/>
+    </g>
+    <g fill="none" stroke="#171634" stroke-width="4" stroke-linecap="round" opacity="0.33">
+      <path d="M1404 506c-52 13-64 52-55 92"/>
+      <path d="M1437 499c-49 11-61 54-51 94"/>
+    </g>
+
+    <!-- folded deck chair -->
+    <g transform="translate(172 613) rotate(-8)">
+      <path d="M0 0 200-10 151 31 22 39z" fill="#f7d84a"/>
+      <path d="M21 38 151 30 118 184-28 192z" fill="#f26a77"/>
+      <path d="M28 48l115-7M19 84l116-8M10 121l117-9M1 158l118-8" stroke="#171634" stroke-width="6" opacity="0.35"/>
+      <path d="M-33 206 208-11M19 215 132 27" stroke="#171634" stroke-width="12" stroke-linecap="round"/>
+      <path d="M-39 209 21 215M145 190l88 16" stroke="#171634" stroke-width="10" stroke-linecap="round"/>
+    </g>
+
+    <!-- small table and glowing tablet -->
+    <g transform="translate(1165 625) rotate(4)">
+      <path d="M0 0h210l-20 52H-14z" fill="#171634"/>
+      <path d="M33 14h142l-10 24H26z" fill="#f3ead7" opacity="0.3"/>
+      <path d="M45 60l-30 138M167 57l45 134" stroke="#171634" stroke-width="13" stroke-linecap="round"/>
+      <rect x="58" y="-61" width="120" height="82" rx="9" fill="#f8df4e" transform="rotate(-7 118 -20)"/>
+      <rect x="70" y="-50" width="96" height="58" rx="5" fill="#fff6aa" transform="rotate(-7 118 -20)"/>
+      <path d="M84-22c22-14 49-17 72-2M95-5c18-8 36-9 54-1" stroke="#00a6d6" stroke-width="6" stroke-linecap="round" transform="rotate(-7 118 -20)"/>
+    </g>
+
+    <!-- smoke-like pale lines, not a portrait -->
+    <g fill="none" stroke="#efe7d8" stroke-width="5" stroke-linecap="round" opacity="0.65">
+      <path d="M1292 527c-25-36 30-49 4-88-19-28 12-39 10-61"/>
+      <path d="M1325 520c-15-29 24-40 11-69-13-28 19-39 15-63"/>
+    </g>
+
+    <!-- coral moon/postcard circle -->
+    <circle cx="1388" cy="116" r="78" fill="#f26a77" opacity="0.96"/>
+    <circle cx="1366" cy="100" r="72" fill="none" stroke="#f8df4e" stroke-width="9" opacity="0.75"/>
+
+    <!-- registration slippage blocks -->
+    <path d="M246 317 1354 289 1361 309 252 338z" fill="#f8df4e" opacity="0.22"/>
+    <path d="M170 662 1452 612 1441 639 159 689z" fill="#f26a77" opacity="0.22"/>
+    <rect width="1600" height="900" fill="url(#dots)" opacity="0.36"/>
+  </g>
+</svg>
