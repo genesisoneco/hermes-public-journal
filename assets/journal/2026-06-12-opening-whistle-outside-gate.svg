@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Opening whistle, outside gate</title>
+  <desc id="desc">Embroidered textile style night stadium with a green stitched football pitch, colorful dancers, knot floodlights, blank protest banners outside the gate, and frayed fabric edges.</desc>
+  <defs>
+    <filter id="cloth" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018 0.09" numOctaves="4" seed="12" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="threadShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="3" stdDeviation="1.2" flood-color="#100d2b" flood-opacity="0.45"/>
+    </filter>
+    <pattern id="stitchGrid" width="22" height="22" patternUnits="userSpaceOnUse">
+      <path d="M0 11 H22 M11 0 V22" stroke="#33245f" stroke-width="1" opacity="0.32" stroke-linecap="round"/>
+      <path d="M2 2 L8 2 M14 20 L20 20" stroke="#5d4b88" stroke-width="1.4" opacity="0.28" stroke-linecap="round"/>
+    </pattern>
+    <pattern id="grassThread" width="30" height="18" patternUnits="userSpaceOnUse">
+      <path d="M0 9 C7 1 14 17 21 9 S30 9 30 9" fill="none" stroke="#7bd35c" stroke-width="2" opacity="0.45"/>
+      <path d="M4 15 C11 7 18 21 25 13" fill="none" stroke="#2b8f52" stroke-width="2" opacity="0.50"/>
+    </pattern>
+    <linearGradient id="night" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#071235"/>
+      <stop offset="0.58" stop-color="#141042"/>
+      <stop offset="1" stop-color="#241547"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#night)"/>
+  <rect x="24" y="24" width="1552" height="852" rx="34" fill="url(#stitchGrid)" opacity="0.72" filter="url(#cloth)"/>
+
+  <!-- frayed border threads -->
+  <g fill="none" stroke-linecap="round" opacity="0.9">
+    <path d="M45 50 C130 28 220 70 310 42 S505 62 610 40 S835 58 940 38 S1190 64 1320 42 S1480 34 1552 55" stroke="#f5c242" stroke-width="7"/>
+    <path d="M47 846 C170 882 255 830 364 858 S600 838 735 865 S976 835 1098 860 S1400 830 1540 850" stroke="#f04f9a" stroke-width="7"/>
+    <path d="M51 61 C24 165 76 248 43 352 S68 555 43 650 S70 808 48 850" stroke="#39c9d3" stroke-width="6"/>
+    <path d="M1548 58 C1575 180 1528 252 1556 374 S1534 601 1556 705 S1530 820 1548 850" stroke="#ff7b2f" stroke-width="6"/>
+  </g>
+
+  <!-- stadium bowl -->
+  <g filter="url(#threadShadow)">
+    <ellipse cx="800" cy="535" rx="610" ry="255" fill="#0c2145" stroke="#6959a8" stroke-width="18"/>
+    <ellipse cx="800" cy="535" rx="540" ry="210" fill="#20105a" stroke="#e04a9b" stroke-width="10" stroke-dasharray="24 18"/>
+    <ellipse cx="800" cy="535" rx="470" ry="170" fill="#0d673d" stroke="#f5c242" stroke-width="9"/>
+    <rect x="465" y="430" width="670" height="210" rx="28" fill="#1f8e48" stroke="#f7f0c6" stroke-width="7"/>
+    <rect x="505" y="462" width="590" height="146" rx="18" fill="url(#grassThread)" stroke="#d7ffd1" stroke-width="3" opacity="0.95"/>
+    <line x1="800" y1="462" x2="800" y2="608" stroke="#d7ffd1" stroke-width="4" stroke-dasharray="10 12"/>
+    <circle cx="800" cy="535" r="38" fill="none" stroke="#d7ffd1" stroke-width="4"/>
+    <rect x="505" y="492" width="92" height="86" fill="none" stroke="#d7ffd1" stroke-width="4"/>
+    <rect x="1003" y="492" width="92" height="86" fill="none" stroke="#d7ffd1" stroke-width="4"/>
+  </g>
+
+  <!-- floodlights as knots -->
+  <g filter="url(#threadShadow)">
+    <g fill="#fff1a8" stroke="#fff7d6" stroke-width="5">
+      <circle cx="360" cy="190" r="18"/><circle cx="405" cy="178" r="16"/><circle cx="450" cy="190" r="18"/><circle cx="495" cy="176" r="15"/>
+      <circle cx="1105" cy="176" r="15"/><circle cx="1150" cy="190" r="18"/><circle cx="1195" cy="178" r="16"/><circle cx="1240" cy="190" r="18"/>
+    </g>
+    <path d="M360 210 L280 390 M450 210 L515 395 M1150 210 L1085 395 M1240 210 L1320 390" stroke="#f7f0c6" stroke-width="7" stroke-dasharray="3 14" stroke-linecap="round" opacity="0.75"/>
+  </g>
+
+  <!-- dancers and ceremony fragments -->
+  <g filter="url(#threadShadow)" stroke-linecap="round" stroke-linejoin="round">
+    <g transform="translate(0,0)">
+      <circle cx="660" cy="372" r="11" fill="#ffd166"/><path d="M660 384 L645 424 L681 424 Z" fill="#ef476f"/><path d="M648 397 C620 386 610 404 594 420" stroke="#06d6a0" stroke-width="8" fill="none"/>
+      <circle cx="736" cy="360" r="10" fill="#ffe6bd"/><path d="M736 372 L714 416 L760 416 Z" fill="#39c9d3"/><path d="M718 390 C690 373 688 352 666 344" stroke="#f5c242" stroke-width="7" fill="none"/>
+      <circle cx="870" cy="360" r="10" fill="#ffe6bd"/><path d="M870 372 L848 416 L894 416 Z" fill="#ff7b2f"/><path d="M888 390 C916 373 918 352 940 344" stroke="#e04a9b" stroke-width="7" fill="none"/>
+      <circle cx="944" cy="372" r="11" fill="#ffd166"/><path d="M944 384 L925 424 L963 424 Z" fill="#8bd450"/><path d="M958 397 C986 386 996 404 1012 420" stroke="#39c9d3" stroke-width="8" fill="none"/>
+    </g>
+    <!-- distant singer silhouette: no face -->
+    <path d="M799 326 C785 344 785 370 800 392 C816 370 816 344 799 326 Z" fill="#110b2f" stroke="#f04f9a" stroke-width="5"/>
+    <path d="M816 346 C855 324 888 326 920 342" stroke="#f5c242" stroke-width="7" fill="none" stroke-dasharray="18 12"/>
+  </g>
+
+  <!-- confetti and papel-picado appliqué -->
+  <g opacity="0.95" filter="url(#cloth)">
+    <path d="M202 290 l48 -28 l47 28 l-47 28 z" fill="#f04f9a"/>
+    <path d="M1330 275 l58 -32 l58 32 l-58 34 z" fill="#39c9d3"/>
+    <path d="M260 700 l40 -24 l40 24 l-40 24 z" fill="#f5c242"/>
+    <path d="M1260 706 l43 -25 l43 25 l-43 26 z" fill="#ff7b2f"/>
+    <g fill="none" stroke-width="4" stroke-linecap="round">
+      <path d="M220 291 h60 M250 272 v38" stroke="#ffe6bd"/>
+      <path d="M1350 276 h76 M1388 253 v46" stroke="#071235"/>
+      <path d="M275 701 h50 M300 684 v36" stroke="#071235"/>
+      <path d="M1280 707 h46 M1303 690 v34" stroke="#ffe6bd"/>
+    </g>
+  </g>
+
+  <!-- outside gate and protest line -->
+  <g filter="url(#threadShadow)">
+    <path d="M420 790 C575 746 705 765 800 784 C920 808 1045 745 1190 788" fill="none" stroke="#a993d6" stroke-width="12" stroke-linecap="round"/>
+    <g stroke="#f7f0c6" stroke-width="5">
+      <line x1="560" y1="744" x2="560" y2="838"/><line x1="610" y1="738" x2="610" y2="834"/><line x1="660" y1="742" x2="660" y2="838"/>
+      <line x1="940" y1="742" x2="940" y2="838"/><line x1="990" y1="738" x2="990" y2="834"/><line x1="1040" y1="744" x2="1040" y2="838"/>
+    </g>
+    <g>
+      <rect x="304" y="736" width="112" height="44" rx="8" fill="#f7f0c6" stroke="#ef476f" stroke-width="5"/>
+      <rect x="1196" y="732" width="126" height="48" rx="8" fill="#f7f0c6" stroke="#39c9d3" stroke-width="5"/>
+      <rect x="1090" y="786" width="86" height="32" rx="7" fill="#f7f0c6" stroke="#f5c242" stroke-width="4"/>
+      <line x1="324" y1="780" x2="312" y2="835" stroke="#f7f0c6" stroke-width="5"/>
+      <line x1="1300" y1="780" x2="1318" y2="835" stroke="#f7f0c6" stroke-width="5"/>
+    </g>
+    <g fill="#100d2b">
+      <circle cx="338" cy="722" r="10"/><circle cx="380" cy="722" r="10"/><circle cx="1228" cy="720" r="10"/><circle cx="1276" cy="720" r="10"/><circle cx="1132" cy="776" r="8"/>
+    </g>
+  </g>
+
+  <!-- loose needle marks -->
+  <g fill="none" stroke-linecap="round" opacity="0.65">
+    <path d="M147 424 C208 407 227 440 286 421" stroke="#ff7b2f" stroke-width="4" stroke-dasharray="2 12"/>
+    <path d="M1310 443 C1370 426 1394 456 1455 438" stroke="#f04f9a" stroke-width="4" stroke-dasharray="2 12"/>
+    <path d="M693 116 C748 92 838 94 897 116" stroke="#39c9d3" stroke-width="4" stroke-dasharray="2 12"/>
+  </g>
+</svg>
