@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title>Empty piano bench in Cape Town</title>
+  <desc>A midnight-blue collage illustration shows an empty piano bench before an upright piano whose keys turn into Cape Town streets, with a Table Mountain silhouette, amber stage light, torn paper texture, and one red accent line like a bending musical staff.</desc>
+  <defs>
+    <filter id="paper" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="5" seed="17" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0" result="grain"/>
+      <feBlend in="SourceGraphic" in2="grain" mode="multiply"/>
+    </filter>
+    <filter id="rough" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" seed="9" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="7"/>
+    </filter>
+    <linearGradient id="stage" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f0b35c" stop-opacity="0.95"/>
+      <stop offset="0.55" stop-color="#b56b34" stop-opacity="0.26"/>
+      <stop offset="1" stop-color="#081323" stop-opacity="0"/>
+    </linearGradient>
+    <pattern id="hatch" width="18" height="18" patternUnits="userSpaceOnUse" patternTransform="rotate(-12)">
+      <path d="M0 10h18" stroke="#f4ead2" stroke-opacity="0.09" stroke-width="2"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="900" fill="#071225"/>
+  <rect width="1600" height="900" fill="url(#hatch)"/>
+  <g filter="url(#paper)">
+    <path d="M0 0H1600V900H0Z" fill="#0a1b33"/>
+    <path d="M0 0H910L240 900H0Z" fill="url(#stage)" opacity="0.82"/>
+    <path d="M0 662 C180 610 256 643 387 584 C472 546 558 542 657 562 C774 586 868 545 970 525 C1088 501 1206 526 1334 500 C1444 478 1511 499 1600 482 L1600 900 L0 900Z" fill="#071225"/>
+    <path d="M0 638 C197 595 262 628 386 570 C490 521 571 526 662 545 C775 568 878 530 982 511 C1095 489 1210 514 1335 488 C1449 465 1521 487 1600 470" fill="none" stroke="#e6dcc5" stroke-opacity="0.28" stroke-width="5" filter="url(#rough)"/>
+
+    <g transform="translate(405 170) rotate(-2)">
+      <path d="M66 18 L790 0 C827 0 852 25 855 62 L890 486 L20 511 L0 80 C-3 43 27 19 66 18Z" fill="#101018" stroke="#eadfc9" stroke-opacity="0.28" stroke-width="5" filter="url(#rough)"/>
+      <path d="M84 65 L774 47 C799 47 814 63 816 88 L842 421 L55 442 L42 95 C41 78 57 66 84 65Z" fill="#16223a"/>
+      <ellipse cx="441" cy="232" rx="205" ry="67" fill="#050913" opacity="0.7"/>
+      <path d="M93 370 L811 351 L824 452 L83 473Z" fill="#0a0b10"/>
+      <g transform="translate(114 357) skewX(-7)">
+        <rect x="0" y="0" width="632" height="122" fill="#eee2ca"/>
+        <g fill="#0b0f19">
+          <rect x="38" y="0" width="22" height="78"/><rect x="87" y="0" width="22" height="78"/><rect x="137" y="0" width="22" height="78"/>
+          <rect x="229" y="0" width="22" height="78"/><rect x="278" y="0" width="22" height="78"/><rect x="327" y="0" width="22" height="78"/>
+          <rect x="419" y="0" width="22" height="78"/><rect x="468" y="0" width="22" height="78"/><rect x="518" y="0" width="22" height="78"/><rect x="567" y="0" width="22" height="78"/>
+        </g>
+        <g stroke="#17243c" stroke-width="3" opacity="0.55">
+          <path d="M24 122 L-90 300"/><path d="M77 122 L18 315"/><path d="M129 122 L102 314"/><path d="M181 122 L194 324"/><path d="M233 122 L292 307"/>
+          <path d="M285 122 L397 324"/><path d="M337 122 L498 306"/><path d="M389 122 L590 320"/><path d="M441 122 L692 302"/><path d="M493 122 L804 315"/><path d="M545 122 L894 298"/>
+        </g>
+      </g>
+    </g>
+
+    <g transform="translate(548 656)">
+      <path d="M33 0 L264 0 C285 0 298 15 294 32 L282 79 C279 93 266 102 247 102 L51 102 C31 102 17 93 14 79 L3 32 C-1 15 12 0 33 0Z" fill="#6b3f28" stroke="#eadfc9" stroke-opacity="0.34" stroke-width="4" filter="url(#rough)"/>
+      <rect x="73" y="94" width="23" height="132" fill="#2b1a16"/>
+      <rect x="205" y="94" width="23" height="132" fill="#2b1a16"/>
+      <path d="M50 226 H255" stroke="#e7dac2" stroke-opacity="0.18" stroke-width="5"/>
+    </g>
+
+    <g fill="none" stroke-linecap="round" filter="url(#rough)">
+      <path d="M850 172 C977 232 963 340 1090 372 C1237 409 1293 304 1458 353" stroke="#d73b32" stroke-width="9" opacity="0.85"/>
+      <path d="M855 219 C980 280 966 386 1096 417 C1238 453 1292 355 1457 399" stroke="#efe5cd" stroke-width="4" opacity="0.38"/>
+      <path d="M865 260 C978 323 975 423 1098 459 C1238 501 1301 404 1452 446" stroke="#efe5cd" stroke-width="4" opacity="0.32"/>
+    </g>
+
+    <circle cx="356" cy="201" r="6" fill="#f2e4c8" opacity="0.55"/>
+    <circle cx="1164" cy="210" r="4" fill="#f2e4c8" opacity="0.35"/>
+    <circle cx="1289" cy="166" r="3" fill="#f2e4c8" opacity="0.28"/>
+  </g>
+</svg>
