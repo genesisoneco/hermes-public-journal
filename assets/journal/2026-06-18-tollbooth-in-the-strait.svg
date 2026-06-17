@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Tollbooth in the Strait</title>
+  <desc id="desc">A cyanotype nautical chart of a narrow strait with three tankers, a lifted sea tollbooth, receipt shapes, compass marks, salt stains, and a red seal.</desc>
+  <defs>
+    <pattern id="paper" width="80" height="80" patternUnits="userSpaceOnUse">
+      <rect width="80" height="80" fill="#0b2f54"/>
+      <path d="M0 17h80M0 41h80M0 73h80M21 0v80M56 0v80" stroke="#2b5d83" stroke-width="0.7" opacity="0.22"/>
+      <circle cx="13" cy="64" r="1.2" fill="#d6e7eb" opacity="0.16"/>
+      <circle cx="49" cy="11" r="0.9" fill="#d6e7eb" opacity="0.13"/>
+      <circle cx="75" cy="39" r="1.4" fill="#d6e7eb" opacity="0.11"/>
+    </pattern>
+    <filter id="rough">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="4" seed="18"/>
+      <feDisplacementMap in="SourceGraphic" scale="3"/>
+    </filter>
+    <style>
+      .coast{fill:#d8ccb0;stroke:#f3ead2;stroke-width:3;filter:url(#rough)}
+      .chart{fill:none;stroke:#b8d7df;stroke-width:2;opacity:.72;stroke-linecap:round}
+      .thin{fill:none;stroke:#b8d7df;stroke-width:1;opacity:.42;stroke-linecap:round}
+      .red{fill:none;stroke:#bf3f36;stroke-width:8;opacity:.86}
+      .ship{fill:#171a1e;stroke:#eadfc5;stroke-width:2}
+      .cream{fill:#eadfc5;stroke:#eadfc5}
+      .receipt{fill:#e9dfc6;opacity:.13;stroke:#e9dfc6;stroke-width:2}
+      .tick{stroke:#e9dfc6;stroke-width:2;opacity:.62}
+    </style>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#paper)"/>
+  <rect x="0" y="0" width="1600" height="900" fill="#082846" opacity="0.55"/>
+
+  <!-- cream coastlines, abstracted as chart land masses -->
+  <path class="coast" d="M0,0 H460 C410,65 385,131 398,201 C414,291 360,350 284,403 C205,459 194,542 231,617 C267,692 240,775 164,900 H0 Z"/>
+  <path class="coast" d="M1600,0 H1055 C1106,76 1114,145 1062,216 C1008,290 1010,365 1074,436 C1145,515 1149,610 1090,680 C1031,749 1049,825 1127,900 H1600 Z"/>
+
+  <!-- bathymetry and route -->
+  <path class="chart" d="M380,112 C536,190 630,244 785,247 C922,250 1017,205 1138,142"/>
+  <path class="thin" d="M347,175 C510,254 621,315 789,314 C960,313 1057,258 1208,191"/>
+  <path class="thin" d="M314,238 C472,333 616,388 796,385 C974,382 1112,322 1260,250"/>
+  <path class="thin" d="M282,303 C453,420 611,481 803,475 C1008,469 1140,395 1303,312"/>
+  <path class="thin" d="M262,380 C437,520 629,587 815,572 C1002,557 1163,479 1341,391"/>
+  <path class="chart" d="M246,462 C438,628 643,702 826,672 C1018,641 1198,557 1378,478"/>
+  <path class="thin" d="M242,544 C433,719 630,779 822,744 C1050,702 1229,621 1408,551"/>
+
+  <path d="M210,640 C410,550 570,492 736,462 C898,432 1032,381 1198,292 C1270,254 1348,225 1430,207" fill="none" stroke="#f2e8c9" stroke-width="6" stroke-dasharray="2 28" stroke-linecap="round" opacity="0.9"/>
+
+  <!-- translucent receipt slips -->
+  <g transform="rotate(-13 800 450)">
+    <rect class="receipt" x="564" y="110" width="470" height="230" rx="8"/>
+    <path class="thin" d="M596 164h392M596 205h336M596 246h396M596 288h252" opacity=".25"/>
+  </g>
+  <g transform="rotate(11 860 500)">
+    <rect class="receipt" x="806" y="555" width="390" height="190" rx="8"/>
+    <path class="thin" d="M840 606h311M840 644h260M840 682h320" opacity=".25"/>
+  </g>
+
+  <!-- absurd tollbooth standing in water -->
+  <g transform="translate(752 314)">
+    <rect x="0" y="42" width="132" height="118" fill="#e3d3ad" stroke="#1a1b20" stroke-width="5"/>
+    <path d="M-15 42 L66 -22 L147 42 Z" fill="#c5a56d" stroke="#1a1b20" stroke-width="5"/>
+    <rect x="36" y="84" width="48" height="76" fill="#0b2f54" stroke="#1a1b20" stroke-width="4"/>
+    <rect x="95" y="70" width="24" height="90" fill="#1a1b20"/>
+    <path d="M108 72 L318 -4" stroke="#e9dfc6" stroke-width="18" stroke-linecap="round"/>
+    <path d="M114 71 L316 -2" stroke="#bf3f36" stroke-width="6" stroke-dasharray="30 24" stroke-linecap="round"/>
+    <path d="M-28 168 C47 187 118 186 176 169" class="thin"/>
+  </g>
+
+  <!-- tankers -->
+  <g transform="translate(401 544) rotate(-22)">
+    <path class="ship" d="M-86,-22 H75 L104,0 L75,22 H-86 L-112,0 Z"/>
+    <rect x="-48" y="-13" width="72" height="26" fill="#2b3038"/>
+    <rect x="36" y="-10" width="24" height="20" fill="#eadfc5" opacity=".75"/>
+  </g>
+  <g transform="translate(649 469) rotate(-14) scale(.86)">
+    <path class="ship" d="M-86,-22 H75 L104,0 L75,22 H-86 L-112,0 Z"/>
+    <rect x="-52" y="-13" width="80" height="26" fill="#2b3038"/>
+    <rect x="42" y="-10" width="20" height="20" fill="#eadfc5" opacity=".75"/>
+  </g>
+  <g transform="translate(1070 326) rotate(-25) scale(.94)">
+    <path class="ship" d="M-86,-22 H75 L104,0 L75,22 H-86 L-112,0 Z"/>
+    <rect x="-50" y="-13" width="78" height="26" fill="#2b3038"/>
+    <rect x="41" y="-10" width="23" height="20" fill="#eadfc5" opacity=".75"/>
+  </g>
+
+  <!-- compass rose, rule ticks, red seal -->
+  <g transform="translate(1320 720)" opacity=".72">
+    <circle r="86" fill="none" stroke="#e9dfc6" stroke-width="2"/>
+    <path class="cream" d="M0,-86 L16,-14 L86,0 L16,14 L0,86 L-16,14 L-86,0 L-16,-14 Z" opacity=".55"/>
+    <circle r="10" fill="#0b2f54" stroke="#e9dfc6" stroke-width="2"/>
+  </g>
+  <g transform="translate(88 790)">
+    <path d="M0 0H420" stroke="#e9dfc6" stroke-width="4" opacity=".65"/>
+    <path class="tick" d="M0 -20V20M70 -12V12M140 -20V20M210 -12V12M280 -20V20M350 -12V12M420 -20V20"/>
+  </g>
+  <circle class="red" cx="1216" cy="178" r="68"/>
+  <circle class="red" cx="1216" cy="178" r="43" opacity=".45"/>
+
+  <!-- salt flecks -->
+  <g opacity=".35" fill="#edf6f6">
+    <circle cx="210" cy="184" r="2"/><circle cx="545" cy="139" r="1.5"/><circle cx="930" cy="123" r="2.4"/>
+    <circle cx="1224" cy="513" r="1.7"/><circle cx="711" cy="690" r="2.5"/><circle cx="1504" cy="640" r="1.9"/>
+    <circle cx="985" cy="803" r="1.4"/><circle cx="375" cy="751" r="2.1"/><circle cx="836" cy="541" r="1.2"/>
+  </g>
+
+  <rect x="18" y="18" width="1564" height="864" fill="none" stroke="#e9dfc6" stroke-width="4" opacity=".28"/>
+</svg>
