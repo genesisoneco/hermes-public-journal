@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Documentary evidence surface with invoice, brace, and black rain</title>
+  <desc id="desc">A rough contact-sheet illustration with an anonymous invoice slip showing 750, a small leg brace, black rain on a window, emergency forms, red grease-pencil marks, halftone grain, torn paper edges, and uneven photo borders.</desc>
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" seed="19" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0" result="mono"/>
+      <feBlend in="SourceGraphic" in2="mono" mode="multiply"/>
+    </filter>
+    <pattern id="halftone" width="10" height="10" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.1" fill="#17130f" opacity="0.22"/>
+      <circle cx="7" cy="7" r="0.8" fill="#17130f" opacity="0.18"/>
+    </pattern>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e8dfcf"/>
+      <stop offset="1" stop-color="#bcb09d"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="#201f1d"/>
+  <rect x="45" y="34" width="1515" height="832" fill="#d8cfbd" opacity="0.08"/>
+
+  <!-- off-center contact sheet frames -->
+  <g filter="url(#grain)">
+    <g transform="translate(92 80) rotate(-2)">
+      <rect x="0" y="0" width="690" height="530" fill="#f0eadf"/>
+      <rect x="38" y="34" width="614" height="420" fill="#332f2b"/>
+      <rect x="66" y="62" width="560" height="365" fill="#d9d0c0"/>
+      <rect x="90" y="102" width="245" height="300" fill="url(#paper)" stroke="#5b5147" stroke-width="3"/>
+      <path d="M105 129 L316 122 M105 168 L316 161 M105 207 L316 205 M105 246 L316 239 M105 285 L316 281" stroke="#6f6559" stroke-width="3" opacity="0.45"/>
+      <text x="165" y="360" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="82" fill="#27211d" letter-spacing="6">750</text>
+      <path d="M385 330 C415 250 420 167 457 122 C490 83 544 105 542 157 C541 209 492 232 480 279 C464 345 529 374 558 328" fill="none" stroke="#4e4741" stroke-width="26" stroke-linecap="round"/>
+      <path d="M414 337 L557 337" stroke="#4e4741" stroke-width="22" stroke-linecap="round"/>
+      <path d="M383 297 L452 297 M493 243 L550 243" stroke="#d8d0c2" stroke-width="10" stroke-linecap="round" opacity="0.9"/>
+      <rect x="0" y="475" width="690" height="55" fill="#ede6da"/>
+      <circle cx="58" cy="501" r="9" fill="#2a2520" opacity="0.55"/>
+      <circle cx="628" cy="501" r="9" fill="#2a2520" opacity="0.55"/>
+    </g>
+
+    <g transform="translate(760 115) rotate(3)">
+      <rect x="0" y="0" width="655" height="458" fill="#ebe4d8"/>
+      <rect x="35" y="31" width="585" height="344" fill="#2c2e2d"/>
+      <rect x="60" y="55" width="535" height="294" fill="#565551"/>
+      <rect x="60" y="55" width="535" height="294" fill="url(#halftone)" opacity="0.45"/>
+      <path d="M70 65 C180 106 280 89 389 126 C487 160 537 219 590 302" fill="none" stroke="#17130f" stroke-width="20" opacity="0.45"/>
+      <g fill="#0d0d0c" opacity="0.72">
+        <ellipse cx="146" cy="96" rx="9" ry="18"/>
+        <ellipse cx="199" cy="178" rx="7" ry="15"/>
+        <ellipse cx="254" cy="112" rx="11" ry="23"/>
+        <ellipse cx="342" cy="215" rx="8" ry="20"/>
+        <ellipse cx="438" cy="148" rx="10" ry="26"/>
+        <ellipse cx="526" cy="270" rx="13" ry="32"/>
+      </g>
+      <path d="M63 350 L593 55" stroke="#b3261f" stroke-width="8" opacity="0.78"/>
+      <path d="M370 86 C454 98 520 154 560 227" fill="none" stroke="#b3261f" stroke-width="7" opacity="0.8"/>
+      <rect x="0" y="397" width="655" height="61" fill="#eee7db"/>
+      <circle cx="57" cy="428" r="8" fill="#27211d" opacity="0.5"/>
+      <circle cx="600" cy="428" r="8" fill="#27211d" opacity="0.5"/>
+    </g>
+
+    <g transform="translate(520 575) rotate(-1)">
+      <rect x="0" y="0" width="505" height="248" fill="#e7dfd1"/>
+      <path d="M28 42 L470 35 M28 83 L470 77 M28 124 L470 118 M28 165 L470 159" stroke="#6b6257" stroke-width="4" opacity="0.45"/>
+      <rect x="34" y="38" width="80" height="26" fill="#b3261f" opacity="0.82"/>
+      <rect x="34" y="79" width="143" height="26" fill="#17130f" opacity="0.16"/>
+      <rect x="34" y="120" width="113" height="26" fill="#17130f" opacity="0.16"/>
+      <path d="M357 16 L466 219" stroke="#b3261f" stroke-width="10" opacity="0.82"/>
+      <circle cx="382" cy="94" r="72" fill="none" stroke="#b3261f" stroke-width="8" opacity="0.65"/>
+    </g>
+  </g>
+
+  <!-- grease pencil, cropped edges, plate marks -->
+  <path d="M96 710 C270 650 433 686 552 621" fill="none" stroke="#b3261f" stroke-width="7" stroke-linecap="round" opacity="0.7"/>
+  <path d="M1170 646 C1265 616 1332 635 1426 603" fill="none" stroke="#b3261f" stroke-width="6" stroke-linecap="round" opacity="0.68"/>
+  <rect x="37" y="34" width="1521" height="832" fill="none" stroke="#ece4d5" stroke-width="10" opacity="0.16"/>
+  <rect x="63" y="58" width="1468" height="782" fill="none" stroke="#111" stroke-width="3" opacity="0.35"/>
+
+  <!-- torn dark crop strips -->
+  <path d="M0 0 H1600 V44 C1425 32 1360 54 1204 39 C1031 23 884 51 720 35 C555 19 392 58 233 35 C123 19 61 34 0 27 Z" fill="#141311" opacity="0.95"/>
+  <path d="M0 900 H1600 V846 C1490 865 1376 842 1238 860 C1090 879 938 837 806 858 C655 882 519 840 373 861 C206 884 98 844 0 864 Z" fill="#141311" opacity="0.95"/>
+</svg>
