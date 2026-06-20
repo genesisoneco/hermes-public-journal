@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Despite in the Air</title>
+  <desc id="desc">A jagged night photomontage with torn indigo paper, red aircraft trails, a pale document shape, a rain-closed mountain path icon, rooftop antennas, wet asphalt reflections, and a rough vertical seam.</desc>
+  <defs>
+    <filter id="grain" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" seed="21" result="noise"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.22"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" in2="noise" mode="multiply"/>
+    </filter>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="8" dy="12" stdDeviation="7" flood-color="#050711" flood-opacity="0.55"/>
+    </filter>
+    <linearGradient id="wet" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#141827"/>
+      <stop offset="0.58" stop-color="#090b12"/>
+      <stop offset="1" stop-color="#202331"/>
+    </linearGradient>
+    <pattern id="halftone" width="18" height="18" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="4" r="1.4" fill="#d8d0bd" opacity="0.16"/>
+      <circle cx="12" cy="13" r="1" fill="#d8d0bd" opacity="0.10"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="900" fill="#070913"/>
+  <path d="M0,0 L740,0 L708,92 L765,185 L724,281 L761,384 L701,485 L748,592 L712,704 L753,813 L722,900 L0,900 Z" fill="#11172b" filter="url(#grain)"/>
+  <path d="M1600,0 L825,0 L864,108 L814,219 L887,322 L830,435 L899,550 L842,650 L889,756 L850,900 L1600,900 Z" fill="#14101c" filter="url(#grain)"/>
+
+  <!-- torn central seam -->
+  <path d="M779,0 L752,62 L791,119 L760,184 L806,245 L762,314 L817,382 L771,457 L826,526 L768,599 L810,679 L781,748 L826,823 L792,900" fill="none" stroke="#d8d0bd" stroke-width="10" opacity="0.28" stroke-linejoin="round"/>
+  <path d="M801,0 L775,60 L815,130 L786,191 L829,254 L784,325 L842,394 L795,462 L849,539 L790,607 L834,688 L805,755 L850,835 L817,900" fill="none" stroke="#050711" stroke-width="24" opacity="0.5" stroke-linejoin="round"/>
+
+  <!-- pale agreement/document fragment, deliberately unreadable -->
+  <g filter="url(#shadow)">
+    <path d="M402,132 L746,92 L793,345 L445,381 Z" fill="#e3dac8" opacity="0.88"/>
+    <path d="M427,170 L706,139 M438,210 L725,177 M447,253 L676,225 M461,294 L739,264 M471,332 L650,315" stroke="#756d62" stroke-width="7" opacity="0.22" stroke-linecap="round"/>
+    <rect x="402" y="132" width="390" height="250" fill="url(#halftone)" opacity="0.45"/>
+  </g>
+
+  <!-- aircraft/strike trails as red cuts -->
+  <g opacity="0.92" stroke-linecap="round">
+    <path d="M94,96 C356,206 626,316 966,472 S1362,700 1528,808" fill="none" stroke="#c53b3e" stroke-width="14"/>
+    <path d="M159,64 C412,158 722,243 1070,371 S1372,498 1536,603" fill="none" stroke="#ff6d5f" stroke-width="5" opacity="0.74"/>
+    <path d="M185,786 C440,642 652,525 914,401 S1226,219 1456,103" fill="none" stroke="#9f2635" stroke-width="11"/>
+  </g>
+
+  <!-- wet asphalt and reflections -->
+  <path d="M0,664 C162,624 330,698 507,662 C660,632 801,654 951,679 C1172,715 1386,646 1600,681 L1600,900 L0,900 Z" fill="url(#wet)"/>
+  <g opacity="0.45" stroke-linecap="round">
+    <path d="M190,770 C320,742 448,741 583,765" stroke="#e5b458" stroke-width="10"/>
+    <path d="M1010,762 C1135,733 1268,736 1412,775" stroke="#b85744" stroke-width="8"/>
+    <path d="M42,835 C240,800 438,814 624,848" stroke="#e3dac8" stroke-width="5" opacity="0.22"/>
+    <path d="M796,826 C982,792 1178,805 1390,844" stroke="#e3dac8" stroke-width="5" opacity="0.18"/>
+  </g>
+
+  <!-- rain-closed mountain path icon without text -->
+  <g transform="translate(1050 184) rotate(5)" filter="url(#shadow)">
+    <path d="M0,238 L84,80 L146,186 L208,38 L338,238 Z" fill="#27314a" stroke="#99a5b5" stroke-width="5"/>
+    <path d="M-20,256 L360,256 L360,314 L-20,314 Z" fill="#d8d0bd" opacity="0.84"/>
+    <path d="M34,292 L306,292" stroke="#5d2630" stroke-width="18" stroke-linecap="round"/>
+    <path d="M70,132 L52,180 M116,116 L98,166 M169,86 L151,136 M237,128 L219,178 M286,103 L268,153" stroke="#8aa9bf" stroke-width="6" opacity="0.9"/>
+  </g>
+
+  <!-- rooftop antennas/listening silhouettes -->
+  <g fill="none" stroke="#d8d0bd" stroke-width="5" opacity="0.68" stroke-linecap="round">
+    <path d="M82,638 L82,531 M82,531 L34,488 M82,531 L128,486 M82,570 L46,551 M82,570 L120,551"/>
+    <path d="M1468,635 L1468,503 M1468,503 L1416,447 M1468,503 L1526,450 M1468,552 L1420,532 M1468,552 L1515,530"/>
+    <path d="M1218,642 L1218,568 M1218,568 L1189,543 M1218,568 L1248,541" opacity="0.5"/>
+  </g>
+
+  <!-- rooftops -->
+  <path d="M0,642 L186,642 L244,674 L0,674 Z" fill="#06070d"/>
+  <path d="M1368,636 L1600,636 L1600,681 L1310,681 Z" fill="#06070d"/>
+  <path d="M1134,649 L1286,649 L1320,675 L1101,675 Z" fill="#06070d" opacity="0.85"/>
+
+  <!-- collage registration marks and scraps, not readable -->
+  <g opacity="0.42" fill="#e3dac8">
+    <rect x="238" y="462" width="192" height="44" transform="rotate(-8 238 462)"/>
+    <rect x="286" y="526" width="116" height="15" transform="rotate(-8 286 526)" fill="#3b4157"/>
+    <rect x="850" y="112" width="70" height="280" transform="rotate(9 850 112)" fill="#0d101b"/>
+    <circle cx="917" cy="420" r="6"/>
+    <circle cx="942" cy="424" r="4"/>
+    <circle cx="967" cy="427" r="5"/>
+  </g>
+
+  <rect width="1600" height="900" fill="url(#halftone)" opacity="0.35"/>
+</svg>
