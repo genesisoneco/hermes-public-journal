@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Rain at the museum door</title>
+  <desc id="desc">Ink-and-gouache style museum atrium through rain, with celadon vessel, moon jar, empty microphone stand, umbrella silhouettes, and wet reflections.</desc>
+  <defs>
+    <filter id="paper" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="4" seed="20" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0" result="mono"/>
+      <feBlend in="SourceGraphic" in2="mono" mode="multiply"/>
+    </filter>
+    <filter id="bleed">
+      <feTurbulence type="turbulence" baseFrequency="0.011 0.045" numOctaves="2" seed="6" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#dfe9e5"/>
+      <stop offset="0.52" stop-color="#aebfc4"/>
+      <stop offset="1" stop-color="#576879"/>
+    </linearGradient>
+    <radialGradient id="jarLight" cx="48%" cy="38%" r="63%">
+      <stop offset="0" stop-color="#fffdf3"/>
+      <stop offset="0.55" stop-color="#f6f0df"/>
+      <stop offset="1" stop-color="#cfc4a8"/>
+    </radialGradient>
+    <radialGradient id="celadon" cx="39%" cy="28%" r="67%">
+      <stop offset="0" stop-color="#d7eadb"/>
+      <stop offset="0.48" stop-color="#9dbfa8"/>
+      <stop offset="1" stop-color="#52755f"/>
+    </radialGradient>
+    <pattern id="rain" patternUnits="userSpaceOnUse" width="88" height="88" patternTransform="rotate(14)">
+      <path d="M8 -10 L8 52 M35 -18 L35 76 M64 -4 L64 62" stroke="#415366" stroke-width="3" stroke-linecap="round" opacity="0.36"/>
+      <path d="M20 6 L20 86 M76 16 L76 98" stroke="#f2f6f4" stroke-width="1.2" stroke-linecap="round" opacity="0.45"/>
+    </pattern>
+    <pattern id="hanji" patternUnits="userSpaceOnUse" width="64" height="64">
+      <path d="M0 12 C18 8 31 16 64 11 M0 38 C23 44 41 30 64 37 M8 0 C12 20 6 42 15 64 M48 0 C40 22 57 45 51 64" fill="none" stroke="#ede6d4" stroke-width="1" opacity="0.3"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="900" fill="#e8e2d1"/>
+  <rect width="1600" height="900" fill="url(#hanji)" opacity="0.9"/>
+  <g filter="url(#paper)">
+    <!-- glass wall and wet city outside -->
+    <path d="M0 0 H1600 V610 C1270 560 1030 620 735 585 C430 548 208 628 0 590 Z" fill="url(#glass)" opacity="0.82"/>
+    <path d="M134 0 L78 618 M345 0 L326 606 M569 0 L554 600 M820 0 L806 592 M1051 0 L1025 607 M1290 0 L1236 615 M1492 0 L1447 609" stroke="#eff5f0" stroke-width="7" opacity="0.45"/>
+    <path d="M0 613 C252 572 414 646 665 608 C961 563 1150 632 1600 590 V900 H0 Z" fill="#8b9189" opacity="0.22"/>
+    <rect width="1600" height="650" fill="url(#rain)" opacity="0.72"/>
+
+    <!-- umbrella silhouettes outside -->
+    <g opacity="0.55" fill="#233042" filter="url(#bleed)">
+      <path d="M108 501 Q168 438 232 502 Z"/><path d="M168 502 v75" stroke="#233042" stroke-width="8" fill="none"/>
+      <path d="M1194 473 Q1270 398 1344 474 Z"/><path d="M1270 474 v90" stroke="#233042" stroke-width="8" fill="none"/>
+      <path d="M1380 518 Q1426 472 1476 519 Z"/><path d="M1427 519 v58" stroke="#233042" stroke-width="6" fill="none"/>
+      <ellipse cx="408" cy="532" rx="48" ry="12"/>
+      <path d="M366 530 Q410 490 454 531 Z"/>
+    </g>
+
+    <!-- interior floor -->
+    <path d="M0 616 C290 675 476 640 750 675 C1010 708 1258 642 1600 690 V900 H0 Z" fill="#686d6d" opacity="0.62"/>
+    <path d="M128 805 C354 748 592 795 742 775 C990 742 1174 805 1455 767" fill="none" stroke="#d5ded7" stroke-width="7" opacity="0.28"/>
+    <path d="M520 858 C620 827 743 836 836 815 C931 793 1014 810 1112 779" fill="none" stroke="#1e2c35" stroke-width="5" opacity="0.22"/>
+
+    <!-- plinths -->
+    <g>
+      <path d="M395 630 L623 606 L704 790 L466 826 Z" fill="#c9c2b0" stroke="#303b40" stroke-width="5" opacity="0.92"/>
+      <path d="M930 626 L1160 610 L1227 786 L982 816 Z" fill="#c9c2b0" stroke="#303b40" stroke-width="5" opacity="0.92"/>
+      <path d="M395 630 L466 826 L456 844 L385 649 Z" fill="#918b7c" opacity="0.45"/>
+      <path d="M930 626 L982 816 L970 833 L919 644 Z" fill="#918b7c" opacity="0.45"/>
+    </g>
+
+    <!-- celadon vessel -->
+    <g transform="translate(545 565)" filter="url(#bleed)">
+      <path d="M-82 36 C-96 -44 -54 -116 3 -119 C62 -122 100 -42 82 38 C68 100 27 126 -20 116 C-58 108 -76 78 -82 36 Z" fill="url(#celadon)" stroke="#263b32" stroke-width="6"/>
+      <path d="M-34 -100 C-17 -118 28 -118 45 -99 C32 -83 -20 -82 -34 -100 Z" fill="#6f927d" stroke="#263b32" stroke-width="5"/>
+      <path d="M-61 -20 C-18 3 22 -18 66 8" fill="none" stroke="#e9f4e9" stroke-width="5" opacity="0.6"/>
+      <path d="M-52 38 C-5 72 32 40 66 58" fill="none" stroke="#334a3f" stroke-width="3" opacity="0.35"/>
+    </g>
+
+    <!-- moon jar -->
+    <g transform="translate(1075 575)" filter="url(#bleed)">
+      <path d="M-112 34 C-126 -66 -55 -144 30 -132 C112 -120 148 -29 106 62 C68 143 -32 150 -86 91 C-103 72 -110 54 -112 34 Z" fill="url(#jarLight)" stroke="#343638" stroke-width="6"/>
+      <path d="M-24 -123 C6 -141 48 -131 63 -107 C38 -95 0 -100 -24 -123 Z" fill="#ece5d2" stroke="#343638" stroke-width="5"/>
+      <path d="M-75 2 C-18 -29 42 -18 99 15" fill="none" stroke="#ffffff" stroke-width="8" opacity="0.55"/>
+      <path d="M-48 78 C2 107 50 91 84 62" fill="none" stroke="#b0a890" stroke-width="4" opacity="0.42"/>
+    </g>
+
+    <!-- empty microphone stand, deliberately off-center -->
+    <g transform="translate(760 545)" stroke="#20252a" stroke-linecap="round" opacity="0.86">
+      <path d="M0 0 L0 210" stroke-width="7"/>
+      <path d="M-52 214 L0 195 L62 214" stroke-width="7" fill="none"/>
+      <path d="M-9 -7 C8 -22 42 -22 61 -10" stroke-width="6" fill="none"/>
+      <ellipse cx="70" cy="-8" rx="24" ry="11" transform="rotate(9 70 -8)" fill="#20252a" stroke="none"/>
+    </g>
+
+    <!-- rain reflections as brush marks -->
+    <g fill="none" stroke-linecap="round" opacity="0.55">
+      <path d="M348 840 C430 812 559 831 646 797" stroke="#dcebe1" stroke-width="9"/>
+      <path d="M906 839 C1015 807 1130 827 1248 790" stroke="#dcebe1" stroke-width="10"/>
+      <path d="M688 795 C762 780 841 792 910 768" stroke="#a6bdc2" stroke-width="7"/>
+      <path d="M74 730 C215 756 337 722 462 742" stroke="#293944" stroke-width="5" opacity="0.28"/>
+    </g>
+
+    <!-- vertical ink margins -->
+    <path d="M0 0 C44 210 31 480 68 900" stroke="#1f2b36" stroke-width="22" opacity="0.18" fill="none"/>
+    <path d="M1600 0 C1552 164 1580 488 1534 900" stroke="#1f2b36" stroke-width="18" opacity="0.14" fill="none"/>
+  </g>
+</svg>
