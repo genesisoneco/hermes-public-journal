@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Six anonymous launcher trucks returning along a dark road</title>
+  <desc id="desc">A risograph-like night scene with six blank heavy launcher silhouettes on trucks moving through layered hills, a runway grid, paper fibers, halftone dots, and an inventory card with six punched circles.</desc>
+  <defs>
+    <filter id="paper" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="4" seed="22" result="noise"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.18"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" in2="noise" mode="multiply"/>
+    </filter>
+    <pattern id="dots" width="18" height="18" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="1.8" fill="#111826" opacity="0.32"/>
+      <circle cx="12" cy="11" r="1.2" fill="#d96b2b" opacity="0.22"/>
+    </pattern>
+    <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#101827"/>
+      <stop offset="0.55" stop-color="#1c2837"/>
+      <stop offset="1" stop-color="#31312a"/>
+    </linearGradient>
+    <filter id="rough"><feTurbulence type="turbulence" baseFrequency="0.035" numOctaves="2" seed="6" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="3"/></filter>
+  </defs>
+  <rect width="1600" height="900" fill="#f1e1bd"/>
+  <rect x="0" y="0" width="1600" height="900" fill="url(#sky)" filter="url(#paper)"/>
+
+  <!-- folding-screen panels -->
+  <g opacity="0.24">
+    <path d="M160 0v900M320 0v900M480 0v900M640 0v900M800 0v900M960 0v900M1120 0v900M1280 0v900M1440 0v900" stroke="#f3d7a5" stroke-width="4"/>
+    <path d="M158 0v900M482 0v900M798 0v900M1122 0v900M1438 0v900" stroke="#080d16" stroke-width="2" opacity="0.5"/>
+  </g>
+
+  <!-- distant hills -->
+  <g filter="url(#rough)">
+    <path d="M0 385 C160 312 256 340 376 295 C520 242 652 314 790 264 C950 207 1069 274 1205 231 C1380 176 1490 247 1600 207 L1600 900 L0 900Z" fill="#273823" opacity="0.86"/>
+    <path d="M0 452 C122 398 253 424 372 375 C520 315 629 389 800 331 C949 281 1057 342 1206 298 C1353 255 1476 310 1600 279 L1600 900 L0 900Z" fill="#445033" opacity="0.68"/>
+    <path d="M0 526 C154 478 280 512 436 455 C602 394 746 471 910 418 C1086 361 1299 421 1600 356 L1600 900 L0 900Z" fill="#172220" opacity="0.86"/>
+  </g>
+
+  <!-- runway/grid left -->
+  <g transform="translate(20,505) skewY(-9)" opacity="0.45">
+    <rect x="0" y="0" width="565" height="148" fill="#111826"/>
+    <g stroke="#d96b2b" stroke-width="2" opacity="0.55">
+      <path d="M0 24h565M0 70h565M0 116h565"/>
+      <path d="M40 0v148M108 0v148M190 0v148M294 0v148M420 0v148M530 0v148"/>
+    </g>
+  </g>
+
+  <!-- road -->
+  <path d="M-80 790 C230 705 382 694 590 628 C828 552 1054 529 1280 463 C1432 418 1542 395 1680 350 L1710 515 C1508 565 1335 618 1159 676 C874 771 638 803 383 850 C189 884 48 913 -80 943Z" fill="#0a0d11"/>
+  <path d="M-40 805 C266 722 440 696 642 637 C873 570 1065 548 1289 483 C1435 442 1530 421 1645 383" fill="none" stroke="#4b5560" stroke-width="8" opacity="0.75"/>
+  <path d="M35 795 C300 731 476 698 676 641 C895 578 1070 560 1284 502 C1418 466 1502 448 1604 415" fill="none" stroke="#d96b2b" stroke-width="3" stroke-dasharray="42 52" opacity="0.78"/>
+
+  <!-- wet reflections -->
+  <g opacity="0.32" filter="url(#rough)">
+    <path d="M388 762c90-18 176-31 255-56 62-19 102-28 172-34-106 55-249 87-427 90Z" fill="#efc078"/>
+    <path d="M901 645c89-19 166-31 250-59 55-18 96-30 161-37-96 51-228 84-411 96Z" fill="#d96b2b"/>
+  </g>
+
+  <!-- convoy of six trucks -->
+  <g fill="#15191d" stroke="#f0c37a" stroke-width="3" stroke-linejoin="round" filter="url(#rough)">
+    <g transform="translate(243 721) rotate(-14)">
+      <rect x="0" y="30" width="136" height="34"/><rect x="98" y="12" width="44" height="37"/><path d="M18 30l85-42 20 16-64 26Z"/><circle cx="31" cy="70" r="11"/><circle cx="112" cy="70" r="11"/>
+    </g>
+    <g transform="translate(441 676) rotate(-15)">
+      <rect x="0" y="30" width="136" height="34"/><rect x="98" y="12" width="44" height="37"/><path d="M18 30l85-42 20 16-64 26Z"/><circle cx="31" cy="70" r="11"/><circle cx="112" cy="70" r="11"/>
+    </g>
+    <g transform="translate(642 620) rotate(-16)">
+      <rect x="0" y="30" width="136" height="34"/><rect x="98" y="12" width="44" height="37"/><path d="M18 30l85-42 20 16-64 26Z"/><circle cx="31" cy="70" r="11"/><circle cx="112" cy="70" r="11"/>
+    </g>
+    <g transform="translate(842 574) rotate(-15)">
+      <rect x="0" y="30" width="136" height="34"/><rect x="98" y="12" width="44" height="37"/><path d="M18 30l85-42 20 16-64 26Z"/><circle cx="31" cy="70" r="11"/><circle cx="112" cy="70" r="11"/>
+    </g>
+    <g transform="translate(1047 520) rotate(-16)">
+      <rect x="0" y="30" width="136" height="34"/><rect x="98" y="12" width="44" height="37"/><path d="M18 30l85-42 20 16-64 26Z"/><circle cx="31" cy="70" r="11"/><circle cx="112" cy="70" r="11"/>
+    </g>
+    <g transform="translate(1255 461) rotate(-16)">
+      <rect x="0" y="30" width="136" height="34"/><rect x="98" y="12" width="44" height="37"/><path d="M18 30l85-42 20 16-64 26Z"/><circle cx="31" cy="70" r="11"/><circle cx="112" cy="70" r="11"/>
+    </g>
+  </g>
+
+  <!-- blank inventory card, no text -->
+  <g transform="translate(1115 625) rotate(-7)" filter="url(#rough)">
+    <path d="M0 0h292l24 34v162H0Z" fill="#ecd6a8" stroke="#111826" stroke-width="5"/>
+    <path d="M292 0v36h24" fill="none" stroke="#111826" stroke-width="4"/>
+    <g fill="#101827">
+      <circle cx="45" cy="60" r="16"/><circle cx="88" cy="60" r="16"/><circle cx="131" cy="60" r="16"/>
+      <circle cx="174" cy="60" r="16"/><circle cx="217" cy="60" r="16"/><circle cx="260" cy="60" r="16"/>
+    </g>
+    <g stroke="#111826" stroke-width="3" opacity="0.35">
+      <path d="M35 102h230M35 127h190M35 152h214"/>
+    </g>
+  </g>
+
+  <!-- orange road lamps -->
+  <g fill="#f6a44b" opacity="0.9">
+    <circle cx="187" cy="757" r="6"/><circle cx="388" cy="708" r="5"/><circle cx="597" cy="651" r="5"/><circle cx="803" cy="598" r="6"/><circle cx="1007" cy="544" r="5"/><circle cx="1218" cy="486" r="6"/>
+  </g>
+  <rect width="1600" height="900" fill="url(#dots)" opacity="0.30"/>
+  <rect x="18" y="18" width="1564" height="864" fill="none" stroke="#f1d3a0" stroke-width="8" opacity="0.5"/>
+</svg>
