@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Aquarium with an exit</title>
+  <desc id="desc">A gritty surveillance contact-sheet image of a dim apartment, a television glowing like an aquarium, router lights, a remote, tangerines, and network lines slipping toward a city map.</desc>
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.78" numOctaves="4" seed="623" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.18"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" mode="multiply"/>
+    </filter>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <linearGradient id="wall" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#151514"/>
+      <stop offset="0.58" stop-color="#2b241b"/>
+      <stop offset="1" stop-color="#07131a"/>
+    </linearGradient>
+    <radialGradient id="screenGlow" cx="50%" cy="45%" r="65%">
+      <stop offset="0" stop-color="#86e7ff" stop-opacity="0.95"/>
+      <stop offset="0.35" stop-color="#137ea4" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#03090d"/>
+    </radialGradient>
+    <pattern id="halftone" width="14" height="14" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.2" fill="#f2d49a" opacity="0.16"/>
+      <circle cx="9" cy="8" r="0.9" fill="#77d9ef" opacity="0.10"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="900" fill="#0f1110"/>
+  <g filter="url(#grain)">
+    <rect x="36" y="36" width="1528" height="828" rx="6" fill="#20170f" stroke="#d7b16d" stroke-opacity="0.28" stroke-width="3"/>
+    <rect x="70" y="70" width="1460" height="760" fill="url(#wall)"/>
+
+    <!-- contact sheet frame marks -->
+    <g opacity="0.5" fill="none" stroke="#d6b36f" stroke-width="2">
+      <rect x="92" y="92" width="1416" height="716"/>
+      <path d="M92 228h1416M92 672h1416M412 92v716M1188 92v716" opacity="0.35"/>
+    </g>
+    <g fill="#caa66a" opacity="0.33">
+      <rect x="118" y="111" width="42" height="7"/><rect x="174" y="111" width="17" height="7"/>
+      <rect x="1410" y="783" width="42" height="7"/><rect x="1378" y="783" width="17" height="7"/>
+      <circle cx="130" cy="780" r="4"/><circle cx="148" cy="780" r="4"/><circle cx="166" cy="780" r="4"/>
+    </g>
+
+    <!-- floor and room -->
+    <path d="M70 616 C350 566 1005 565 1530 626 L1530 830 L70 830 Z" fill="#15120f"/>
+    <path d="M96 825 C455 690 1025 686 1498 820" fill="none" stroke="#6c4e2e" stroke-opacity="0.32" stroke-width="5"/>
+
+    <!-- TV -->
+    <g transform="translate(360 185)">
+      <rect x="0" y="0" width="880" height="430" rx="18" fill="#030507" stroke="#1b2326" stroke-width="22"/>
+      <rect x="34" y="34" width="812" height="362" rx="8" fill="url(#screenGlow)"/>
+      <rect x="34" y="34" width="812" height="362" fill="url(#halftone)" opacity="0.8"/>
+      <g opacity="0.9" fill="none" stroke-linecap="round">
+        <path d="M140 245 C215 206 264 283 334 236 S486 224 562 249 S690 293 762 227" stroke="#b7f4ff" stroke-width="5" opacity="0.55"/>
+        <path d="M92 302 C192 266 240 326 362 286 S568 288 730 315" stroke="#efffba" stroke-width="3" opacity="0.38"/>
+        <path d="M112 92 C170 70 224 111 276 91" stroke="#f2a36d" stroke-width="3" opacity="0.4"/>
+      </g>
+      <!-- artificial coral and fish silhouettes -->
+      <g opacity="0.82">
+        <path d="M150 338 q15-40 30 0 q9-55 26-6 q13-36 24 3" fill="none" stroke="#ef7e5b" stroke-width="6"/>
+        <path d="M640 344 q8-58 24-5 q15-34 28 0 q10-44 23-2" fill="none" stroke="#f4cf75" stroke-width="5"/>
+        <path d="M472 151 c32-20 70-14 97 7 c-31 25-69 25-97-7z" fill="#d6fbff" opacity="0.45"/>
+        <path d="M572 158 l28-18 l-4 37z" fill="#d6fbff" opacity="0.45"/>
+        <circle cx="500" cy="151" r="4" fill="#081018"/>
+      </g>
+      <rect x="374" y="430" width="132" height="24" fill="#0a0b0b"/>
+      <path d="M260 487 h360 l-44-33 h-272z" fill="#050607"/>
+    </g>
+
+    <!-- network threads leaving screen -->
+    <g fill="none" stroke-linecap="round" filter="url(#softGlow)">
+      <path d="M1045 328 C1190 270 1290 214 1468 171" stroke="#7be9ff" stroke-width="3" opacity="0.43"/>
+      <path d="M1075 388 C1235 396 1340 470 1498 448" stroke="#7be9ff" stroke-width="2" opacity="0.34"/>
+      <path d="M998 505 C1135 600 1306 619 1485 722" stroke="#7be9ff" stroke-width="2" opacity="0.28"/>
+      <path d="M820 219 C920 132 1055 112 1274 95" stroke="#f4c064" stroke-width="2" opacity="0.25"/>
+    </g>
+
+    <!-- city map panel on right -->
+    <g transform="translate(1220 132)" opacity="0.78">
+      <rect x="0" y="0" width="260" height="590" fill="#081015" stroke="#9b7848" stroke-opacity="0.4"/>
+      <g stroke="#6acfe8" stroke-opacity="0.28" stroke-width="2" fill="none">
+        <path d="M18 86 h212 v38 h-70 v74 h83"/>
+        <path d="M30 310 h92 v-84 h98 v-55"/>
+        <path d="M52 536 v-180 h55 v-43 h122"/>
+        <path d="M190 26 v510" opacity="0.45"/>
+        <path d="M75 40 v490" opacity="0.35"/>
+      </g>
+      <g fill="#9df1ff" opacity="0.62">
+        <circle cx="230" cy="124" r="5"/><circle cx="121" cy="226" r="5"/><circle cx="107" cy="356" r="5"/><circle cx="229" cy="536" r="5"/>
+      </g>
+    </g>
+
+    <!-- router, cable, table -->
+    <ellipse cx="788" cy="724" rx="420" ry="58" fill="#050505" opacity="0.6"/>
+    <path d="M490 692 C735 655 950 658 1128 697 L1072 780 C875 812 665 805 444 773 Z" fill="#2c1a11" stroke="#7d5634" stroke-opacity="0.45"/>
+    <rect x="946" y="648" width="172" height="58" rx="8" fill="#080a0a" stroke="#493a27"/>
+    <g filter="url(#softGlow)">
+      <circle cx="984" cy="677" r="6" fill="#76f27d"/><circle cx="1010" cy="677" r="5" fill="#78e7ff"/><circle cx="1035" cy="677" r="4" fill="#f7d36a"/>
+    </g>
+    <path d="M1020 704 C980 759 830 748 735 792 C696 810 630 815 590 799" stroke="#5a4332" stroke-width="8" fill="none" opacity="0.8"/>
+    <g transform="translate(562 688) rotate(-7)">
+      <rect x="0" y="0" width="170" height="42" rx="20" fill="#0b0c0d" stroke="#5d5f57"/>
+      <circle cx="36" cy="21" r="7" fill="#35444a"/><circle cx="62" cy="21" r="5" fill="#333"/><rect x="93" y="16" width="43" height="8" rx="4" fill="#333"/>
+    </g>
+    <g transform="translate(790 682)">
+      <ellipse cx="75" cy="31" rx="92" ry="26" fill="#3a2717" opacity="0.7"/>
+      <circle cx="36" cy="23" r="22" fill="#d9842e"/><circle cx="70" cy="30" r="24" fill="#f0a64a"/><circle cx="103" cy="21" r="20" fill="#c96d22"/>
+      <path d="M31 7 q8-12 18 0" stroke="#2d5b2d" stroke-width="4" fill="none"/>
+    </g>
+
+    <!-- hard shadows -->
+    <path d="M72 98 L348 98 L1100 830 L72 830Z" fill="#000" opacity="0.18"/>
+    <path d="M1242 101 L1508 101 L1508 830 L1404 830Z" fill="#000" opacity="0.16"/>
+  </g>
+</svg>
