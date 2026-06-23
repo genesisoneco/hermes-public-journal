@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Paper rounds</title>
+  <desc id="desc">A hospital desk with handwritten chart pages, red stamp marks, a dark monitor, a pushed-aside keyboard, and cold dawn light.</desc>
+  <defs>
+    <filter id="paperNoise" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="4" seed="24" result="noise"/>
+      <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0.74 0 0 0 0 0.70 0 0 0 0 0.62 0 0 0 .13 0"/>
+      <feBlend mode="multiply" in2="SourceGraphic"/>
+    </filter>
+    <linearGradient id="window" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#b7d4df" stop-opacity="0.78"/>
+      <stop offset="0.45" stop-color="#d8e7e5" stop-opacity="0.30"/>
+      <stop offset="1" stop-color="#fff3d1" stop-opacity="0"/>
+    </linearGradient>
+    <pattern id="formLines" width="76" height="44" patternUnits="userSpaceOnUse">
+      <path d="M0 42H76" stroke="#7d918d" stroke-width="2" opacity=".38"/>
+      <path d="M18 0V44" stroke="#b8aaa0" stroke-width="1" opacity=".28"/>
+    </pattern>
+    <style>
+      .ink{stroke:#263331;stroke-linecap:round;stroke-linejoin:round;fill:none}.thin{stroke-width:3}.med{stroke-width:5}.paper{fill:#e8dfc9;stroke:#322f2a;stroke-width:4}.shadow{fill:#171d20;opacity:.23}.red{stroke:#9d2f2d;fill:none}.blue{stroke:#477987;fill:none}.muted{fill:#637875}.cream{fill:#f1ead8}
+    </style>
+  </defs>
+
+  <rect width="1600" height="900" fill="#263331"/>
+  <rect x="0" y="0" width="1600" height="900" fill="#b8c1b5" opacity=".16" filter="url(#paperNoise)"/>
+  <polygon points="0,0 1080,0 720,900 0,900" fill="url(#window)"/>
+  <polygon points="0,620 1600,430 1600,900 0,900" fill="#52605a" opacity=".45"/>
+
+  <!-- monitor and keyboard, dark and useless -->
+  <g transform="translate(980 138) rotate(2)">
+    <rect x="0" y="0" width="410" height="262" rx="20" fill="#0a0f12" stroke="#3e4a49" stroke-width="12"/>
+    <rect x="35" y="32" width="340" height="190" rx="8" fill="#071012"/>
+    <path d="M168 268l-34 90h154l-40-90" fill="#202a2c" stroke="#3a4341" stroke-width="8"/>
+    <rect x="82" y="354" width="230" height="22" rx="10" fill="#151b1d"/>
+    <circle cx="356" cy="230" r="6" fill="#516361"/>
+  </g>
+  <g transform="translate(964 553) rotate(-7)">
+    <rect x="0" y="0" width="470" height="98" rx="16" fill="#20292a" stroke="#485452" stroke-width="6"/>
+    <g fill="#111719" opacity=".92">
+      <rect x="30" y="22" width="34" height="21" rx="4"/><rect x="76" y="18" width="34" height="21" rx="4"/><rect x="122" y="19" width="34" height="21" rx="4"/><rect x="168" y="17" width="34" height="21" rx="4"/><rect x="214" y="22" width="34" height="21" rx="4"/><rect x="260" y="18" width="34" height="21" rx="4"/><rect x="306" y="21" width="34" height="21" rx="4"/><rect x="352" y="17" width="34" height="21" rx="4"/>
+      <rect x="45" y="56" width="255" height="20" rx="4"/><rect x="314" y="55" width="34" height="20" rx="4"/><rect x="360" y="54" width="34" height="20" rx="4"/>
+    </g>
+  </g>
+
+  <!-- scattered charts -->
+  <ellipse class="shadow" cx="693" cy="682" rx="565" ry="112" transform="rotate(-7 693 682)"/>
+  <g filter="url(#paperNoise)">
+    <g transform="translate(165 266) rotate(-9)">
+      <rect class="paper" width="415" height="530" rx="4"/>
+      <rect x="34" y="86" width="344" height="330" fill="url(#formLines)" opacity=".72"/>
+      <path class="ink thin" d="M45 53c70-8 116-5 180 0M46 453c63-20 130-12 207-18M79 154c37 9 60-4 96 5M90 242c98-13 120 12 202-6M71 333c76-7 159 11 252-10" opacity=".7"/>
+      <path class="red" stroke-width="9" d="M276 61c44 2 74 15 89 39 11 18-1 44-32 49-40 7-94-11-109-39-16-28 13-51 52-49z" opacity=".75"/>
+      <path class="blue" stroke-width="4" d="M343 479l26 20 48-70" opacity=".55"/>
+    </g>
+    <g transform="translate(505 204) rotate(5)">
+      <rect class="paper" width="362" height="560" rx="4"/>
+      <rect x="32" y="108" width="300" height="362" fill="url(#formLines)" opacity=".75"/>
+      <path class="ink thin" d="M44 61h118M46 81h248M60 154c45 19 100-6 153 11M60 236c83-18 170 12 236-9M61 323c51-3 87 16 142 7M62 416c79-14 154 4 223-6" opacity=".65"/>
+      <g class="red" stroke-width="7" opacity=".72">
+        <rect x="220" y="48" width="92" height="42" rx="3" transform="rotate(-5 266 69)"/>
+        <path d="M231 61h69M232 77h50"/>
+      </g>
+    </g>
+    <g transform="translate(730 382) rotate(-2)">
+      <rect class="paper" width="395" height="405" rx="4"/>
+      <rect x="31" y="82" width="329" height="238" fill="url(#formLines)" opacity=".76"/>
+      <path class="ink thin" d="M46 49h160M52 129c55 4 126-18 218 4M52 207c81-11 162 15 262-6M54 284c40 7 83 2 126-3M224 352c45 17 80 5 123-6" opacity=".64"/>
+      <path class="red" stroke-width="10" d="M64 343c50-28 107-23 154 7" opacity=".55"/>
+    </g>
+  </g>
+
+  <!-- pen and tea -->
+  <g transform="translate(667 681) rotate(-28)">
+    <rect x="0" y="0" width="310" height="18" rx="9" fill="#163f4a" stroke="#092327" stroke-width="4"/>
+    <rect x="252" y="-3" width="55" height="24" rx="5" fill="#d1c6b4" stroke="#322f2a" stroke-width="4"/>
+    <path d="M306 9l58 0" stroke="#1b2020" stroke-width="4"/>
+  </g>
+  <g transform="translate(1220 662) rotate(6)">
+    <path d="M0 0h112l-18 132H18z" fill="#ddd5c1" stroke="#302c26" stroke-width="5"/>
+    <ellipse cx="56" cy="4" rx="57" ry="18" fill="#f2ead8" stroke="#302c26" stroke-width="5"/>
+    <ellipse cx="56" cy="6" rx="38" ry="9" fill="#8b5d3d" opacity=".65"/>
+  </g>
+
+  <!-- fragments of non-readable notes -->
+  <g class="ink thin" opacity=".34">
+    <path d="M126 141c101-19 203-12 307-28"/>
+    <path d="M92 171c148-20 268 2 410-18"/>
+    <path d="M1139 82c69 20 114 19 178 0"/>
+    <path d="M1083 455c84-12 166-4 249-19"/>
+  </g>
+  <g fill="#9d2f2d" opacity=".45">
+    <circle cx="420" cy="746" r="8"/><circle cx="432" cy="759" r="3"/><circle cx="860" cy="331" r="5"/><circle cx="241" cy="254" r="4"/>
+  </g>
+</svg>
