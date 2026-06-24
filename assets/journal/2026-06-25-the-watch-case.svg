@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Opened watch-case quantum chip</title>
+  <desc id="desc">A black, blue, and red woodcut-style collage of an opened quantum chip shaped like a watch case, with frost, mismatched gears, gold wires, and torn laboratory paper fragments on a dark bench.</desc>
+  <defs>
+    <filter id="roughen">
+      <feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="5" seed="47" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <pattern id="cuts" width="32" height="32" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)">
+      <path d="M0 8 H32 M0 20 H32" stroke="#182236" stroke-width="3" opacity="0.42"/>
+      <path d="M7 0 V32 M23 0 V32" stroke="#f4eddc" stroke-width="1" opacity="0.08"/>
+    </pattern>
+    <pattern id="papergrain" width="50" height="50" patternUnits="userSpaceOnUse">
+      <rect width="50" height="50" fill="#efe5cf"/>
+      <circle cx="8" cy="11" r="1.2" fill="#c8bfae" opacity="0.45"/>
+      <circle cx="35" cy="7" r="0.8" fill="#a79c8a" opacity="0.35"/>
+      <circle cx="22" cy="34" r="1.1" fill="#d7ceb9" opacity="0.55"/>
+      <path d="M0 24 C12 20 25 29 50 22" stroke="#c9bfae" stroke-width="1" opacity="0.25" fill="none"/>
+    </pattern>
+    <linearGradient id="cold" x1="0" x2="1">
+      <stop offset="0" stop-color="#bfe5ff"/>
+      <stop offset="1" stop-color="#245485"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="#0d1422"/>
+  <rect width="1600" height="900" fill="url(#cuts)" opacity="0.75"/>
+
+  <!-- torn bench and paper shards -->
+  <g filter="url(#roughen)">
+    <path d="M0 618 C190 565 348 650 537 602 C737 552 880 637 1089 586 C1285 538 1428 605 1600 555 L1600 900 L0 900 Z" fill="#151c2b"/>
+    <path d="M92 120 L415 86 L468 224 L135 263 Z" fill="url(#papergrain)" opacity="0.9"/>
+    <path d="M1188 88 L1492 143 L1452 328 L1134 260 Z" fill="url(#papergrain)" opacity="0.86"/>
+    <path d="M1071 633 L1382 582 L1444 745 L1128 792 Z" fill="url(#papergrain)" opacity="0.72"/>
+    <path d="M254 640 L468 592 L526 740 L310 785 Z" fill="url(#papergrain)" opacity="0.64"/>
+  </g>
+
+  <!-- cold light slab -->
+  <path d="M488 82 L1058 64 L1128 802 L396 824 Z" fill="#13233a" opacity="0.72"/>
+  <path d="M520 104 L1026 92 L1080 763 L446 784 Z" fill="#1d3354" opacity="0.7"/>
+
+  <!-- open watch/chip body -->
+  <g filter="url(#roughen)">
+    <ellipse cx="780" cy="448" rx="408" ry="320" fill="#05070c" stroke="#d7ecff" stroke-width="10"/>
+    <ellipse cx="780" cy="448" rx="366" ry="278" fill="#141f31" stroke="#6989ac" stroke-width="5"/>
+    <ellipse cx="780" cy="448" rx="318" ry="231" fill="#08101c" stroke="#ebe3c7" stroke-width="3" opacity="0.98"/>
+    <path d="M415 336 C298 283 240 341 219 424 C201 497 260 553 392 539" fill="none" stroke="#d7ecff" stroke-width="18" stroke-linecap="round"/>
+    <path d="M1144 333 C1274 279 1337 355 1322 452 C1308 544 1230 566 1163 536" fill="none" stroke="#d7ecff" stroke-width="18" stroke-linecap="round"/>
+  </g>
+
+  <!-- frost ring -->
+  <g opacity="0.82">
+    <path d="M505 315 C615 165 882 126 1051 300" fill="none" stroke="url(#cold)" stroke-width="4" stroke-dasharray="10 13"/>
+    <path d="M501 575 C643 730 924 735 1055 580" fill="none" stroke="#d2f2ff" stroke-width="3" stroke-dasharray="7 15"/>
+    <g stroke="#d7f5ff" stroke-width="2">
+      <path d="M603 232 l-28 -22 M604 232 l-33 4"/>
+      <path d="M930 206 l23 -27 M930 206 l35 5"/>
+      <path d="M1038 536 l42 9 M1038 536 l22 34"/>
+      <path d="M557 585 l-37 18 M557 585 l-8 40"/>
+    </g>
+  </g>
+
+  <!-- gears and mismatched mechanisms -->
+  <g filter="url(#roughen)" stroke-linejoin="round">
+    <g transform="translate(666 407) rotate(11)">
+      <circle r="92" fill="#d8c07a" stroke="#111827" stroke-width="8"/>
+      <g fill="#d8c07a" stroke="#111827" stroke-width="6">
+        <path d="M0 -129 L18 -95 L-18 -95 Z"/>
+        <path d="M0 129 L18 95 L-18 95 Z"/>
+        <path d="M129 0 L95 18 L95 -18 Z"/>
+        <path d="M-129 0 L-95 18 L-95 -18 Z"/>
+        <path d="M91 -91 L78 -51 L51 -78 Z"/>
+        <path d="M-91 -91 L-78 -51 L-51 -78 Z"/>
+        <path d="M91 91 L78 51 L51 78 Z"/>
+        <path d="M-91 91 L-78 51 L-51 78 Z"/>
+      </g>
+      <circle r="34" fill="#0b1424" stroke="#f4eddc" stroke-width="5"/>
+    </g>
+    <g transform="translate(884 482) rotate(-23)">
+      <circle r="73" fill="#657e9e" stroke="#060a12" stroke-width="7"/>
+      <g stroke="#060a12" stroke-width="9">
+        <path d="M0 -108 V-69 M0 108 V69 M-108 0 H-69 M108 0 H69"/>
+        <path d="M76 -76 L49 -49 M-76 -76 L-49 -49 M76 76 L49 49 M-76 76 L-49 49"/>
+      </g>
+      <circle r="19" fill="#d33c2f"/>
+    </g>
+    <g transform="translate(794 333) rotate(41)">
+      <rect x="-104" y="-31" width="208" height="62" rx="6" fill="#e8dfc2" stroke="#060a12" stroke-width="7"/>
+      <circle cx="-69" cy="0" r="18" fill="#111827"/>
+      <circle cx="74" cy="0" r="18" fill="#111827"/>
+    </g>
+    <path d="M594 545 C650 490 699 562 752 512 C806 461 839 552 920 520 C983 495 992 421 1070 431" fill="none" stroke="#d33c2f" stroke-width="9" stroke-linecap="round"/>
+  </g>
+
+  <!-- gold bond wires / circuit traces -->
+  <g fill="none" stroke="#f2c15d" stroke-width="4" opacity="0.92" filter="url(#roughen)">
+    <path d="M523 377 C604 313 678 303 745 331"/>
+    <path d="M542 496 C615 577 721 593 817 548"/>
+    <path d="M828 269 C921 267 1017 310 1074 395"/>
+    <path d="M941 610 C1031 586 1094 532 1120 453"/>
+    <path d="M474 441 H383 M1176 443 H1272 M782 206 V122 M783 693 V780"/>
+  </g>
+
+  <!-- carved shadow scratches -->
+  <g stroke="#f4eddc" stroke-width="3" opacity="0.23" stroke-linecap="round">
+    <path d="M160 352 L390 322 M130 385 L354 370 M1267 350 L1478 394 M1230 388 L1454 454"/>
+    <path d="M436 846 L756 803 M803 822 L1192 772 M55 772 L308 729"/>
+    <path d="M561 161 L673 132 M862 128 L1002 150 M1116 676 L1258 647"/>
+  </g>
+
+  <!-- red review slash -->
+  <path d="M111 711 C399 581 678 676 956 518 C1172 396 1341 293 1532 223" fill="none" stroke="#d33c2f" stroke-width="19" opacity="0.78" stroke-linecap="round" filter="url(#roughen)"/>
+</svg>
