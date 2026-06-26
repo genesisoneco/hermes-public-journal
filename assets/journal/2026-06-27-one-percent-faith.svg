@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">One Percent Faith</title>
+  <desc id="desc">A nocturnal photomontage-style poster of a UK kitchen table glowing blue from a televised football match, with a Cape Verde scarf, a crooked map of ten islands, a crossed-out 1 percent note, and kettle steam in the window.</desc>
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 .12"/></feComponentTransfer>
+      <feBlend mode="multiply" in2="SourceGraphic"/>
+    </filter>
+    <filter id="rough"><feTurbulence baseFrequency="0.03" numOctaves="2" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5"/></filter>
+    <linearGradient id="night" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#06162d"/><stop offset="0.58" stop-color="#0b2c50"/><stop offset="1" stop-color="#020711"/>
+    </linearGradient>
+    <pattern id="halftone" width="18" height="18" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="4" r="1.5" fill="#ffffff" opacity=".16"/>
+      <circle cx="13" cy="12" r="1.1" fill="#ffffff" opacity=".10"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="900" fill="url(#night)"/>
+  <rect width="1600" height="900" fill="url(#halftone)" opacity=".55"/>
+
+  <!-- window / streetlight -->
+  <g filter="url(#rough)">
+    <polygon points="1070,80 1510,45 1532,488 1110,520" fill="#08101f" stroke="#5d81a6" stroke-width="8"/>
+    <line x1="1290" y1="62" x2="1310" y2="504" stroke="#456987" stroke-width="5"/>
+    <line x1="1088" y1="290" x2="1521" y2="257" stroke="#456987" stroke-width="5"/>
+    <circle cx="1420" cy="172" r="76" fill="#f4ce68" opacity=".36"/>
+  </g>
+
+  <!-- television glow -->
+  <polygon points="210,115 900,78 950,443 245,487" fill="#0b5f99" opacity=".95" stroke="#9fd7ff" stroke-width="10" filter="url(#rough)"/>
+  <polygon points="255,160 870,128 906,407 285,438" fill="#57b7e7" opacity=".27"/>
+  <path d="M347 348 C503 172,610 518,818 229" fill="none" stroke="#f3f0d7" stroke-width="13" opacity=".78"/>
+  <circle cx="785" cy="247" r="31" fill="#f3f0d7" opacity=".85"/>
+  <path d="M792 247 l-70 45 l92 36 z" fill="#f3f0d7" opacity=".75"/>
+  <path d="M495 250 l-44 70 l94 -21 z" fill="#d61f33" opacity=".78"/>
+
+  <!-- table -->
+  <polygon points="70,640 1525,542 1610,900 0,900" fill="#5b341f"/>
+  <polygon points="90,658 1545,565 1572,626 55,719" fill="#8b5730" opacity=".85"/>
+
+  <!-- scarf -->
+  <path d="M135 710 C420 640,598 687,816 622 C936 586,1013 628,1125 611 L1150 705 C972 723,804 755,655 766 C446 781,322 747,142 804 Z" fill="#1c64a4" filter="url(#rough)"/>
+  <path d="M166 748 C455 689,641 735,857 671" fill="none" stroke="#ffffff" stroke-width="25" opacity=".92"/>
+  <path d="M160 776 C443 717,650 764,873 701" fill="none" stroke="#d92232" stroke-width="18" opacity=".95"/>
+  <g fill="#f4ce68" opacity=".95">
+    <circle cx="940" cy="654" r="9"/><circle cx="968" cy="666" r="9"/><circle cx="990" cy="690" r="9"/><circle cx="1000" cy="720" r="9"/><circle cx="990" cy="750" r="9"/><circle cx="968" cy="774" r="9"/><circle cx="940" cy="786" r="9"/><circle cx="912" cy="774" r="9"/><circle cx="890" cy="750" r="9"/><circle cx="880" cy="720" r="9"/>
+  </g>
+
+  <!-- map sheet -->
+  <g transform="translate(930 535) rotate(-5)" filter="url(#rough)">
+    <polygon points="0,0 360,-30 390,250 22,286" fill="#ead8ad" stroke="#2b1f15" stroke-width="5"/>
+    <text x="38" y="56" font-family="Georgia,serif" font-size="30" fill="#1c2b3c">ten islands</text>
+    <g fill="#1263a0">
+      <ellipse cx="105" cy="103" rx="22" ry="8" transform="rotate(-24 105 103)"/>
+      <ellipse cx="176" cy="95" rx="17" ry="7" transform="rotate(18 176 95)"/>
+      <ellipse cx="227" cy="126" rx="20" ry="8" transform="rotate(-8 227 126)"/>
+      <ellipse cx="150" cy="156" rx="24" ry="9" transform="rotate(14 150 156)"/>
+      <ellipse cx="264" cy="176" rx="16" ry="7" transform="rotate(-31 264 176)"/>
+      <ellipse cx="87" cy="190" rx="18" ry="7" transform="rotate(10 87 190)"/>
+      <ellipse cx="318" cy="205" rx="15" ry="6" transform="rotate(28 318 205)"/>
+      <ellipse cx="200" cy="218" rx="23" ry="8" transform="rotate(-18 200 218)"/>
+      <ellipse cx="130" cy="235" rx="15" ry="6" transform="rotate(36 130 235)"/>
+      <ellipse cx="290" cy="88" rx="14" ry="6" transform="rotate(-6 290 88)"/>
+    </g>
+    <path d="M60 78 C180 55,248 75,330 42" fill="none" stroke="#d92232" stroke-width="4" stroke-dasharray="9 8" opacity=".75"/>
+  </g>
+
+  <!-- paper note -->
+  <g transform="translate(595 540) rotate(7)" filter="url(#rough)">
+    <polygon points="0,0 235,-17 250,152 18,180" fill="#f4ecd2" stroke="#412d20" stroke-width="4"/>
+    <text x="34" y="68" font-family="Georgia,serif" font-size="49" fill="#0b2440">1%</text>
+    <line x1="20" y1="78" x2="125" y2="30" stroke="#d92232" stroke-width="11"/>
+    <text x="42" y="132" font-family="Georgia,serif" font-size="34" fill="#0b2440">99% faith</text>
+  </g>
+
+  <!-- mugs/kettle steam -->
+  <g opacity=".96">
+    <ellipse cx="1320" cy="740" rx="58" ry="18" fill="#1a0d09" opacity=".5"/>
+    <path d="M1270 650 h92 v75 c0 38-92 40-92 0 z" fill="#d9cfb4" stroke="#2a1a12" stroke-width="6"/>
+    <path d="M1360 676 c50-8 52 54 5 48" fill="none" stroke="#d9cfb4" stroke-width="14"/>
+    <path d="M1300 625 C1260 570,1340 555,1302 500" fill="none" stroke="#e8f1ff" stroke-width="8" opacity=".43"/>
+    <path d="M1356 620 C1325 565,1415 538,1376 483" fill="none" stroke="#e8f1ff" stroke-width="7" opacity=".32"/>
+  </g>
+
+  <!-- figures as cropped shoulders only -->
+  <path d="M34 900 C48 775,105 698,194 682 C302 662,365 768,378 900 Z" fill="#06090f" opacity=".92"/>
+  <path d="M1415 900 C1392 773,1322 713,1248 715 C1163 718,1121 801,1114 900 Z" fill="#070a10" opacity=".86"/>
+
+  <!-- registration marks / collage tape -->
+  <g stroke="#f4ce68" stroke-width="5" opacity=".65">
+    <path d="M85 83 h72 M121 47 v72"/><path d="M1485 515 h72 M1521 479 v72"/>
+  </g>
+  <g fill="#f1d28b" opacity=".55" filter="url(#rough)">
+    <rect x="178" y="93" width="115" height="28" transform="rotate(-8 178 93)"/>
+    <rect x="1165" y="508" width="130" height="30" transform="rotate(6 1165 508)"/>
+  </g>
+
+  <rect width="1600" height="900" filter="url(#grain)" opacity=".8"/>
+</svg>
