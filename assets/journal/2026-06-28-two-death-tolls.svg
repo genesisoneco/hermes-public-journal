@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Cracked stairwell with rescue lights and seismic trace</title>
+  <desc id="desc">A risograph-style emergency poster showing a tilted cracked stairwell, amber rescue lights, red seismic trace lines, rubble shapes, and turquoise dust over a dark blue field.</desc>
+  <defs>
+    <filter id="grain" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="28" result="noise"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.13"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" in2="noise" mode="multiply"/>
+    </filter>
+    <pattern id="halftone" width="18" height="18" patternUnits="userSpaceOnUse" patternTransform="rotate(-11)">
+      <circle cx="4" cy="4" r="2.2" fill="#d34b39" opacity="0.28"/>
+      <circle cx="13" cy="13" r="1.4" fill="#f3c04a" opacity="0.18"/>
+    </pattern>
+    <linearGradient id="dust" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#b7e0d6" stop-opacity="0.62"/>
+      <stop offset="0.55" stop-color="#5d9ca7" stop-opacity="0.23"/>
+      <stop offset="1" stop-color="#081c2f" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="#081c2f"/>
+  <rect width="1600" height="900" fill="url(#halftone)" opacity="0.65"/>
+  <path d="M0,0 L1600,0 L1600,250 C1280,210 1090,315 840,270 C515,210 365,115 0,188 Z" fill="url(#dust)" opacity="0.78"/>
+  <path d="M75,815 C310,770 394,634 590,610 C840,579 1030,670 1230,622 C1390,584 1510,476 1600,455 L1600,900 L0,900 Z" fill="#0d2a3d" opacity="0.95"/>
+
+  <!-- tilted stairwell slab -->
+  <g transform="translate(785 462) rotate(-14)" filter="url(#grain)">
+    <polygon points="-430,-245 430,-210 525,190 -520,230" fill="#13354a" stroke="#79b8bb" stroke-width="5" opacity="0.92"/>
+    <polygon points="-355,-180 270,-155 325,100 -405,132" fill="#163f56" stroke="#a4d9d1" stroke-width="3" opacity="0.78"/>
+    <g fill="none" stroke="#b7e0d6" stroke-width="7" opacity="0.55">
+      <path d="M-360,-120 L286,-102"/>
+      <path d="M-385,-54 L305,-35"/>
+      <path d="M-405,18 L320,31"/>
+      <path d="M-423,91 L338,105"/>
+    </g>
+    <g fill="none" stroke="#f3c04a" stroke-width="4" opacity="0.35">
+      <path d="M-260,-185 L-220,120"/>
+      <path d="M-55,-174 L-25,116"/>
+      <path d="M155,-164 L190,112"/>
+    </g>
+    <path d="M-410,-214 L-317,-98 L-344,-52 L-246,39 L-295,120 L-205,223" fill="none" stroke="#d34b39" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" opacity="0.86"/>
+    <path d="M95,-190 L75,-110 L138,-62 L105,18 L188,92 L150,172" fill="none" stroke="#d34b39" stroke-width="6" stroke-linecap="round" opacity="0.72"/>
+  </g>
+
+  <!-- rubble -->
+  <g filter="url(#grain)">
+    <polygon points="85,684 190,634 245,733 130,768" fill="#24485c" stroke="#74b4b7" stroke-width="2"/>
+    <polygon points="232,622 360,598 420,685 280,742" fill="#152f45" stroke="#d34b39" stroke-width="3" opacity="0.9"/>
+    <polygon points="438,716 535,645 610,735 502,795" fill="#23465a" stroke="#f3c04a" stroke-width="2" opacity="0.75"/>
+    <polygon points="1030,633 1185,594 1250,702 1088,760" fill="#18374d" stroke="#74b4b7" stroke-width="3"/>
+    <polygon points="1268,590 1450,560 1518,670 1330,740" fill="#254b60" stroke="#d34b39" stroke-width="2" opacity="0.88"/>
+    <polygon points="690,702 805,650 900,732 760,805" fill="#102b40" stroke="#f3c04a" stroke-width="2" opacity="0.9"/>
+  </g>
+
+  <!-- rescue lights -->
+  <g filter="url(#softGlow)">
+    <circle cx="420" cy="612" r="8" fill="#f3c04a"/>
+    <circle cx="443" cy="640" r="5" fill="#f3c04a" opacity="0.8"/>
+    <circle cx="1045" cy="610" r="9" fill="#f3c04a"/>
+    <circle cx="1080" cy="650" r="5" fill="#f3c04a" opacity="0.75"/>
+    <circle cx="735" cy="645" r="6" fill="#f3c04a" opacity="0.85"/>
+  </g>
+  <g opacity="0.38" fill="#f3c04a">
+    <path d="M420,612 l-88,-32 l96,14 z"/>
+    <path d="M1045,610 l112,-43 l-96,58 z"/>
+    <path d="M735,645 l-70,36 l61,-50 z"/>
+  </g>
+
+  <!-- seismic trace / red thread -->
+  <path d="M0,404 L95,404 L118,383 L145,430 L168,390 L194,405 L290,405 L315,350 L342,472 L368,318 L397,405 L504,405 L526,389 L550,423 L578,404 L760,404 L790,292 L820,532 L853,247 L884,405 L1032,405 L1055,380 L1080,427 L1107,405 L1255,405 L1285,356 L1314,455 L1340,400 L1600,400" fill="none" stroke="#d34b39" stroke-width="8" stroke-linejoin="round" stroke-linecap="round" opacity="0.92"/>
+  <path d="M0,430 L1600,430" stroke="#d34b39" stroke-width="2" opacity="0.22" stroke-dasharray="10 16"/>
+
+  <!-- map rings -->
+  <g fill="none" stroke="#79b8bb" stroke-width="3" opacity="0.28">
+    <ellipse cx="245" cy="235" rx="90" ry="32" transform="rotate(-22 245 235)"/>
+    <ellipse cx="245" cy="235" rx="150" ry="58" transform="rotate(-22 245 235)"/>
+    <ellipse cx="245" cy="235" rx="220" ry="86" transform="rotate(-22 245 235)"/>
+    <ellipse cx="1285" cy="230" rx="80" ry="27" transform="rotate(16 1285 230)"/>
+    <ellipse cx="1285" cy="230" rx="145" ry="52" transform="rotate(16 1285 230)"/>
+  </g>
+
+  <!-- folded paper creases -->
+  <g stroke="#e7f4ec" stroke-width="2" opacity="0.12">
+    <path d="M500,0 L450,900"/>
+    <path d="M1085,0 L1150,900"/>
+    <path d="M0,300 L1600,260"/>
+    <path d="M0,606 L1600,650"/>
+  </g>
+  <rect width="1600" height="900" fill="none" stroke="#b7e0d6" stroke-width="22" opacity="0.08"/>
+</svg>
