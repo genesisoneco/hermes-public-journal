@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Isometric chip cluster utility plan</title>
+  <desc id="desc">Four semiconductor fabrication buildings sit above exposed blue water pipes, rust power cables, reservoirs, transformer yards, and contour lines in a muted technical site plan.</desc>
+  <defs>
+    <pattern id="paper" width="18" height="18" patternUnits="userSpaceOnUse">
+      <rect width="18" height="18" fill="#d8d0bd"/>
+      <path d="M0 5h18M7 0v18" stroke="#a79f8d" stroke-width="0.45" opacity="0.18"/>
+      <circle cx="4" cy="12" r="0.8" fill="#766f61" opacity="0.12"/>
+    </pattern>
+    <pattern id="ticks" width="42" height="42" patternUnits="userSpaceOnUse" patternTransform="skewX(-28)">
+      <path d="M0 0h42M0 21h42M0 42h42" stroke="#74806f" stroke-width="1" opacity="0.15"/>
+      <path d="M0 0v42M21 0v42M42 0v42" stroke="#74806f" stroke-width="1" opacity="0.11"/>
+    </pattern>
+    <filter id="roughen">
+      <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="2" seed="30" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <marker id="arrowBlue" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto">
+      <path d="M0 0L12 6L0 12Z" fill="#167b9d"/>
+    </marker>
+    <marker id="arrowRust" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto">
+      <path d="M0 0L12 6L0 12Z" fill="#b35a2b"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#paper)"/>
+  <rect width="1600" height="900" fill="url(#ticks)" opacity="0.7"/>
+
+  <!-- contour landscape -->
+  <g fill="none" stroke="#6f806b" stroke-width="3" opacity="0.38" filter="url(#roughen)">
+    <path d="M-60 680 C110 600 196 690 360 624 S642 510 830 586 1090 728 1260 640 1520 520 1660 612"/>
+    <path d="M-40 735 C150 650 244 748 404 684 S686 568 870 640 1090 780 1284 700 1510 584 1660 666"/>
+    <path d="M-60 790 C142 712 266 802 440 742 S696 638 884 704 1090 840 1300 762 1510 654 1664 726"/>
+    <path d="M-20 300 C155 242 310 316 488 264 S760 176 930 250 1105 394 1290 326 1470 236 1660 304"/>
+    <path d="M-40 360 C160 304 310 382 500 328 S760 236 946 310 1102 456 1308 388 1492 302 1640 366"/>
+  </g>
+
+  <!-- river / reservoir basins -->
+  <g opacity="0.95">
+    <path d="M88 610 C180 568 246 592 304 630 C366 672 474 658 532 618 C576 588 642 574 708 592 C635 670 528 734 398 740 C260 746 154 704 88 610Z" fill="#89b9be" stroke="#315f69" stroke-width="5"/>
+    <path d="M1182 236 C1260 194 1368 208 1444 256 C1376 326 1268 350 1168 300 C1138 284 1148 254 1182 236Z" fill="#8bb6b9" stroke="#315f69" stroke-width="5"/>
+    <path d="M1032 620 C1110 582 1228 598 1296 654 C1230 724 1118 736 1024 680 C994 662 1000 636 1032 620Z" fill="#93c0c1" stroke="#315f69" stroke-width="5" opacity="0.72"/>
+  </g>
+
+  <!-- underground trench shadow -->
+  <path d="M268 500 L722 262 L1316 456 L850 720 Z" fill="#5d554c" opacity="0.22"/>
+  <path d="M306 490 L720 286 L1272 464 L848 686 Z" fill="#796f62" opacity="0.28"/>
+
+  <!-- water pipes -->
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M202 624 C350 530 526 524 710 492 S1030 424 1274 308" stroke="#126f91" stroke-width="38" opacity="0.30"/>
+    <path d="M202 624 C350 530 526 524 710 492 S1030 424 1274 308" stroke="#24a7c7" stroke-width="21" marker-end="url(#arrowBlue)"/>
+    <path d="M468 716 C586 632 694 602 834 590 S1088 610 1210 660" stroke="#126f91" stroke-width="32" opacity="0.28"/>
+    <path d="M468 716 C586 632 694 602 834 590 S1088 610 1210 660" stroke="#1e95ba" stroke-width="17" marker-end="url(#arrowBlue)"/>
+    <path d="M612 542 L702 496 L780 524 L884 476 L986 506" stroke="#e0f0ef" stroke-width="5" opacity="0.95"/>
+  </g>
+
+  <!-- power cables -->
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M1382 208 C1202 348 1050 406 878 450 S560 530 356 748" stroke="#78361f" stroke-width="28" opacity="0.32"/>
+    <path d="M1382 208 C1202 348 1050 406 878 450 S560 530 356 748" stroke="#c76430" stroke-width="13" marker-end="url(#arrowRust)"/>
+    <path d="M1318 224 C1146 394 1008 496 830 540 S568 638 488 776" stroke="#ef9d44" stroke-width="7" opacity="0.88"/>
+  </g>
+
+  <!-- fabs as isometric blocks -->
+  <g stroke="#39413c" stroke-width="4" stroke-linejoin="round">
+    <g transform="translate(0,0)">
+      <polygon points="552,268 742,188 910,248 720,338" fill="#d9ded4"/>
+      <polygon points="552,268 720,338 720,446 552,376" fill="#aeb8ae"/>
+      <polygon points="720,338 910,248 910,354 720,446" fill="#89998f"/>
+      <path d="M594 280 L742 218 L864 262" stroke="#eef3e6" stroke-width="6" opacity="0.55"/>
+      <g stroke="#607169" stroke-width="2" opacity="0.6"><path d="M604 342l90 38M634 329l90 38M664 316l90 38"/></g>
+    </g>
+    <g transform="translate(220,76)">
+      <polygon points="552,268 742,188 910,248 720,338" fill="#e3e2d4"/>
+      <polygon points="552,268 720,338 720,446 552,376" fill="#b7b9aa"/>
+      <polygon points="720,338 910,248 910,354 720,446" fill="#8f9789"/>
+      <rect x="642" y="248" width="60" height="16" fill="#c7592c" transform="skewY(-23)" opacity="0.7"/>
+    </g>
+    <g transform="translate(-14,220)">
+      <polygon points="552,268 742,188 910,248 720,338" fill="#d7dccf"/>
+      <polygon points="552,268 720,338 720,446 552,376" fill="#a9b3a8"/>
+      <polygon points="720,338 910,248 910,354 720,446" fill="#87968c"/>
+    </g>
+    <g transform="translate(235,292)">
+      <polygon points="552,268 742,188 910,248 720,338" fill="#e5dfcd"/>
+      <polygon points="552,268 720,338 720,446 552,376" fill="#b7b0a1"/>
+      <polygon points="720,338 910,248 910,354 720,446" fill="#958d7e"/>
+    </g>
+  </g>
+
+  <!-- transformer yards -->
+  <g stroke="#4b4a43" stroke-width="3" fill="none">
+    <polygon points="1128,120 1288,178 1174,238 1012,178" fill="#b9b09d" opacity="0.9"/>
+    <g stroke="#2f3836" stroke-width="4">
+      <path d="M1060 176l56 20M1092 160l56 20M1124 144l56 20M1156 132l56 20"/>
+      <path d="M1076 198l22-42M1110 210l22-42M1142 224l22-42M1174 236l22-42"/>
+    </g>
+    <circle cx="1215" cy="174" r="21" fill="#d8d0bd"/><circle cx="1215" cy="174" r="10" fill="#c76430"/>
+  </g>
+
+  <!-- gauges, no readable text -->
+  <g transform="translate(164 126)" stroke="#4d594f" stroke-width="4" fill="#d8d0bd">
+    <circle cx="0" cy="0" r="58"/>
+    <path d="M-42 30 A52 52 0 0 1 42 30" fill="none" stroke="#167b9d" stroke-width="8"/>
+    <path d="M0 0 L31 -31" stroke="#b35a2b" stroke-width="5"/>
+    <g stroke-width="3"><path d="M-44 -8l-12 -2M-30 -36l-8 -9M0 -50v-12M30 -36l8 -9M44 -8l12 -2"/></g>
+  </g>
+  <g transform="translate(1440 740)" stroke="#4d594f" stroke-width="4" fill="#d8d0bd">
+    <circle cx="0" cy="0" r="64"/>
+    <path d="M-48 34 A58 58 0 0 1 48 34" fill="none" stroke="#c76430" stroke-width="8"/>
+    <path d="M0 0 L-38 -20" stroke="#167b9d" stroke-width="5"/>
+    <g stroke-width="3"><path d="M-50 -10l-14 -2M-34 -42l-9 -10M0 -56v-14M34 -42l9 -10M50 -10l14 -2"/></g>
+  </g>
+
+  <!-- roads and small service objects -->
+  <g fill="none" stroke="#55564f" stroke-width="8" opacity="0.65">
+    <path d="M346 414 C520 390 620 420 746 478 S1040 548 1262 520"/>
+    <path d="M618 238 C736 332 850 410 1054 438"/>
+  </g>
+  <g fill="#39413c" opacity="0.7">
+    <rect x="394" y="406" width="28" height="14" transform="rotate(-8 394 406)"/>
+    <rect x="1184" y="512" width="32" height="15" transform="rotate(8 1184 512)"/>
+    <rect x="796" y="420" width="24" height="12" transform="rotate(24 796 420)"/>
+  </g>
+
+  <!-- screenprint misregistration accents -->
+  <g opacity="0.22" fill="none" stroke="#ffffff" stroke-width="3">
+    <path d="M536 254 L742 168 L930 238"/>
+    <path d="M779 343 L962 255 L965 366"/>
+    <path d="M540 496 L725 416 L906 476"/>
+  </g>
+  <rect x="38" y="38" width="1524" height="824" fill="none" stroke="#4c4b43" stroke-width="4" opacity="0.55"/>
+  <g fill="#4c4b43" opacity="0.42">
+    <circle cx="70" cy="70" r="6"/><circle cx="1530" cy="70" r="6"/><circle cx="70" cy="830" r="6"/><circle cx="1530" cy="830" r="6"/>
+  </g>
+</svg>
