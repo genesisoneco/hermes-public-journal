@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Nine hundred cameras</title>
+  <desc id="desc">A torn-paper collage of gloved hands checking a car door seam beneath rows of camera lenses and inspection marks.</desc>
+  <rect width="1600" height="900" fill="#d7d2c3"/>
+  <path d="M0 82 L199 37 L370 92 L556 49 L769 112 L934 67 L1124 116 L1322 58 L1600 104 L1600 0 L0 0 Z" fill="#1f2730"/>
+  <path d="M0 127 L239 86 L411 124 L585 94 L761 142 L976 93 L1182 151 L1407 101 L1600 135 L1600 89 L0 77 Z" fill="#49535d"/>
+
+  <g opacity="0.55" stroke="#313942" stroke-width="3" fill="none">
+    <path d="M82 226 H1512"/>
+    <path d="M140 278 H1435"/>
+    <path d="M206 332 H1372"/>
+    <path d="M259 386 H1309"/>
+    <path d="M313 442 H1229"/>
+  </g>
+
+  <g>
+    <path d="M89 181 L252 144 L330 197 L288 274 L116 268 Z" fill="#f2c84b"/>
+    <path d="M1328 161 L1519 125 L1565 244 L1405 283 L1310 224 Z" fill="#f2c84b"/>
+    <path d="M973 156 L1173 128 L1244 194 L1190 286 L987 267 Z" fill="#bfc5c8"/>
+    <path d="M380 160 L625 139 L654 230 L449 292 L352 234 Z" fill="#bfc5c8"/>
+  </g>
+
+  <g fill="#11171c">
+    <circle cx="135" cy="96" r="13"/><circle cx="205" cy="84" r="10"/><circle cx="278" cy="103" r="12"/>
+    <circle cx="386" cy="91" r="10"/><circle cx="456" cy="105" r="13"/><circle cx="536" cy="92" r="11"/>
+    <circle cx="639" cy="122" r="13"/><circle cx="718" cy="133" r="10"/><circle cx="812" cy="112" r="12"/>
+    <circle cx="904" cy="94" r="11"/><circle cx="1001" cy="105" r="14"/><circle cx="1090" cy="124" r="10"/>
+    <circle cx="1208" cy="133" r="13"/><circle cx="1288" cy="102" r="10"/><circle cx="1376" cy="91" r="12"/>
+    <circle cx="1481" cy="108" r="11"/>
+  </g>
+  <g fill="#e8eef0" opacity="0.85">
+    <circle cx="135" cy="92" r="4"/><circle cx="278" cy="99" r="4"/><circle cx="456" cy="101" r="4"/>
+    <circle cx="639" cy="118" r="4"/><circle cx="812" cy="108" r="4"/><circle cx="1001" cy="101" r="4"/>
+    <circle cx="1208" cy="129" r="4"/><circle cx="1376" cy="87" r="4"/>
+  </g>
+
+  <path d="M191 513 L770 428 L1356 505 L1469 709 L1267 787 L726 731 L238 793 L70 660 Z" fill="#7f8b91"/>
+  <path d="M246 545 L756 484 L1255 539 L1347 648 L1179 682 L733 641 L307 704 L173 627 Z" fill="#b9c0c1"/>
+  <path d="M315 590 C464 559 613 548 771 561 C914 573 1034 586 1199 582" stroke="#242a2f" stroke-width="18" fill="none" stroke-linecap="round"/>
+  <path d="M315 590 C464 559 613 548 771 561 C914 573 1034 586 1199 582" stroke="#e4e2d6" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.8"/>
+
+  <g>
+    <path d="M533 652 C487 621 477 575 508 548 C544 516 626 541 686 579 L769 633 L736 703 L628 702 C591 696 560 681 533 652 Z" fill="#245a80"/>
+    <path d="M982 641 C1026 608 1031 563 996 539 C958 512 880 545 825 587 L750 646 L790 711 L897 700 C933 691 958 676 982 641 Z" fill="#245a80"/>
+    <path d="M568 640 C548 622 545 594 563 577 C586 555 640 574 686 606 L742 646 L721 674 L635 669 C608 665 587 655 568 640 Z" fill="#4e82a9"/>
+    <path d="M948 630 C967 610 966 583 946 568 C921 549 869 572 827 607 L775 649 L800 675 L883 663 C910 657 930 647 948 630 Z" fill="#4e82a9"/>
+    <path d="M706 637 L812 636 L802 683 L721 682 Z" fill="#17344b"/>
+  </g>
+
+  <g stroke="#b3261e" stroke-width="9" stroke-linecap="round" fill="none" opacity="0.92">
+    <path d="M253 453 L312 501"/><path d="M314 453 L251 504"/>
+    <path d="M1149 432 L1228 505"/><path d="M1231 431 L1148 506"/>
+    <path d="M1024 720 C1079 744 1137 743 1192 719"/>
+    <path d="M388 731 C435 758 507 760 556 737"/>
+  </g>
+
+  <g fill="#f5f0df" stroke="#3b4145" stroke-width="3">
+    <path d="M102 350 L278 325 L312 424 L129 452 Z"/>
+    <path d="M1210 304 L1438 326 L1406 438 L1195 414 Z"/>
+    <path d="M700 250 L906 236 L937 339 L720 358 Z"/>
+  </g>
+  <g fill="#3b4145" opacity="0.55">
+    <rect x="132" y="374" width="112" height="8"/><rect x="146" y="400" width="88" height="8"/>
+    <rect x="1238" y="344" width="136" height="8"/><rect x="1247" y="372" width="104" height="8"/>
+    <rect x="735" y="284" width="142" height="8"/><rect x="751" y="313" width="103" height="8"/>
+  </g>
+
+  <g opacity="0.24" stroke="#11171c" stroke-width="2">
+    <path d="M0 844 L1600 619"/><path d="M0 782 L1600 557"/><path d="M0 720 L1600 495"/>
+    <path d="M103 900 L1002 0"/><path d="M337 900 L1236 0"/><path d="M571 900 L1470 0"/>
+  </g>
+
+  <path d="M0 818 L197 779 L372 832 L581 790 L752 840 L948 801 L1146 846 L1322 794 L1600 835 L1600 900 L0 900 Z" fill="#222930"/>
+</svg>
