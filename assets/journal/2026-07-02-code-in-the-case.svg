@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Code in the Case</title>
+  <desc id="desc">A dark shop-counter still life with an open empty game case, a curled receipt, barcode-like stripes, rain on the window, and a hovering hand.</desc>
+  <defs>
+    <radialGradient id="flash" cx="46%" cy="44%" r="62%">
+      <stop offset="0" stop-color="#f4f1e8" stop-opacity="0.98"/>
+      <stop offset="0.34" stop-color="#bfc7c8" stop-opacity="0.86"/>
+      <stop offset="0.71" stop-color="#303845" stop-opacity="0.96"/>
+      <stop offset="1" stop-color="#0b1018"/>
+    </radialGradient>
+    <linearGradient id="counter" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#1c222c"/>
+      <stop offset="0.48" stop-color="#0f141b"/>
+      <stop offset="1" stop-color="#05070b"/>
+    </linearGradient>
+    <filter id="grain" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.82" numOctaves="4" seed="38" result="noise"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.18"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" in2="noise" mode="multiply"/>
+    </filter>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="22" dy="30" stdDeviation="18" flood-color="#000" flood-opacity="0.55"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="#08101a"/>
+  <rect width="1600" height="900" fill="url(#flash)" opacity="0.62"/>
+
+  <!-- rain-streaked shop window -->
+  <g opacity="0.36" stroke="#9fb1bb" stroke-width="3" stroke-linecap="round">
+    <path d="M78 34 C74 96 91 155 82 218"/>
+    <path d="M160 8 C154 105 181 152 171 251"/>
+    <path d="M305 0 C295 78 330 147 311 232"/>
+    <path d="M464 12 C447 91 486 159 466 263"/>
+    <path d="M701 0 C687 66 720 151 697 236"/>
+    <path d="M1011 16 C1000 78 1027 141 1012 224"/>
+    <path d="M1215 0 C1195 86 1247 158 1228 260"/>
+    <path d="M1456 19 C1444 103 1482 181 1465 284"/>
+  </g>
+  <g opacity="0.18" fill="#d7edf7">
+    <circle cx="228" cy="128" r="5"/><circle cx="559" cy="81" r="4"/><circle cx="871" cy="206" r="5"/><circle cx="1333" cy="143" r="4"/>
+  </g>
+
+  <!-- counter plane -->
+  <path d="M0 510 C302 465 553 488 786 520 C1050 556 1324 530 1600 480 L1600 900 L0 900 Z" fill="url(#counter)"/>
+  <g opacity="0.14" stroke="#c7d0cc" stroke-width="2">
+    <path d="M0 638 C342 590 673 626 1600 548"/>
+    <path d="M0 722 C413 672 807 706 1600 627"/>
+    <path d="M0 812 C489 756 904 793 1600 705"/>
+  </g>
+
+  <!-- open case left wing -->
+  <g filter="url(#shadow)">
+    <path d="M254 326 L752 377 C774 379 795 398 794 421 L769 737 C767 766 741 782 713 777 L198 688 C168 683 151 658 159 631 L234 350 C237 336 241 327 254 326 Z" fill="#102033" stroke="#6e8792" stroke-width="6"/>
+    <path d="M285 367 L717 412 L698 708 L223 629 Z" fill="#1f3348" stroke="#98a8aa" stroke-width="3" opacity="0.86"/>
+    <ellipse cx="483" cy="544" rx="133" ry="104" transform="rotate(8 483 544)" fill="#0b1624" stroke="#465866" stroke-width="9"/>
+    <ellipse cx="483" cy="544" rx="39" ry="29" transform="rotate(8 483 544)" fill="#182739" stroke="#758893" stroke-width="5"/>
+    <g opacity="0.34" stroke="#d8e7e6" stroke-width="3">
+      <path d="M321 423 L603 452"/><path d="M316 458 L640 493"/><path d="M304 612 L661 673"/>
+    </g>
+  </g>
+
+  <!-- hinge and right wing -->
+  <path d="M786 383 C833 387 871 400 910 428 L879 769 C838 756 801 749 762 745 Z" fill="#08101a" stroke="#71828b" stroke-width="6"/>
+  <g filter="url(#shadow)">
+    <path d="M910 419 L1360 351 C1387 347 1415 368 1419 397 L1457 675 C1462 710 1441 736 1407 740 L885 771 Z" fill="#17283a" stroke="#8da0a6" stroke-width="6"/>
+    <path d="M952 456 L1340 403 L1376 664 L930 696 Z" fill="#26394c" opacity="0.9" stroke="#afbab8" stroke-width="3"/>
+    <g opacity="0.32" stroke="#d2dfdc" stroke-width="3">
+      <path d="M1009 488 L1282 454"/><path d="M1014 524 L1320 489"/><path d="M1015 635 L1355 615"/>
+    </g>
+  </g>
+
+  <!-- receipt/code slip where disc should be -->
+  <g filter="url(#shadow)">
+    <path d="M666 506 C724 477 812 491 870 530 C926 568 1001 564 1073 526 L1122 729 C1043 774 949 790 875 747 C815 713 730 710 666 744 Z" fill="#efe7d6" stroke="#2a2e31" stroke-width="4"/>
+    <path d="M711 551 C771 535 833 543 890 570" fill="none" stroke="#9b3934" stroke-width="8" opacity="0.82"/>
+    <g fill="#1a1e22" opacity="0.72">
+      <rect x="739" y="599" width="11" height="92"/><rect x="758" y="599" width="4" height="92"/><rect x="774" y="599" width="18" height="92"/><rect x="803" y="599" width="6" height="92"/>
+      <rect x="821" y="599" width="13" height="92"/><rect x="846" y="599" width="5" height="92"/><rect x="866" y="599" width="21" height="92"/><rect x="899" y="599" width="8" height="92"/>
+      <rect x="922" y="599" width="14" height="92"/><rect x="948" y="599" width="4" height="92"/><rect x="969" y="599" width="22" height="92"/><rect x="1005" y="599" width="7" height="92"/>
+      <rect x="1026" y="599" width="16" height="92"/>
+    </g>
+    <g opacity="0.28" stroke="#56514a" stroke-width="5" stroke-linecap="round">
+      <path d="M739 717 C822 696 943 703 1023 681"/>
+      <path d="M768 742 C840 729 938 733 1002 713"/>
+    </g>
+  </g>
+
+  <!-- hovering hand silhouette, cropped by frame -->
+  <g opacity="0.86" filter="url(#shadow)">
+    <path d="M1046 -34 C1087 42 1116 112 1111 187 C1107 249 1063 283 1017 271 C978 261 954 229 952 181 C950 121 977 51 1005 -28 Z" fill="#d9c2a4"/>
+    <path d="M1115 36 C1158 63 1186 113 1187 180 C1189 244 1158 300 1119 300 C1081 300 1061 252 1072 194 C1084 132 1085 72 1115 36 Z" fill="#d0b08f"/>
+    <path d="M1186 58 C1224 87 1242 137 1236 199 C1229 262 1192 314 1159 307 C1127 300 1118 252 1135 199 C1153 143 1154 85 1186 58 Z" fill="#c6a180"/>
+    <path d="M1255 97 C1284 123 1298 167 1288 218 C1276 279 1236 325 1210 312 C1183 299 1187 252 1206 207 C1228 154 1230 114 1255 97 Z" fill="#bf9876"/>
+    <path d="M1326 159 C1352 178 1358 215 1342 253 C1325 296 1288 329 1270 312 C1252 295 1265 257 1285 223 C1304 190 1304 168 1326 159 Z" fill="#b88d6a"/>
+  </g>
+
+  <!-- flash glare and dust -->
+  <circle cx="720" cy="488" r="95" fill="#ffffff" opacity="0.11"/>
+  <g fill="#f6f0df" opacity="0.34">
+    <circle cx="132" cy="520" r="2"/><circle cx="188" cy="474" r="2"/><circle cx="615" cy="349" r="2"/><circle cx="1193" cy="403" r="2"/><circle cx="1435" cy="530" r="2"/>
+    <circle cx="1015" cy="343" r="3"/><circle cx="392" cy="734" r="2"/><circle cx="830" cy="803" r="2"/><circle cx="1510" cy="388" r="2"/>
+  </g>
+  <rect width="1600" height="900" filter="url(#grain)" opacity="0.75"/>
+  <path d="M0 0 H1600 V900 H0 Z" fill="none" stroke="#020306" stroke-width="42" opacity="0.72"/>
+</svg>
