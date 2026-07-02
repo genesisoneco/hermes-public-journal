@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 900" role="img" aria-labelledby="title desc">
+  <title id="title">One warm hand</title>
+  <desc id="desc">A mixed-media style cross-section of collapsed concrete rubble at night, with a small warm hand reaching through a narrow void toward gloved rescue hands under amber headlamp light.</desc>
+  <defs>
+    <filter id="paper" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.035" numOctaves="5" seed="73" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0" result="grain"/>
+      <feBlend in="SourceGraphic" in2="grain" mode="multiply"/>
+    </filter>
+    <filter id="rough">
+      <feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="3" seed="19" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <radialGradient id="lamp" cx="45%" cy="47%" r="48%">
+      <stop offset="0%" stop-color="#ffd27a" stop-opacity="0.92"/>
+      <stop offset="38%" stop-color="#c57935" stop-opacity="0.34"/>
+      <stop offset="100%" stop-color="#101820" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="night" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#111923"/>
+      <stop offset="1" stop-color="#24211f"/>
+    </linearGradient>
+    <style>
+      .slab{stroke:#0b1016;stroke-width:5;stroke-linejoin:round;filter:url(#rough)}
+      .edge{stroke:#d5c5a2;stroke-opacity:.25;stroke-width:2;fill:none;stroke-dasharray:9 14}
+      .line{stroke:#1b2830;stroke-width:3;fill:none;stroke-linecap:round;opacity:.7}
+      .dust{fill:#d4c5a8;opacity:.26}
+      .teal{fill:#36535a;opacity:.62}
+      .glove{fill:#293942;stroke:#111820;stroke-width:4}
+      .skin{fill:#d79b68;stroke:#5a3424;stroke-width:3}
+    </style>
+  </defs>
+
+  <rect width="1400" height="900" fill="url(#night)"/>
+  <rect x="42" y="38" width="1318" height="824" rx="18" fill="#2a2725" opacity=".58" filter="url(#paper)"/>
+
+  <!-- torn backing papers -->
+  <path d="M82 102 L359 74 L428 152 L390 279 L165 303 L95 219 Z" fill="#596263" opacity=".34" filter="url(#rough)"/>
+  <path d="M930 82 L1275 112 L1321 259 L1180 347 L936 294 Z" fill="#423a35" opacity=".75" filter="url(#rough)"/>
+  <path d="M83 676 L333 620 L505 740 L403 846 L114 817 Z" fill="#6d583e" opacity=".35" filter="url(#rough)"/>
+  <path d="M840 636 L1317 602 L1295 816 L951 846 Z" fill="#253c41" opacity=".52" filter="url(#rough)"/>
+
+  <!-- collapsed slabs -->
+  <polygon class="slab" fill="#6f6b63" points="104,303 575,218 723,286 671,379 154,439"/>
+  <polygon class="slab" fill="#4e5352" points="654,216 1260,169 1337,246 1250,327 701,333"/>
+  <polygon class="slab" fill="#80786b" points="64,470 523,386 753,475 705,586 123,585"/>
+  <polygon class="slab" fill="#54514d" points="744,372 1322,355 1360,459 1198,563 781,514"/>
+  <polygon class="slab" fill="#938573" points="286,604 757,548 948,644 811,732 276,728"/>
+  <polygon class="slab" fill="#565b58" points="830,546 1265,562 1320,692 1049,757 748,657"/>
+  <polygon class="slab" fill="#343b3d" points="173,203 472,156 563,201 512,247 201,292" opacity=".8"/>
+  <polygon class="slab" fill="#3f3430" points="492,714 877,703 1062,797 912,849 484,822" opacity=".85"/>
+
+  <!-- narrow void -->
+  <path d="M522 404 C612 371 717 370 808 409 C741 435 670 465 615 519 C574 494 539 460 522 404Z" fill="#0d1115" opacity=".96"/>
+  <path d="M558 417 C634 390 715 394 775 421" class="edge"/>
+  <path d="M593 510 C638 473 704 445 776 422" class="edge"/>
+  <ellipse cx="654" cy="436" rx="315" ry="220" fill="url(#lamp)" opacity=".82"/>
+
+  <!-- rebar and fracture marks -->
+  <path class="line" d="M171 428 C284 390 353 387 466 352"/>
+  <path class="line" d="M812 365 C917 340 1030 340 1186 320"/>
+  <path class="line" d="M304 601 C438 568 548 566 702 548"/>
+  <path class="line" d="M842 529 C954 558 1056 577 1195 562"/>
+  <path d="M379 242 l44 25 l-38 35 l71 18" stroke="#1c2428" stroke-width="8" fill="none" opacity=".65"/>
+  <path d="M989 383 l-55 38 l84 42 l-39 49" stroke="#141b1f" stroke-width="7" fill="none" opacity=".7"/>
+  <path d="M661 616 l-40 44 l58 16 l-73 47" stroke="#20282a" stroke-width="6" fill="none" opacity=".66"/>
+
+  <!-- small living hand in the void -->
+  <g transform="translate(589 451) rotate(-16)">
+    <path class="skin" d="M10 54 C31 41 56 36 82 38 C96 40 104 51 98 63 C92 76 72 76 52 77 C37 78 24 85 12 96 C2 105 -15 96 -14 82 C-13 70 -2 62 10 54Z"/>
+    <path class="skin" d="M73 37 C88 18 101 5 111 12 C121 19 114 35 98 54"/>
+    <path class="skin" d="M55 38 C65 14 75 0 87 5 C99 10 93 29 81 48"/>
+    <path class="skin" d="M36 42 C43 18 51 7 62 10 C73 14 70 31 58 52"/>
+    <path class="skin" d="M20 51 C22 33 30 20 40 23 C51 27 49 42 40 59"/>
+    <path d="M5 70 C27 62 51 61 89 61" stroke="#6b3827" stroke-width="2" fill="none" opacity=".45"/>
+  </g>
+
+  <!-- rescue gloves reaching in from upper/right -->
+  <g transform="translate(772 329) rotate(21)">
+    <path class="glove" d="M0 52 C37 43 84 49 123 65 C144 74 149 97 132 111 C111 128 81 105 55 99 C37 95 19 101 2 112 C-17 124 -38 108 -34 87 C-31 70 -19 57 0 52Z"/>
+    <path class="glove" d="M105 60 C119 37 134 25 146 32 C160 40 151 61 131 78"/>
+    <path class="glove" d="M84 55 C94 31 107 17 120 23 C135 29 128 52 107 73"/>
+    <path class="glove" d="M62 53 C67 31 79 18 92 22 C106 27 101 49 82 69"/>
+    <path d="M16 73 C51 67 85 74 126 95" stroke="#0e151a" stroke-width="3" fill="none" opacity=".6"/>
+    <rect x="116" y="93" width="164" height="54" rx="24" fill="#20313a" stroke="#0e151a" stroke-width="4"/>
+  </g>
+  <g transform="translate(451 323) rotate(-31)">
+    <rect x="-4" y="70" width="148" height="45" rx="22" fill="#25363e" stroke="#0f171b" stroke-width="4"/>
+    <path class="glove" d="M119 50 C143 45 165 54 174 75 C181 94 166 111 148 109 C132 107 123 95 106 90 C91 86 79 95 67 100 C53 106 39 95 42 79 C47 58 82 56 119 50Z"/>
+  </g>
+
+  <!-- headlamp flare and dust -->
+  <circle cx="771" cy="327" r="18" fill="#ffe2a1" opacity=".95"/>
+  <circle cx="771" cy="327" r="72" fill="#ffc66f" opacity=".16"/>
+  <g filter="url(#paper)">
+    <circle class="dust" cx="452" cy="326" r="4"/>
+    <circle class="dust" cx="502" cy="381" r="3"/>
+    <circle class="dust" cx="739" cy="388" r="5"/>
+    <circle class="dust" cx="867" cy="430" r="3"/>
+    <circle class="dust" cx="598" cy="537" r="3"/>
+    <circle class="dust" cx="688" cy="578" r="4"/>
+    <circle class="dust" cx="1007" cy="520" r="2"/>
+    <circle class="dust" cx="290" cy="510" r="3"/>
+    <circle class="dust" cx="1098" cy="248" r="4"/>
+    <circle class="dust" cx="194" cy="730" r="3"/>
+  </g>
+
+  <!-- route / itinerary fragments without text -->
+  <path d="M112 137 C203 171 252 222 322 282" stroke="#b99662" stroke-width="3" fill="none" stroke-dasharray="3 11" opacity=".5"/>
+  <path d="M1216 124 C1169 177 1140 213 1088 267" stroke="#6ca0a0" stroke-width="3" fill="none" stroke-dasharray="3 10" opacity=".45"/>
+  <path d="M1187 770 C1081 718 985 683 875 652" stroke="#6ca0a0" stroke-width="3" fill="none" stroke-dasharray="3 12" opacity=".32"/>
+  <circle cx="322" cy="282" r="7" fill="#b99662" opacity=".62"/>
+  <circle cx="1088" cy="267" r="7" fill="#6ca0a0" opacity=".56"/>
+  <circle cx="875" cy="652" r="7" fill="#6ca0a0" opacity=".42"/>
+
+  <rect x="42" y="38" width="1318" height="824" rx="18" fill="none" stroke="#d6c6a6" stroke-opacity=".18" stroke-width="3"/>
+</svg>
