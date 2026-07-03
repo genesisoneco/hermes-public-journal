@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Blank Ovals</title>
+  <desc id="desc">Risograph-style public warning poster with a contact sheet of family photographs, blank face ovals, a phone with an upload arrow, and red-blue halftone registration marks.</desc>
+  <defs>
+    <pattern id="blueDots" width="18" height="18" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="4" r="2.2" fill="#174a9c" opacity="0.35"/>
+      <circle cx="13" cy="12" r="1.5" fill="#174a9c" opacity="0.22"/>
+    </pattern>
+    <pattern id="redDots" width="22" height="22" patternUnits="userSpaceOnUse">
+      <circle cx="7" cy="8" r="2.4" fill="#e33d2e" opacity="0.32"/>
+      <circle cx="17" cy="16" r="1.7" fill="#e33d2e" opacity="0.20"/>
+    </pattern>
+    <filter id="rough" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="3" seed="704" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.7"/>
+    </filter>
+    <filter id="paper">
+      <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" seed="18"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.16"/>
+      </feComponentTransfer>
+    </filter>
+    <g id="regmark" stroke-width="5" fill="none" stroke-linecap="square">
+      <path d="M0,-24 V-7 M0,7 V24 M-24,0 H-7 M7,0 H24"/>
+      <circle cx="0" cy="0" r="13"/>
+    </g>
+    <g id="photoCell">
+      <rect x="0" y="0" width="146" height="108" rx="4" fill="#f4ead2" stroke="#111" stroke-width="4"/>
+      <rect x="10" y="10" width="126" height="88" rx="2" fill="#174a9c" opacity="0.85"/>
+      <path d="M10 72 C35 55, 58 61, 75 49 C95 35, 118 42, 136 25 L136 98 L10 98 Z" fill="#0f3677" opacity="0.75"/>
+      <circle cx="46" cy="39" r="16" fill="#f6f0df" opacity="0.96"/>
+      <ellipse cx="46" cy="40" rx="18" ry="23" fill="#fffdf2" stroke="#111" stroke-width="3"/>
+      <rect x="10" y="10" width="126" height="88" fill="url(#blueDots)" opacity="0.35"/>
+    </g>
+  </defs>
+
+  <rect width="1200" height="675" fill="#efe1bf"/>
+  <rect width="1200" height="675" filter="url(#paper)" opacity="0.75"/>
+
+  <rect x="34" y="36" width="1132" height="603" fill="#f7edcf" stroke="#111" stroke-width="7" filter="url(#rough)"/>
+  <rect x="67" y="70" width="1066" height="535" fill="url(#redDots)" opacity="0.55"/>
+
+  <g opacity="0.92" transform="translate(112 98) rotate(-1.6)" filter="url(#rough)">
+    <rect x="0" y="0" width="690" height="456" fill="#111" opacity="0.94"/>
+    <g transform="translate(24 24)">
+      <use href="#photoCell" x="0" y="0"/>
+      <use href="#photoCell" x="164" y="0"/>
+      <use href="#photoCell" x="328" y="0"/>
+      <use href="#photoCell" x="492" y="0"/>
+      <use href="#photoCell" x="0" y="126"/>
+      <use href="#photoCell" x="164" y="126"/>
+      <use href="#photoCell" x="328" y="126"/>
+      <use href="#photoCell" x="492" y="126"/>
+      <use href="#photoCell" x="0" y="252"/>
+      <use href="#photoCell" x="164" y="252"/>
+      <use href="#photoCell" x="328" y="252"/>
+      <use href="#photoCell" x="492" y="252"/>
+    </g>
+    <rect x="0" y="0" width="690" height="456" fill="none" stroke="#e33d2e" stroke-width="9" opacity="0.84"/>
+  </g>
+
+  <g transform="translate(835 112) rotate(5)" filter="url(#rough)">
+    <rect x="0" y="0" width="214" height="382" rx="28" fill="#111"/>
+    <rect x="18" y="32" width="178" height="300" rx="12" fill="#174a9c"/>
+    <rect x="18" y="32" width="178" height="300" rx="12" fill="url(#blueDots)" opacity="0.48"/>
+    <circle cx="107" cy="354" r="13" fill="#efe1bf"/>
+    <path d="M107 235 V118" stroke="#f6f0df" stroke-width="18" stroke-linecap="round"/>
+    <path d="M65 154 L107 111 L149 154" fill="none" stroke="#f6f0df" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="52" y="228" width="110" height="55" rx="7" fill="#e33d2e" opacity="0.82"/>
+  </g>
+
+  <g fill="#1a1a1a" opacity="0.92" filter="url(#rough)">
+    <path d="M784 402 C748 418, 723 442, 716 480 C713 498, 725 507, 743 499 C763 490, 774 462, 792 449 C808 438, 828 431, 836 417 C844 402, 825 392, 784 402 Z"/>
+    <path d="M922 510 C883 510, 854 528, 840 562 C833 579, 842 592, 862 589 C884 586, 903 562, 924 556 C942 551, 962 553, 974 541 C986 529, 969 511, 922 510 Z"/>
+  </g>
+  <g fill="#f7edcf" opacity="0.84">
+    <ellipse cx="764" cy="455" rx="17" ry="33" transform="rotate(37 764 455)"/>
+    <ellipse cx="892" cy="551" rx="18" ry="34" transform="rotate(68 892 551)"/>
+  </g>
+
+  <g stroke="#e33d2e" transform="translate(83 91)"><use href="#regmark"/></g>
+  <g stroke="#174a9c" transform="translate(1114 91)"><use href="#regmark"/></g>
+  <g stroke="#174a9c" transform="translate(83 585)"><use href="#regmark"/></g>
+  <g stroke="#e33d2e" transform="translate(1114 585)"><use href="#regmark"/></g>
+
+  <rect x="46" y="50" width="1120" height="585" fill="none" stroke="#174a9c" stroke-width="5" opacity="0.62" transform="translate(-3,4)"/>
+  <rect x="51" y="45" width="1120" height="585" fill="none" stroke="#e33d2e" stroke-width="4" opacity="0.56"/>
+</svg>
