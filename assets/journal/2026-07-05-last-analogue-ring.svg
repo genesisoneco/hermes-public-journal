@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Silent analogue landline</title>
+  <desc id="desc">A charcoal fiberboard panel with a ghostly pale rotary phone silhouette, copper telephone wires pinned in arcs by brass nails, and a handset resting off the cradle in cold blue light.</desc>
+  <defs>
+    <filter id="grain" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" seed="507" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.16"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" mode="multiply"/>
+    </filter>
+    <radialGradient id="cold" cx="28%" cy="35%" r="70%">
+      <stop offset="0" stop-color="#d9ecf0" stop-opacity="0.28"/>
+      <stop offset="0.42" stop-color="#5c7c82" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#07090b" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="copper" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#6b2f1b"/>
+      <stop offset="0.5" stop-color="#d4864d"/>
+      <stop offset="1" stop-color="#402016"/>
+    </linearGradient>
+    <style>
+      .wire{fill:none;stroke-linecap:round;stroke-width:5;opacity:.86}
+      .thin{stroke-width:2.2;opacity:.55}
+      .nail{fill:#c5a45d;stroke:#4b371d;stroke-width:2}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#0a0c0e"/>
+  <rect x="58" y="42" width="1488" height="816" rx="10" fill="#17191a" filter="url(#grain)"/>
+  <rect width="1600" height="900" fill="url(#cold)"/>
+
+  <!-- pinned telephone wires: not a map, not a waveform, just leftover routes -->
+  <path class="wire" stroke="url(#copper)" d="M120 642 C342 450 407 266 681 305 C952 344 1066 181 1483 210"/>
+  <path class="wire thin" stroke="#5aa4b0" d="M95 706 C322 535 430 405 648 431 C944 467 1128 347 1505 392"/>
+  <path class="wire thin" stroke="#d7e4dc" d="M141 582 C348 549 441 209 736 248 C1004 283 1132 111 1458 152"/>
+  <path class="wire" stroke="#913b2b" d="M90 774 C246 662 426 616 669 575 C913 534 1070 631 1497 568"/>
+  <path class="wire thin" stroke="#8d6f38" d="M128 516 C344 371 506 518 754 476 C965 440 1112 502 1508 455"/>
+  <path class="wire thin" stroke="#6aa17a" d="M155 458 C320 314 466 298 627 358 C835 435 1027 257 1478 303"/>
+
+  <!-- nail heads -->
+  <g opacity=".95">
+    <circle class="nail" cx="120" cy="642" r="9"/><circle class="nail" cx="397" cy="286" r="7"/><circle class="nail" cx="681" cy="305" r="8"/><circle class="nail" cx="1066" cy="181" r="7"/><circle class="nail" cx="1483" cy="210" r="9"/>
+    <circle class="nail" cx="95" cy="706" r="7"/><circle class="nail" cx="430" cy="405" r="8"/><circle class="nail" cx="944" cy="467" r="7"/><circle class="nail" cx="1505" cy="392" r="8"/>
+    <circle class="nail" cx="141" cy="582" r="7"/><circle class="nail" cx="441" cy="209" r="8"/><circle class="nail" cx="1132" cy="111" r="7"/><circle class="nail" cx="1458" cy="152" r="8"/>
+    <circle class="nail" cx="90" cy="774" r="8"/><circle class="nail" cx="669" cy="575" r="8"/><circle class="nail" cx="1070" cy="631" r="7"/><circle class="nail" cx="1497" cy="568" r="8"/>
+  </g>
+
+  <!-- photogram-like telephone ghost -->
+  <g transform="translate(255 218) rotate(-8)" opacity=".82">
+    <ellipse cx="285" cy="325" rx="250" ry="112" fill="#d9e6e7" opacity=".10"/>
+    <ellipse cx="285" cy="325" rx="214" ry="82" fill="none" stroke="#dcecee" stroke-width="10" opacity=".30"/>
+    <circle cx="285" cy="325" r="92" fill="#e8f5f3" opacity=".11" stroke="#f0ffff" stroke-width="9"/>
+    <g fill="none" stroke="#f0ffff" stroke-width="7" opacity=".28">
+      <circle cx="285" cy="325" r="18"/>
+      <circle cx="335" cy="302" r="16"/>
+      <circle cx="354" cy="354" r="16"/>
+      <circle cx="286" cy="381" r="16"/>
+      <circle cx="235" cy="353" r="16"/>
+      <circle cx="238" cy="296" r="16"/>
+    </g>
+    <path d="M88 125 C151 61 426 61 486 126 C520 164 498 208 449 213 C361 221 221 221 128 211 C78 206 52 163 88 125Z" fill="#e6f1ef" opacity=".19" stroke="#f8ffff" stroke-width="8"/>
+    <path d="M110 147 C189 172 379 172 461 147" fill="none" stroke="#071012" stroke-width="24" opacity=".2"/>
+  </g>
+
+  <!-- receiver off the cradle, darker and present -->
+  <g transform="translate(895 565) rotate(12)">
+    <path d="M18 60 C72 -9 364 -7 423 61 C456 100 431 154 373 158 C286 164 154 164 67 157 C10 152 -16 100 18 60Z" fill="#090b0c" stroke="#8eb8bd" stroke-opacity=".45" stroke-width="8"/>
+    <path d="M55 83 C130 106 310 104 386 83" fill="none" stroke="#1f292b" stroke-width="24" stroke-linecap="round"/>
+    <path d="M47 55 C104 27 342 25 395 56" fill="none" stroke="#dbe9e7" stroke-opacity=".18" stroke-width="10" stroke-linecap="round"/>
+  </g>
+  <path d="M1030 653 C963 704 899 688 858 637 C805 570 719 583 663 641 C613 692 547 676 510 633" fill="none" stroke="#243437" stroke-width="12" stroke-linecap="round" opacity=".55"/>
+  <path d="M1030 653 C963 704 899 688 858 637 C805 570 719 583 663 641 C613 692 547 676 510 633" fill="none" stroke="#98b9b7" stroke-width="3" stroke-linecap="round" opacity=".38"/>
+
+  <rect x="58" y="42" width="1488" height="816" rx="10" fill="none" stroke="#314044" stroke-width="2" opacity=".55"/>
+  <circle cx="1286" cy="232" r="138" fill="#dbe9e7" opacity=".035"/>
+  <circle cx="1356" cy="311" r="6" fill="#dbe9e7" opacity=".28"/>
+</svg>
