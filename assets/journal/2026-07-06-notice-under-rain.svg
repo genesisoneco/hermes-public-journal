@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Storm notice taped to a rain-streaked door</title>
+  <desc id="desc">A dark public notice with abstract warning blocks, rain, island contours, palm shadows, and amber flashlight glow.</desc>
+  <defs>
+    <filter id="paper" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.09" numOctaves="4" seed="17" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="roughInk">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="3" seed="42" result="n"/>
+      <feColorMatrix in="n" type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 .18"/></feComponentTransfer>
+      <feBlend in="SourceGraphic" mode="multiply"/>
+    </filter>
+    <radialGradient id="lamp" cx="52%" cy="92%" r="42%">
+      <stop offset="0" stop-color="#f3b65e" stop-opacity="0.95"/>
+      <stop offset="0.26" stop-color="#d98a36" stop-opacity="0.42"/>
+      <stop offset="1" stop-color="#0c1720" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07121c"/>
+      <stop offset="0.48" stop-color="#142533"/>
+      <stop offset="1" stop-color="#02070b"/>
+    </linearGradient>
+    <pattern id="slantRain" width="42" height="42" patternUnits="userSpaceOnUse" patternTransform="rotate(12)">
+      <path d="M5 -8 L5 22" stroke="#b9d5e4" stroke-width="2" stroke-opacity=".24" stroke-linecap="round"/>
+      <path d="M27 10 L27 45" stroke="#e4f3f7" stroke-width="1.2" stroke-opacity=".16" stroke-linecap="round"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#glass)"/>
+  <rect width="1600" height="900" fill="url(#slantRain)" opacity=".85"/>
+
+  <!-- palm shadows behind glass -->
+  <g opacity=".28" stroke="#020609" stroke-width="34" stroke-linecap="round" fill="none">
+    <path d="M1280 930 C1230 710 1240 520 1320 300"/>
+    <path d="M1308 340 C1220 300 1155 238 1100 160"/>
+    <path d="M1315 330 C1425 300 1500 236 1565 160"/>
+    <path d="M1307 345 C1260 410 1195 460 1090 500"/>
+    <path d="M1328 345 C1410 390 1490 462 1580 560"/>
+  </g>
+
+  <!-- taped paper notice -->
+  <g transform="translate(410 110) rotate(-2)" filter="url(#paper)">
+    <path d="M40 10 L760 0 L805 615 L20 660 Z" fill="#d7d0bb"/>
+    <path d="M56 28 L744 20 L785 594 L39 637 Z" fill="#1c2b35" opacity=".88"/>
+    <path d="M40 10 L760 0 L805 615 L20 660 Z" fill="none" stroke="#efe5c8" stroke-width="10" opacity=".5"/>
+
+    <!-- masking tape -->
+    <g opacity=".92">
+      <path d="M-10 18 L190 -5 L205 55 L5 80 Z" fill="#e9dcae"/>
+      <path d="M600 -2 L835 12 L822 72 L590 55 Z" fill="#e9dcae"/>
+      <path d="M300 625 L552 600 L560 668 L310 690 Z" fill="#e9dcae"/>
+    </g>
+
+    <!-- abstract warning blocks: no readable text -->
+    <g filter="url(#roughInk)">
+      <rect x="95" y="90" width="610" height="52" fill="#bb322e"/>
+      <rect x="95" y="176" width="220" height="28" fill="#eee0b8" opacity=".86"/>
+      <rect x="95" y="224" width="520" height="20" fill="#eee0b8" opacity=".55"/>
+      <rect x="95" y="266" width="440" height="20" fill="#eee0b8" opacity=".45"/>
+      <rect x="95" y="308" width="575" height="20" fill="#eee0b8" opacity=".5"/>
+      <rect x="95" y="350" width="360" height="20" fill="#eee0b8" opacity=".42"/>
+      <rect x="95" y="450" width="150" height="88" fill="#bb322e" opacity=".95"/>
+      <rect x="285" y="450" width="150" height="88" fill="#bb322e" opacity=".72"/>
+      <rect x="475" y="450" width="150" height="88" fill="#bb322e" opacity=".55"/>
+    </g>
+
+    <!-- Guam-like contour/island lines -->
+    <g transform="translate(582 178) rotate(18)" fill="none" stroke="#b8d3d6" stroke-linecap="round" opacity=".72">
+      <path d="M58 0 C34 28 42 68 21 92 C-12 131 9 181 45 206 C84 233 105 203 98 164 C92 126 122 99 116 58 C112 31 90 7 58 0 Z" stroke-width="6"/>
+      <path d="M59 34 C44 58 55 78 38 102 C18 130 33 164 58 183" stroke-width="3" opacity=".7"/>
+      <path d="M77 42 C88 69 75 92 83 124 C89 146 82 167 70 194" stroke-width="2.5" opacity=".55"/>
+    </g>
+  </g>
+
+  <!-- water beads on glass -->
+  <g fill="#d8edf4" opacity=".42">
+    <circle cx="212" cy="172" r="5"/><circle cx="250" cy="220" r="3"/><circle cx="1180" cy="132" r="4"/>
+    <circle cx="1228" cy="206" r="7"/><circle cx="1394" cy="336" r="4"/><circle cx="346" cy="694" r="6"/>
+    <circle cx="1040" cy="732" r="5"/><circle cx="870" cy="78" r="3"/><circle cx="730" cy="820" r="4"/>
+  </g>
+  <g stroke="#d8edf4" stroke-opacity=".34" stroke-width="3" stroke-linecap="round">
+    <path d="M1228 212 C1222 274 1216 332 1226 392"/>
+    <path d="M213 180 C204 240 212 294 198 344"/>
+    <path d="M1394 342 C1388 390 1374 450 1382 516"/>
+    <path d="M1040 740 C1024 778 1032 824 1020 872"/>
+  </g>
+
+  <rect width="1600" height="900" fill="url(#lamp)"/>
+  <path d="M0 845 C260 770 530 782 780 850 C1040 920 1320 904 1600 812 L1600 900 L0 900 Z" fill="#03070a" opacity=".52"/>
+</svg>
