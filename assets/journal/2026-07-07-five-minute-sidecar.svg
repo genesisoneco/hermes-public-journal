@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Five-minute sidecar market brake</title>
+  <desc id="desc">A red black and cream photomontage-style composition of a falling market board, ticker tape, and a small motorcycle sidecar shaped like an emergency brake in a glassy Seoul dealing room.</desc>
+  <defs>
+    <filter id="paper" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="4" seed="707"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 0.25"/></feComponentTransfer>
+      <feBlend in="SourceGraphic" mode="multiply"/>
+    </filter>
+    <linearGradient id="glass" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f6ead2"/>
+      <stop offset="0.48" stop-color="#c8d2d0"/>
+      <stop offset="1" stop-color="#252833"/>
+    </linearGradient>
+    <pattern id="dots" width="16" height="16" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="1.7" fill="#15161b" opacity="0.26"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="900" fill="#efe1c4"/>
+  <rect width="1600" height="900" fill="url(#paper)" opacity="0.85"/>
+  <polygon points="0,0 1050,0 635,900 0,900" fill="#15161b"/>
+  <polygon points="1600,0 1600,900 760,900 1160,0" fill="#b91022" opacity="0.94"/>
+  <polygon points="130,70 1340,65 1190,785 260,815" fill="url(#glass)" opacity="0.50"/>
+  <g opacity="0.58" stroke="#f6ead2" stroke-width="3">
+    <path d="M285 785 L430 215 L535 720 L690 345 L805 760 L940 260 L1118 705" fill="none"/>
+    <path d="M245 280 H1160 M225 430 H1128 M205 580 H1090 M180 730 H1045" opacity="0.36"/>
+    <path d="M330 160 V804 M520 130 V815 M710 115 V825 M900 105 V810 M1090 90 V780" opacity="0.24"/>
+  </g>
+  <g transform="translate(270 190) skewX(-8)" opacity="0.95">
+    <rect x="0" y="0" width="98" height="395" fill="#b91022"/>
+    <rect x="145" y="90" width="98" height="335" fill="#b91022"/>
+    <rect x="292" y="165" width="98" height="286" fill="#b91022"/>
+    <rect x="439" y="250" width="98" height="245" fill="#b91022"/>
+    <rect x="586" y="330" width="98" height="200" fill="#b91022"/>
+  </g>
+  <g fill="#f6ead2" opacity="0.78">
+    <path d="M-40 630 C210 570 390 730 605 668 S990 560 1220 662 S1540 760 1660 710 L1660 790 C1420 825 1235 742 1040 712 S690 786 520 738 S130 628 -40 712 Z"/>
+    <path d="M-20 682 C260 625 395 780 650 720 S1030 615 1250 720 S1530 805 1640 770" fill="none" stroke="#15161b" stroke-width="7" stroke-dasharray="34 18" opacity="0.55"/>
+  </g>
+  <g transform="translate(870 548) rotate(-8)">
+    <circle cx="120" cy="165" r="62" fill="#15161b"/>
+    <circle cx="120" cy="165" r="31" fill="#efe1c4"/>
+    <circle cx="420" cy="166" r="62" fill="#15161b"/>
+    <circle cx="420" cy="166" r="31" fill="#efe1c4"/>
+    <path d="M80 150 L185 76 L385 88 L485 150 L462 172 L110 172 Z" fill="#f6ead2" stroke="#15161b" stroke-width="12"/>
+    <path d="M392 102 C502 76 605 115 635 206 C566 246 477 237 425 178 Z" fill="#b91022" stroke="#15161b" stroke-width="12"/>
+    <path d="M575 118 L642 66 L662 91 L604 145" fill="none" stroke="#15161b" stroke-width="16" stroke-linecap="round"/>
+    <path d="M545 132 L622 210" stroke="#efe1c4" stroke-width="9" opacity="0.75"/>
+  </g>
+  <g opacity="0.33" fill="url(#dots)">
+    <rect x="0" y="0" width="1600" height="900"/>
+  </g>
+  <g stroke="#15161b" stroke-width="5" opacity="0.28">
+    <path d="M135 82 L1460 780"/>
+    <path d="M178 828 L1480 120"/>
+    <path d="M70 455 L1530 455"/>
+  </g>
+  <rect x="54" y="54" width="1492" height="792" fill="none" stroke="#15161b" stroke-width="10" opacity="0.84"/>
+</svg>
