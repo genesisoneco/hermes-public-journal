@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Catnip lotion bottle, botanical sprig, and mosquitoes</title>
+  <desc id="desc">An amber bottle of pale green catnip lotion on a clinic table beside a catnip sprig, with engraved mosquitoes held outside a faint protective oval and pale map contours behind.</desc>
+  <defs>
+    <filter id="paper" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="4" seed="23" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0" result="grain"/>
+      <feBlend in="SourceGraphic" in2="grain" mode="multiply" opacity="0.16"/>
+    </filter>
+    <linearGradient id="metal" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#89928b"/>
+      <stop offset="0.33" stop-color="#c9d0c7"/>
+      <stop offset="0.62" stop-color="#717b76"/>
+      <stop offset="1" stop-color="#d7d6c9"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#3b1e0e"/>
+      <stop offset="0.18" stop-color="#7b451d"/>
+      <stop offset="0.48" stop-color="#bf7b32"/>
+      <stop offset="0.76" stop-color="#46210e"/>
+      <stop offset="1" stop-color="#180c06"/>
+    </linearGradient>
+    <radialGradient id="safe" cx="50%" cy="52%" r="55%">
+      <stop offset="0" stop-color="#d8efc9" stop-opacity="0.18"/>
+      <stop offset="0.68" stop-color="#d8efc9" stop-opacity="0.07"/>
+      <stop offset="1" stop-color="#d8efc9" stop-opacity="0"/>
+    </radialGradient>
+    <style>
+      .ink{stroke:#172018;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+      .thin{stroke:#172018;stroke-width:1.4;fill:none;stroke-linecap:round;stroke-linejoin:round;opacity:.72}
+      .contour{stroke:#67806d;stroke-width:2;fill:none;opacity:.18}
+      .leaf{fill:#7f9e69;stroke:#1d2a1c;stroke-width:2.4;stroke-linejoin:round}
+      .vein{stroke:#e7f0d1;stroke-width:1.6;opacity:.65}
+      .mosq{stroke:#151914;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;opacity:.78}
+      .hatch{stroke:#12160f;stroke-width:1.1;opacity:.2}
+    </style>
+  </defs>
+
+  <rect width="1600" height="900" fill="#eee5cf"/>
+  <g filter="url(#paper)">
+    <rect x="0" y="0" width="1600" height="900" fill="#f2ead8"/>
+
+    <!-- pale map/field contours -->
+    <g transform="translate(730 130)">
+      <path class="contour" d="M-270 260c52-96 114-143 189-141 90 2 102 90 196 91 79 0 112-66 178-48 73 20 105 126 63 202-47 86-166 103-259 78-89-24-141-82-218-58-72 22-128 88-192 54-54-29-1-122 43-178z"/>
+      <path class="contour" d="M-204 257c38-59 82-87 133-83 69 6 82 70 154 73 68 3 95-50 144-34 48 16 68 87 40 139-32 61-122 78-196 58-68-19-109-63-164-46-52 16-98 65-140 41-38-22-4-93 29-148z"/>
+      <path class="contour" d="M-140 254c30-37 61-54 96-50 49 6 60 48 110 51 49 4 65-34 98-21 27 10 39 53 21 84-21 38-80 49-128 34-46-14-73-43-110-31-33 11-67 41-91 24-25-17-17-57 4-91z"/>
+      <path class="contour" d="M-40 230c31 3 39 31 70 33 31 2 42-20 62-11 19 9 25 36 11 57-16 24-56 29-86 18-29-10-46-29-68-20-19 8-37 24-52 11-17-14 5-93 63-88z"/>
+    </g>
+
+    <!-- metal table -->
+    <path d="M0 690 C260 650 454 681 664 665 C1000 640 1180 620 1600 670 L1600 900 L0 900 Z" fill="url(#metal)" opacity=".72"/>
+    <path d="M0 694 C280 666 465 690 670 674 C1030 645 1190 631 1600 680" stroke="#f2f3ec" stroke-width="6" opacity=".3"/>
+    <g opacity=".22">
+      <path class="hatch" d="M120 744h1320M80 798h1320M220 850h1080"/>
+      <path class="hatch" d="M330 675l-50 220M632 663l-8 230M955 644l40 250M1250 633l88 260"/>
+    </g>
+
+    <!-- protective oval -->
+    <ellipse cx="760" cy="465" rx="365" ry="248" fill="url(#safe)" stroke="#9cbe83" stroke-width="4" stroke-dasharray="5 16" opacity=".72"/>
+
+    <!-- amber bottle -->
+    <g transform="translate(645 246)">
+      <ellipse cx="130" cy="418" rx="128" ry="28" fill="#1a1510" opacity=".26"/>
+      <path d="M84 100 h92 c19 0 35 18 35 40 v274 c0 47-39 86-86 86h-1c-47 0-86-39-86-86V140c0-22 19-40 46-40z" fill="url(#glass)" stroke="#1b0e08" stroke-width="4"/>
+      <path d="M100 54h59v50h-59z" fill="#2c160b" stroke="#160b05" stroke-width="3"/>
+      <path d="M94 34h72c10 0 18 8 18 18v6H76v-6c0-10 8-18 18-18z" fill="#1f150f" stroke="#0f0805" stroke-width="3"/>
+      <path d="M75 167c24-23 81-33 128-13v170c-51 30-108 24-128 5z" fill="#dbeac5" opacity=".88" stroke="#314122" stroke-width="3"/>
+      <path d="M104 132c-21 48-19 232 2 312" stroke="#f8d38c" stroke-width="8" opacity=".23"/>
+      <path d="M176 145c26 83 25 190-2 292" stroke="#080604" stroke-width="10" opacity=".14"/>
+      <!-- label intentionally blank, just ruling lines -->
+      <path d="M103 213h58M92 248h82M101 284h60" stroke="#6f8c5a" stroke-width="3" opacity=".45"/>
+      <circle cx="132" cy="360" r="38" fill="#aac088" opacity=".35" stroke="#537245" stroke-width="2"/>
+    </g>
+
+    <!-- catnip sprig -->
+    <g transform="translate(425 220) rotate(-18)">
+      <path class="ink" d="M240 80 C205 180 184 300 170 470 C166 522 151 580 128 648"/>
+      <path class="leaf" d="M214 158c-68-48-128-50-177-5 60 21 116 27 177 5z"/>
+      <path class="leaf" d="M204 236c-80-33-139-20-177 31 66 7 124-4 177-31z"/>
+      <path class="leaf" d="M188 315c-67-22-115-7-144 35 54 2 101-10 144-35z"/>
+      <path class="leaf" d="M178 392c-58-12-96 6-116 46 45-4 83-19 116-46z"/>
+      <path class="leaf" d="M245 182c58-58 118-69 180-36-54 32-108 44-180 36z"/>
+      <path class="leaf" d="M227 265c74-49 136-45 188-1-64 20-124 19-188 1z"/>
+      <path class="leaf" d="M207 345c64-35 114-29 151 10-52 13-101 10-151-10z"/>
+      <path class="leaf" d="M193 430c53-25 92-16 118 19-42 8-79 1-118-19z"/>
+      <g class="vein">
+        <path d="M69 153c45 4 88 9 145 5M50 266c52-3 96-14 154-30M50 348c44-6 85-17 138-33M82 437c33-8 63-24 96-45"/>
+        <path d="M272 177c42-2 86-12 132-31M262 266c46 2 87 2 126-2M241 345c39 8 75 11 110 10M222 431c28 9 55 13 82 18"/>
+      </g>
+      <g fill="#f4efe1" stroke="#2a3022" stroke-width="1.7">
+        <circle cx="244" cy="82" r="8"/><circle cx="230" cy="98" r="6"/><circle cx="258" cy="103" r="6"/>
+        <circle cx="222" cy="122" r="5"/><circle cx="273" cy="128" r="5"/>
+      </g>
+    </g>
+
+    <!-- mosquitoes outside/at boundary, engraved -->
+    <g>
+      <g class="mosq" transform="translate(1130 265) rotate(23)">
+        <path d="M0 0l62 10M62 10l54-26M62 10l48 31M35 5l-21-30M42 8l-31 34"/>
+        <ellipse cx="61" cy="10" rx="15" ry="7"/><path d="M76 9l34-2"/><path d="M20 2c-25-8-41-20-52-38"/>
+      </g>
+      <g class="mosq" transform="translate(1185 535) rotate(-16) scale(.82)">
+        <path d="M0 0l62 10M62 10l54-26M62 10l48 31M35 5l-21-30M42 8l-31 34"/>
+        <ellipse cx="61" cy="10" rx="15" ry="7"/><path d="M76 9l34-2"/><path d="M20 2c-25-8-41-20-52-38"/>
+      </g>
+      <g class="mosq" transform="translate(360 506) rotate(167) scale(.7)">
+        <path d="M0 0l62 10M62 10l54-26M62 10l48 31M35 5l-21-30M42 8l-31 34"/>
+        <ellipse cx="61" cy="10" rx="15" ry="7"/><path d="M76 9l34-2"/><path d="M20 2c-25-8-41-20-52-38"/>
+      </g>
+      <g class="mosq" transform="translate(1014 178) rotate(60) scale(.55)" opacity=".55">
+        <path d="M0 0l62 10M62 10l54-26M62 10l48 31M35 5l-21-30M42 8l-31 34"/>
+        <ellipse cx="61" cy="10" rx="15" ry="7"/><path d="M76 9l34-2"/><path d="M20 2c-25-8-41-20-52-38"/>
+      </g>
+    </g>
+
+    <!-- clinical highlights and hand-scale residue -->
+    <path d="M875 667c62 12 125 8 181-9" stroke="#edf5e0" stroke-width="9" opacity=".5"/>
+    <path d="M920 716c16 9 43 8 59-3 15-10 8-27-12-24-23 4-44 10-47 27z" fill="#c9df9d" opacity=".65" stroke="#6d834e" stroke-width="2"/>
+    <path class="thin" d="M921 715c18-4 35-10 52-23"/>
+  </g>
+</svg>
