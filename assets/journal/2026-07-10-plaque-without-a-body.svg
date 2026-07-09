@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Plaque without a body</title>
+  <desc id="desc">A paper-collage government corridor with a blank plaque, cut budget sheets, red stamp marks, a locked door, and a distant cruise gangway silhouette.</desc>
+  <defs>
+    <filter id="paper" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="4" seed="47" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 .18"/></feComponentTransfer>
+      <feBlend in="SourceGraphic" mode="multiply"/>
+    </filter>
+    <pattern id="halftone" width="14" height="14" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="4" r="1.4" fill="#111" opacity=".20"/>
+      <circle cx="10" cy="11" r="1" fill="#111" opacity=".12"/>
+    </pattern>
+    <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d8d1bd"/>
+      <stop offset="1" stop-color="#8d886f"/>
+    </linearGradient>
+    <style>
+      .cut{filter:url(#paper); stroke:#171713; stroke-width:5; stroke-linejoin:round}
+      .ink{fill:#171713}.red{fill:#b21f22}.green{fill:#5c745f}.cream{fill:#efe6ca}.shadow{fill:#211b18; opacity:.24}
+    </style>
+  </defs>
+
+  <rect width="1600" height="900" fill="#efe6ca"/>
+  <rect width="1600" height="900" fill="url(#halftone)" opacity=".55"/>
+
+  <!-- torn newsprint slabs -->
+  <path class="cut cream" d="M-40 84 L496 22 L574 290 L42 342 Z"/>
+  <path class="cut green" d="M1088 -20 L1645 60 L1536 425 L1010 310 Z" opacity=".72"/>
+  <path class="cut" fill="#d7cba9" d="M64 708 L657 594 L743 965 L-16 916 Z"/>
+  <path class="cut" fill="#c0b387" d="M870 608 L1630 538 L1660 914 L810 940 Z"/>
+
+  <!-- corridor perspective -->
+  <polygon points="250,170 1330,155 1170,650 405,650" fill="#c9c0a5" stroke="#15130f" stroke-width="8"/>
+  <polygon points="405,650 1170,650 1530,900 40,900" fill="url(#floor)" stroke="#15130f" stroke-width="7"/>
+  <line x1="250" y1="170" x2="40" y2="900" stroke="#15130f" stroke-width="6" opacity=".78"/>
+  <line x1="1330" y1="155" x2="1530" y2="900" stroke="#15130f" stroke-width="6" opacity=".78"/>
+  <line x1="790" y1="164" x2="790" y2="650" stroke="#15130f" stroke-width="5" opacity=".35"/>
+
+  <!-- locked glass door -->
+  <polygon points="895,215 1148,205 1095,608 876,603" fill="#87978e" opacity=".62" stroke="#101010" stroke-width="9"/>
+  <polygon points="930,250 1110,244 1071,562 916,560" fill="#dce5db" opacity=".34" stroke="#101010" stroke-width="4"/>
+  <circle cx="1060" cy="421" r="13" fill="#1a1710"/>
+  <rect x="1048" y="435" width="45" height="50" rx="5" fill="#1a1710"/>
+  <path d="M1060 438 c0 -34 54 -34 54 0" fill="none" stroke="#1a1710" stroke-width="12"/>
+
+  <!-- blank brass plaque -->
+  <g transform="rotate(-2 565 280)">
+    <rect x="398" y="237" width="338" height="94" rx="8" fill="#b49342" stroke="#15130f" stroke-width="7"/>
+    <rect x="420" y="259" width="294" height="50" fill="#d9bd68" opacity=".72"/>
+    <circle cx="421" cy="261" r="8" fill="#332717"/><circle cx="714" cy="261" r="8" fill="#332717"/>
+    <circle cx="421" cy="309" r="8" fill="#332717"/><circle cx="714" cy="309" r="8" fill="#332717"/>
+  </g>
+
+  <!-- budget sheets: rectangles without readable text -->
+  <g transform="rotate(8 514 530)">
+    <rect class="cut cream" x="302" y="402" width="380" height="250"/>
+    <rect x="330" y="430" width="130" height="15" fill="#171713" opacity=".55"/>
+    <rect x="330" y="470" width="298" height="12" fill="#171713" opacity=".31"/>
+    <rect x="330" y="504" width="260" height="12" fill="#171713" opacity=".31"/>
+    <rect x="330" y="538" width="318" height="12" fill="#171713" opacity=".31"/>
+    <rect x="330" y="584" width="118" height="30" fill="#171713" opacity=".44"/>
+    <rect x="480" y="584" width="150" height="30" fill="#171713" opacity=".24"/>
+  </g>
+  <g transform="rotate(-13 1210 490)">
+    <rect class="cut cream" x="1088" y="370" width="270" height="210"/>
+    <rect x="1116" y="405" width="190" height="13" fill="#171713" opacity=".34"/>
+    <rect x="1116" y="438" width="150" height="13" fill="#171713" opacity=".26"/>
+    <rect x="1116" y="471" width="205" height="13" fill="#171713" opacity=".30"/>
+    <rect x="1116" y="520" width="76" height="27" fill="#171713" opacity=".43"/>
+  </g>
+
+  <!-- red rubber stamp marks, intentionally illegible -->
+  <g opacity=".88" transform="rotate(-17 575 510)">
+    <ellipse cx="575" cy="510" rx="142" ry="47" fill="none" stroke="#b21f22" stroke-width="18"/>
+    <line x1="472" y1="505" x2="681" y2="505" stroke="#b21f22" stroke-width="14"/>
+    <line x1="502" y1="533" x2="654" y2="533" stroke="#b21f22" stroke-width="11"/>
+  </g>
+  <g opacity=".74" transform="rotate(11 1190 684)">
+    <rect x="1055" y="638" width="270" height="96" fill="none" stroke="#b21f22" stroke-width="16"/>
+    <line x1="1088" y1="674" x2="1287" y2="674" stroke="#b21f22" stroke-width="11"/>
+    <line x1="1108" y1="704" x2="1262" y2="704" stroke="#b21f22" stroke-width="9"/>
+  </g>
+
+  <!-- rope barrier and absent office -->
+  <circle cx="678" cy="641" r="22" fill="#171713"/><rect x="666" y="641" width="24" height="158" fill="#171713"/>
+  <circle cx="939" cy="626" r="22" fill="#171713"/><rect x="927" y="626" width="24" height="173" fill="#171713"/>
+  <path d="M690 672 C764 620 855 617 927 659" fill="none" stroke="#b21f22" stroke-width="16" stroke-linecap="round"/>
+
+  <!-- distant cruise gangway silhouette clipped from newsprint -->
+  <g transform="translate(1110 705) rotate(-5)">
+    <path d="M0 80 L280 48 L320 76 L42 115 Z" fill="#171713" opacity=".82"/>
+    <rect x="70" y="22" width="145" height="25" fill="#171713" opacity=".82"/>
+    <path d="M52 80 l210 -24" stroke="#efe6ca" stroke-width="5" stroke-dasharray="16 12" opacity=".75"/>
+    <circle cx="89" cy="99" r="7" fill="#efe6ca" opacity=".55"/><circle cx="150" cy="91" r="7" fill="#efe6ca" opacity=".55"/><circle cx="211" cy="83" r="7" fill="#efe6ca" opacity=".55"/>
+  </g>
+
+  <!-- registration ghosts -->
+  <path d="M132 158 L479 120 L511 221 L168 252 Z" fill="#b21f22" opacity=".14"/>
+  <path d="M987 86 L1480 160 L1450 258 L960 195 Z" fill="#b21f22" opacity=".12"/>
+  <path d="M78 762 L594 686 L624 782 L98 842 Z" fill="#5c745f" opacity=".18"/>
+
+  <rect x="0" y="0" width="1600" height="900" fill="none" stroke="#171713" stroke-width="18" opacity=".9"/>
+</svg>
