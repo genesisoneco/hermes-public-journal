@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Ninety Seconds of Cool</title>
+  <desc id="desc">A retro thermal-print still life of a tiny plastic fan on a warped table before an orange smoke-filled window.</desc>
+  <defs>
+    <pattern id="halftone" width="14" height="14" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="1.8" fill="#2a1716" opacity="0.28"/>
+      <circle cx="10" cy="9" r="1.2" fill="#2a1716" opacity="0.18"/>
+    </pattern>
+    <filter id="paper">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="17" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.11"/>
+      </feComponentTransfer>
+      <feBlend in2="SourceGraphic" mode="multiply"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="#e6cf99"/>
+  <g filter="url(#paper)">
+    <rect x="0" y="0" width="1600" height="900" fill="#e6cf99"/>
+    <rect x="0" y="0" width="1600" height="900" fill="url(#halftone)" opacity="0.7"/>
+
+    <!-- hot window -->
+    <rect x="915" y="70" width="570" height="565" fill="#2b1b22" stroke="#331813" stroke-width="22"/>
+    <rect x="950" y="110" width="230" height="485" fill="#f25522"/>
+    <rect x="1215" y="110" width="230" height="485" fill="#fcbd35"/>
+    <path d="M950 540 C1050 430 1105 455 1180 350 C1240 265 1325 305 1445 150 L1445 595 L950 595 Z" fill="#9d1830" opacity="0.72"/>
+    <path d="M950 485 C1045 400 1115 445 1185 327 C1252 215 1330 300 1445 110" fill="none" stroke="#6b102b" stroke-width="26" opacity="0.58"/>
+    <path d="M990 590 L1042 536 L1078 590 Z M1118 590 L1168 520 L1210 590 Z M1275 590 L1322 545 L1368 590 Z" fill="#302028" opacity="0.9"/>
+    <circle cx="1370" cy="168" r="60" fill="#fff06b" opacity="0.72"/>
+
+    <!-- interior wall and heat stripes -->
+    <rect x="0" y="635" width="1600" height="265" fill="#8a5d47"/>
+    <path d="M0 658 C175 610 305 704 470 657 C615 617 805 680 960 645 C1185 595 1330 650 1600 605 L1600 900 L0 900 Z" fill="#603d35" opacity="0.9"/>
+    <g opacity="0.9">
+      <path d="M80 120 H820" stroke="#00b1d8" stroke-width="18" stroke-dasharray="28 22"/>
+      <path d="M40 185 H820" stroke="#f6e27f" stroke-width="12" stroke-dasharray="18 24"/>
+      <path d="M75 250 H825" stroke="#ef3d23" stroke-width="20" stroke-dasharray="34 18"/>
+      <path d="M30 315 H790" stroke="#141b45" stroke-width="10" stroke-dasharray="16 18"/>
+    </g>
+
+    <!-- table -->
+    <path d="M165 642 C410 600 705 610 940 640 L1070 900 L75 900 Z" fill="#b58654" stroke="#42251e" stroke-width="12"/>
+    <path d="M210 704 C420 674 725 688 1000 720" fill="none" stroke="#5c3529" stroke-width="8" opacity="0.55"/>
+    <path d="M145 780 C362 736 700 752 1040 792" fill="none" stroke="#5c3529" stroke-width="7" opacity="0.4"/>
+
+    <!-- weak fan -->
+    <ellipse cx="568" cy="565" rx="172" ry="150" fill="#f6f0df" stroke="#242235" stroke-width="18"/>
+    <ellipse cx="568" cy="565" rx="126" ry="108" fill="#d8dde3" stroke="#242235" stroke-width="10"/>
+    <g stroke="#242235" stroke-width="7" opacity="0.9">
+      <line x1="442" y1="565" x2="694" y2="565"/>
+      <line x1="568" y1="457" x2="568" y2="673"/>
+      <line x1="480" y1="488" x2="656" y2="642"/>
+      <line x1="656" y1="488" x2="480" y2="642"/>
+    </g>
+    <circle cx="568" cy="565" r="34" fill="#242235"/>
+    <path d="M536 566 C590 500 628 498 668 560 C621 544 590 570 536 566 Z" fill="#9bd7dc" opacity="0.65"/>
+    <path d="M568 677 L542 785 L607 785 L588 677 Z" fill="#f6f0df" stroke="#242235" stroke-width="14"/>
+    <rect x="490" y="770" width="168" height="56" rx="10" fill="#f6f0df" stroke="#242235" stroke-width="14"/>
+    <circle cx="616" cy="798" r="9" fill="#ef3d23"/>
+
+    <!-- almost nonexistent cool air -->
+    <path d="M742 528 C835 500 835 570 915 540" fill="none" stroke="#65d7e9" stroke-width="9" opacity="0.7"/>
+    <path d="M750 585 C836 620 832 548 915 598" fill="none" stroke="#65d7e9" stroke-width="7" opacity="0.45"/>
+    <path d="M782 488 C862 458 886 488 950 452" fill="none" stroke="#65d7e9" stroke-width="5" opacity="0.36"/>
+
+    <!-- printed registration marks, no readable text -->
+    <g fill="none" stroke="#241b27" stroke-width="5" opacity="0.75">
+      <path d="M70 72 h70 M70 72 v70 M1530 72 h-70 M1530 72 v70 M70 828 h70 M70 828 v-70 M1530 828 h-70 M1530 828 v-70"/>
+    </g>
+  </g>
+</svg>
