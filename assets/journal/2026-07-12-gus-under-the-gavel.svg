@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Gus Under the Gavel</title>
+  <desc id="desc">A stylized natural-history specimen plate of partial T. rex bones on black velvet with lot tags, a hovering gavel, Badlands strata, and a museum grid.</desc>
+  <defs>
+    <filter id="grain" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="3" seed="73" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 .16"/></feComponentTransfer>
+      <feBlend in2="SourceGraphic" mode="multiply"/>
+    </filter>
+    <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M80 0H0V80" fill="none" stroke="#96b7b6" stroke-width="2" opacity=".35"/>
+      <path d="M20 0V80 M40 0V80 M60 0V80 M0 20H80 M0 40H80 M0 60H80" fill="none" stroke="#96b7b6" stroke-width="1" opacity=".16"/>
+    </pattern>
+    <style>
+      .ink{fill:#11151a}.bone{fill:#efe3c8;stroke:#141820;stroke-width:8;stroke-linejoin:round}.tag{fill:#d6b35b;stroke:#11151a;stroke-width:5}.thin{stroke:#141820;stroke-width:5;fill:none;stroke-linecap:round}.cyan{fill:#0d5963}.ochre{fill:#bc7b38}.rust{fill:#803b2f}.glass{fill:#b7d9d7;opacity:.12}.shadow{fill:#05070a;opacity:.45}
+    </style>
+  </defs>
+
+  <rect width="1600" height="900" fill="#10272e"/>
+  <g filter="url(#grain)">
+    <rect x="0" y="0" width="1600" height="900" fill="#10272e"/>
+    <rect x="0" y="0" width="1600" height="900" fill="url(#grid)"/>
+
+    <!-- Badlands strata behind glass -->
+    <path d="M0 182 C170 120 268 210 420 150 C590 84 720 170 880 118 C1030 70 1195 134 1600 92 L1600 314 C1320 374 1198 285 1036 338 C860 396 720 295 560 356 C360 430 220 330 0 398 Z" fill="#c98d43" opacity=".72"/>
+    <path d="M0 296 C220 230 340 326 520 266 C726 198 870 304 1065 236 C1240 176 1390 234 1600 205 L1600 410 C1364 452 1200 392 1030 445 C815 512 682 420 510 470 C316 525 196 455 0 505 Z" fill="#6b3432" opacity=".9"/>
+    <path d="M0 408 C205 358 360 425 545 384 C710 348 880 424 1024 374 C1216 307 1356 362 1600 330 L1600 548 C1385 578 1238 522 1058 574 C870 628 685 548 496 610 C305 674 168 590 0 640 Z" fill="#d4b56e" opacity=".68"/>
+    <rect x="70" y="70" width="1460" height="760" class="glass" stroke="#c8eeee" stroke-width="10"/>
+
+    <!-- auction table / velvet -->
+    <path d="M115 610 C390 522 705 548 960 592 C1185 632 1350 600 1505 548 L1600 900 L0 900 Z" fill="#08090d"/>
+    <path d="M170 650 C410 600 720 622 950 660 C1190 700 1358 658 1510 610" fill="none" stroke="#24343a" stroke-width="18" opacity=".65"/>
+    <path d="M50 770 C332 694 700 724 997 765 C1260 803 1445 748 1590 704" fill="none" stroke="#384849" stroke-width="10" opacity=".38"/>
+
+    <!-- hovering gavel -->
+    <g transform="rotate(-18 1125 225)">
+      <ellipse cx="1148" cy="212" rx="112" ry="44" fill="#d0a24c" stroke="#11151a" stroke-width="8"/>
+      <rect x="1042" y="165" width="210" height="94" rx="18" fill="#9b6130" stroke="#11151a" stroke-width="9"/>
+      <rect x="1198" y="234" width="330" height="34" rx="15" fill="#d0a24c" stroke="#11151a" stroke-width="7"/>
+      <circle cx="1047" cy="212" r="41" fill="#593425" stroke="#11151a" stroke-width="7"/>
+      <circle cx="1249" cy="212" r="41" fill="#593425" stroke="#11151a" stroke-width="7"/>
+    </g>
+    <ellipse cx="1124" cy="382" rx="215" ry="34" class="shadow"/>
+
+    <!-- fossil bones: partial T. rex, not a complete trophy pose -->
+    <g transform="translate(196 154) rotate(3 520 370)">
+      <path class="bone" d="M353 248 C416 188 534 174 636 209 C710 235 760 291 745 348 C730 404 660 430 575 410 C532 400 495 376 456 374 C407 371 355 396 307 383 C245 367 220 315 248 281 C270 254 310 264 353 248 Z"/>
+      <circle cx="572" cy="292" r="24" fill="#10272e" stroke="#141820" stroke-width="6"/>
+      <path d="M704 331 L792 362 L707 383 Z" class="bone"/>
+      <path d="M286 319 C232 329 195 356 155 398" class="thin"/>
+
+      <path class="bone" d="M515 433 C620 426 705 442 800 487 C850 510 908 508 966 485 C994 474 1023 493 1007 520 C966 590 858 618 760 586 C682 560 598 517 502 518 C411 520 322 552 253 611 C230 631 195 623 189 595 C184 568 211 548 236 529 C318 468 404 441 515 433 Z"/>
+      <path class="bone" d="M763 572 C798 638 830 694 865 755 C878 778 850 803 827 784 C775 738 735 667 704 594 Z"/>
+      <path class="bone" d="M663 551 C631 628 597 689 553 746 C536 768 503 752 512 725 C535 651 565 588 601 528 Z"/>
+      <path class="bone" d="M903 587 C960 620 1018 656 1085 702 C1111 720 1098 759 1067 754 C991 742 916 709 849 662 Z"/>
+      <path class="bone" d="M426 509 C380 560 329 606 268 650 C244 668 213 641 231 616 C275 556 322 506 376 463 Z"/>
+
+      <g opacity=".98">
+        <path class="tag" d="M790 432 l72 18 -16 64 -72 -18 z"/>
+        <circle cx="800" cy="448" r="7" fill="#11151a"/>
+        <path class="tag" d="M536 716 l82 -8 7 68 -83 9 z"/>
+        <circle cx="554" cy="727" r="7" fill="#11151a"/>
+        <path class="thin" d="M800 448 C774 433 750 419 719 396 M554 727 C574 684 589 636 607 584" stroke="#d6b35b"/>
+      </g>
+    </g>
+
+    <!-- accession/case marks as illegible blocks -->
+    <g transform="translate(92 86)" opacity=".84">
+      <rect x="0" y="0" width="330" height="94" fill="#e6d7b7" stroke="#11151a" stroke-width="6"/>
+      <rect x="24" y="22" width="190" height="12" class="ink" opacity=".52"/>
+      <rect x="24" y="50" width="260" height="10" class="ink" opacity=".28"/>
+      <rect x="236" y="18" width="58" height="58" fill="#0d5963" opacity=".8"/>
+    </g>
+    <g fill="none" stroke="#d8ece8" stroke-width="5" opacity=".6">
+      <path d="M70 70 h85 M70 70 v85 M1530 70 h-85 M1530 70 v85 M70 830 h85 M70 830 v-85 M1530 830 h-85 M1530 830 v-85"/>
+    </g>
+  </g>
+</svg>
