@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Grave heat, plain water</title>
+  <desc id="desc">A block-print style warning scene shows a red sun over a simplified Korean weather map, two glowing city markers, a bent thermometer, shade rectangles, and white water droplets from a public fountain.</desc>
+  <defs>
+    <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="4" seed="13"/><feDisplacementMap in="SourceGraphic" scale="4"/></filter>
+    <pattern id="cuts" width="42" height="42" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)">
+      <rect width="42" height="42" fill="none"/>
+      <path d="M-8 18 L50 2 M-6 38 L48 22" stroke="#111" stroke-width="3" opacity="0.16"/>
+    </pattern>
+    <radialGradient id="sun" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#ffcf55"/>
+      <stop offset="0.52" stop-color="#e23a1e"/>
+      <stop offset="1" stop-color="#7b0d0d"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="900" fill="#f4ead0"/>
+  <rect width="1600" height="900" fill="url(#cuts)"/>
+  <g filter="url(#rough)">
+    <circle cx="1230" cy="190" r="180" fill="url(#sun)" stroke="#111" stroke-width="18"/>
+    <path d="M100 140 C230 110 310 160 420 130 C560 92 690 125 800 96 C905 70 1015 96 1120 70" fill="none" stroke="#111" stroke-width="24" stroke-linecap="square" opacity="0.92"/>
+    <path d="M110 230 C250 205 355 250 485 210 C630 166 745 202 880 168 C1000 137 1080 174 1180 150" fill="none" stroke="#111" stroke-width="17" stroke-linecap="square" opacity="0.75"/>
+
+    <rect x="140" y="255" width="650" height="470" fill="#111"/>
+    <rect x="175" y="290" width="580" height="400" fill="#f4ead0" stroke="#111" stroke-width="10"/>
+    <path d="M506 324 C468 350 447 398 455 438 C463 474 432 507 446 545 C457 575 435 624 399 656 C449 675 508 657 532 623 C550 598 589 591 599 552 C611 507 582 492 600 451 C615 416 589 362 506 324 Z" fill="#111"/>
+    <path d="M507 363 C489 386 483 414 490 439 C501 479 471 501 483 537 C490 559 480 593 453 622" fill="none" stroke="#f4ead0" stroke-width="10"/>
+    <circle cx="506" cy="540" r="24" fill="#ffcf55" stroke="#111" stroke-width="8"/>
+    <circle cx="548" cy="438" r="22" fill="#ffcf55" stroke="#111" stroke-width="8"/>
+    <path d="M495 540 L460 582 M550 438 L604 410" stroke="#e23a1e" stroke-width="10"/>
+    <rect x="206" y="617" width="146" height="31" fill="#e23a1e"/>
+    <rect x="585" y="322" width="132" height="30" fill="#e23a1e"/>
+
+    <g transform="translate(850 285) rotate(8)">
+      <rect x="0" y="0" width="78" height="390" rx="38" fill="#f4ead0" stroke="#111" stroke-width="18"/>
+      <path d="M39 48 C26 95 56 144 38 202 C22 253 60 300 38 358" fill="none" stroke="#e23a1e" stroke-width="26" stroke-linecap="round"/>
+      <circle cx="39" cy="342" r="56" fill="#e23a1e" stroke="#111" stroke-width="16"/>
+      <path d="M86 52 h60 M86 120 h38 M86 188 h60 M86 256 h38" stroke="#111" stroke-width="12"/>
+    </g>
+
+    <path d="M1035 555 h345 v118 h-345z" fill="#111"/>
+    <path d="M1082 604 h250" stroke="#f4ead0" stroke-width="18"/>
+    <path d="M1070 665 c68 -50 134 -50 198 0" fill="none" stroke="#f4ead0" stroke-width="14"/>
+    <g fill="#ffffff" stroke="#111" stroke-width="6">
+      <path d="M1095 474 C1065 522 1068 548 1095 575 C1125 544 1122 520 1095 474Z"/>
+      <path d="M1170 420 C1138 478 1147 505 1178 532 C1211 492 1205 465 1170 420Z"/>
+      <path d="M1250 488 C1219 541 1228 566 1257 590 C1286 552 1282 524 1250 488Z"/>
+      <path d="M1326 432 C1300 480 1304 506 1332 530 C1360 498 1356 472 1326 432Z"/>
+    </g>
+
+    <path d="M870 760 C995 710 1104 733 1192 698 C1290 660 1400 672 1520 610" fill="none" stroke="#111" stroke-width="26" opacity="0.9"/>
+    <path d="M852 816 C990 770 1120 790 1232 748 C1338 708 1438 725 1550 672" fill="none" stroke="#e23a1e" stroke-width="12" opacity="0.9"/>
+  </g>
+</svg>
