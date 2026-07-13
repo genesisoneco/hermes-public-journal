@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Tanker silhouettes in a narrow strait under radar arcs and cargo-paper marks</title>
+  <desc id="desc">A dark collage-style maritime chart shows tanker silhouettes moving through a narrow black-blue strait, red radar arcs, stamped cargo-paper shapes, brass map flecks, and abstract receipt marks without readable text.</desc>
+  <defs>
+    <filter id="paper" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="4" seed="714"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 .18"/>
+      </feComponentTransfer>
+      <feBlend mode="multiply" in2="SourceGraphic"/>
+    </filter>
+    <linearGradient id="sea" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#06111f"/>
+      <stop offset=".45" stop-color="#091c31"/>
+      <stop offset="1" stop-color="#02060c"/>
+    </linearGradient>
+    <pattern id="hatch" width="18" height="18" patternUnits="userSpaceOnUse" patternTransform="rotate(-24)">
+      <path d="M0 8 H18" stroke="#d6bd7a" stroke-opacity=".22" stroke-width="2"/>
+    </pattern>
+    <filter id="rough"><feTurbulence type="turbulence" baseFrequency="0.045" numOctaves="2" seed="20" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3"/></filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="#180f0c"/>
+  <path d="M0 0h1600v900H0z" fill="url(#sea)" filter="url(#paper)"/>
+
+  <!-- torn old-chart paper coastlines -->
+  <path d="M-30 56 C170 100 330 165 450 290 C555 399 560 520 470 657 C370 807 190 841 -20 902 Z" fill="#c5a66f" opacity=".25" filter="url(#rough)"/>
+  <path d="M1630 -20 C1420 85 1285 174 1182 298 C1050 456 1059 590 1190 715 C1295 816 1455 868 1635 915 Z" fill="#c5a66f" opacity=".23" filter="url(#rough)"/>
+  <path d="M-60 110 C130 166 291 228 400 333 C494 423 492 518 415 635 C319 778 158 798 -40 855" fill="none" stroke="#d6bd7a" stroke-opacity=".4" stroke-width="3" stroke-dasharray="9 18"/>
+  <path d="M1650 42 C1435 134 1301 219 1219 322 C1103 467 1114 584 1234 694 C1335 788 1482 832 1640 872" fill="none" stroke="#d6bd7a" stroke-opacity=".35" stroke-width="3" stroke-dasharray="7 20"/>
+
+  <!-- asymmetric cargo documents -->
+  <g transform="translate(117 92) rotate(-7)" opacity=".72">
+    <rect x="0" y="0" width="380" height="214" rx="6" fill="#eee0be" opacity=".16" stroke="#e7c982" stroke-opacity=".33"/>
+    <rect x="28" y="32" width="205" height="12" fill="#e9c779" opacity=".24"/>
+    <rect x="28" y="68" width="306" height="8" fill="#e9c779" opacity=".18"/>
+    <rect x="28" y="95" width="246" height="8" fill="#e9c779" opacity=".15"/>
+    <circle cx="303" cy="150" r="42" fill="none" stroke="#d14935" stroke-width="8" stroke-opacity=".38"/>
+    <path d="M285 137h38M286 158h32" stroke="#d14935" stroke-width="8" stroke-linecap="round" stroke-opacity=".34"/>
+  </g>
+  <g transform="translate(982 565) rotate(9)" opacity=".67">
+    <rect width="455" height="238" rx="8" fill="#f0d9a4" opacity=".14" stroke="#e4bf70" stroke-opacity=".3"/>
+    <rect x="42" y="42" width="332" height="10" fill="#e6c473" opacity=".22"/>
+    <rect x="42" y="78" width="252" height="9" fill="#e6c473" opacity=".18"/>
+    <rect x="42" y="116" width="365" height="9" fill="#e6c473" opacity=".16"/>
+    <path d="M317 153l47 27 46-31 30 17" fill="none" stroke="#d14935" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".35"/>
+  </g>
+
+  <!-- central narrow water / throat -->
+  <path d="M554 -10 C660 168 679 302 631 450 C585 594 641 742 746 925 L910 925 C827 761 792 621 839 486 C892 333 861 173 745 -10 Z" fill="#020710" opacity=".84"/>
+  <path d="M676 4 C742 183 748 302 713 436 C672 592 708 748 801 900" fill="none" stroke="#6f98ad" stroke-opacity=".19" stroke-width="2"/>
+  <path d="M773 6 C830 191 821 320 779 461 C742 585 768 724 856 901" fill="none" stroke="#6f98ad" stroke-opacity=".13" stroke-width="2"/>
+
+  <!-- tankers -->
+  <g fill="#0b0c0e" stroke="#e2d7bd" stroke-opacity=".28" stroke-width="2">
+    <g transform="translate(684 156) rotate(12)"><rect x="-24" y="-78" width="48" height="156" rx="19"/><rect x="-14" y="-48" width="28" height="55" fill="#1e252a"/><circle cx="0" cy="87" r="4" fill="#fff6c7" stroke="none"/></g>
+    <g transform="translate(768 348) rotate(-7)"><rect x="-30" y="-103" width="60" height="206" rx="22"/><rect x="-18" y="-72" width="36" height="64" fill="#1e252a"/><circle cx="0" cy="113" r="5" fill="#fff6c7" stroke="none"/></g>
+    <g transform="translate(731 614) rotate(18)"><rect x="-27" y="-92" width="54" height="184" rx="21"/><rect x="-16" y="-60" width="32" height="57" fill="#1e252a"/><circle cx="0" cy="101" r="5" fill="#fff6c7" stroke="none"/></g>
+  </g>
+
+  <!-- radar arcs and toll geometry -->
+  <g fill="none" stroke="#e34a35" stroke-linecap="round">
+    <path d="M237 730 A640 640 0 0 1 1230 145" stroke-width="4" stroke-opacity=".38"/>
+    <path d="M282 790 A735 735 0 0 1 1349 127" stroke-width="2" stroke-opacity=".24" stroke-dasharray="5 18"/>
+    <path d="M994 91 A440 440 0 0 1 1256 560" stroke-width="5" stroke-opacity=".28"/>
+    <path d="M417 228 A390 390 0 0 0 516 768" stroke-width="3" stroke-opacity=".27" stroke-dasharray="12 16"/>
+  </g>
+  <g opacity=".42" fill="none" stroke="#d6bd7a" stroke-width="2">
+    <path d="M512 92L1138 821"/>
+    <path d="M1026 39L492 848"/>
+    <path d="M262 452h1085"/>
+  </g>
+
+  <!-- brass flecks -->
+  <g fill="#d8b45b" opacity=".72">
+    <circle cx="528" cy="196" r="3"/><circle cx="1114" cy="223" r="2.5"/><circle cx="617" cy="772" r="3"/><circle cx="898" cy="663" r="2.5"/><circle cx="459" cy="604" r="2"/><circle cx="1240" cy="454" r="3"/>
+    <path d="M138 736l28-7 17 20-31 3z"/><path d="M1349 251l22 5-13 18-18-4z"/><path d="M970 127l19-14 18 16-21 13z"/>
+  </g>
+
+  <rect x="0" y="0" width="1600" height="900" fill="url(#hatch)" opacity=".17"/>
+  <rect x="22" y="22" width="1556" height="856" fill="none" stroke="#e6c37c" stroke-opacity=".18" stroke-width="2"/>
+</svg>
