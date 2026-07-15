@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+<title id="title">Hospital bedside with two chairs and a lamp</title>
+<desc id="desc">A flattened tempera-panel style hospital bedside shows an empty pillow, two angled chairs, a small amber lamp with a gold halo, a water glass, and a blank cream form under a pre-dawn blue window.</desc>
+<rect width="1600" height="900" fill="#1f3154"/>
+<rect x="60" y="54" width="1480" height="792" rx="8" fill="#24385f" stroke="#b89a45" stroke-width="16"/>
+<path d="M90 102 C260 70 360 130 515 98 C690 62 845 128 1000 92 C1180 50 1320 132 1510 88 L1510 820 L90 820 Z" fill="#263a62" opacity=".75"/>
+<g opacity=".33" stroke="#e4c56a" stroke-width="3">
+<path d="M116 165 H1480"/><path d="M116 246 H1480"/><path d="M116 327 H1480"/><path d="M116 408 H1480"/><path d="M116 489 H1480"/><path d="M116 570 H1480"/><path d="M116 651 H1480"/><path d="M116 732 H1480"/>
+<path d="M190 100 V820"/><path d="M380 100 V820"/><path d="M570 100 V820"/><path d="M760 100 V820"/><path d="M950 100 V820"/><path d="M1140 100 V820"/><path d="M1330 100 V820"/>
+</g>
+<rect x="1045" y="110" width="300" height="230" fill="#17253f" stroke="#d4b455" stroke-width="9"/>
+<rect x="1078" y="138" width="106" height="174" fill="#8fb0c6" opacity=".9"/><rect x="1206" y="138" width="106" height="174" fill="#617d9d" opacity=".9"/>
+<path d="M1045 340 L1345 340 L1288 390 L1105 390 Z" fill="#111a2d" opacity=".75"/>
+<g transform="translate(250 430)">
+<path d="M0 135 L680 78 L770 202 L90 288 Z" fill="#d9d3c3" stroke="#6f5c3e" stroke-width="8"/>
+<path d="M72 122 L315 99 C354 96 382 125 376 162 L373 186 L96 209 Z" fill="#f0eadb" stroke="#7b6a51" stroke-width="6"/>
+<path d="M370 94 L682 70 L760 170 L414 204 Z" fill="#b7ad99" opacity=".85"/>
+<path d="M92 288 L772 202 L774 256 L101 344 Z" fill="#877d70"/>
+<path d="M34 144 L94 124 L104 343 L42 352 Z" fill="#635a51"/>
+</g>
+<g transform="translate(1030 495) rotate(-7)">
+<path d="M0 140 L178 116 L202 248 L23 270 Z" fill="#6b4f3e" stroke="#1b1720" stroke-width="7"/>
+<path d="M24 20 L168 0 L184 118 L8 142 Z" fill="#927056" stroke="#1b1720" stroke-width="7"/>
+<path d="M28 272 L12 374" stroke="#1b1720" stroke-width="13"/><path d="M188 250 L210 348" stroke="#1b1720" stroke-width="13"/>
+</g>
+<g transform="translate(1185 500) rotate(9)">
+<path d="M0 148 L170 124 L188 244 L18 270 Z" fill="#504965" stroke="#171828" stroke-width="7"/>
+<path d="M18 38 L154 12 L172 126 L0 152 Z" fill="#7b7190" stroke="#171828" stroke-width="7"/>
+<path d="M22 272 L4 366" stroke="#171828" stroke-width="13"/><path d="M178 248 L198 350" stroke="#171828" stroke-width="13"/>
+</g>
+<g transform="translate(870 372)">
+<circle cx="78" cy="92" r="122" fill="none" stroke="#d8b34b" stroke-width="18" opacity=".8"/>
+<circle cx="78" cy="92" r="78" fill="#d8b34b" opacity=".18"/>
+<path d="M50 82 L108 82 L130 154 L26 154 Z" fill="#d79a4b" stroke="#422d22" stroke-width="6"/>
+<rect x="68" y="154" width="20" height="104" fill="#51382d"/>
+<ellipse cx="78" cy="266" rx="70" ry="20" fill="#302117"/>
+</g>
+<g transform="translate(760 640)">
+<ellipse cx="48" cy="70" rx="31" ry="10" fill="#9dc3d8" opacity=".8"/>
+<path d="M20 6 C28 60 28 91 48 100 C70 88 70 58 76 6 Z" fill="#b7d7e5" opacity=".48" stroke="#e6f0ed" stroke-width="4"/>
+<ellipse cx="48" cy="8" rx="31" ry="9" fill="#e6f0ed" opacity=".8"/>
+</g>
+<g transform="translate(620 690) rotate(-5)">
+<path d="M0 0 L170 10 L154 100 L-10 86 Z" fill="#f3e6c8" stroke="#7d6441" stroke-width="5"/>
+<path d="M26 28 L132 34" stroke="#b89a45" stroke-width="5" opacity=".45"/><path d="M21 53 L118 59" stroke="#b89a45" stroke-width="4" opacity=".35"/>
+</g>
+<g fill="#caa84f" opacity=".7">
+<circle cx="154" cy="128" r="9"/><circle cx="1452" cy="760" r="7"/><circle cx="1412" cy="154" r="5"/><circle cx="236" cy="760" r="6"/><circle cx="524" cy="156" r="4"/><circle cx="896" cy="782" r="5"/>
+</g>
+<path d="M60 846 H1540" stroke="#b89a45" stroke-width="10" opacity=".9"/>
+</svg>
