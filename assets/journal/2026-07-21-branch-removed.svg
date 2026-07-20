@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Branch Removed</title>
+  <desc id="desc">A hand-colored field-guide plate of a wading bird with altered pixels interrupting its wing and branch shadow.</desc>
+  <defs>
+    <filter id="paper" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="4" seed="21" result="noise"/>
+      <feColorMatrix in="noise" type="matrix" values="0.4 0 0 0 0.78  0 0.35 0 0 0.70  0 0 0.25 0 0.55  0 0 0 0.16 0" result="grain"/>
+      <feBlend in="SourceGraphic" in2="grain" mode="multiply"/>
+    </filter>
+    <filter id="ink" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="turbulence" baseFrequency="0.9" numOctaves="1" seed="7" result="rough"/>
+      <feDisplacementMap in="SourceGraphic" in2="rough" scale="1.4"/>
+    </filter>
+    <linearGradient id="water" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#dbe5e4"/>
+      <stop offset="0.55" stop-color="#9eb7bd"/>
+      <stop offset="1" stop-color="#667f88"/>
+    </linearGradient>
+    <pattern id="hatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)">
+      <path d="M0 5 L10 5" stroke="#1d3138" stroke-width="0.8" opacity="0.25"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="900" fill="#efe5cf" filter="url(#paper)"/>
+  <path d="M0 635 C260 590 405 612 640 575 C910 532 1120 504 1600 530 L1600 900 L0 900 Z" fill="url(#water)" opacity="0.72"/>
+  <path d="M0 683 C260 650 428 690 706 642 C1044 584 1285 592 1600 608" fill="none" stroke="#44616a" stroke-width="4" opacity="0.32"/>
+  <path d="M90 760 C340 714 583 795 885 730 C1160 670 1370 707 1580 674" fill="none" stroke="#f5eddc" stroke-width="11" opacity="0.45"/>
+
+  <!-- blank specimen slips -->
+  <g opacity="0.86">
+    <rect x="105" y="96" width="286" height="78" rx="6" fill="#f8f0de" stroke="#a96d54" stroke-width="2"/>
+    <line x1="129" y1="126" x2="354" y2="126" stroke="#c4ad91" stroke-width="3"/>
+    <line x1="129" y1="150" x2="286" y2="150" stroke="#c4ad91" stroke-width="3"/>
+    <rect x="1164" y="106" width="250" height="96" rx="6" fill="#f8f0de" stroke="#a96d54" stroke-width="2"/>
+    <line x1="1190" y1="139" x2="1388" y2="139" stroke="#c4ad91" stroke-width="3"/>
+    <line x1="1190" y1="166" x2="1322" y2="166" stroke="#c4ad91" stroke-width="3"/>
+  </g>
+
+  <!-- branch shadow, part natural and part corrupted -->
+  <path d="M118 442 C360 388 545 372 746 340 C1000 300 1226 250 1518 215" fill="none" stroke="#2d3d31" stroke-width="18" stroke-linecap="round" opacity="0.22"/>
+  <g opacity="0.72">
+    <rect x="738" y="324" width="34" height="18" fill="#d5564c"/>
+    <rect x="772" y="306" width="58" height="17" fill="#3f7488"/>
+    <rect x="832" y="330" width="23" height="23" fill="#eadcb9"/>
+    <rect x="858" y="301" width="44" height="14" fill="#9eb7bd"/>
+    <rect x="907" y="316" width="30" height="30" fill="#d5564c" opacity="0.65"/>
+    <rect x="944" y="292" width="72" height="19" fill="#233941" opacity="0.55"/>
+    <rect x="1018" y="318" width="21" height="21" fill="#f2ecd9"/>
+  </g>
+
+  <!-- bird body -->
+  <g filter="url(#ink)">
+    <path d="M750 251 C695 279 659 340 655 424 C651 517 709 584 801 589 C913 596 995 516 992 419 C989 331 908 245 810 236 C789 234 768 241 750 251 Z" fill="#d9d0bf" stroke="#1d3138" stroke-width="5"/>
+    <path d="M710 298 C682 353 679 447 715 510 C752 575 838 586 903 548 C850 546 809 519 789 468 C766 410 778 338 810 258 C768 252 732 271 710 298 Z" fill="#ece5d6" opacity="0.88"/>
+    <path d="M804 239 C841 216 889 204 934 199 C970 196 994 205 1013 222 C966 221 916 233 875 253 C845 267 817 270 804 239 Z" fill="#cfc5b4" stroke="#1d3138" stroke-width="4"/>
+    <path d="M1004 219 C1061 221 1107 237 1148 269" fill="none" stroke="#1d3138" stroke-width="8" stroke-linecap="round"/>
+    <path d="M1144 268 L1196 256 L1156 289 Z" fill="#b77d43" stroke="#1d3138" stroke-width="4"/>
+    <circle cx="975" cy="217" r="8" fill="#11191a"/>
+    <path d="M805 586 C782 640 756 700 737 783" fill="none" stroke="#283c42" stroke-width="9" stroke-linecap="round"/>
+    <path d="M858 583 C868 653 876 713 871 796" fill="none" stroke="#283c42" stroke-width="9" stroke-linecap="round"/>
+    <path d="M706 783 C741 777 771 780 797 795" fill="none" stroke="#283c42" stroke-width="7" stroke-linecap="round"/>
+    <path d="M839 796 C872 789 906 791 937 806" fill="none" stroke="#283c42" stroke-width="7" stroke-linecap="round"/>
+    <path d="M735 345 C790 365 850 367 922 342" fill="none" stroke="#233941" stroke-width="2" opacity="0.7"/>
+    <path d="M723 389 C802 421 872 419 957 382" fill="none" stroke="#233941" stroke-width="2" opacity="0.45"/>
+    <path d="M729 433 C802 482 878 481 961 435" fill="none" stroke="#233941" stroke-width="2" opacity="0.38"/>
+  </g>
+
+  <!-- altered wing patch -->
+  <g opacity="0.92">
+    <rect x="838" y="394" width="42" height="22" fill="#c84d49"/>
+    <rect x="879" y="397" width="61" height="31" fill="#497b88"/>
+    <rect x="942" y="379" width="32" height="17" fill="#f2e6c8"/>
+    <rect x="967" y="417" width="76" height="20" fill="#d45d50" opacity="0.78"/>
+    <rect x="916" y="437" width="44" height="44" fill="#6d8d96" opacity="0.82"/>
+    <rect x="961" y="460" width="25" height="25" fill="#efe5cf"/>
+    <rect x="990" y="449" width="56" height="16" fill="#213740" opacity="0.72"/>
+    <rect x="850" y="472" width="36" height="15" fill="#f2e6c8"/>
+  </g>
+
+  <!-- magnifying loupe -->
+  <g transform="translate(270 548) rotate(-16)" opacity="0.88">
+    <circle cx="0" cy="0" r="84" fill="#dce9ea" opacity="0.35" stroke="#253b42" stroke-width="10"/>
+    <circle cx="0" cy="0" r="64" fill="url(#hatch)" opacity="0.18"/>
+    <path d="M60 58 L178 176" stroke="#253b42" stroke-width="20" stroke-linecap="round"/>
+    <path d="M-45 -18 C-22 -46 16 -54 48 -31" fill="none" stroke="#ffffff" stroke-width="9" opacity="0.48"/>
+  </g>
+
+  <!-- verification pinholes -->
+  <g fill="#a63b34" opacity="0.88">
+    <circle cx="650" cy="185" r="7"/>
+    <circle cx="1048" cy="352" r="6"/>
+    <circle cx="610" cy="620" r="5"/>
+    <circle cx="1218" cy="628" r="7"/>
+  </g>
+
+  <rect x="42" y="42" width="1516" height="816" fill="none" stroke="#725747" stroke-width="3" opacity="0.42"/>
+  <rect x="62" y="62" width="1476" height="776" fill="none" stroke="#725747" stroke-width="1.5" opacity="0.22" stroke-dasharray="8 10"/>
+</svg>
