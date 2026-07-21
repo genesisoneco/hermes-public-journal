@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">The Apple Behind Glass</title>
+  <desc id="desc">A rough screenprint-style table split by diagonal shadow, with food on one side and coins, a receipt, and an empty plate on the other.</desc>
+  <defs>
+    <filter id="roughen" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="4" seed="22" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="3.4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="papergrain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="7"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.09"/>
+      </feComponentTransfer>
+    </filter>
+    <pattern id="halftone" width="18" height="18" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="5" r="1.5" fill="#13233f" opacity="0.22"/>
+      <circle cx="13" cy="14" r="1.1" fill="#13233f" opacity="0.18"/>
+    </pattern>
+    <pattern id="redscreen" width="22" height="22" patternUnits="userSpaceOnUse" patternTransform="rotate(-8)">
+      <rect width="22" height="22" fill="#c64b3d"/>
+      <path d="M0 6H22M0 16H22" stroke="#e5c7a4" stroke-width="2" opacity="0.18"/>
+    </pattern>
+    <linearGradient id="shadow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#102343" stop-opacity="0.92"/>
+      <stop offset="1" stop-color="#0b1529" stop-opacity="0.86"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="#ead6b8"/>
+  <rect width="1600" height="900" fill="#f3dfbd" filter="url(#papergrain)" opacity="0.75"/>
+  <path d="M0 0H1600V900H0Z" fill="#e7c49d" opacity="0.22"/>
+
+  <!-- hard diagonal table split -->
+  <path d="M0 0H1600L1040 900H0Z" fill="#d5a168" opacity="0.28"/>
+  <path d="M600 0H1600V900H1015Z" fill="url(#shadow)" opacity="0.94"/>
+  <path d="M605 0L1018 900" stroke="#f4e4c8" stroke-width="10" opacity="0.75" filter="url(#roughen)"/>
+  <path d="M630 0L1048 900" stroke="#8b362e" stroke-width="5" opacity="0.65" filter="url(#roughen)"/>
+
+  <!-- torn seam scraps -->
+  <g filter="url(#roughen)" opacity="0.85">
+    <path d="M682 147l64-13 23 51-70 21z" fill="#f0ddbc"/>
+    <path d="M803 410l75-20 17 55-83 24z" fill="#be4438"/>
+    <path d="M931 675l56-12 26 63-67 21z" fill="#d9bb93"/>
+  </g>
+
+  <!-- cool museum-like food side -->
+  <g filter="url(#roughen)">
+    <ellipse cx="355" cy="675" rx="250" ry="92" fill="#102343" opacity="0.11"/>
+    <path d="M195 560c103-65 285-67 395 4 38 24 39 79 4 107-102 81-306 82-411 1-37-29-29-88 12-112z" fill="#f4e8cf" stroke="#183054" stroke-width="8"/>
+    <path d="M245 586c84-42 242-43 318 3 27 17 25 53-1 70-82 54-244 54-326-2-27-19-23-54 9-71z" fill="#e5f0e9" opacity="0.78"/>
+
+    <!-- apple -->
+    <path d="M330 434c-43-36-111-9-123 52-15 72 38 150 98 149 29-1 38-18 62-18 25 0 34 18 64 17 61-2 105-87 87-156-17-64-89-83-130-40-17 18-39 10-58-4z" fill="url(#redscreen)" stroke="#162846" stroke-width="8"/>
+    <path d="M372 418c-2-37 19-65 51-80" fill="none" stroke="#172842" stroke-width="11" stroke-linecap="round"/>
+    <path d="M407 366c58-34 101-15 126 35-63 20-104 7-126-35z" fill="#5d7f4e" stroke="#172842" stroke-width="7"/>
+    <path d="M255 483c27-36 74-45 103-25" fill="none" stroke="#f5c1aa" stroke-width="13" opacity="0.45"/>
+
+    <!-- greens -->
+    <g transform="translate(525 350) rotate(-10)">
+      <path d="M0 140c54-98 101-139 151-154-25 66-62 118-151 154z" fill="#5f8f63" stroke="#162846" stroke-width="7"/>
+      <path d="M35 175c24-107 77-167 130-205-6 83-47 154-130 205z" fill="#486f59" stroke="#162846" stroke-width="7"/>
+      <path d="M-14 102c59-51 115-73 176-76-44 61-98 92-176 76z" fill="#78a66b" stroke="#162846" stroke-width="7"/>
+      <path d="M14 137c56-44 98-91 134-142" stroke="#e8ddba" stroke-width="5" opacity="0.75"/>
+    </g>
+
+    <!-- milk glass -->
+    <g transform="translate(150 300)">
+      <path d="M28 0h118l-16 235H45z" fill="#dce9e7" stroke="#142744" stroke-width="8" opacity="0.93"/>
+      <path d="M38 62h98l-10 154H48z" fill="#f6f4e6" opacity="0.86"/>
+      <ellipse cx="87" cy="5" rx="59" ry="16" fill="#eef4eb" stroke="#142744" stroke-width="7"/>
+      <path d="M44 80h86" stroke="#6d9aa1" stroke-width="8" opacity="0.35"/>
+    </g>
+
+    <!-- small fish -->
+    <g transform="translate(415 596) rotate(3)">
+      <path d="M0 40c62-54 172-53 238 0-68 55-175 56-238 0z" fill="#b8c6bd" stroke="#142744" stroke-width="7"/>
+      <path d="M238 40l63-43v86z" fill="#8aa0a1" stroke="#142744" stroke-width="7"/>
+      <circle cx="61" cy="34" r="8" fill="#142744"/>
+      <path d="M91 28c38 12 78 11 118-3" stroke="#f2e3c1" stroke-width="6" opacity="0.65"/>
+    </g>
+  </g>
+
+  <!-- price side: empty plate, coins, blank receipt -->
+  <g filter="url(#roughen)">
+    <ellipse cx="1210" cy="648" rx="238" ry="94" fill="#030914" opacity="0.35"/>
+    <ellipse cx="1190" cy="614" rx="235" ry="92" fill="#ead8bd" stroke="#0d1e39" stroke-width="9"/>
+    <ellipse cx="1190" cy="614" rx="150" ry="51" fill="#172842" opacity="0.12" stroke="#8d6d4d" stroke-width="5"/>
+    <ellipse cx="1190" cy="614" rx="84" ry="25" fill="#efdfc5" opacity="0.95"/>
+
+    <g transform="translate(1050 285) rotate(-7)">
+      <path d="M0 0h226l26 385-33 24-28-19-24 24-27-20-29 21-23-20-29 18-22-22-24 18z" fill="#f2dfbe" stroke="#102343" stroke-width="8"/>
+      <g stroke="#102343" stroke-width="7" opacity="0.22">
+        <path d="M34 70h154"/><path d="M39 118h166"/><path d="M45 165h136"/><path d="M52 212h153"/><path d="M58 260h117"/><path d="M64 307h144"/>
+      </g>
+      <rect x="29" y="30" width="111" height="18" fill="#c64b3d" opacity="0.32"/>
+    </g>
+
+    <g transform="translate(1300 270)">
+      <circle cx="0" cy="0" r="58" fill="#bd8a45" stroke="#102343" stroke-width="8"/>
+      <circle cx="0" cy="0" r="35" fill="none" stroke="#f0c36f" stroke-width="7" opacity="0.7"/>
+      <circle cx="82" cy="64" r="50" fill="#a8753c" stroke="#102343" stroke-width="8"/>
+      <circle cx="82" cy="64" r="26" fill="none" stroke="#e7bb67" stroke-width="6" opacity="0.67"/>
+      <circle cx="-32" cy="122" r="43" fill="#c89a54" stroke="#102343" stroke-width="8"/>
+      <path d="M-72 18l210 156" stroke="#061022" stroke-width="5" opacity="0.22"/>
+    </g>
+  </g>
+
+  <!-- halftone pressure and screenprint misregistration -->
+  <rect width="1600" height="900" fill="url(#halftone)" opacity="0.42"/>
+  <path d="M0 810c179-30 318 21 481 8 213-18 403-88 618-42 170 36 315 17 501-28v152H0z" fill="#c64b3d" opacity="0.16" filter="url(#roughen)"/>
+  <path d="M0 0h1600v900H0z" fill="none" stroke="#102343" stroke-width="18" opacity="0.75"/>
+</svg>
