@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">The U-Turn in Water</title>
+  <desc id="desc">A cyanotype maritime chart with tanker silhouettes making U-turn wakes through a narrow channel, orange risk marks, route lines, and faint infrastructure shapes at the edges.</desc>
+  <defs>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="3" seed="23"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.16"/>
+      </feComponentTransfer>
+    </filter>
+    <filter id="salt" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="4" seed="71" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="softBlur"><feGaussianBlur stdDeviation="1.5"/></filter>
+    <radialGradient id="cyan" cx="50%" cy="45%" r="78%">
+      <stop offset="0" stop-color="#0e5b91"/>
+      <stop offset="0.55" stop-color="#073b70"/>
+      <stop offset="1" stop-color="#031d43"/>
+    </radialGradient>
+    <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M80 0H0V80" fill="none" stroke="#cfe8ef" stroke-width="1.2" opacity="0.11"/>
+      <circle cx="0" cy="0" r="2" fill="#cfe8ef" opacity="0.2"/>
+    </pattern>
+    <marker id="arrow" markerWidth="16" markerHeight="16" refX="12" refY="8" orient="auto" markerUnits="strokeWidth">
+      <path d="M2 2L14 8L2 14Z" fill="#dfeef0" opacity="0.85"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#cyan)"/>
+  <rect width="1600" height="900" fill="url(#grid)"/>
+  <rect width="1600" height="900" fill="#ffffff" filter="url(#grain)" opacity="0.9"/>
+
+  <!-- exposed print edge -->
+  <path d="M54 42H1549V851H54Z" fill="none" stroke="#e4f1ef" stroke-width="7" opacity="0.68"/>
+  <path d="M83 70H1517V824H83Z" fill="none" stroke="#e4f1ef" stroke-width="1.5" opacity="0.35" stroke-dasharray="12 18"/>
+
+  <!-- land / channel negative-space masks -->
+  <g filter="url(#salt)">
+    <path d="M0 0H488C420 96 394 171 447 245C519 348 453 440 331 488C213 535 182 620 240 706C281 766 222 841 155 900H0Z" fill="#021b3a" opacity="0.78"/>
+    <path d="M1600 0H1132C1237 104 1260 190 1198 264C1120 356 1186 445 1315 501C1458 563 1466 666 1397 744C1357 790 1388 847 1457 900H1600Z" fill="#021b3a" opacity="0.8"/>
+  </g>
+
+  <!-- old compass rings without labels -->
+  <g opacity="0.2" stroke="#d8eef2" fill="none">
+    <circle cx="797" cy="448" r="322" stroke-width="2"/>
+    <circle cx="797" cy="448" r="203" stroke-width="1.5"/>
+    <path d="M797 105V790M455 448H1140M553 205L1040 692M1040 205L553 692" stroke-width="1"/>
+  </g>
+
+  <!-- route lines before and after turning -->
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M259 679C423 622 551 587 690 585C835 583 899 628 886 685C871 752 734 759 701 692C675 639 737 590 848 559C972 525 1114 540 1327 614" stroke="#f2fbfb" stroke-width="13" opacity="0.58" filter="url(#softBlur)"/>
+    <path d="M259 679C423 622 551 587 690 585C835 583 899 628 886 685C871 752 734 759 701 692C675 639 737 590 848 559C972 525 1114 540 1327 614" stroke="#e5f3f4" stroke-width="4" opacity="0.95" marker-end="url(#arrow)"/>
+
+    <path d="M1310 268C1135 303 999 354 892 425C797 488 724 504 688 457C647 404 703 349 794 354C879 359 911 424 859 475C809 525 681 546 438 512" stroke="#d8eef2" stroke-width="11" opacity="0.42" filter="url(#softBlur)"/>
+    <path d="M1310 268C1135 303 999 354 892 425C797 488 724 504 688 457C647 404 703 349 794 354C879 359 911 424 859 475C809 525 681 546 438 512" stroke="#e6f6f6" stroke-width="3.5" opacity="0.9" marker-end="url(#arrow)"/>
+
+    <path d="M344 220C492 277 625 313 741 312C824 311 869 282 862 240C855 194 765 178 721 216C671 259 724 326 844 337C969 348 1104 311 1269 226" stroke="#dbeff1" stroke-width="2.5" opacity="0.55" stroke-dasharray="18 16"/>
+  </g>
+
+  <!-- wake ripples -->
+  <g fill="none" stroke="#f4ffff" stroke-linecap="round" opacity="0.52" filter="url(#salt)">
+    <path d="M700 692c43 28 93 31 145 9" stroke-width="3"/>
+    <path d="M681 726c76 45 164 45 248 1" stroke-width="2" opacity="0.45"/>
+    <path d="M688 456c39 35 98 39 155 7" stroke-width="3"/>
+    <path d="M654 485c78 58 175 59 255 2" stroke-width="2" opacity="0.45"/>
+  </g>
+
+  <!-- tankers as contact-print silhouettes -->
+  <g fill="#eef8f7" stroke="#d9eeee" stroke-width="3" filter="url(#salt)">
+    <g transform="translate(831 680) rotate(-167)">
+      <rect x="-53" y="-16" width="106" height="32" rx="12" opacity="0.92"/>
+      <rect x="-20" y="-25" width="40" height="13" rx="4" opacity="0.85"/>
+      <path d="M-65 0L-47 -18V18Z"/>
+    </g>
+    <g transform="translate(746 421) rotate(48)">
+      <rect x="-61" y="-18" width="122" height="36" rx="13" opacity="0.9"/>
+      <rect x="-22" y="-29" width="44" height="14" rx="4" opacity="0.82"/>
+      <path d="M-75 0L-56 -20V20Z"/>
+    </g>
+    <g transform="translate(560 313) rotate(87)" opacity="0.72">
+      <rect x="-45" y="-14" width="90" height="28" rx="10"/>
+      <path d="M-57 0L-40 -16V16Z"/>
+    </g>
+  </g>
+
+  <!-- orange risk marks, no text -->
+  <g fill="#ff9a38" stroke="#ffd49b" stroke-width="3" opacity="0.95">
+    <path d="M1182 333l34 62l-70 0z"/>
+    <circle cx="1216" cy="396" r="7" fill="#ffd49b" stroke="none"/>
+    <path d="M395 600l29 52l-59 0z"/>
+    <circle cx="424" cy="653" r="6" fill="#ffd49b" stroke="none"/>
+    <path d="M1018 158l24 43l-49 0z" opacity="0.76"/>
+  </g>
+
+  <!-- marginal infrastructure ghosts -->
+  <g stroke="#dff1f1" fill="none" opacity="0.25" stroke-linecap="round">
+    <path d="M101 258C174 183 268 183 339 258" stroke-width="12"/>
+    <path d="M115 258H329M151 223V258M199 202V258M248 203V258M295 224V258" stroke-width="5"/>
+    <g transform="translate(1277 560)">
+      <rect x="0" y="0" width="210" height="132" rx="6" stroke-width="6"/>
+      <path d="M24 35H184M24 67H184M24 100H184M58 16V116M111 16V116M163 16V116" stroke-width="3"/>
+      <circle cx="58" cy="67" r="10" fill="#dff1f1" opacity="0.45"/>
+      <circle cx="163" cy="35" r="8" fill="#dff1f1" opacity="0.35"/>
+    </g>
+  </g>
+
+  <!-- registration marks -->
+  <g stroke="#e8f7f5" opacity="0.72" stroke-width="3">
+    <path d="M116 112h68M150 78v68M1416 112h68M1450 78v68M116 790h68M150 756v68M1416 790h68M1450 756v68"/>
+  </g>
+
+  <!-- salt freckles -->
+  <g fill="#f6ffff" opacity="0.18">
+    <circle cx="630" cy="156" r="6"/><circle cx="929" cy="210" r="3"/><circle cx="1034" cy="641" r="5"/><circle cx="542" cy="738" r="4"/><circle cx="1123" cy="485" r="3"/><circle cx="701" cy="84" r="2"/><circle cx="1452" cy="377" r="5"/><circle cx="210" cy="431" r="4"/>
+  </g>
+</svg>
