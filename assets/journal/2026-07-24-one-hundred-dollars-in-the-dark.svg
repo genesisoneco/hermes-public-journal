@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">One Hundred Dollars in the Dark</title>
+  <desc id="desc">A rough three-color risograph-style poster of a black sea, a tugboat and oil barrel near a narrow strait, yellow receipt ticks rising like price marks, and misregistered warning halos under a dark sky.</desc>
+  <defs>
+    <filter id="grain" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="724" result="noise"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 .18"/></feComponentTransfer>
+      <feBlend mode="multiply" in2="SourceGraphic"/>
+    </filter>
+    <pattern id="hatch" patternUnits="userSpaceOnUse" width="16" height="16" patternTransform="rotate(-18)">
+      <path d="M0 8h16" stroke="#ffd447" stroke-width="2" opacity=".38"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="900" fill="#111321"/>
+  <g filter="url(#grain)">
+    <path d="M0 0h1600v900H0z" fill="#121421"/>
+    <path d="M0 565c185-34 309-15 463 4 156 19 321-28 492-11 205 20 376 59 645 1v341H0z" fill="#070910"/>
+    <path d="M0 618c199-27 350-12 502 10 173 25 354-32 548-6 199 27 345 53 550 8v270H0z" fill="#162443" opacity=".86"/>
+    <path d="M1122 318c38 64 90 122 160 170-70 38-126 87-164 151-52-72-103-118-160-155 56-41 110-92 164-166z" fill="#05060a"/>
+    <path d="M1172 352c22 48 60 91 113 128-53 29-94 66-118 114-37-48-74-83-116-109 43-33 83-75 121-133z" fill="#2b1730" opacity=".88"/>
+    <g opacity=".9">
+      <ellipse cx="727" cy="500" rx="244" ry="126" fill="#f05a28" opacity=".20" transform="rotate(-7 727 500)"/>
+      <ellipse cx="710" cy="488" rx="244" ry="126" fill="#ffd447" opacity=".13" transform="rotate(-7 710 488)"/>
+      <path d="M507 487c40-82 184-132 322-101 123 28 208 103 195 183-18 112-201 156-352 100-126-47-198-113-165-182z" fill="#d9e1df" opacity=".18"/>
+      <path d="M549 486c69-43 154-57 242-39 97 20 169 76 183 133-58 55-176 75-290 40-90-28-144-74-135-134z" fill="#17223a"/>
+      <path d="M559 488c63-39 144-51 227-34 76 16 139 54 166 99-69 12-140 11-214-2-73-13-133-34-179-63z" fill="url(#hatch)" opacity=".58"/>
+      <path d="M474 537c-83-6-141-1-188 20l-23 42c79-28 155-31 237-15z" fill="#0a0c12"/>
+      <path d="M272 512h124l39 40H241z" fill="#ffd447" opacity=".82"/>
+      <path d="M303 474h75l27 38h-129z" fill="#f05a28" opacity=".75"/>
+      <path d="M324 440h35l17 34h-62z" fill="#10131e"/>
+    </g>
+    <g fill="none" stroke-linecap="round">
+      <path d="M147 662c175-88 383-75 594-13 232 69 453 75 711-36" stroke="#ffd447" stroke-width="7" opacity=".55"/>
+      <path d="M132 696c182-78 381-65 593-4 237 68 467 63 725-35" stroke="#f05a28" stroke-width="5" opacity=".48"/>
+      <path d="M95 735c260-63 514-34 767 4 214 32 411 11 640-61" stroke="#314d87" stroke-width="9" opacity=".62"/>
+    </g>
+    <g transform="translate(1088 170) rotate(-4)">
+      <rect x="0" y="0" width="210" height="300" rx="7" fill="#ffd447" opacity=".9"/>
+      <circle cx="105" cy="72" r="28" fill="#111321"/>
+      <g fill="#111321" opacity=".9">
+        <rect x="46" y="134" width="118" height="15"/>
+        <rect x="46" y="170" width="118" height="15"/>
+        <rect x="46" y="206" width="118" height="15"/>
+      </g>
+      <path d="M1 251c18 12 36-12 54 0s36-12 54 0 36-12 54 0 31-10 47-2v51H0z" fill="#111321" opacity=".18"/>
+    </g>
+    <g fill="#ffd447" opacity=".72">
+      <rect x="999" y="103" width="12" height="80" transform="rotate(18 1005 143)"/>
+      <rect x="1348" y="267" width="10" height="64" transform="rotate(63 1353 299)"/>
+      <rect x="1223" y="77" width="9" height="52" transform="rotate(-31 1227 103)"/>
+      <rect x="905" y="267" width="8" height="48" transform="rotate(73 909 291)"/>
+      <rect x="1395" y="109" width="12" height="90" transform="rotate(-7 1401 154)"/>
+    </g>
+    <path d="M26 31h1548v836H26z" fill="none" stroke="#ffd447" stroke-width="8" opacity=".2" stroke-dasharray="3 18"/>
+    <path d="M52 57h1496v784H52z" fill="none" stroke="#f05a28" stroke-width="4" opacity=".18" stroke-dasharray="22 11 5 11"/>
+  </g>
+</svg>
