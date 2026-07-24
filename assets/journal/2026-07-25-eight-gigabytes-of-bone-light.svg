@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Eight gigabytes of bone light</title>
+  <desc id="desc">A dark radiology desk holds translucent scan plates, blocky audit traces, an open drawer, and a red access light.</desc>
+  <defs>
+    <filter id="grain" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.16"/>
+      </feComponentTransfer>
+      <feBlend mode="screen" in2="SourceGraphic"/>
+    </filter>
+    <linearGradient id="room" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#061019"/>
+      <stop offset="0.52" stop-color="#0b1015"/>
+      <stop offset="1" stop-color="#010304"/>
+    </linearGradient>
+    <linearGradient id="plate" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d9fbff" stop-opacity="0.92"/>
+      <stop offset="0.45" stop-color="#77b8c9" stop-opacity="0.38"/>
+      <stop offset="1" stop-color="#0d2734" stop-opacity="0.16"/>
+    </linearGradient>
+    <radialGradient id="redglow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#ff473d" stop-opacity="0.95"/>
+      <stop offset="0.3" stop-color="#c71622" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#c71622" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#room)"/>
+  <rect width="1600" height="900" fill="#020406" opacity="0.18" filter="url(#grain)"/>
+
+  <!-- fluorescent ceiling slit -->
+  <path d="M190 88 L1260 44 L1390 76 L330 126 Z" fill="#bfeaff" opacity="0.09"/>
+  <path d="M220 100 L1220 60" stroke="#e4ffff" stroke-width="3" opacity="0.18"/>
+
+  <!-- back wall cabinets -->
+  <g opacity="0.55">
+    <rect x="80" y="180" width="420" height="420" rx="6" fill="#101922" stroke="#263846"/>
+    <line x1="290" y1="180" x2="290" y2="600" stroke="#263846"/>
+    <line x1="80" y1="318" x2="500" y2="318" stroke="#22323f"/>
+    <line x1="80" y1="456" x2="500" y2="456" stroke="#22323f"/>
+    <rect x="515" y="210" width="250" height="360" rx="6" fill="#0a1118" stroke="#263846"/>
+    <path d="M515 430 L760 390 L760 570 L515 570 Z" fill="#1e2e39" opacity="0.82"/>
+    <path d="M532 450 L742 416" stroke="#5d7480" stroke-width="3" opacity="0.35"/>
+  </g>
+
+  <!-- black desk -->
+  <path d="M90 700 C420 635 1040 620 1510 690 L1600 900 L0 900 Z" fill="#030608"/>
+  <path d="M150 708 C500 652 1040 652 1450 702" stroke="#25313a" stroke-width="2" opacity="0.7"/>
+
+  <!-- translucent scan plates -->
+  <g transform="translate(650 155) rotate(-7)">
+    <rect x="0" y="0" width="310" height="420" rx="14" fill="url(#plate)" stroke="#d9fbff" stroke-opacity="0.55" stroke-width="2"/>
+    <ellipse cx="158" cy="104" rx="72" ry="52" fill="none" stroke="#eafcff" stroke-opacity="0.5" stroke-width="10"/>
+    <path d="M86 202 C130 178 190 180 232 210 C220 300 204 354 154 384 C106 350 82 292 86 202 Z" fill="none" stroke="#eafcff" stroke-opacity="0.38" stroke-width="9"/>
+    <path d="M137 190 C136 248 137 318 132 375" stroke="#eafcff" stroke-opacity="0.45" stroke-width="8" fill="none"/>
+    <path d="M174 193 C178 251 179 320 185 374" stroke="#eafcff" stroke-opacity="0.28" stroke-width="6" fill="none"/>
+  </g>
+  <g transform="translate(910 190) rotate(8)" opacity="0.9">
+    <rect x="0" y="0" width="340" height="370" rx="12" fill="url(#plate)" stroke="#d9fbff" stroke-opacity="0.42" stroke-width="2"/>
+    <g fill="none" stroke="#eafcff" stroke-opacity="0.38" stroke-width="5">
+      <circle cx="92" cy="92" r="46"/><circle cx="230" cy="92" r="58"/>
+      <circle cx="100" cy="230" r="62"/><circle cx="238" cy="238" r="48"/>
+    </g>
+    <g stroke="#a9e8f4" stroke-opacity="0.25" stroke-width="2">
+      <line x1="40" y1="170" x2="300" y2="170"/><line x1="170" y1="35" x2="170" y2="335"/>
+    </g>
+  </g>
+  <g transform="translate(470 330) rotate(4)" opacity="0.72">
+    <rect x="0" y="0" width="270" height="250" rx="10" fill="url(#plate)" stroke="#d9fbff" stroke-opacity="0.4"/>
+    <path d="M70 172 C92 104 128 72 174 80 C208 88 224 130 214 176 C174 160 112 158 70 172 Z" fill="none" stroke="#eafcff" stroke-opacity="0.36" stroke-width="8"/>
+  </g>
+
+  <!-- audit blocks, deliberately illegible -->
+  <g transform="translate(1120 560) rotate(-3)" opacity="0.83">
+    <rect x="0" y="0" width="345" height="170" rx="6" fill="#121a21" stroke="#50616b" stroke-opacity="0.55"/>
+    <g fill="#7f8d94" opacity="0.42">
+      <rect x="25" y="26" width="82" height="12"/><rect x="118" y="26" width="170" height="12"/>
+      <rect x="25" y="55" width="240" height="10"/><rect x="278" y="55" width="36" height="10"/>
+      <rect x="25" y="84" width="60" height="10"/><rect x="96" y="84" width="208" height="10"/>
+      <rect x="25" y="113" width="128" height="11"/><rect x="166" y="113" width="140" height="11"/>
+      <rect x="25" y="142" width="205" height="9"/><rect x="244" y="142" width="70" height="9"/>
+    </g>
+  </g>
+
+  <!-- warning light and reflection -->
+  <circle cx="1055" cy="662" r="16" fill="#ff463b"/>
+  <circle cx="1055" cy="662" r="80" fill="url(#redglow)"/>
+  <ellipse cx="1058" cy="760" rx="155" ry="22" fill="#ff332a" opacity="0.12"/>
+  <path d="M1037 682 C1048 718 1062 720 1074 682" fill="#ff332a" opacity="0.16"/>
+
+  <!-- scattered dark hardware -->
+  <rect x="270" y="654" width="260" height="56" rx="8" fill="#0c1116" stroke="#2b3943"/>
+  <circle cx="500" cy="681" r="8" fill="#50616b" opacity="0.6"/>
+  <path d="M590 742 L866 710 L920 760 L628 800 Z" fill="#111920" stroke="#2a3943" opacity="0.82"/>
+  <g stroke="#2c444f" opacity="0.75">
+    <line x1="642" y1="746" x2="870" y2="720"/>
+    <line x1="667" y1="766" x2="897" y2="739"/>
+    <line x1="693" y1="787" x2="922" y2="759"/>
+  </g>
+</svg>
