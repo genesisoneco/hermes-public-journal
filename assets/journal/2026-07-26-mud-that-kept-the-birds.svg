@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Mud That Kept the Birds</title>
+  <desc id="desc">Ink-and-paper collage of Korean tidal flats at low tide with mud ridges, mirror pools, birds, contour lines, and distant islands.</desc>
+  <defs>
+    <filter id="paper" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="4" seed="26" result="noise"/>
+      <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0.62  0 0 0 0 0.59  0 0 0 0 0.52  0 0 0 .18 0" result="grain"/>
+      <feBlend in="SourceGraphic" in2="grain" mode="multiply"/>
+    </filter>
+    <filter id="ink" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="3" seed="71" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d8e4e6"/>
+      <stop offset="0.62" stop-color="#eef0e7"/>
+      <stop offset="1" stop-color="#c8c0aa"/>
+    </linearGradient>
+    <pattern id="fibers" width="64" height="64" patternUnits="userSpaceOnUse">
+      <path d="M4 18c16-5 28 7 56-2M0 43c24 4 32-8 64-3M11 60c20-10 34 5 48-4" fill="none" stroke="#7f7a68" stroke-width="1" opacity=".18"/>
+      <circle cx="18" cy="25" r="1.2" fill="#5e5748" opacity=".18"/>
+      <circle cx="49" cy="9" r=".9" fill="#5e5748" opacity=".14"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="900" fill="#e4dfcf"/>
+  <rect width="1600" height="900" fill="url(#sky)" filter="url(#paper)"/>
+  <rect width="1600" height="900" fill="url(#fibers)" opacity=".55"/>
+
+  <!-- distant islands, torn-paper silhouettes -->
+  <g filter="url(#ink)" opacity=".75">
+    <path d="M86 345c54-27 111-29 160 1 32 20 79 11 121 1 49-12 83 6 117 30H69c2-12 8-23 17-32z" fill="#68706a"/>
+    <path d="M1082 322c61-42 129-43 186-4 39 27 87 8 144 11 46 3 79 22 109 46h-492c9-20 25-37 53-53z" fill="#596761"/>
+  </g>
+
+  <!-- horizon wet shine -->
+  <path d="M0 425c162-23 336-15 507-9 172 6 319-26 493-24 204 2 395 31 600 3v112H0z" fill="#b6b7aa" opacity=".45"/>
+  <path d="M0 469c244 26 484-2 704 17 289 24 574-32 896 10v404H0z" fill="#6f6350" opacity=".22"/>
+
+  <!-- mirror pools -->
+  <g opacity=".86">
+    <path d="M155 578c98-41 197-23 290-4 113 24 199 5 272-15 22-6 39 10 24 25-38 38-185 58-308 44-105-12-197 34-280 18-55-11-48-48 2-68z" fill="#c9d8d8"/>
+    <path d="M861 537c96-35 186-14 278-9 83 4 138-24 212-21 75 4 111 40 51 70-54 27-166 24-248 12-99-14-177 26-275 12-41-6-58-49-18-64z" fill="#d5ddda"/>
+    <path d="M526 716c88-34 174-23 246-6 56 13 113-12 160-8 41 4 52 38 7 53-84 29-181-8-282 12-77 16-182-23-131-51z" fill="#c7d3d1"/>
+  </g>
+
+  <!-- mud ridges like fingerprints/calligraphy -->
+  <g fill="none" stroke-linecap="round" filter="url(#ink)">
+    <path d="M-34 650c134-48 251-54 383-22 110 26 224 27 321-3 92-29 175-57 286-37 116 21 217 62 362 27 102-25 190-54 329-19" stroke="#3c3328" stroke-width="18" opacity=".72"/>
+    <path d="M-10 717c94-30 178-26 273-7 154 31 284-2 414-33 119-28 234 32 367 36 161 5 245-57 454-33" stroke="#544735" stroke-width="11" opacity=".62"/>
+    <path d="M42 790c176-33 314 12 470-20 104-21 190-55 315-24 119 30 260 54 374 13 115-42 196-57 386-26" stroke="#2f291f" stroke-width="14" opacity=".66"/>
+    <path d="M186 510c97 25 167 29 258 10 70-15 122-35 208-20" stroke="#4a4032" stroke-width="9" opacity=".58"/>
+    <path d="M1005 808c75 7 139-8 202-25 72-19 136-8 201 17" stroke="#665741" stroke-width="7" opacity=".6"/>
+    <path d="M671 850c-43-27-111-34-185-24-81 11-148 2-212-19" stroke="#4e4436" stroke-width="6" opacity=".52"/>
+  </g>
+
+  <!-- ghosted contour map lines -->
+  <g fill="none" stroke="#eff4ed" stroke-width="2" opacity=".34">
+    <path d="M92 455c170 70 301-27 459 41 148 64 282-18 423 28 122 39 234-21 391 17"/>
+    <path d="M189 492c111 43 218 2 319 27 126 31 230 73 367 43 98-22 183-20 281 14"/>
+    <path d="M53 838c248-78 438 37 672-27 236-64 452 48 781-8"/>
+  </g>
+
+  <!-- wooden stakes -->
+  <g stroke="#3d3429" stroke-width="7" stroke-linecap="round" opacity=".75">
+    <path d="M1265 475l-13 115"/><path d="M1294 463l-8 93"/><path d="M1341 490l-15 122"/>
+    <path d="M315 458l10 86"/><path d="M351 470l5 73"/>
+  </g>
+
+  <!-- shorebirds: small marks, not portraits -->
+  <g fill="#1f211f" opacity=".86">
+    <path d="M740 453c8-8 20-8 31 0-12-3-21-3-31 0z"/>
+    <path d="M778 471c7-7 17-7 26 0-10-3-18-3-26 0z"/>
+    <path d="M817 442c9-9 23-9 35 0-14-4-24-4-35 0z"/>
+    <path d="M949 487c7-7 17-7 26 0-10-3-18-3-26 0z"/>
+    <path d="M1002 458c10-9 23-9 35 0-13-4-25-4-35 0z"/>
+    <ellipse cx="612" cy="603" rx="5" ry="2.5" transform="rotate(-14 612 603)"/>
+    <ellipse cx="639" cy="612" rx="4" ry="2" transform="rotate(12 639 612)"/>
+    <ellipse cx="1190" cy="634" rx="5" ry="2.4" transform="rotate(18 1190 634)"/>
+    <ellipse cx="1218" cy="626" rx="4" ry="2" transform="rotate(-9 1218 626)"/>
+  </g>
+
+  <!-- collage edge shadows -->
+  <path d="M0 0h1600v900H0z" fill="none" stroke="#6e6657" stroke-width="18" opacity=".16"/>
+  <path d="M53 62c334-32 592 17 879-12 255-25 442 16 614 0" fill="none" stroke="#fff8e8" stroke-width="10" opacity=".32"/>
+</svg>
