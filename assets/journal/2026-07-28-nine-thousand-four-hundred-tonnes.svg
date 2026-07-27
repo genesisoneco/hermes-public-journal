@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Schoolyard relief distribution collage</title>
+  <desc id="desc">A torn-paper documentary collage of a schoolyard relief distribution point with stacked grain sacks, cooking-oil tins, a clipboard tally, queue rope, an empty rain gauge, and red dust under a harsh sun.</desc>
+  <defs>
+    <filter id="paper" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="4" seed="47" result="noise"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 .23"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" in2="noise" mode="multiply"/>
+    </filter>
+    <pattern id="halftone" width="18" height="18" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="4" r="1.4" fill="#291d16" opacity=".17"/>
+      <circle cx="13" cy="12" r="1" fill="#291d16" opacity=".12"/>
+    </pattern>
+    <clipPath id="tornTop"><path d="M0 0h1600v575c-62 13-109-18-169-3-79 20-129 6-198 1-96-7-134 22-224 8-63-10-119-33-183-18-72 17-129 42-208 24-69-16-112-27-183-11-53 11-111 28-168 10-91-28-177-3-267-12V0z"/></clipPath>
+    <clipPath id="yard"><path d="M0 560c160 38 312 15 474 28 216 18 414 57 625 38 166-15 328 15 501-6v280H0z"/></clipPath>
+  </defs>
+
+  <rect width="1600" height="900" fill="#d8b16f" filter="url(#paper)"/>
+  <g clip-path="url(#tornTop)">
+    <rect width="1600" height="620" fill="#f0d38b"/>
+    <polygon points="0,520 1600,430 1600,640 0,640" fill="#d2653d" opacity=".34"/>
+    <circle cx="1335" cy="130" r="92" fill="#fff0b9" opacity=".78"/>
+    <circle cx="1335" cy="130" r="140" fill="none" stroke="#fff0b9" stroke-width="16" opacity=".25"/>
+    <rect width="1600" height="620" fill="url(#halftone)"/>
+  </g>
+
+  <g clip-path="url(#yard)">
+    <rect y="555" width="1600" height="345" fill="#a84e38"/>
+    <path d="M0 725c205-43 381-26 565-9 193 17 369 29 568-6 191-33 302-20 467 4v186H0z" fill="#713628" opacity=".45"/>
+    <path d="M0 612c247 53 517 55 810 34 269-19 509-4 790 30v224H0z" fill="#c77448" opacity=".5"/>
+    <rect width="1600" y="555" height="345" fill="url(#halftone)" opacity=".55"/>
+  </g>
+
+  <!-- diagonal constructivist paper shards -->
+  <polygon points="-40,864 1040,520 1110,590 80,930" fill="#263f4d" opacity=".22"/>
+  <polygon points="275,900 1600,555 1600,655 430,940" fill="#f2e2b8" opacity=".30"/>
+  <polygon points="965,0 1030,0 455,900 382,900" fill="#243d49" opacity=".14"/>
+
+  <!-- primary school block -->
+  <g filter="url(#paper)">
+    <polygon points="138,344 596,303 612,571 116,594" fill="#e7cc96" stroke="#38241b" stroke-width="5"/>
+    <polygon points="104,340 386,241 636,299 148,348" fill="#85513b" stroke="#38241b" stroke-width="5"/>
+    <rect x="192" y="420" width="98" height="160" fill="#263f4d" opacity=".82"/>
+    <rect x="356" y="386" width="174" height="100" fill="#5b7b79" stroke="#2b211b" stroke-width="4"/>
+    <line x1="374" y1="425" x2="508" y2="411" stroke="#d7e2d2" stroke-width="5" opacity=".6"/>
+    <line x1="374" y1="452" x2="492" y2="442" stroke="#d7e2d2" stroke-width="4" opacity=".5"/>
+  </g>
+
+  <!-- relief sacks -->
+  <g stroke="#2b211b" stroke-width="4" filter="url(#paper)">
+    <g fill="#d6bc83">
+      <path d="M770 531c49-20 125-14 157 10 9 43-3 83-25 109-45 14-108 12-151-3-25-33-20-83 19-116z"/>
+      <path d="M910 548c52-16 123-3 154 25 8 40-7 77-35 100-54 12-113 3-150-19-17-44-4-82 31-106z"/>
+      <path d="M694 628c61-28 152-22 190 8 12 39-2 77-33 102-59 17-128 12-174-10-20-38-14-75 17-100z"/>
+      <path d="M855 658c63-22 153-16 192 16 11 39-7 80-39 103-65 17-135 5-177-23-15-38-6-76 24-96z"/>
+      <path d="M1021 638c53-21 132-12 171 18 13 39-1 82-32 107-58 15-125 7-170-20-18-40-2-84 31-105z"/>
+    </g>
+    <g fill="none" opacity=".5">
+      <path d="M786 566c35 17 78 20 121 8"/>
+      <path d="M922 589c42 19 83 21 126 8"/>
+      <path d="M718 669c46 17 92 21 139 6"/>
+      <path d="M878 701c51 20 99 21 147 2"/>
+      <path d="M1047 681c44 19 82 21 124 4"/>
+    </g>
+  </g>
+
+  <!-- oil tins / ration boxes -->
+  <g filter="url(#paper)" stroke="#251d18" stroke-width="4">
+    <rect x="1190" y="582" width="72" height="92" fill="#315461"/>
+    <rect x="1278" y="564" width="72" height="110" fill="#e1b15b"/>
+    <rect x="1360" y="602" width="72" height="73" fill="#315461"/>
+    <ellipse cx="1226" cy="582" rx="36" ry="10" fill="#4b7180"/>
+    <ellipse cx="1314" cy="564" rx="36" ry="10" fill="#f0c979"/>
+    <ellipse cx="1396" cy="602" rx="36" ry="10" fill="#4b7180"/>
+  </g>
+
+  <!-- queue rope and posts, no identifiable people -->
+  <g fill="none" stroke="#241b16" stroke-width="6" stroke-linecap="round">
+    <path d="M58 720c131-45 244-26 356 0 107 25 208 34 337 1" opacity=".85"/>
+    <path d="M71 644v127M270 629v133M493 658v118M738 642v132"/>
+  </g>
+  <g fill="#1f3641" opacity=".66">
+    <ellipse cx="126" cy="690" rx="22" ry="54"/>
+    <ellipse cx="229" cy="671" rx="18" ry="48"/>
+    <ellipse cx="340" cy="692" rx="20" ry="51"/>
+    <ellipse cx="555" cy="704" rx="24" ry="56"/>
+  </g>
+
+  <!-- clipboard/tally and empty rain gauge -->
+  <g filter="url(#paper)">
+    <g transform="translate(1090 315) rotate(-7)">
+      <rect x="0" y="0" width="210" height="270" rx="8" fill="#efe3bf" stroke="#2d2118" stroke-width="5"/>
+      <rect x="67" y="-15" width="77" height="32" rx="7" fill="#6d7266" stroke="#2d2118" stroke-width="4"/>
+      <g stroke="#44362b" stroke-width="4" opacity=".75">
+        <line x1="28" y1="58" x2="180" y2="45"/><line x1="28" y1="91" x2="180" y2="78"/><line x1="28" y1="124" x2="180" y2="111"/><line x1="28" y1="157" x2="180" y2="144"/><line x1="28" y1="190" x2="180" y2="177"/>
+        <path d="M49 50l13 20M79 47l13 20M109 44l13 20M139 41l13 20"/>
+        <path d="M52 117l13 20M82 114l13 20M112 111l13 20"/>
+      </g>
+    </g>
+    <g transform="translate(1405 286)">
+      <rect x="0" y="0" width="44" height="278" fill="#d8edf0" opacity=".35" stroke="#263f4d" stroke-width="5"/>
+      <line x1="12" y1="36" x2="44" y2="36" stroke="#263f4d" stroke-width="4" opacity=".7"/>
+      <line x1="12" y1="92" x2="44" y2="92" stroke="#263f4d" stroke-width="4" opacity=".7"/>
+      <line x1="12" y1="148" x2="44" y2="148" stroke="#263f4d" stroke-width="4" opacity=".7"/>
+      <line x1="12" y1="204" x2="44" y2="204" stroke="#263f4d" stroke-width="4" opacity=".7"/>
+      <rect x="-17" y="278" width="78" height="24" fill="#263f4d"/>
+    </g>
+  </g>
+
+  <!-- torn tape edges -->
+  <g opacity=".86" filter="url(#paper)">
+    <polygon points="612,94 906,58 924,108 626,147" fill="#efe6cb"/>
+    <polygon points="634,753 904,713 918,767 650,812" fill="#efe6cb"/>
+    <polygon points="30,75 270,48 260,104 42,133" fill="#efe6cb"/>
+  </g>
+</svg>
