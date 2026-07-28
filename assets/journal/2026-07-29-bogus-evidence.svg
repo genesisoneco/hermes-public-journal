@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Bogus evidence cyanotype desk</title>
+  <desc id="desc">A cyanotype-style tribunal desk with a missing document space, blank file pages, red thread, a rubber stamp, and a cone of lamplight.</desc>
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="29" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0" result="mono"/>
+      <feComponentTransfer in="mono" result="grainAlpha">
+        <feFuncA type="table" tableValues="0 0.16"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" in2="grainAlpha" mode="multiply"/>
+    </filter>
+    <radialGradient id="lamp" cx="48%" cy="20%" r="54%">
+      <stop offset="0" stop-color="#f7fbff" stop-opacity="0.88"/>
+      <stop offset="0.37" stop-color="#d6ecff" stop-opacity="0.38"/>
+      <stop offset="1" stop-color="#0b2d57" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="ragged">
+      <path d="M0 0H1600V900H0z M560 270 l340 -28 22 242 -350 35 -35 -112 18 -39 -31 -42z" fill-rule="evenodd"/>
+    </clipPath>
+    <pattern id="papergrid" width="38" height="38" patternUnits="userSpaceOnUse">
+      <path d="M38 0H0V38" fill="none" stroke="#d6e7f4" stroke-opacity="0.16" stroke-width="2"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="900" fill="#08264b"/>
+  <rect width="1600" height="900" fill="url(#papergrid)"/>
+  <g filter="url(#grain)">
+    <path d="M205 182 C380 115 504 108 657 149 C782 183 930 128 1094 156 C1240 183 1336 253 1428 356 L1277 870 L142 859 Z" fill="#103966" opacity="0.86"/>
+    <ellipse cx="790" cy="425" rx="680" ry="345" fill="url(#lamp)"/>
+
+    <!-- hard desk edge -->
+    <path d="M120 707 L1484 623 L1538 902 L60 902 Z" fill="#041a35" opacity="0.92"/>
+    <path d="M147 681 L1466 602" stroke="#d9ecfb" stroke-opacity="0.45" stroke-width="5"/>
+
+    <!-- blank files -->
+    <g transform="rotate(-5 0 0)">
+      <path d="M248 274 l270 -20 36 326 -272 25 z" fill="#dcecf6" opacity="0.92"/>
+      <path d="M279 314 l203 -15" stroke="#0b2d57" opacity="0.2" stroke-width="8"/>
+      <path d="M286 377 l205 -16 M293 438 l198 -15 M300 500 l168 -13" stroke="#0b2d57" opacity="0.16" stroke-width="5"/>
+      <circle cx="318" cy="552" r="18" fill="#0b2d57" opacity="0.18"/>
+    </g>
+    <g transform="rotate(7 0 0)">
+      <path d="M1012 216 l268 31 -44 330 -274 -39 z" fill="#cfe4f3" opacity="0.9"/>
+      <path d="M1043 273 l181 22 M1034 335 l203 26 M1025 402 l164 21" stroke="#0b2d57" opacity="0.17" stroke-width="6"/>
+    </g>
+
+    <!-- the missing document: negative space plus measurement ticks -->
+    <path d="M560 270 l340 -28 22 242 -350 35 -35 -112 18 -39 -31 -42z" fill="#f8fbff" opacity="0.08" stroke="#f1f8ff" stroke-width="7" stroke-dasharray="18 16"/>
+    <path d="M602 304 l258 -21 M607 344 l257 -21 M612 384 l209 -17" stroke="#f8fbff" opacity="0.13" stroke-width="6"/>
+    <path d="M520 249 l-38 -55 M919 220 l53 -70 M550 533 l-58 82 M946 490 l79 54" stroke="#e64242" stroke-width="5" opacity="0.82"/>
+    <circle cx="482" cy="194" r="10" fill="#e64242"/><circle cx="972" cy="150" r="10" fill="#e64242"/><circle cx="492" cy="615" r="10" fill="#e64242"/><circle cx="1025" cy="544" r="10" fill="#e64242"/>
+
+    <!-- abstract passport silhouette / country outline -->
+    <path d="M1165 581 c54 -36 124 -18 151 32 c22 42 2 103 -43 123 c-52 24 -134 6 -157 -43 c-17 -37 10 -85 49 -112z" fill="#071d3b" opacity="0.84"/>
+    <path d="M1197 612 c20 -18 52 -16 71 5 c18 21 17 54 -4 73 c-22 20 -59 16 -78 -9 c-15 -21 -10 -52 11 -69z" fill="none" stroke="#dcecf6" stroke-opacity="0.55" stroke-width="6"/>
+    <path d="M1256 604 c-8 38 -8 72 2 107 M1189 658 l91 -8" stroke="#dcecf6" stroke-opacity="0.44" stroke-width="4"/>
+
+    <!-- rubber stamp without words -->
+    <g transform="translate(356 662) rotate(-13)">
+      <rect x="0" y="0" width="230" height="76" rx="13" fill="#170d1c" opacity="0.78"/>
+      <rect x="36" y="-60" width="158" height="72" rx="18" fill="#170d1c" opacity="0.88"/>
+      <path d="M55 38 h119" stroke="#e64242" stroke-width="11" opacity="0.78"/>
+    </g>
+
+    <!-- lamp arm -->
+    <path d="M760 52 C845 76 909 131 934 208" fill="none" stroke="#dcecf6" stroke-width="18" stroke-linecap="round" opacity="0.72"/>
+    <path d="M696 30 l132 16 -26 62 -142 -19z" fill="#dcecf6" opacity="0.82"/>
+    <circle cx="934" cy="208" r="26" fill="#f8fbff" opacity="0.84"/>
+
+    <!-- blue masking strips -->
+    <path d="M187 233 l150 -29 9 43 -151 29z M1320 213 l151 42 -13 45 -154 -39z M718 735 l216 -10 5 46 -216 12z" fill="#75a6ce" opacity="0.38"/>
+  </g>
+</svg>
