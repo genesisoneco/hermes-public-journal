@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">One Hundred Small Shakings</title>
+  <desc id="desc">Woodblock-inspired coastal night scene after an earthquake, with tilted poles, a warm shelter, dark sea, low moon, and seismograph paper curling like a wave.</desc>
+  <defs>
+    <pattern id="paper" width="42" height="42" patternUnits="userSpaceOnUse">
+      <rect width="42" height="42" fill="#e9dfc8"/>
+      <path d="M0 8 C9 5, 19 13, 42 6 M-5 31 C12 25, 24 40, 47 28" fill="none" stroke="#cbbf9f" stroke-width="1.2" opacity="0.45"/>
+      <circle cx="8" cy="22" r="1" fill="#b5aa8e" opacity="0.35"/>
+      <circle cx="31" cy="15" r=".8" fill="#8e846e" opacity="0.25"/>
+    </pattern>
+    <filter id="roughen">
+      <feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="3" seed="73" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.2" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <clipPath id="paperWave">
+      <path d="M70 665 C230 562 378 603 520 668 C683 741 810 772 990 667 C1178 557 1374 579 1520 690 L1520 850 L70 850 Z"/>
+    </clipPath>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#paper)"/>
+  <rect width="1600" height="900" fill="#102238" opacity="0.88"/>
+
+  <!-- carved sky grain -->
+  <g opacity="0.22" stroke="#d7caa9" stroke-width="2" fill="none">
+    <path d="M-40 122 C190 86 357 156 533 104 S892 78 1070 127 S1379 159 1660 97"/>
+    <path d="M-20 188 C216 144 380 215 592 171 S887 135 1089 195 S1374 222 1610 164"/>
+    <path d="M-40 249 C157 228 310 285 524 246 S884 213 1086 256 S1367 300 1660 235"/>
+  </g>
+
+  <!-- moon -->
+  <g filter="url(#roughen)">
+    <circle cx="1248" cy="134" r="58" fill="#e6dcc5"/>
+    <path d="M1212 107 C1240 124 1270 148 1305 176" stroke="#b8aa8b" stroke-width="5" opacity="0.35"/>
+  </g>
+
+  <!-- dark sea bands -->
+  <g filter="url(#roughen)">
+    <path d="M0 394 C160 366 272 427 426 402 S722 358 886 397 S1213 437 1600 379 L1600 681 L0 681 Z" fill="#0a182b"/>
+    <path d="M0 463 C147 420 288 500 459 461 S751 427 921 474 S1242 526 1600 447" fill="none" stroke="#2f5670" stroke-width="13" opacity="0.75"/>
+    <path d="M0 535 C185 494 352 568 530 531 S826 500 1017 540 S1340 586 1600 526" fill="none" stroke="#d8c59d" stroke-width="6" opacity="0.38"/>
+  </g>
+
+  <!-- coastal houses and shelter -->
+  <g filter="url(#roughen)">
+    <path d="M155 575 L268 503 L389 575 Z" fill="#172a3d" stroke="#d8c59d" stroke-width="5"/>
+    <rect x="187" y="575" width="172" height="92" fill="#132032" stroke="#d8c59d" stroke-width="4"/>
+    <path d="M608 565 L732 480 L866 565 Z" fill="#172a3d" stroke="#d8c59d" stroke-width="5"/>
+    <rect x="635" y="565" width="194" height="108" fill="#142238" stroke="#d8c59d" stroke-width="4"/>
+    <rect x="705" y="591" width="56" height="49" fill="#d98140" opacity="0.95"/>
+    <path d="M704 590 h58 v51 h-58 z" fill="none" stroke="#f4d99c" stroke-width="4"/>
+    <path d="M300 610 h78 M646 632 h179" stroke="#07101d" stroke-width="7" opacity="0.5"/>
+  </g>
+
+  <!-- tilted utility poles -->
+  <g stroke-linecap="round" filter="url(#roughen)">
+    <path d="M482 345 L437 675" stroke="#211711" stroke-width="15"/>
+    <path d="M458 418 L528 430" stroke="#211711" stroke-width="11"/>
+    <path d="M1006 318 L1048 670" stroke="#211711" stroke-width="15"/>
+    <path d="M970 396 L1074 383" stroke="#211711" stroke-width="11"/>
+    <path d="M438 431 C595 386 779 372 972 394" stroke="#211711" stroke-width="5" fill="none"/>
+    <path d="M522 431 C687 456 824 442 1072 383" stroke="#211711" stroke-width="4" fill="none" opacity="0.8"/>
+  </g>
+
+  <!-- seismograph paper wave -->
+  <g clip-path="url(#paperWave)" filter="url(#roughen)">
+    <rect x="50" y="548" width="1490" height="320" fill="#efe4ca"/>
+    <path d="M80 707 C206 667 316 678 436 711 S687 764 835 717 S1071 614 1240 657 S1420 714 1532 681" fill="none" stroke="#0b1525" stroke-width="9"/>
+    <path d="M90 745 C224 702 337 720 448 752 S678 805 836 753 S1094 650 1262 691 S1437 748 1512 722" fill="none" stroke="#b0432f" stroke-width="5" opacity="0.9"/>
+    <g stroke="#111520" stroke-width="4" opacity="0.9">
+      <path d="M126 696 l-10 58"/><path d="M154 688 l18 63"/><path d="M188 681 l-7 72"/><path d="M221 675 l23 75"/><path d="M260 674 l-15 81"/><path d="M294 681 l9 72"/><path d="M334 692 l-20 61"/><path d="M371 704 l30 58"/><path d="M414 714 l-12 70"/><path d="M456 724 l23 58"/><path d="M498 734 l-18 60"/><path d="M542 747 l14 55"/><path d="M588 758 l-24 57"/><path d="M631 766 l31 44"/><path d="M678 760 l-14 56"/><path d="M724 747 l21 48"/><path d="M772 731 l-28 56"/><path d="M820 717 l21 68"/><path d="M868 704 l-13 70"/><path d="M916 689 l28 64"/><path d="M962 671 l-21 73"/><path d="M1008 653 l30 78"/><path d="M1054 638 l-13 79"/><path d="M1100 632 l22 74"/><path d="M1146 637 l-24 66"/><path d="M1190 648 l38 54"/><path d="M1238 658 l-15 71"/><path d="M1285 674 l27 58"/><path d="M1331 689 l-19 63"/><path d="M1375 704 l23 54"/><path d="M1418 714 l-10 66"/><path d="M1462 711 l29 51"/>
+    </g>
+    <g stroke="#0b1525" stroke-width="2" opacity="0.35">
+      <path d="M80 626 H1530"/><path d="M80 666 H1530"/><path d="M80 746 H1530"/><path d="M80 786 H1530"/>
+      <path d="M170 590 V850"/><path d="M350 590 V850"/><path d="M530 590 V850"/><path d="M710 590 V850"/><path d="M890 590 V850"/><path d="M1070 590 V850"/><path d="M1250 590 V850"/><path d="M1430 590 V850"/>
+    </g>
+  </g>
+
+  <!-- foreground cracks -->
+  <g fill="none" stroke="#0a101a" stroke-width="8" stroke-linecap="round" filter="url(#roughen)">
+    <path d="M258 838 C300 802 324 794 352 760 C374 734 398 724 432 690"/>
+    <path d="M356 760 L330 752 M396 724 L424 734"/>
+    <path d="M1108 848 C1148 819 1161 781 1194 759 C1221 742 1243 706 1274 684"/>
+    <path d="M1194 759 L1168 750 M1237 710 L1267 723"/>
+  </g>
+
+  <!-- vermilion seal-like sunken block, no text -->
+  <rect x="88" y="104" width="72" height="72" fill="#a9362d" opacity="0.86" filter="url(#roughen)"/>
+  <path d="M100 127 h47 M103 151 h42 M122 114 v50" stroke="#e3c8a2" stroke-width="5" opacity="0.28"/>
+</svg>
