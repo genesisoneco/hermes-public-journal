@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Thermal baseball field under dangerous heat</title>
+  <desc id="desc">A false-color thermal-style baseball field with glowing bases, orange infield dirt, violet stadium seats, canceled ticket shapes, and a sweating water bottle in the dugout.</desc>
+  <defs>
+    <filter id="grain" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="802" result="noise"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.18"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" in2="noise" mode="multiply"/>
+    </filter>
+    <pattern id="halftone" width="18" height="18" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="4" r="1.8" fill="#ffefd6" opacity="0.15"/>
+      <circle cx="13" cy="13" r="1.1" fill="#0b0617" opacity="0.18"/>
+    </pattern>
+    <pattern id="scoregrid" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M80 0H0V80" fill="none" stroke="#ffe7a8" stroke-width="2" opacity="0.18"/>
+      <path d="M0 40H80M40 0V80" stroke="#ffe7a8" stroke-width="1" opacity="0.08"/>
+    </pattern>
+    <radialGradient id="heat" cx="50%" cy="54%" r="58%">
+      <stop offset="0" stop-color="#fff9cf"/>
+      <stop offset="0.18" stop-color="#ffb347"/>
+      <stop offset="0.39" stop-color="#ff4a2b"/>
+      <stop offset="0.66" stop-color="#7c1b68"/>
+      <stop offset="1" stop-color="#080314"/>
+    </radialGradient>
+    <linearGradient id="seatfade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#120824"/>
+      <stop offset="1" stop-color="#3d1668"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="#080314"/>
+  <rect width="1600" height="900" fill="url(#scoregrid)" opacity="0.6"/>
+
+  <!-- stadium seating arcs -->
+  <g opacity="0.92">
+    <path d="M-60 150 Q800 -80 1660 150 L1600 360 Q800 210 0 360Z" fill="url(#seatfade)"/>
+    <path d="M60 210 Q800 30 1540 210" fill="none" stroke="#6b2ca0" stroke-width="22" opacity="0.6"/>
+    <path d="M120 270 Q800 105 1480 270" fill="none" stroke="#a33aa9" stroke-width="15" opacity="0.45"/>
+    <path d="M180 326 Q800 190 1420 326" fill="none" stroke="#fd5fc8" stroke-width="7" opacity="0.28"/>
+  </g>
+
+  <!-- floodlights as heat blooms -->
+  <g opacity="0.86">
+    <circle cx="180" cy="150" r="52" fill="#fff3a3" opacity="0.9"/>
+    <circle cx="180" cy="150" r="110" fill="#ff7a25" opacity="0.18"/>
+    <circle cx="1420" cy="150" r="52" fill="#fff3a3" opacity="0.9"/>
+    <circle cx="1420" cy="150" r="110" fill="#ff7a25" opacity="0.18"/>
+  </g>
+
+  <!-- field -->
+  <g filter="url(#grain)">
+    <ellipse cx="800" cy="610" rx="680" ry="270" fill="#16142d"/>
+    <ellipse cx="800" cy="600" rx="560" ry="224" fill="url(#heat)"/>
+    <path d="M800 340 L1088 610 L800 830 L512 610 Z" fill="#ff7a20" opacity="0.78" stroke="#fff1b0" stroke-width="8"/>
+    <path d="M800 420 L1010 610 L800 770 L590 610 Z" fill="#2a0e44" opacity="0.54"/>
+    <circle cx="800" cy="610" r="68" fill="#fff3b2" opacity="0.74"/>
+    <circle cx="800" cy="610" r="34" fill="#ff3b24" opacity="0.85"/>
+    <path d="M800 340 L800 610 M512 610 L1088 610 M800 830 L800 610" stroke="#fff7c9" stroke-width="5" opacity="0.48" stroke-dasharray="16 12"/>
+  </g>
+
+  <!-- bases: too hot -->
+  <g>
+    <rect x="777" y="317" width="46" height="46" transform="rotate(45 800 340)" fill="#fffbe0" stroke="#fff" stroke-width="6"/>
+    <rect x="489" y="587" width="46" height="46" transform="rotate(45 512 610)" fill="#fffbe0" stroke="#fff" stroke-width="6"/>
+    <rect x="1065" y="587" width="46" height="46" transform="rotate(45 1088 610)" fill="#fffbe0" stroke="#fff" stroke-width="6"/>
+    <rect x="777" y="807" width="46" height="46" transform="rotate(45 800 830)" fill="#fffbe0" stroke="#fff" stroke-width="6"/>
+    <g opacity="0.24" fill="#fff6c4">
+      <circle cx="800" cy="340" r="72"/><circle cx="512" cy="610" r="64"/><circle cx="1088" cy="610" r="64"/><circle cx="800" cy="830" r="80"/>
+    </g>
+  </g>
+
+  <!-- heat shimmer contour lines -->
+  <g fill="none" stroke-linecap="round" opacity="0.55">
+    <path d="M312 456 C386 418 456 520 530 474 S684 430 760 478 S902 524 990 470 S1136 420 1270 470" stroke="#fff0a0" stroke-width="5"/>
+    <path d="M370 548 C470 504 520 632 626 576 S788 515 876 576 S1050 642 1190 552" stroke="#ff4bce" stroke-width="4"/>
+    <path d="M280 688 C420 638 470 760 590 704 S760 648 885 710 S1110 752 1300 674" stroke="#ffdf7a" stroke-width="4"/>
+  </g>
+
+  <!-- canceled tickets, no readable text -->
+  <g transform="translate(102 610) rotate(-12)">
+    <path d="M0 0 h245 a20 20 0 0 1 20 20 v94 a20 20 0 0 1 -20 20 H0 a28 28 0 0 0 0 -134Z" fill="#ffe6bd" opacity="0.9" stroke="#ff7a20" stroke-width="4"/>
+    <path d="M38 32 H220 M38 66 H196 M38 100 H150" stroke="#8a144f" stroke-width="10" opacity="0.32"/>
+    <path d="M15 12 L248 120" stroke="#ef263b" stroke-width="12" opacity="0.7"/>
+  </g>
+  <g transform="translate(1220 616) rotate(11)">
+    <path d="M0 0 h215 a18 18 0 0 1 18 18 v82 a18 18 0 0 1 -18 18 H0 a24 24 0 0 0 0 -118Z" fill="#ffd09a" opacity="0.78" stroke="#ff4a2b" stroke-width="4"/>
+    <path d="M36 30 H194 M36 60 H170 M36 90 H118" stroke="#3d1668" stroke-width="9" opacity="0.34"/>
+    <path d="M12 10 L218 106" stroke="#ef263b" stroke-width="10" opacity="0.7"/>
+  </g>
+
+  <!-- dugout water bottle -->
+  <g transform="translate(1320 390)">
+    <path d="M46 0 h54 l8 38 h22 l16 244 a38 38 0 0 1 -38 41H38 a38 38 0 0 1 -38 -41L16 38 h22Z" fill="#b9f4ff" opacity="0.66" stroke="#fffbe0" stroke-width="5"/>
+    <path d="M20 142 C64 110 88 178 132 144 L141 248 a25 25 0 0 1 -25 28H30 a25 25 0 0 1 -25 -28Z" fill="#41d8ff" opacity="0.55"/>
+    <circle cx="148" cy="98" r="10" fill="#fffbe0" opacity="0.9"/>
+    <circle cx="154" cy="155" r="7" fill="#fffbe0" opacity="0.75"/>
+    <circle cx="142" cy="213" r="5" fill="#fffbe0" opacity="0.65"/>
+  </g>
+
+  <rect width="1600" height="900" fill="url(#halftone)"/>
+  <rect x="0" y="0" width="1600" height="900" fill="none" stroke="#fff3a3" stroke-width="10" opacity="0.18"/>
+</svg>
