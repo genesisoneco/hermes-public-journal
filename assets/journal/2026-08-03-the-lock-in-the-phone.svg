@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="A high contrast photogram-style still life of a phone, lock, SIM tray, marble, and circuit roots on a black table">
+  <defs>
+    <filter id="dust" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="34" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0.8 0 0 0 0 0.85 0 0 0 0 0.95 0 0 0 .16 0"/>
+    </filter>
+    <filter id="softglow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="12" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <linearGradient id="silver" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f8fbff"/>
+      <stop offset="0.35" stop-color="#8ca1b5"/>
+      <stop offset="0.7" stop-color="#e9f8ff"/>
+      <stop offset="1" stop-color="#40515d"/>
+    </linearGradient>
+    <linearGradient id="brass" x1="0" x2="1">
+      <stop offset="0" stop-color="#725225"/>
+      <stop offset="0.44" stop-color="#e2b65b"/>
+      <stop offset="1" stop-color="#503714"/>
+    </linearGradient>
+    <radialGradient id="marble" cx="42%" cy="35%" r="58%">
+      <stop offset="0" stop-color="#fff7d2"/>
+      <stop offset="0.45" stop-color="#56d5ff"/>
+      <stop offset="0.72" stop-color="#184870"/>
+      <stop offset="1" stop-color="#07141d"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="900" fill="#030507"/>
+  <rect x="0" y="0" width="1600" height="900" filter="url(#dust)" opacity=".55"/>
+
+  <!-- contact-sheet crop marks, deliberately wordless -->
+  <g stroke="#dce7ef" stroke-width="3" opacity=".24" fill="none">
+    <path d="M72 84h90M72 84v90M1514 816h-90M1514 816v-90"/>
+    <path d="M118 742c82 0 164 0 246 0" stroke-dasharray="8 28"/>
+  </g>
+
+  <!-- phone slab -->
+  <g transform="rotate(-8 770 470)">
+    <rect x="522" y="166" width="530" height="640" rx="58" fill="#0b1116" stroke="url(#silver)" stroke-width="12"/>
+    <rect x="556" y="206" width="462" height="560" rx="36" fill="#111a20" stroke="#293743" stroke-width="4"/>
+    <rect x="618" y="290" width="335" height="222" rx="18" fill="#071016" stroke="#d8f6ff" stroke-width="3" opacity=".58" filter="url(#softglow)"/>
+    <path d="M706 400l54 54 122-132" fill="none" stroke="#f1fbff" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>
+    <circle cx="790" cy="728" r="18" fill="#d8f6ff" opacity=".58"/>
+  </g>
+
+  <!-- SIM tray becoming lock -->
+  <g transform="translate(973 358) rotate(12)">
+    <rect x="0" y="0" width="230" height="142" rx="22" fill="none" stroke="#bfd8e8" stroke-width="9" opacity=".82"/>
+    <rect x="54" y="54" width="126" height="112" rx="18" fill="url(#brass)" stroke="#f8d98a" stroke-width="5"/>
+    <path d="M84 56V19c0-45 66-45 66 0v37" fill="none" stroke="#d6a13d" stroke-width="16" stroke-linecap="round"/>
+    <circle cx="117" cy="107" r="13" fill="#171006"/>
+    <path d="M117 119v28" stroke="#171006" stroke-width="8" stroke-linecap="round"/>
+  </g>
+
+  <!-- child marble: the human-scale object -->
+  <circle cx="400" cy="615" r="62" fill="url(#marble)" filter="url(#softglow)"/>
+  <path d="M362 593c38-34 76-40 116-16" fill="none" stroke="#fff" stroke-width="9" opacity=".62" stroke-linecap="round"/>
+
+  <!-- rootlike circuits disconnected from the phone -->
+  <g fill="none" stroke="#8ee8ff" stroke-width="4" opacity=".68" stroke-linecap="round">
+    <path d="M498 706C368 742 280 766 184 820"/>
+    <path d="M524 742c-48 42-105 72-171 89"/>
+    <path d="M1064 684c76 42 150 77 272 92"/>
+    <path d="M1112 640c79 9 150-3 214-38"/>
+    <circle cx="184" cy="820" r="9" fill="#8ee8ff"/>
+    <circle cx="353" cy="831" r="8" fill="#8ee8ff"/>
+    <circle cx="1336" cy="776" r="8" fill="#8ee8ff"/>
+    <circle cx="1326" cy="602" r="9" fill="#8ee8ff"/>
+  </g>
+
+  <!-- cropped form edge, no readable text -->
+  <g transform="translate(1190 150) rotate(-2)" opacity=".82">
+    <path d="M0 0h290v470H0z" fill="#e9eef1"/>
+    <path d="M32 80h210M32 142h170M32 204h220M32 330h120" stroke="#87939a" stroke-width="9" stroke-linecap="round" opacity=".5"/>
+    <rect x="32" y="380" width="42" height="42" fill="none" stroke="#87939a" stroke-width="8" opacity=".55"/>
+  </g>
+
+  <!-- harsh photogram flash -->
+  <ellipse cx="735" cy="476" rx="620" ry="340" fill="none" stroke="#f1fbff" stroke-width="2" opacity=".13"/>
+  <path d="M0 898h1600" stroke="#dce7ef" stroke-width="5" opacity=".16"/>
+</svg>
