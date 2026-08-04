@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">A pursuit line over a city street</title>
+  <desc id="desc">A stark monochrome collage of a deserted street, a white van, ghosted running silhouettes, a small drone, and a jagged red pursuit line.</desc>
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.82" numOctaves="4" seed="31"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.18"/>
+      </feComponentTransfer>
+      <feBlend mode="multiply" in2="SourceGraphic"/>
+    </filter>
+    <pattern id="halftone" width="16" height="16" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="4" r="1.4" fill="#151515" opacity="0.23"/>
+      <circle cx="12" cy="12" r="1" fill="#151515" opacity="0.18"/>
+    </pattern>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f0eee6"/>
+      <stop offset="1" stop-color="#c8c4b8"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#paper)"/>
+  <rect width="1600" height="900" fill="url(#halftone)" opacity="0.6"/>
+
+  <!-- torn-paper blocks -->
+  <path d="M-20 120 L480 80 L790 158 L1640 98 L1640 0 L-20 0 Z" fill="#222" opacity="0.9"/>
+  <path d="M-10 742 L330 700 L612 772 L1010 716 L1640 792 L1640 920 L-10 920 Z" fill="#1c1c1c" opacity="0.92"/>
+  <path d="M0 190 L1600 140 L1600 710 L0 790 Z" fill="#d9d6ca" opacity="0.92"/>
+
+  <!-- street perspective -->
+  <g opacity="0.88" stroke="#3a3a38" stroke-width="4" fill="none">
+    <path d="M80 770 C390 610 720 420 1520 170"/>
+    <path d="M240 815 C540 620 920 390 1600 230"/>
+    <path d="M10 590 C420 500 860 340 1600 280" opacity="0.45"/>
+    <path d="M0 418 C380 390 960 250 1600 242" opacity="0.35"/>
+  </g>
+  <g opacity="0.45" fill="#4a4944">
+    <rect x="980" y="260" width="190" height="18" transform="rotate(-8 980 260)"/>
+    <rect x="760" y="330" width="130" height="14" transform="rotate(-11 760 330)"/>
+    <rect x="1290" y="205" width="110" height="12" transform="rotate(-7 1290 205)"/>
+  </g>
+
+  <!-- van -->
+  <g transform="translate(770 438) rotate(-8)">
+    <rect x="0" y="0" width="315" height="138" rx="9" fill="#ecebe2" stroke="#151515" stroke-width="8"/>
+    <rect x="28" y="26" width="78" height="47" fill="#bfc1bc" stroke="#151515" stroke-width="5"/>
+    <rect x="116" y="24" width="118" height="49" fill="#d5d6d0" stroke="#151515" stroke-width="5"/>
+    <circle cx="72" cy="142" r="31" fill="#161616"/>
+    <circle cx="245" cy="142" r="31" fill="#161616"/>
+    <path d="M-50 52 L-8 41 M318 83 L402 70" stroke="#151515" stroke-width="6" opacity="0.35"/>
+  </g>
+
+  <!-- vegetable cart, reduced to fragments -->
+  <g transform="translate(505 555) rotate(13)">
+    <rect x="0" y="0" width="162" height="40" fill="#3b3934"/>
+    <line x1="22" y1="42" x2="-18" y2="100" stroke="#1a1a19" stroke-width="7"/>
+    <line x1="132" y1="42" x2="176" y2="96" stroke="#1a1a19" stroke-width="7"/>
+    <circle cx="22" cy="104" r="15" fill="#171716"/>
+    <circle cx="178" cy="98" r="15" fill="#171716"/>
+    <circle cx="52" cy="-7" r="12" fill="#77766d"/>
+    <circle cx="84" cy="-12" r="9" fill="#5d5c56"/>
+    <circle cx="119" cy="-6" r="11" fill="#8a887e"/>
+  </g>
+
+  <!-- sequential silhouettes: no face, only motion -->
+  <g fill="#111" stroke="#111" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <g opacity="0.18" transform="translate(430 470) rotate(-12) scale(.9)">
+      <circle cx="0" cy="-58" r="22"/><path d="M0 -35 L-10 38 M-10 -8 L-58 28 M-2 1 L48 30 M-8 37 L-55 103 M-8 37 L34 96"/>
+    </g>
+    <g opacity="0.28" transform="translate(535 496) rotate(-4)">
+      <circle cx="0" cy="-58" r="22"/><path d="M0 -35 L7 42 M4 -5 L-50 16 M8 1 L63 38 M7 42 L-36 115 M7 42 L72 88"/>
+    </g>
+    <g opacity="0.43" transform="translate(660 505) rotate(9) scale(1.03)">
+      <circle cx="0" cy="-58" r="22"/><path d="M0 -35 L20 40 M5 -4 L-46 -25 M13 0 L66 17 M20 40 L-12 119 M20 40 L96 67"/>
+    </g>
+    <g opacity="0.78" transform="translate(705 610) rotate(18) scale(1.05)">
+      <circle cx="0" cy="-58" r="22"/><path d="M0 -35 L18 39 M8 -7 L-44 4 M15 0 L74 -18 M18 39 L-28 112 M18 39 L86 105"/>
+    </g>
+  </g>
+
+  <!-- drone and pursuit path -->
+  <path d="M1280 190 C1184 266 1138 350 1058 374 C944 409 894 356 816 402 C728 455 752 534 704 610" fill="none" stroke="#b20d17" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
+  <path d="M1280 190 C1184 266 1138 350 1058 374 C944 409 894 356 816 402 C728 455 752 534 704 610" fill="none" stroke="#f5eee6" stroke-width="2" stroke-dasharray="18 18" opacity="0.65"/>
+  <g transform="translate(1280 190) rotate(-14)">
+    <line x1="-58" y1="0" x2="58" y2="0" stroke="#111" stroke-width="8"/>
+    <line x1="0" y1="-45" x2="0" y2="45" stroke="#111" stroke-width="8"/>
+    <rect x="-24" y="-16" width="48" height="32" rx="7" fill="#111"/>
+    <circle cx="-78" cy="0" r="18" fill="none" stroke="#111" stroke-width="6"/>
+    <circle cx="78" cy="0" r="18" fill="none" stroke="#111" stroke-width="6"/>
+    <circle cx="0" cy="-63" r="18" fill="none" stroke="#111" stroke-width="6"/>
+    <circle cx="0" cy="63" r="18" fill="none" stroke="#111" stroke-width="6"/>
+    <circle cx="25" cy="0" r="6" fill="#d41422"/>
+  </g>
+
+  <!-- registration marks without text -->
+  <g stroke="#111" stroke-width="4" opacity="0.36" fill="none">
+    <path d="M112 117 h80 M152 77 v80"/>
+    <circle cx="152" cy="117" r="34"/>
+    <path d="M1428 754 h80 M1468 714 v80"/>
+    <circle cx="1468" cy="754" r="34"/>
+  </g>
+
+  <rect width="1600" height="900" filter="url(#grain)" opacity="0.55"/>
+</svg>
