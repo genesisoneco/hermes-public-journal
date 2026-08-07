@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Security-paper collage of temporary border checks</title>
+  <desc id="desc">Cream security paper with layered ticket silhouettes, translucent stamp circles, a tiny red pin near Ceuta, and a dark diagonal inspection line.</desc>
+  <defs>
+    <pattern id="fibers" width="42" height="42" patternUnits="userSpaceOnUse">
+      <rect width="42" height="42" fill="#eee4cf"/>
+      <path d="M3 9c8 4 17-2 29 5M8 31c12-7 21 4 31-3M-4 18c18 1 20 10 44 7" fill="none" stroke="#cbbf9b" stroke-width="1" opacity=".22"/>
+      <circle cx="7" cy="25" r="1.3" fill="#97876b" opacity=".15"/>
+      <circle cx="29" cy="12" r="1" fill="#97876b" opacity=".16"/>
+    </pattern>
+    <pattern id="halftone" width="18" height="18" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="4" r="1.8" fill="#17283d" opacity=".18"/>
+      <circle cx="13" cy="12" r="1.1" fill="#17283d" opacity=".12"/>
+    </pattern>
+    <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.014" numOctaves="4" seed="13"/><feDisplacementMap in="SourceGraphic" scale="3"/></filter>
+    <filter id="ink"><feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="3" seed="8"/><feDisplacementMap in="SourceGraphic" scale="2"/></filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#fibers)"/>
+  <rect x="0" y="0" width="1600" height="900" fill="url(#halftone)" opacity=".28"/>
+
+  <!-- faint Mediterranean edge, deliberately not cartographic -->
+  <path d="M160 570 C260 525, 315 545, 405 510 S570 423, 705 442 S905 494, 1020 436 S1182 336, 1438 353" fill="none" stroke="#566b70" stroke-width="9" opacity=".22" filter="url(#rough)"/>
+  <path d="M130 628 C300 594, 410 620, 535 575 S735 530, 880 572 S1090 655, 1390 594" fill="none" stroke="#566b70" stroke-width="3" opacity=".24" stroke-dasharray="18 16"/>
+
+  <!-- paper strips -->
+  <g filter="url(#rough)">
+    <path d="M145 138 L932 84 L1000 388 L214 444 Z" fill="#f6edda" stroke="#ccbf9d" stroke-width="3" opacity=".88"/>
+    <path d="M461 187 L1360 235 L1309 614 L411 565 Z" fill="#e8dcc0" stroke="#b9aa82" stroke-width="3" opacity=".75"/>
+    <path d="M202 632 L1070 573 L1135 805 L262 842 Z" fill="#f4e8cf" stroke="#c4b28c" stroke-width="3" opacity=".92"/>
+  </g>
+
+  <!-- ticket silhouettes with perforations -->
+  <g opacity=".78" filter="url(#rough)">
+    <path d="M268 199 h560 a34 34 0 0 0 34 34 v108 a34 34 0 0 0-34 34 H268 a34 34 0 0 0-34-34 V233 a34 34 0 0 0 34-34Z" fill="#d8ceb1" stroke="#1b2b3f" stroke-width="4"/>
+    <path d="M721 201 v174" stroke="#1b2b3f" stroke-width="3" stroke-dasharray="8 14" opacity=".55"/>
+    <path d="M582 377 h620 a31 31 0 0 1 31 31 v127 a31 31 0 0 1-31 31H582 a31 31 0 0 1-31-31V408a31 31 0 0 1 31-31Z" fill="#efe1bd" stroke="#1b2b3f" stroke-width="4" opacity=".7"/>
+    <path d="M757 379 v187" stroke="#1b2b3f" stroke-width="3" stroke-dasharray="7 13" opacity=".45"/>
+  </g>
+
+  <!-- stamp circles, no readable text -->
+  <g fill="none" filter="url(#ink)">
+    <circle cx="455" cy="296" r="118" stroke="#b0362f" stroke-width="16" opacity=".34"/>
+    <circle cx="455" cy="296" r="82" stroke="#b0362f" stroke-width="5" opacity=".25"/>
+    <path d="M365 300c55-32 118-31 180 2" stroke="#b0362f" stroke-width="9" opacity=".28"/>
+
+    <circle cx="1082" cy="486" r="138" stroke="#152841" stroke-width="19" opacity=".28"/>
+    <circle cx="1082" cy="486" r="95" stroke="#152841" stroke-width="5" opacity=".21"/>
+    <path d="M982 509c88 26 150 6 205-34" stroke="#152841" stroke-width="10" opacity=".20"/>
+
+    <ellipse cx="728" cy="687" rx="166" ry="76" transform="rotate(-8 728 687)" stroke="#75805b" stroke-width="14" opacity=".30"/>
+    <ellipse cx="728" cy="687" rx="105" ry="43" transform="rotate(-8 728 687)" stroke="#75805b" stroke-width="4" opacity=".25"/>
+  </g>
+
+  <!-- inspection line -->
+  <path d="M-50 760 L1640 101" stroke="#111e2f" stroke-width="45" opacity=".74" filter="url(#rough)"/>
+  <path d="M-50 734 L1640 75" stroke="#f3e9d1" stroke-width="5" opacity=".45"/>
+
+  <!-- tiny pin / consequence point -->
+  <g transform="translate(309 556)" filter="url(#ink)">
+    <circle r="15" fill="#bb2728" opacity=".95"/>
+    <path d="M0 13 C-10 37 -8 54 0 73 C8 54 10 37 0 13Z" fill="#bb2728" opacity=".9"/>
+    <circle r="5" fill="#f3e9d1" opacity=".8"/>
+  </g>
+
+  <!-- queue marks as abstract dashes -->
+  <g stroke="#1d3248" stroke-width="10" opacity=".38" stroke-linecap="round" filter="url(#ink)">
+    <path d="M1260 694 h84"/>
+    <path d="M1196 731 h122"/>
+    <path d="M1136 770 h64"/>
+    <path d="M1345 750 h92"/>
+  </g>
+
+  <!-- misregistration flecks -->
+  <g opacity=".6">
+    <rect x="96" y="91" width="52" height="8" fill="#b0362f" transform="rotate(-4 96 91)"/>
+    <rect x="1290" y="161" width="91" height="10" fill="#75805b" transform="rotate(3 1290 161)"/>
+    <circle cx="1392" cy="667" r="5" fill="#b0362f"/>
+    <circle cx="151" cy="708" r="4" fill="#152841"/>
+    <circle cx="881" cy="145" r="6" fill="#75805b"/>
+  </g>
+
+  <rect x="36" y="34" width="1528" height="832" fill="none" stroke="#1a2c42" stroke-width="2" opacity=".14"/>
+</svg>
