@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Antique eclipse chart with weather layers</title>
+  <desc id="desc">An antique-style eclipse chart on parchment, with a black circular shadow crossing a pale map grid, blue weather tiles, red annotation threads, compass ticks, and small moon-phase circles in the margins.</desc>
+  <defs>
+    <filter id="paperNoise" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.013" numOctaves="5" seed="19" result="noise"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 .22"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" in2="noise" mode="multiply"/>
+    </filter>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f0dfbd"/>
+      <stop offset="0.52" stop-color="#d7bd8b"/>
+      <stop offset="1" stop-color="#b99054"/>
+    </linearGradient>
+    <radialGradient id="umbra" cx="50%" cy="50%" r="55%">
+      <stop offset="0" stop-color="#010205"/>
+      <stop offset="0.62" stop-color="#06070b"/>
+      <stop offset="0.75" stop-color="#11151b"/>
+      <stop offset="1" stop-color="#36414a" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M80 0H0V80" fill="none" stroke="#5c6e78" stroke-opacity=".22" stroke-width="1"/>
+      <path d="M40 0V80M0 40H80" fill="none" stroke="#5c6e78" stroke-opacity=".12" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#paper)"/>
+  <rect width="1600" height="900" fill="url(#grid)" filter="url(#paperNoise)" opacity=".92"/>
+
+  <!-- irregular coast/map plates -->
+  <path d="M164 590 C280 520 302 430 430 405 C545 383 628 303 760 335 C870 363 935 287 1050 275 C1195 261 1301 323 1434 264 L1498 324 C1360 377 1285 410 1198 482 C1080 580 970 544 862 610 C735 687 630 641 518 706 C390 779 282 711 164 771 Z" fill="#e8d0a2" stroke="#6b563a" stroke-opacity=".34" stroke-width="3"/>
+  <path d="M121 615 C248 552 347 556 472 511 C640 451 712 489 815 451 C943 403 1112 405 1296 348" fill="none" stroke="#2b3540" stroke-width="2" stroke-opacity=".20" stroke-dasharray="10 12"/>
+
+  <!-- eclipse path -->
+  <path d="M-40 595 C208 532 456 493 704 454 C956 414 1228 374 1644 278" fill="none" stroke="#191b1f" stroke-width="74" stroke-opacity=".09"/>
+  <path d="M-40 595 C208 532 456 493 704 454 C956 414 1228 374 1644 278" fill="none" stroke="#0b1018" stroke-width="18" stroke-opacity=".55"/>
+  <path d="M-40 595 C208 532 456 493 704 454 C956 414 1228 374 1644 278" fill="none" stroke="#f2e7c9" stroke-width="2" stroke-opacity=".65" stroke-dasharray="2 24"/>
+
+  <!-- umbra coin -->
+  <circle cx="865" cy="426" r="126" fill="url(#umbra)"/>
+  <circle cx="865" cy="426" r="126" fill="none" stroke="#f5e8c7" stroke-opacity=".58" stroke-width="2"/>
+  <circle cx="865" cy="426" r="166" fill="none" stroke="#1f2a32" stroke-opacity=".18" stroke-width="28"/>
+
+  <!-- cloud/weather tiles -->
+  <g opacity=".77">
+    <rect x="1045" y="150" width="116" height="74" rx="6" fill="#7fa8bc" opacity=".35" stroke="#2f5362"/>
+    <rect x="1184" y="180" width="96" height="62" rx="6" fill="#5d8aa3" opacity=".31" stroke="#2f5362"/>
+    <rect x="1007" y="242" width="152" height="82" rx="6" fill="#9ab6bc" opacity=".28" stroke="#2f5362"/>
+    <rect x="1250" y="275" width="128" height="82" rx="6" fill="#6b98ad" opacity=".30" stroke="#2f5362"/>
+    <path d="M1070 190c24-26 57-9 60 17 28-10 54 9 54 34" fill="none" stroke="#ebf4f4" stroke-width="5" stroke-linecap="round" opacity=".65"/>
+    <path d="M1238 298c23-20 49-8 56 12 23-6 43 6 48 25" fill="none" stroke="#ebf4f4" stroke-width="5" stroke-linecap="round" opacity=".55"/>
+  </g>
+
+  <!-- annotation threads -->
+  <g fill="none" stroke="#9e2f24" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M865 426 C764 326 660 291 535 270" stroke-width="3" opacity=".72"/>
+    <path d="M865 426 C1004 494 1118 581 1221 690" stroke-width="3" opacity=".66"/>
+    <path d="M705 454 C600 525 505 548 380 530" stroke-width="2" opacity=".50" stroke-dasharray="8 9"/>
+  </g>
+  <circle cx="535" cy="270" r="7" fill="#9e2f24" opacity=".75"/>
+  <circle cx="1221" cy="690" r="7" fill="#9e2f24" opacity=".68"/>
+
+  <!-- compass and calibration -->
+  <g transform="translate(178 172)" opacity=".72" stroke="#263642" fill="none">
+    <circle r="68" stroke-width="2"/>
+    <path d="M0-86V86M-86 0H86M-48-48L48 48M48-48L-48 48" stroke-width="1.5"/>
+    <path d="M0-70 L18-5 L0 0 L-18-5 Z" fill="#263642" opacity=".75"/>
+  </g>
+  <g stroke="#263642" opacity=".5">
+    <path d="M1325 668h170M1325 708h118M1325 748h145"/>
+    <path d="M1325 660v16M1365 660v10M1405 660v16M1445 660v10M1485 660v16"/>
+  </g>
+
+  <!-- moon phase marginalia -->
+  <g transform="translate(96 742)">
+    <circle cx="0" cy="0" r="31" fill="#0b1018" opacity=".9"/>
+    <circle cx="80" cy="0" r="31" fill="#e9d9b6" stroke="#263642" opacity=".9"/>
+    <path d="M160-31a31 31 0 1 1 0 62a18 31 0 1 0 0-62z" fill="#0b1018" opacity=".9"/>
+    <circle cx="160" cy="0" r="31" fill="none" stroke="#263642" opacity=".5"/>
+  </g>
+
+  <!-- plate border -->
+  <rect x="36" y="36" width="1528" height="828" fill="none" stroke="#5b422c" stroke-opacity=".45" stroke-width="3"/>
+  <rect x="58" y="58" width="1484" height="784" fill="none" stroke="#5b422c" stroke-opacity=".22" stroke-width="1" stroke-dasharray="9 12"/>
+</svg>
