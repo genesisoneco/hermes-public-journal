@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Six Searches Left Fingerprints</title>
+  <desc id="desc">A deep blue cyanotype-style sheet with ghostly unreadable license plates, a camera mast shadow, six punched-card rectangles, audit ticks, and water-developed paper edges.</desc>
+  <defs>
+    <filter id="paper" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="5" seed="18" result="noise"/>
+      <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0.03  0 0 0 0 0.08  0 0 0 0 0.16  0 0 0 .42 0" result="grain"/>
+      <feBlend in="SourceGraphic" in2="grain" mode="screen"/>
+    </filter>
+    <filter id="soften"><feGaussianBlur stdDeviation="1.2"/></filter>
+    <radialGradient id="wash" cx="38%" cy="44%" r="80%">
+      <stop offset="0" stop-color="#174b8f"/>
+      <stop offset="0.62" stop-color="#08316a"/>
+      <stop offset="1" stop-color="#031b42"/>
+    </radialGradient>
+    <pattern id="ticks" width="56" height="56" patternUnits="userSpaceOnUse">
+      <path d="M2 28h18M28 2v18" stroke="#d9f4ff" stroke-opacity=".13" stroke-width="3"/>
+      <circle cx="48" cy="46" r="2" fill="#d9f4ff" fill-opacity=".14"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="900" fill="#031b42"/>
+  <path d="M54 42 C184 18 296 44 430 31 C643 12 782 69 994 37 C1194 7 1328 29 1540 58 L1562 835 C1343 858 1176 825 988 860 C782 898 628 828 431 863 C261 893 171 858 48 872 Z" fill="url(#wash)" filter="url(#paper)"/>
+  <path d="M71 65 C230 42 387 70 552 53 C762 31 887 83 1089 58 C1274 34 1399 54 1523 80 L1535 815 C1368 827 1221 797 1040 830 C829 869 661 802 467 835 C310 862 174 827 74 846 Z" fill="url(#ticks)" opacity=".78"/>
+
+  <!-- water-developed uneven edges -->
+  <g fill="none" stroke="#d8f6ff" stroke-opacity=".24" stroke-width="5">
+    <path d="M78 77 C226 46 379 74 549 58 C760 40 893 93 1090 66 C1265 42 1402 57 1512 85"/>
+    <path d="M83 839 C238 818 326 855 472 827 C650 795 825 867 1038 823 C1212 790 1376 831 1528 811"/>
+  </g>
+
+  <!-- camera mast hard shadow -->
+  <g opacity=".78">
+    <path d="M1068 138 L1118 138 L1240 774 L1186 774 Z" fill="#01122d" opacity=".55"/>
+    <path d="M1138 162 L1490 230 L1480 262 L1132 199 Z" fill="#01122d" opacity=".45"/>
+    <rect x="1079" y="128" width="31" height="630" rx="8" fill="#ccefff" opacity=".28"/>
+    <path d="M1054 150 h130 l-22 54 h-92 z" fill="#e5fbff" opacity=".34"/>
+    <circle cx="1131" cy="180" r="14" fill="#e5fbff" opacity=".45"/>
+  </g>
+
+  <!-- ghost plates -->
+  <g font-family="monospace" font-size="34" letter-spacing="7" fill="#e8fbff" opacity=".72" filter="url(#soften)">
+    <g transform="rotate(-7 358 212)"><rect x="144" y="160" width="425" height="110" rx="18" fill="#dff7ff" opacity=".18" stroke="#effcff" stroke-opacity=".45" stroke-width="4"/><rect x="214" y="194" width="72" height="30" fill="#06306a" opacity=".65"/><rect x="318" y="194" width="188" height="30" fill="#06306a" opacity=".65"/><circle cx="174" cy="215" r="10"/><circle cx="540" cy="215" r="10"/></g>
+    <g transform="rotate(4 577 438)"><rect x="328" y="379" width="506" height="118" rx="18" fill="#dff7ff" opacity=".16" stroke="#effcff" stroke-opacity=".38" stroke-width="4"/><rect x="394" y="422" width="115" height="30" fill="#052b5e" opacity=".7"/><rect x="550" y="422" width="214" height="30" fill="#052b5e" opacity=".7"/><circle cx="363" cy="438" r="10"/><circle cx="798" cy="438" r="10"/></g>
+    <g transform="rotate(-2 594 705)"><rect x="156" y="648" width="876" height="96" rx="15" fill="#dff7ff" opacity=".12" stroke="#effcff" stroke-opacity=".34" stroke-width="4"/><rect x="240" y="683" width="199" height="26" fill="#052b5e" opacity=".74"/><rect x="484" y="683" width="385" height="26" fill="#052b5e" opacity=".74"/><circle cx="191" cy="696" r="9"/><circle cx="1001" cy="696" r="9"/></g>
+  </g>
+
+  <!-- six punched-card rectangles -->
+  <g transform="translate(1110 500) rotate(5)">
+    <rect x="0" y="0" width="360" height="230" rx="22" fill="#dff7ff" opacity=".11" stroke="#e8fbff" stroke-opacity=".32" stroke-width="3"/>
+    <g fill="#e8fbff" opacity=".72">
+      <rect x="34" y="35" width="128" height="42" rx="5" opacity=".33"/><rect x="199" y="35" width="42" height="42" rx="5" opacity=".48"/><rect x="271" y="35" width="42" height="42" rx="5" opacity=".48"/>
+      <rect x="34" y="98" width="42" height="42" rx="5" opacity=".48"/><rect x="106" y="98" width="42" height="42" rx="5" opacity=".48"/><rect x="199" y="98" width="128" height="42" rx="5" opacity=".30"/>
+      <rect x="34" y="160" width="294" height="11" rx="5" opacity=".38"/><rect x="34" y="186" width="241" height="11" rx="5" opacity=".25"/>
+    </g>
+  </g>
+
+  <!-- audit ticks and rings -->
+  <g stroke="#e5fbff" stroke-linecap="round" fill="none">
+    <path d="M932 191 l24 24 53 -64" stroke-width="8" opacity=".62"/>
+    <path d="M894 310 l18 18 40 -48" stroke-width="6" opacity=".42"/>
+    <path d="M996 622 l16 16 36 -43" stroke-width="6" opacity=".46"/>
+    <circle cx="964" cy="191" r="97" stroke-width="5" opacity=".18"/>
+    <circle cx="925" cy="314" r="68" stroke-width="4" opacity=".14"/>
+    <circle cx="1020" cy="626" r="74" stroke-width="4" opacity=".13"/>
+  </g>
+
+  <!-- fingerprint whorls -->
+  <g transform="translate(214 526) rotate(-15)" fill="none" stroke="#e5fbff" stroke-opacity=".23" stroke-width="4">
+    <path d="M58 82 C22 48 40 7 91 4 C150 1 198 46 195 105 C192 166 134 205 78 186 C27 169 2 111 28 66"/>
+    <path d="M76 75 C60 51 72 29 102 27 C137 24 166 52 164 91 C162 128 128 154 92 145 C61 137 45 103 59 78"/>
+    <path d="M101 69 C117 56 143 70 144 93 C145 116 124 132 104 124 C84 116 83 86 101 69"/>
+  </g>
+</svg>
