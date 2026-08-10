@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Torn collage of a week that did not get shorter</title>
+  <desc id="desc">A rough risograph-style collage of a torn weekly timesheet, fluorescent office panels, a laptop glow, coffee rings, red hour marks, a small unplugged desk fan, and a warm ocean-chart fragment bleeding through the paper.</desc>
+  <defs>
+    <filter id="paper" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="5" seed="11" result="noise"/>
+      <feColorMatrix in="noise" type="matrix" values="0.25 0 0 0 0.62  0 0.25 0 0 0.62  0 0 0.25 0 0.62  0 0 0 0.28 0" result="grain"/>
+      <feBlend in="SourceGraphic" in2="grain" mode="multiply"/>
+    </filter>
+    <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" seed="31" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="5"/></filter>
+    <pattern id="halftone" width="18" height="18" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="4" r="2.2" fill="#101525" opacity="0.28"/>
+      <circle cx="13" cy="12" r="1.3" fill="#101525" opacity="0.18"/>
+    </pattern>
+    <pattern id="grid" width="82" height="54" patternUnits="userSpaceOnUse">
+      <path d="M0 0H82V54H0Z" fill="none" stroke="#1c2738" stroke-width="2" opacity="0.38"/>
+      <path d="M0 27H82M41 0V54" stroke="#1c2738" stroke-width="1" opacity="0.18"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="900" fill="#0d1320"/>
+  <rect width="1600" height="900" fill="url(#halftone)" opacity="0.55"/>
+
+  <!-- fluorescent office ceiling panels -->
+  <g opacity="0.72" transform="skewX(-10)">
+    <rect x="130" y="55" width="390" height="54" fill="#dbe7d2" opacity="0.64"/>
+    <rect x="595" y="48" width="280" height="46" fill="#dbe7d2" opacity="0.52"/>
+    <rect x="980" y="65" width="430" height="58" fill="#dbe7d2" opacity="0.45"/>
+  </g>
+
+  <!-- underlying warm measurement chart, not quite aligned -->
+  <g transform="translate(1050 190) rotate(7)" filter="url(#rough)">
+    <path d="M0 0 L380 34 L350 415 L-30 370 Z" fill="#f26b3d" opacity="0.83"/>
+    <path d="M30 310 C80 270 125 276 170 230 S265 100 335 74" fill="none" stroke="#162037" stroke-width="10" opacity="0.55"/>
+    <path d="M34 330 C90 300 142 310 200 260 S285 130 344 96" fill="none" stroke="#eff1de" stroke-width="5" opacity="0.66"/>
+    <g stroke="#162037" stroke-width="2" opacity="0.28">
+      <path d="M40 40V340M100 45V348M160 50V356M220 55V364M280 62V372M340 70V380"/>
+      <path d="M20 85H360M12 150H355M5 215H345M-4 280H338"/>
+    </g>
+  </g>
+
+  <!-- torn weekly timesheet strips -->
+  <g filter="url(#paper)">
+    <path d="M210 190 L1010 146 L1030 208 L1006 250 L1035 308 L1011 383 L1030 448 L995 520 L1014 590 L235 651 L205 597 L224 536 L194 474 L218 420 L199 347 L230 288 Z" fill="#e9e3cc"/>
+    <path d="M252 232 L979 191 L994 576 L273 620 Z" fill="url(#grid)" opacity="0.72"/>
+    <path d="M286 214 L965 176" stroke="#101525" stroke-width="5" opacity="0.36"/>
+    <path d="M298 628 L958 586" stroke="#101525" stroke-width="5" opacity="0.24"/>
+  </g>
+
+  <!-- red grease-pencil hour marks -->
+  <g fill="none" stroke="#ff4a2f" stroke-linecap="round" opacity="0.9" filter="url(#rough)">
+    <path d="M352 302 L438 291" stroke-width="16"/>
+    <path d="M517 294 L628 282" stroke-width="13"/>
+    <path d="M700 284 L792 273" stroke-width="18"/>
+    <path d="M337 407 L498 389" stroke-width="12"/>
+    <path d="M556 394 L735 371" stroke-width="15"/>
+    <path d="M805 365 L953 349" stroke-width="11"/>
+    <path d="M412 512 L586 489" stroke-width="19"/>
+    <path d="M641 487 L891 455" stroke-width="15"/>
+  </g>
+
+  <!-- torn blue-grey receipt strips -->
+  <g opacity="0.84" filter="url(#rough)">
+    <path d="M95 515 L310 477 L332 784 L124 819 L104 744 L133 700 L105 640 Z" fill="#99a9aa"/>
+    <path d="M910 95 L1125 75 L1153 500 L934 520 L952 458 L927 399 L956 320 L932 256 L948 181 Z" fill="#8da0aa"/>
+    <g stroke="#152035" opacity="0.33">
+      <path d="M125 565 L291 538M132 612 L296 584M137 659 L301 632M145 710 L307 683" stroke-width="6"/>
+      <path d="M958 152 L1110 139M962 205 L1115 192M970 258 L1120 245M972 313 L1123 300M980 368 L1128 356" stroke-width="6"/>
+    </g>
+  </g>
+
+  <!-- laptop glow and coffee rings -->
+  <g transform="translate(520 655)">
+    <path d="M0 0 L470 -35 L544 82 L68 126 Z" fill="#111827"/>
+    <path d="M45 18 L433 -10 L470 49 L85 82 Z" fill="#a8f4d0" opacity="0.33"/>
+    <path d="M68 126 L544 82 L512 111 L31 154 Z" fill="#070b12"/>
+  </g>
+  <g fill="none" stroke="#241b17" stroke-width="9" opacity="0.32">
+    <ellipse cx="1185" cy="610" rx="72" ry="47" transform="rotate(-12 1185 610)"/>
+    <ellipse cx="1220" cy="628" rx="38" ry="24" transform="rotate(-12 1220 628)"/>
+  </g>
+
+  <!-- unplugged fan -->
+  <g transform="translate(1285 650) rotate(-8)">
+    <circle cx="0" cy="0" r="76" fill="none" stroke="#dbe7d2" stroke-width="12" opacity="0.85"/>
+    <circle cx="0" cy="0" r="14" fill="#dbe7d2"/>
+    <path d="M0 -14 C55 -60 78 -15 18 0 C78 15 55 60 0 14 C-55 60 -78 15 -18 0 C-78 -15 -55 -60 0 -14Z" fill="#dbe7d2" opacity="0.55"/>
+    <path d="M0 77 L0 150 L-55 150 L60 150" stroke="#dbe7d2" stroke-width="12" fill="none" stroke-linecap="round"/>
+    <path d="M75 38 C150 80 140 118 205 124" stroke="#dbe7d2" stroke-width="7" fill="none" stroke-linecap="round"/>
+    <circle cx="220" cy="126" r="9" fill="#ff4a2f"/>
+  </g>
+
+  <!-- registration slips / acid green misprint -->
+  <g opacity="0.5" mix-blend-mode="screen">
+    <path d="M240 188 L1018 141" stroke="#a7ff83" stroke-width="3"/>
+    <path d="M273 624 L1008 579" stroke="#a7ff83" stroke-width="3"/>
+    <path d="M247 253 L247 615M493 238 L493 602M739 222 L739 589M985 207 L985 575" stroke="#a7ff83" stroke-width="2"/>
+  </g>
+
+  <!-- missing-numeral clock -->
+  <g transform="translate(158 190)">
+    <circle cx="0" cy="0" r="82" fill="#161d2b" stroke="#e9e3cc" stroke-width="8"/>
+    <path d="M0 0 L0 -52M0 0 L43 24" stroke="#e9e3cc" stroke-width="8" stroke-linecap="round"/>
+    <g fill="#ff4a2f">
+      <circle cx="0" cy="-64" r="5"/><circle cx="64" cy="0" r="5"/><circle cx="0" cy="64" r="5"/><circle cx="-64" cy="0" r="5"/>
+    </g>
+  </g>
+
+  <!-- final torn edge shadow -->
+  <path d="M0 845 C120 820 220 872 370 842 C520 811 690 884 815 845 C990 791 1120 890 1290 842 C1410 810 1510 846 1600 826 L1600 900 L0 900Z" fill="#05070c" opacity="0.72"/>
+</svg>
