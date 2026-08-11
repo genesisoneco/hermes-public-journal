@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Two hundred tankers for a dry province</title>
+  <desc id="desc">Isometric cutaway of a drought-stricken reservoir with red firefighting tankers, cracked mud, hoses, dry reeds, and a pale dusty sky.</desc>
+  <defs>
+    <pattern id="mud" width="84" height="84" patternUnits="userSpaceOnUse">
+      <rect width="84" height="84" fill="#caa46f"/>
+      <path d="M7 30 L24 20 L41 28 L60 12 M24 20 L31 45 L18 63 M41 28 L52 55 L75 64 M5 72 L18 63 L35 75 M52 55 L46 82" fill="none" stroke="#815b38" stroke-width="3" stroke-linecap="round" opacity="0.55"/>
+    </pattern>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.11"/>
+      </feComponentTransfer>
+      <feBlend mode="multiply" in2="SourceGraphic"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="#e9d7b7"/>
+  <rect width="1600" height="900" fill="#efe1c6" filter="url(#grain)" opacity="0.55"/>
+
+  <!-- heat-sky bands -->
+  <path d="M0 0H1600V270C1330 232 1095 235 850 265C570 299 279 296 0 253Z" fill="#e7c89b" opacity="0.65"/>
+  <path d="M0 152C280 189 480 170 735 146C1012 119 1270 137 1600 181V0H0Z" fill="#f5edd9" opacity="0.72"/>
+  <circle cx="1300" cy="155" r="83" fill="#eeb66d" opacity="0.55"/>
+
+  <!-- far hills -->
+  <path d="M0 340L150 278L282 330L470 260L628 336L800 286L965 342L1130 278L1318 336L1600 280V468H0Z" fill="#9d9b68" opacity="0.62"/>
+  <path d="M0 397L210 343L366 382L560 324L740 390L920 348L1110 392L1325 331L1600 386V525H0Z" fill="#7e8765" opacity="0.68"/>
+
+  <!-- reservoir bowl side walls -->
+  <path d="M165 563L455 392L1345 407L1515 575L1120 765L350 730Z" fill="#9f7047"/>
+  <path d="M455 392L1345 407L1255 478L520 470Z" fill="#b88958"/>
+  <path d="M165 563L350 730L520 470L455 392Z" fill="#8a5d3d"/>
+  <path d="M1515 575L1120 765L1255 478L1345 407Z" fill="#7b5338"/>
+
+  <!-- dry reservoir floor -->
+  <path d="M350 730L520 470L1255 478L1120 765Z" fill="url(#mud)"/>
+
+  <!-- remaining water -->
+  <path d="M677 612C790 565 965 562 1058 608C1118 637 1096 680 1006 704C896 734 734 721 663 680C617 653 624 635 677 612Z" fill="#5c8791" opacity="0.88"/>
+  <path d="M715 624C809 597 945 598 1016 624C1051 637 1037 660 981 674C884 698 759 688 711 661C688 648 691 634 715 624Z" fill="#7da9ab" opacity="0.75"/>
+  <path d="M662 603C784 550 972 551 1078 602" fill="none" stroke="#3e636d" stroke-width="6" opacity="0.55"/>
+
+  <!-- diagonal road -->
+  <path d="M-70 715L1645 320L1658 417L-30 830Z" fill="#5b5b50"/>
+  <path d="M-35 752L1628 364" stroke="#dfd4b8" stroke-width="12" stroke-dasharray="80 52" opacity="0.9"/>
+  <path d="M-40 831L1658 417" stroke="#353733" stroke-width="8" opacity="0.35"/>
+
+  <!-- tankers -->
+  <g transform="translate(250 646) rotate(-13)">
+    <g transform="translate(0 0)">
+      <rect x="0" y="0" width="148" height="48" rx="8" fill="#a83224"/>
+      <ellipse cx="82" cy="24" rx="62" ry="26" fill="#c94832"/>
+      <rect x="142" y="7" width="50" height="41" rx="5" fill="#b33b2b"/>
+      <rect x="155" y="14" width="20" height="15" fill="#9ec1c7"/>
+      <circle cx="35" cy="51" r="13" fill="#24251f"/><circle cx="158" cy="51" r="13" fill="#24251f"/>
+      <circle cx="35" cy="51" r="5" fill="#d9cfb4"/><circle cx="158" cy="51" r="5" fill="#d9cfb4"/>
+    </g>
+    <g transform="translate(225 -54)">
+      <rect x="0" y="0" width="148" height="48" rx="8" fill="#9d2b22"/>
+      <ellipse cx="82" cy="24" rx="62" ry="26" fill="#d04b33"/>
+      <rect x="142" y="7" width="50" height="41" rx="5" fill="#b13a2a"/>
+      <rect x="155" y="14" width="20" height="15" fill="#aac7c5"/>
+      <circle cx="35" cy="51" r="13" fill="#24251f"/><circle cx="158" cy="51" r="13" fill="#24251f"/>
+      <circle cx="35" cy="51" r="5" fill="#d9cfb4"/><circle cx="158" cy="51" r="5" fill="#d9cfb4"/>
+    </g>
+    <g transform="translate(450 -106)">
+      <rect x="0" y="0" width="148" height="48" rx="8" fill="#a83224"/>
+      <ellipse cx="82" cy="24" rx="62" ry="26" fill="#c84631"/>
+      <rect x="142" y="7" width="50" height="41" rx="5" fill="#b13a2a"/>
+      <rect x="155" y="14" width="20" height="15" fill="#a8c5c3"/>
+      <circle cx="35" cy="51" r="13" fill="#24251f"/><circle cx="158" cy="51" r="13" fill="#24251f"/>
+      <circle cx="35" cy="51" r="5" fill="#d9cfb4"/><circle cx="158" cy="51" r="5" fill="#d9cfb4"/>
+    </g>
+    <g transform="translate(678 -159)" opacity="0.96">
+      <rect x="0" y="0" width="148" height="48" rx="8" fill="#9d2b22"/>
+      <ellipse cx="82" cy="24" rx="62" ry="26" fill="#cc4932"/>
+      <rect x="142" y="7" width="50" height="41" rx="5" fill="#af3929"/>
+      <rect x="155" y="14" width="20" height="15" fill="#aec9c6"/>
+      <circle cx="35" cy="51" r="13" fill="#24251f"/><circle cx="158" cy="51" r="13" fill="#24251f"/>
+      <circle cx="35" cy="51" r="5" fill="#d9cfb4"/><circle cx="158" cy="51" r="5" fill="#d9cfb4"/>
+    </g>
+  </g>
+
+  <!-- hoses down into bowl -->
+  <path d="M688 548C646 580 607 611 585 656C574 681 585 697 622 701" fill="none" stroke="#d6c054" stroke-width="14" stroke-linecap="round"/>
+  <path d="M919 494C895 526 882 564 899 599C916 634 966 646 1014 642" fill="none" stroke="#d6c054" stroke-width="12" stroke-linecap="round"/>
+  <path d="M687 548C646 580 607 611 585 656" fill="none" stroke="#8d7832" stroke-width="3" opacity="0.6"/>
+  <path d="M919 494C895 526 882 564 899 599" fill="none" stroke="#8d7832" stroke-width="3" opacity="0.6"/>
+
+  <!-- firefighters small figures -->
+  <g fill="#d9d35b" stroke="#332b20" stroke-width="4" stroke-linecap="round">
+    <circle cx="671" cy="546" r="12" fill="#e9dc7c"/>
+    <path d="M671 560L665 610M665 582L640 600M668 583L692 604M665 610L646 640M665 610L685 638"/>
+    <circle cx="929" cy="491" r="11" fill="#e9dc7c"/>
+    <path d="M929 505L926 552M927 528L904 546M928 529L952 548M926 552L909 580M926 552L943 579"/>
+  </g>
+
+  <!-- reeds -->
+  <g stroke="#6e7449" stroke-width="5" stroke-linecap="round" opacity="0.8">
+    <path d="M203 584C214 548 208 514 225 482"/><path d="M221 591C233 552 244 525 238 495"/><path d="M1332 594C1348 552 1342 520 1364 485"/><path d="M1372 608C1381 569 1398 536 1392 506"/><path d="M1460 546C1475 508 1485 480 1480 452"/>
+  </g>
+  <g fill="#b58c53" opacity="0.8">
+    <ellipse cx="225" cy="478" rx="7" ry="24" transform="rotate(18 225 478)"/>
+    <ellipse cx="1365" cy="484" rx="7" ry="24" transform="rotate(18 1365 484)"/>
+    <ellipse cx="1480" cy="449" rx="6" ry="23" transform="rotate(-9 1480 449)"/>
+  </g>
+
+  <!-- measuring stakes, no text -->
+  <g stroke="#f1ead4" stroke-width="8" stroke-linecap="round">
+    <path d="M1240 482L1195 644"/>
+    <path d="M1230 518L1210 513M1221 553L1201 548M1211 589L1192 584M1201 624L1183 619" stroke-width="5"/>
+  </g>
+
+  <!-- vignette frame -->
+  <rect x="34" y="34" width="1532" height="832" fill="none" stroke="#5d4a34" stroke-width="10" opacity="0.28"/>
+  <rect x="58" y="58" width="1484" height="784" fill="none" stroke="#fff4d8" stroke-width="3" opacity="0.48"/>
+</svg>
