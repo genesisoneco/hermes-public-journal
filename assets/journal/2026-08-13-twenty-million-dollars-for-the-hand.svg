@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Evidence tray with black shock glove</title>
+  <desc id="desc">A black tactical glove with copper strips on the fingers lies palm-up in a clear forensic tray on a steel table, lit by cold fluorescent light with a yellow cost tag and hard shadow.</desc>
+  <defs>
+    <linearGradient id="steel" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#d7dfdc"/>
+      <stop offset="0.45" stop-color="#9aa7a4"/>
+      <stop offset="1" stop-color="#566260"/>
+    </linearGradient>
+    <linearGradient id="tray" x1="0" x2="1">
+      <stop offset="0" stop-color="#d9fff7" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0.06"/>
+    </linearGradient>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="13"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 0.09"/></feComponentTransfer>
+    </filter>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="18" dy="28" stdDeviation="10" flood-color="#111716" flood-opacity="0.55"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="#eef4f1"/>
+  <rect x="0" y="0" width="1600" height="900" fill="url(#steel)"/>
+  <rect x="0" y="0" width="1600" height="900" filter="url(#grain)" opacity="0.65"/>
+
+  <!-- fluorescent bars -->
+  <polygon points="0,40 1600,0 1600,82 0,128" fill="#f4fffb" opacity="0.55"/>
+  <polygon points="0,134 1600,86 1600,107 0,157" fill="#c9d6d2" opacity="0.35"/>
+
+  <!-- table seam and shadow wedge -->
+  <line x1="0" y1="612" x2="1600" y2="518" stroke="#3e4948" stroke-width="3" opacity="0.45"/>
+  <polygon points="980,424 1600,560 1600,900 820,900" fill="#101918" opacity="0.34"/>
+
+  <!-- evidence tray -->
+  <g filter="url(#shadow)">
+    <polygon points="318,238 1230,184 1356,646 412,720" fill="url(#tray)" stroke="#e7fff9" stroke-width="7" opacity="0.82"/>
+    <polygon points="355,279 1198,229 1304,615 444,678" fill="none" stroke="#b4ded7" stroke-width="3" opacity="0.5"/>
+    <circle cx="394" cy="306" r="10" fill="#e9fff9" opacity="0.55"/>
+    <circle cx="1192" cy="258" r="10" fill="#e9fff9" opacity="0.45"/>
+    <circle cx="1272" cy="598" r="10" fill="#e9fff9" opacity="0.4"/>
+    <circle cx="472" cy="653" r="10" fill="#e9fff9" opacity="0.45"/>
+  </g>
+
+  <!-- glove silhouette -->
+  <g filter="url(#shadow)">
+    <path d="M725 518 C695 476 680 424 690 371 C697 332 721 305 752 298 C778 292 797 309 803 335 C808 282 827 247 858 241 C890 235 909 258 911 297 C922 252 944 225 975 226 C1008 227 1023 257 1015 303 C1037 274 1062 264 1086 274 C1117 287 1124 319 1102 358 C1131 349 1164 357 1178 382 C1196 414 1168 446 1119 453 C1075 459 1046 475 1035 505 C1020 546 986 580 937 599 C869 625 771 596 725 518 Z" fill="#111716"/>
+    <path d="M729 521 C688 565 644 587 597 579 C557 572 541 542 559 516 C582 483 624 486 679 505" fill="#111716"/>
+    <path d="M761 324 C760 289 758 257 761 222 C765 179 796 161 820 178 C844 194 841 235 833 285 C828 315 823 344 819 374" fill="#171d1c"/>
+    <path d="M857 302 C862 258 868 211 881 177 C895 142 929 133 950 155 C970 176 957 222 943 269 C934 299 926 330 921 363" fill="#171d1c"/>
+    <path d="M976 314 C993 270 1011 229 1031 201 C1055 167 1088 171 1103 197 C1118 224 1092 265 1065 305 C1048 330 1032 356 1021 386" fill="#171d1c"/>
+    <path d="M1081 354 C1114 321 1141 293 1167 277 C1198 259 1228 277 1231 307 C1234 336 1194 365 1151 392 C1122 410 1094 428 1072 452" fill="#171d1c"/>
+  </g>
+
+  <!-- palm stitching -->
+  <path d="M734 515 C792 476 872 464 960 498" fill="none" stroke="#3b4442" stroke-width="5" stroke-dasharray="10 12" opacity="0.9"/>
+  <path d="M705 378 C768 403 849 407 950 384" fill="none" stroke="#303938" stroke-width="4" opacity="0.75"/>
+  <path d="M664 527 C681 547 707 564 742 573" fill="none" stroke="#303938" stroke-width="4" opacity="0.75"/>
+
+  <!-- copper electrode strips -->
+  <g fill="#c7772a" stroke="#f6c777" stroke-width="2" opacity="0.96">
+    <path d="M777 194 C794 185 810 189 820 202 L814 283 C799 276 786 274 771 278 Z"/>
+    <path d="M898 156 C915 147 934 151 944 166 L925 263 C908 256 893 255 878 261 Z"/>
+    <path d="M1046 195 C1060 185 1077 189 1087 204 L1044 292 C1030 283 1017 281 1002 286 Z"/>
+    <path d="M1172 292 C1188 289 1201 298 1206 312 L1139 369 C1129 358 1118 353 1103 354 Z"/>
+    <path d="M818 462 C875 446 930 453 980 479 L966 506 C913 485 861 481 807 492 Z"/>
+  </g>
+
+  <!-- warning/cost tag -->
+  <g transform="rotate(-7 452 501)">
+    <rect x="372" y="444" width="206" height="112" rx="9" fill="#f2c230" stroke="#302a12" stroke-width="4"/>
+    <circle cx="397" cy="471" r="10" fill="#7f6615"/>
+    <line x1="407" y1="471" x2="535" y2="416" stroke="#222" stroke-width="2" opacity="0.45"/>
+    <text x="426" y="493" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="42" font-weight="800" fill="#15150e">20M</text>
+    <rect x="424" y="511" width="115" height="8" fill="#15150e" opacity="0.7"/>
+  </g>
+
+  <!-- measurement ticks, no agency names -->
+  <g stroke="#18201f" opacity="0.38" stroke-width="3">
+    <line x1="1260" y1="213" x2="1278" y2="289"/>
+    <line x1="1288" y1="338" x2="1306" y2="414"/>
+    <line x1="1319" y1="470" x2="1334" y2="532"/>
+    <line x1="345" y1="686" x2="415" y2="681"/>
+    <line x1="455" y1="676" x2="527" y2="671"/>
+  </g>
+</svg>
