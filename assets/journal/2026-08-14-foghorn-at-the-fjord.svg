@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Polar bear waking in a Svalbard fjord after a foghorn blast</title>
+  <desc id="desc">A woodblock-inspired scene in Prussian blue, white, charcoal, and cinnabar: a polar bear on ice recoils from pale sound rings coming from a small distant vessel in a dark fjord.</desc>
+  <defs>
+    <filter id="paper" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="4" seed="14" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0" result="grain"/>
+      <feBlend in="SourceGraphic" in2="grain" mode="multiply"/>
+    </filter>
+    <pattern id="hatch" width="16" height="16" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)">
+      <path d="M0 8 L16 8" stroke="#10233d" stroke-width="1.2" opacity="0.28"/>
+    </pattern>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#153b68"/>
+      <stop offset="0.58" stop-color="#2f6c97"/>
+      <stop offset="1" stop-color="#d8edf2"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="#f3ecd7"/>
+  <g filter="url(#paper)">
+    <rect width="1600" height="900" fill="url(#sky)"/>
+    <path d="M0 610 C190 555 310 605 480 560 C700 501 830 555 1000 515 C1220 466 1390 510 1600 452 L1600 900 L0 900 Z" fill="#d9f0f4"/>
+    <path d="M0 716 C210 672 362 701 534 666 C710 630 895 681 1072 631 C1284 572 1430 620 1600 577 L1600 900 L0 900 Z" fill="#ffffff" opacity="0.9"/>
+    <path d="M0 645 C250 605 376 638 560 610 C760 579 940 620 1106 587 C1324 543 1478 558 1600 529 L1600 676 C1405 640 1207 704 1036 682 C848 657 690 697 510 671 C306 642 172 686 0 674 Z" fill="#0e2744" opacity="0.96"/>
+    <path d="M0 676 C194 668 342 724 525 701 C710 677 878 715 1032 695 C1207 672 1378 720 1600 684 L1600 900 L0 900 Z" fill="#eef8f8"/>
+
+    <g transform="translate(1140 455) rotate(-5)">
+      <path d="M0 42 C44 70 173 75 232 49 C205 96 76 107 13 74 Z" fill="#141a21"/>
+      <path d="M38 15 L174 7 L221 43 C167 65 67 63 0 40 Z" fill="#23364e"/>
+      <path d="M83 -15 L127 -19 L145 10 L70 14 Z" fill="#23364e"/>
+      <circle cx="47" cy="32" r="5" fill="#d24d38"/>
+      <path d="M33 14 L189 6" stroke="#f7f0d8" stroke-width="4" opacity="0.55"/>
+    </g>
+
+    <g transform="translate(1025 485) rotate(-8)" fill="none" stroke="#f7f0d8" stroke-linecap="round">
+      <path d="M0 0 C-90 -50 -170 -72 -264 -75" stroke-width="7" opacity="0.95"/>
+      <path d="M-4 28 C-126 -32 -242 -35 -356 -5" stroke-width="5" opacity="0.72"/>
+      <path d="M8 -31 C-118 -113 -252 -152 -410 -141" stroke-width="4" opacity="0.58"/>
+      <path d="M-12 61 C-150 25 -300 55 -426 118" stroke-width="3" opacity="0.42"/>
+    </g>
+
+    <g transform="translate(382 590) rotate(-7)">
+      <ellipse cx="226" cy="174" rx="252" ry="54" fill="#10233d" opacity="0.23"/>
+      <path d="M88 107 C102 39 182 2 277 11 C375 20 453 77 460 144 C468 220 372 260 261 255 C140 249 65 190 88 107 Z" fill="#fffdf1" stroke="#111820" stroke-width="9"/>
+      <path d="M118 101 C183 137 302 138 432 117 C412 69 344 27 263 22 C181 17 130 49 118 101 Z" fill="#d7ebee" opacity="0.8"/>
+      <path d="M111 136 C92 158 61 164 40 150 C22 138 20 114 37 95 C55 73 86 69 109 82 C130 94 130 115 111 136 Z" fill="#fffdf1" stroke="#111820" stroke-width="8"/>
+      <path d="M43 97 C24 83 5 79 -15 86 C-7 109 8 120 31 124" fill="#fffdf1" stroke="#111820" stroke-width="7"/>
+      <path d="M65 98 C77 88 92 89 103 101" stroke="#111820" stroke-width="5" fill="none"/>
+      <circle cx="83" cy="120" r="5" fill="#111820"/>
+      <path d="M53 139 C73 151 95 149 112 136" stroke="#111820" stroke-width="5" fill="none"/>
+      <path d="M188 245 L152 314 L209 317 L238 251 Z" fill="#fffdf1" stroke="#111820" stroke-width="8"/>
+      <path d="M332 242 L360 313 L416 305 L385 232 Z" fill="#fffdf1" stroke="#111820" stroke-width="8"/>
+      <path d="M244 34 C258 12 289 6 311 23" stroke="#111820" stroke-width="7" fill="none"/>
+      <path d="M113 112 C187 153 308 158 440 135" stroke="#10233d" stroke-width="4" fill="none" opacity="0.5"/>
+      <path d="M165 176 C244 203 337 205 414 184" stroke="#10233d" stroke-width="3" fill="none" opacity="0.45"/>
+      <path d="M38 95 C70 118 91 120 118 109" stroke="#d24d38" stroke-width="5" fill="none" opacity="0.75"/>
+    </g>
+
+    <g opacity="0.55">
+      <path d="M122 770 L303 742 L489 772 L662 724 L810 757 L1009 718 L1190 759 L1390 709 L1600 745" stroke="#173c62" stroke-width="4" fill="none"/>
+      <path d="M75 827 L280 794 L437 825 L640 789 L819 812 L1010 783 L1215 817 L1425 774" stroke="#173c62" stroke-width="3" fill="none"/>
+      <rect x="0" y="0" width="1600" height="900" fill="url(#hatch)" opacity="0.22"/>
+    </g>
+
+    <g transform="translate(77 95)" opacity="0.75">
+      <path d="M0 0 L310 0 L310 168 L0 168 Z" fill="#f3ecd7" stroke="#111820" stroke-width="6"/>
+      <path d="M24 34 L286 34 M24 78 L240 78 M24 122 L270 122" stroke="#d24d38" stroke-width="5" opacity="0.7"/>
+      <circle cx="265" cy="122" r="31" fill="none" stroke="#d24d38" stroke-width="6" opacity="0.68"/>
+    </g>
+  </g>
+</svg>
