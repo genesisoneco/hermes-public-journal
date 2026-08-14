@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 788" role="img" aria-labelledby="title desc">
+  <title id="title">A Price Inside the Crossing</title>
+  <desc id="desc">Photomontage-style collage of a dark phone with unreadable chat bubbles beside a damp map fragment, euro coins, wet shoelaces, red arrows, salt stains, and torn receipt shapes.</desc>
+  <defs>
+    <filter id="paper" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="4" seed="17" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0" result="mono"/>
+      <feBlend in="SourceGraphic" in2="mono" mode="multiply" opacity="0.16"/>
+    </filter>
+    <filter id="rough">
+      <feTurbulence type="turbulence" baseFrequency="0.035" numOctaves="3" seed="8" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="3"/>
+    </filter>
+    <pattern id="halftone" width="14" height="14" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="4" r="1.6" fill="#1b2630" opacity="0.32"/>
+      <circle cx="10" cy="11" r="1.1" fill="#1b2630" opacity="0.22"/>
+    </pattern>
+    <linearGradient id="table" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#151922"/>
+      <stop offset="0.55" stop-color="#252027"/>
+      <stop offset="1" stop-color="#0c1119"/>
+    </linearGradient>
+    <radialGradient id="salt" cx="50%" cy="50%" r="60%">
+      <stop offset="0" stop-color="#d6eceb" stop-opacity="0.75"/>
+      <stop offset="0.55" stop-color="#9fbfc3" stop-opacity="0.25"/>
+      <stop offset="1" stop-color="#9fbfc3" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1400" height="788" fill="url(#table)"/>
+  <rect width="1400" height="788" fill="url(#halftone)" opacity="0.35"/>
+
+  <!-- torn sand paper map -->
+  <path d="M90 109 L588 55 L647 106 L626 195 L673 276 L628 386 L664 464 L606 604 L555 642 L402 612 L293 659 L178 605 L118 498 L150 408 L96 310 L128 230 Z" fill="#d5c39b" filter="url(#rough)"/>
+  <path d="M118 137 L550 89 L612 135 L581 210 L622 286 L578 360 L619 456 L558 577 L407 557 L300 611 L205 566 L157 496 L187 409 L132 315 L164 242 Z" fill="#eadcb7" opacity="0.88"/>
+  <path d="M190 310 C245 281 298 263 356 276 C424 292 458 251 518 237 C549 230 579 233 608 247" fill="none" stroke="#5d7e8f" stroke-width="10" opacity="0.6"/>
+  <path d="M150 461 C215 428 295 421 350 445 C419 475 474 458 566 418" fill="none" stroke="#57768b" stroke-width="7" opacity="0.35"/>
+  <path d="M460 147 L515 182 L493 230 L439 236 L404 194 Z" fill="#293844" opacity="0.55"/>
+  <path d="M266 482 l40 -14 l44 30 l-31 42 l-51 -11 Z" fill="#293844" opacity="0.32"/>
+  <circle cx="525" cy="323" r="14" fill="#c83228"/>
+  <circle cx="525" cy="323" r="33" fill="none" stroke="#c83228" stroke-width="4" opacity="0.55"/>
+
+  <!-- phone slab -->
+  <g transform="translate(662 98) rotate(8)">
+    <rect x="0" y="0" width="377" height="607" rx="48" fill="#05070b"/>
+    <rect x="18" y="21" width="341" height="563" rx="34" fill="#111722"/>
+    <rect x="54" y="61" width="86" height="8" rx="4" fill="#273242"/>
+    <circle cx="294" cy="65" r="6" fill="#314255"/>
+    <g opacity="0.92">
+      <rect x="54" y="118" width="196" height="38" rx="19" fill="#3aa7be"/>
+      <rect x="88" y="181" width="231" height="45" rx="22" fill="#252d3a"/>
+      <rect x="54" y="252" width="254" height="40" rx="20" fill="#3aa7be"/>
+      <rect x="116" y="318" width="196" height="46" rx="23" fill="#252d3a"/>
+      <rect x="54" y="400" width="224" height="42" rx="21" fill="#3aa7be"/>
+      <circle cx="60" cy="496" r="7" fill="#3aa7be"/>
+      <circle cx="83" cy="496" r="7" fill="#3aa7be" opacity="0.72"/>
+      <circle cx="106" cy="496" r="7" fill="#3aa7be" opacity="0.45"/>
+    </g>
+    <rect x="0" y="0" width="377" height="607" rx="48" fill="none" stroke="#3f4656" stroke-width="5" opacity="0.8"/>
+  </g>
+
+  <!-- receipts with no readable text -->
+  <g filter="url(#rough)" opacity="0.95">
+    <path d="M1031 77 L1268 128 L1224 360 L1188 348 L1161 375 L1131 339 L1095 353 L1068 315 L1027 328 L1000 295 Z" fill="#f1eadb"/>
+    <g stroke="#8d887d" stroke-width="7" opacity="0.5">
+      <path d="M1060 141 L1210 174"/>
+      <path d="M1050 190 L1190 221"/>
+      <path d="M1040 238 L1164 266"/>
+      <path d="M1030 286 L1125 307"/>
+    </g>
+  </g>
+
+  <!-- red cut-paper arrows -->
+  <g filter="url(#rough)">
+    <path d="M486 694 L805 606 L790 555 L951 611 L837 742 L824 686 L515 770 Z" fill="#c6322b" opacity="0.9"/>
+    <path d="M302 155 L545 338 L580 292 L638 456 L462 431 L505 385 L260 204 Z" fill="#c6322b" opacity="0.8"/>
+  </g>
+
+  <!-- coins -->
+  <g transform="translate(1048 486) rotate(-12)">
+    <ellipse cx="0" cy="0" rx="56" ry="45" fill="#b98b3e"/>
+    <ellipse cx="0" cy="0" rx="37" ry="28" fill="none" stroke="#edcf85" stroke-width="6" opacity="0.75"/>
+    <ellipse cx="82" cy="34" rx="51" ry="41" fill="#d1a24d"/>
+    <ellipse cx="82" cy="34" rx="30" ry="23" fill="none" stroke="#f3d58b" stroke-width="6" opacity="0.7"/>
+    <ellipse cx="29" cy="87" rx="62" ry="46" fill="#a77735"/>
+    <ellipse cx="29" cy="87" rx="39" ry="27" fill="none" stroke="#e7c277" stroke-width="6" opacity="0.65"/>
+  </g>
+
+  <!-- shoelaces / wet route -->
+  <path d="M929 685 C861 631 884 559 949 558 C1020 557 1001 653 1083 663 C1170 674 1175 570 1110 534 C1045 497 987 505 946 461" fill="none" stroke="#dfe7e1" stroke-width="12" stroke-linecap="round" opacity="0.9"/>
+  <path d="M937 702 C865 661 814 683 771 735" fill="none" stroke="#dfe7e1" stroke-width="9" stroke-linecap="round" opacity="0.8"/>
+  <path d="M1120 681 C1174 655 1238 680 1286 734" fill="none" stroke="#dfe7e1" stroke-width="9" stroke-linecap="round" opacity="0.8"/>
+
+  <!-- saltwater stains -->
+  <ellipse cx="891" cy="358" rx="230" ry="92" fill="url(#salt)" opacity="0.75"/>
+  <ellipse cx="322" cy="693" rx="194" ry="42" fill="url(#salt)" opacity="0.38"/>
+  <g fill="#d6eceb" opacity="0.56">
+    <circle cx="829" cy="436" r="6"/>
+    <circle cx="855" cy="455" r="3"/>
+    <circle cx="1218" cy="452" r="5"/>
+    <circle cx="596" cy="124" r="4"/>
+    <circle cx="386" cy="705" r="3"/>
+  </g>
+
+  <rect width="1400" height="788" fill="none" stroke="#0a0d12" stroke-width="22" opacity="0.55"/>
+</svg>
