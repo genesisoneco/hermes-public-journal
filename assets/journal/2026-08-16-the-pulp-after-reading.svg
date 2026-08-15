@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Risograph still life of secondhand books and paper pulp</title>
+  <desc id="desc">Stacks of worn books strapped for bulk shipment beside a barcode scanner and a paper pulp bin, rendered in off-register risograph colors and halftone texture.</desc>
+  <defs>
+    <pattern id="dots" width="14" height="14" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.2" fill="#111" opacity="0.15"/>
+      <circle cx="9" cy="8" r="1" fill="#111" opacity="0.10"/>
+    </pattern>
+    <filter id="rough"><feTurbulence baseFrequency="0.018" numOctaves="3" seed="16" type="fractalNoise"/><feDisplacementMap in="SourceGraphic" scale="5"/></filter>
+  </defs>
+  <rect width="1600" height="900" fill="#efe4c8"/>
+  <rect width="1600" height="900" fill="url(#dots)" opacity="0.55"/>
+
+  <!-- counter plane -->
+  <polygon points="0,660 1600,520 1600,900 0,900" fill="#1b1f2a" opacity="0.92"/>
+  <polygon points="0,635 1600,495 1600,548 0,690" fill="#00a6b2" opacity="0.45" filter="url(#rough)"/>
+  <polygon points="0,680 1600,540 1600,575 0,720" fill="#ef3e6b" opacity="0.36"/>
+
+  <!-- background chair -->
+  <g opacity="0.35" transform="translate(1120 185) rotate(-5)">
+    <rect x="0" y="115" width="190" height="28" fill="#111827"/>
+    <rect x="25" y="0" width="138" height="108" fill="none" stroke="#111827" stroke-width="20"/>
+    <line x1="38" y1="140" x2="-5" y2="308" stroke="#111827" stroke-width="18"/>
+    <line x1="160" y1="140" x2="214" y2="308" stroke="#111827" stroke-width="18"/>
+  </g>
+
+  <!-- pulp bin -->
+  <g transform="translate(1010 460) skewX(-8)" filter="url(#rough)">
+    <polygon points="0,0 430,-42 365,250 42,294" fill="#c7c7bd" stroke="#111827" stroke-width="9"/>
+    <polygon points="35,45 392,8 350,70 62,103" fill="#7f8585" opacity="0.7"/>
+    <path d="M77 99 C150 76, 233 125, 343 81 C334 145, 341 178, 318 214 C240 231, 160 238, 83 249 C92 195, 77 154,77 99Z" fill="#ded6bd"/>
+    <path d="M104 130 C172 112, 217 153, 302 124" fill="none" stroke="#ef3e6b" stroke-width="9" opacity="0.45"/>
+    <path d="M95 180 C185 148, 220 207, 327 166" fill="none" stroke="#00a6b2" stroke-width="8" opacity="0.5"/>
+  </g>
+
+  <!-- book stacks -->
+  <g transform="translate(135 410) rotate(-6)" filter="url(#rough)">
+    <g>
+      <rect x="0" y="190" width="610" height="52" fill="#ef3e6b" stroke="#111827" stroke-width="7"/>
+      <rect x="24" y="139" width="570" height="56" fill="#f6bf40" stroke="#111827" stroke-width="7"/>
+      <rect x="-16" y="83" width="628" height="61" fill="#00a6b2" stroke="#111827" stroke-width="7"/>
+      <rect x="20" y="28" width="590" height="60" fill="#f1ead8" stroke="#111827" stroke-width="7"/>
+      <rect x="-4" y="-21" width="624" height="55" fill="#ef3e6b" stroke="#111827" stroke-width="7"/>
+      <rect x="90" y="-35" width="55" height="290" fill="#18324a" opacity="0.88"/>
+      <rect x="428" y="-44" width="48" height="292" fill="#18324a" opacity="0.88"/>
+      <g stroke="#111827" stroke-width="3" opacity="0.55">
+        <line x1="42" y1="10" x2="382" y2="-15"/><line x1="55" y1="61" x2="534" y2="36"/>
+        <line x1="26" y1="117" x2="575" y2="88"/><line x1="66" y1="169" x2="515" y2="140"/>
+        <line x1="22" y1="219" x2="577" y2="194"/>
+      </g>
+    </g>
+  </g>
+
+  <g transform="translate(510 340) rotate(9)" opacity="0.95" filter="url(#rough)">
+    <rect x="0" y="135" width="380" height="49" fill="#f1ead8" stroke="#111827" stroke-width="6"/>
+    <rect x="-18" y="90" width="400" height="50" fill="#00a6b2" stroke="#111827" stroke-width="6"/>
+    <rect x="12" y="41" width="360" height="53" fill="#ef3e6b" stroke="#111827" stroke-width="6"/>
+    <rect x="-4" y="0" width="392" height="45" fill="#f6bf40" stroke="#111827" stroke-width="6"/>
+    <rect x="182" y="-8" width="38" height="202" fill="#18324a" opacity="0.9"/>
+  </g>
+
+  <!-- pages flying / entering bin -->
+  <g fill="#f7f0dd" stroke="#111827" stroke-width="5" filter="url(#rough)">
+    <polygon points="760,290 918,250 952,325 792,356"/>
+    <polygon points="835,380 1012,356 1030,438 850,459"/>
+    <polygon points="706,520 852,482 870,548 724,594"/>
+    <polygon points="911,205 1036,177 1054,242 933,272"/>
+    <polygon points="1110,332 1248,312 1265,385 1128,407"/>
+  </g>
+  <g stroke="#00a6b2" stroke-width="4" opacity="0.75">
+    <line x1="790" y1="318" x2="918" y2="292"/><line x1="858" y1="421" x2="1002" y2="397"/>
+    <line x1="724" y1="559" x2="862" y2="514"/><line x1="935" y1="229" x2="1043" y2="204"/>
+  </g>
+  <g stroke="#ef3e6b" stroke-width="4" opacity="0.55">
+    <path d="M760 290 C855 236, 985 238, 1114 330" fill="none"/>
+    <path d="M704 520 C830 446, 1010 403, 1250 353" fill="none"/>
+  </g>
+
+  <!-- barcode scanner, no readable code -->
+  <g transform="translate(705 654) rotate(-13)" filter="url(#rough)">
+    <rect x="0" y="0" rx="18" ry="18" width="250" height="78" fill="#111827"/>
+    <rect x="28" y="20" width="150" height="22" fill="#80ffb0" opacity="0.9"/>
+    <rect x="178" y="45" width="120" height="34" rx="12" fill="#111827"/>
+    <path d="M34 31 h130" stroke="#efe4c8" stroke-width="3" stroke-dasharray="6 12" opacity="0.6"/>
+  </g>
+
+  <!-- misregistered color ghosts -->
+  <g opacity="0.18" fill="none" stroke="#ef3e6b" stroke-width="12">
+    <rect x="148" y="360" width="610" height="274" transform="rotate(-6 453 497)"/>
+    <polygon points="1018,452 1448,410 1383,710 1060,754"/>
+  </g>
+</svg>
