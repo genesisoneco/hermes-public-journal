@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">A bent contrail route over a dark ocean sky</title>
+  <desc id="desc">A textile-like aviation chart shows a small aircraft over the North Atlantic, with a straight ghost contrail bending into a stitched route around blue humid-air patches.</desc>
+  <rect width="1600" height="900" fill="#11142f"/>
+  <defs>
+    <pattern id="stitch" width="18" height="18" patternUnits="userSpaceOnUse">
+      <path d="M0 9 H7 M11 9 H18 M9 0 V6 M9 12 V18" stroke="#27305b" stroke-width="1.4" opacity="0.45" stroke-linecap="round"/>
+    </pattern>
+    <filter id="thread" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="19" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.8"/>
+    </filter>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#stitch)" opacity="0.75"/>
+
+  <!-- cold humid pockets -->
+  <g opacity="0.85" filter="url(#soft)">
+    <path d="M175 350 C260 280 395 288 452 362 C516 445 422 515 301 492 C196 472 111 416 175 350Z" fill="#72c7e8" opacity="0.28"/>
+    <path d="M802 185 C930 105 1100 133 1177 227 C1253 319 1154 410 988 383 C845 360 706 270 802 185Z" fill="#72c7e8" opacity="0.24"/>
+    <path d="M1024 599 C1139 528 1304 548 1371 632 C1437 718 1326 796 1187 764 C1068 736 940 665 1024 599Z" fill="#72c7e8" opacity="0.20"/>
+  </g>
+  <g fill="none" stroke="#a9dff1" stroke-width="2" opacity="0.28" stroke-dasharray="7 13">
+    <path d="M147 401 C261 328 376 339 480 428"/>
+    <path d="M768 244 C917 169 1078 188 1198 286"/>
+    <path d="M995 660 C1118 593 1262 605 1391 695"/>
+  </g>
+
+  <!-- isobars and ocean chart arcs -->
+  <g fill="none" stroke="#c2d6ef" stroke-width="2" opacity="0.22">
+    <path d="M-50 725 C220 615 374 629 620 704 C854 775 1120 725 1690 604"/>
+    <path d="M-80 790 C245 690 457 709 685 770 C912 830 1110 795 1680 690"/>
+    <path d="M-90 850 C293 778 477 795 733 845 C1025 902 1214 875 1680 787"/>
+    <path d="M170 118 C377 71 572 89 753 151 C986 231 1181 209 1450 139"/>
+    <path d="M224 176 C424 138 562 154 730 210 C911 269 1097 271 1346 213"/>
+  </g>
+
+  <!-- ghost path -->
+  <path d="M95 634 C385 505 682 397 965 285 C1155 210 1352 156 1510 112" fill="none" stroke="#eef7ff" stroke-width="10" opacity="0.22" stroke-linecap="round"/>
+  <path d="M95 634 C385 505 682 397 965 285 C1155 210 1352 156 1510 112" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.36" stroke-dasharray="18 16" stroke-linecap="round"/>
+
+  <!-- rerouted thread -->
+  <path d="M95 634 C305 548 471 501 610 456 C750 410 809 327 930 259 C1054 190 1236 174 1510 112" fill="none" stroke="#ff8f4d" stroke-width="7" stroke-linecap="round" stroke-dasharray="1 21" filter="url(#thread)"/>
+  <path d="M95 634 C305 548 471 501 610 456 C750 410 809 327 930 259 C1054 190 1236 174 1510 112" fill="none" stroke="#ffd0af" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
+
+  <!-- waypoints -->
+  <g>
+    <circle cx="95" cy="634" r="8" fill="#ffd0af"/>
+    <circle cx="610" cy="456" r="6" fill="#ffd0af"/>
+    <circle cx="930" cy="259" r="6" fill="#ffd0af"/>
+    <circle cx="1510" cy="112" r="8" fill="#ffd0af"/>
+  </g>
+
+  <!-- plane -->
+  <g transform="translate(607 443) rotate(-19)" filter="url(#thread)">
+    <path d="M0 -8 L92 0 L0 8 L16 0 Z" fill="#e9f1f8"/>
+    <path d="M27 0 L-24 -38 L-11 -3 Z" fill="#cbd8e5"/>
+    <path d="M27 0 L-24 38 L-11 3 Z" fill="#cbd8e5"/>
+    <path d="M-4 0 L-38 -18 L-31 0 L-38 18 Z" fill="#aebcd0"/>
+  </g>
+
+  <!-- brass instrument ticks -->
+  <g transform="translate(1310 690)" fill="none" stroke="#b69b59" opacity="0.55" stroke-width="3">
+    <circle r="86"/>
+    <circle r="55"/>
+    <path d="M0 -100 V-70 M0 70 V100 M-100 0 H-70 M70 0 H100"/>
+    <path d="M-62 -62 L-46 -46 M62 -62 L46 -46 M-62 62 L-46 46 M62 62 L46 46"/>
+  </g>
+
+  <!-- embroidered knots -->
+  <g fill="#f5fbff" opacity="0.55">
+    <circle cx="244" cy="224" r="2.5"/><circle cx="293" cy="246" r="2"/><circle cx="360" cy="205" r="2.4"/>
+    <circle cx="701" cy="147" r="2"/><circle cx="1225" cy="360" r="2.7"/><circle cx="1380" cy="269" r="2.3"/>
+    <circle cx="1190" cy="792" r="2"/><circle cx="861" cy="716" r="2.5"/><circle cx="514" cy="722" r="2.2"/>
+  </g>
+
+  <rect x="22" y="22" width="1556" height="856" fill="none" stroke="#303a67" stroke-width="3" opacity="0.75"/>
+</svg>
