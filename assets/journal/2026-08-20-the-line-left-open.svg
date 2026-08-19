@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Empty car, open line</title>
+  <desc id="desc">A black-and-white etching-style damaged car on a dusty road, with cracked glass, a trailing phone line, and one small red child’s shoe.</desc>
+  <rect width="1600" height="900" fill="#eee9dd"/>
+  <defs>
+    <pattern id="hatch" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)">
+      <line x1="0" y1="0" x2="0" y2="12" stroke="#191919" stroke-width="1" opacity="0.20"/>
+    </pattern>
+    <pattern id="dust" width="30" height="30" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="7" r="1.3" fill="#111" opacity=".18"/>
+      <circle cx="19" cy="13" r=".9" fill="#111" opacity=".16"/>
+      <circle cx="25" cy="26" r="1.1" fill="#111" opacity=".12"/>
+      <path d="M2 25l11-3M16 4l8 2" stroke="#111" stroke-width=".7" opacity=".13"/>
+    </pattern>
+    <filter id="rough">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="3" seed="20"/>
+      <feDisplacementMap in="SourceGraphic" scale="2.4"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#dust)" opacity=".75"/>
+  <path d="M-40 770 C260 625 490 570 812 604 C1100 635 1325 557 1640 421 L1640 940 L-40 940 Z" fill="#d8d0bf"/>
+  <path d="M-50 783 C285 628 510 587 805 616 C1106 646 1340 579 1655 438" fill="none" stroke="#111" stroke-width="7" opacity=".22"/>
+  <path d="M-20 807 C260 682 535 635 770 654 C1090 679 1316 625 1630 492" fill="none" stroke="#111" stroke-width="2" opacity=".18" stroke-dasharray="18 24"/>
+
+  <!-- car shadow -->
+  <ellipse cx="695" cy="610" rx="455" ry="92" fill="#101010" opacity=".18"/>
+
+  <!-- car body, top-down and slightly skewed -->
+  <g filter="url(#rough)" transform="rotate(-8 710 505)">
+    <path d="M314 374 C398 304 544 275 771 291 C929 302 1050 348 1124 427 C1166 472 1153 553 1102 595 C1018 663 817 688 601 659 C438 637 326 579 281 505 C253 458 271 410 314 374 Z" fill="#f6f3e9" stroke="#111" stroke-width="9"/>
+    <path d="M424 377 C491 337 580 323 733 332 C858 339 947 370 1001 420 C1032 449 1027 497 988 525 C925 570 775 584 617 565 C501 551 421 519 390 471 C371 442 390 398 424 377 Z" fill="#c9c3b4" stroke="#111" stroke-width="5"/>
+    <path d="M453 397 C519 368 604 360 720 365 C822 369 899 393 947 431" fill="none" stroke="#111" stroke-width="2" opacity=".38"/>
+    <path d="M522 348 L474 557" stroke="#111" stroke-width="4" opacity=".75"/>
+    <path d="M799 337 L836 579" stroke="#111" stroke-width="4" opacity=".75"/>
+    <path d="M640 331 L631 570" stroke="#111" stroke-width="3" opacity=".55"/>
+    <path d="M1007 421 C1082 412 1165 433 1204 474 C1227 498 1215 548 1174 571 C1130 597 1079 585 1042 548" fill="#eee9dd" stroke="#111" stroke-width="6"/>
+    <path d="M302 458 C238 455 172 477 139 514 C115 541 134 590 181 606 C232 623 282 596 309 550" fill="#eee9dd" stroke="#111" stroke-width="6"/>
+
+    <!-- cracked windshield starbursts -->
+    <g stroke="#111" stroke-width="2.6" opacity=".82" fill="none">
+      <circle cx="727" cy="421" r="13" fill="#f6f3e9"/>
+      <path d="M727 421 l-52 -33 M727 421 l46 -45 M727 421 l63 10 M727 421 l-18 62 M727 421 l-75 24 M727 421 l23 -76"/>
+      <circle cx="885" cy="462" r="8" fill="#f6f3e9"/>
+      <path d="M885 462 l-37 -18 M885 462 l36 -29 M885 462 l41 17 M885 462 l-12 42 M885 462 l-45 31"/>
+    </g>
+
+    <!-- hatching texture on car -->
+    <path d="M314 374 C398 304 544 275 771 291 C929 302 1050 348 1124 427 C1166 472 1153 553 1102 595 C1018 663 817 688 601 659 C438 637 326 579 281 505 C253 458 271 410 314 374 Z" fill="url(#hatch)" opacity=".42"/>
+  </g>
+
+  <!-- phone line -->
+  <path d="M214 596 C162 646 171 695 238 709 C321 727 318 650 260 653 C199 657 203 728 286 746 C401 771 481 725 546 679 C592 646 633 637 685 656" fill="none" stroke="#f6f3e9" stroke-width="12" stroke-linecap="round" opacity=".92"/>
+  <path d="M214 596 C162 646 171 695 238 709 C321 727 318 650 260 653 C199 657 203 728 286 746 C401 771 481 725 546 679 C592 646 633 637 685 656" fill="none" stroke="#111" stroke-width="4" stroke-linecap="round" opacity=".88"/>
+  <circle cx="685" cy="656" r="12" fill="#111"/>
+
+  <!-- small red shoe -->
+  <g transform="translate(781 574) rotate(-19)">
+    <path d="M0 26 C13 5 42 -3 72 4 C93 9 112 22 123 39 C93 49 57 51 20 44 C6 42 -5 36 0 26 Z" fill="#9b1d16" stroke="#111" stroke-width="5"/>
+    <path d="M24 17 C42 26 68 30 97 27" fill="none" stroke="#f0d9cd" stroke-width="4" opacity=".75"/>
+    <path d="M51 3 C45 16 44 29 49 43" fill="none" stroke="#111" stroke-width="3" opacity=".7"/>
+  </g>
+
+  <!-- etched black corners / negative space -->
+  <g stroke="#111" stroke-width="1" opacity=".18">
+    <path d="M1190 96 l337 136 M1171 127 l349 138 M1156 158 l361 137 M1138 191 l370 131 M1122 223 l384 130"/>
+    <path d="M50 126 l353 -74 M44 160 l380 -85 M50 195 l394 -93"/>
+  </g>
+</svg>
