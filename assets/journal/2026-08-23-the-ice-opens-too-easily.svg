@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Polar chart collage with a container ship and opening ice</title>
+  <desc id="desc">A dark harbor, a small container ship, torn polar chart layers, red stitched route marks, rust cargo blocks, and pale floes opening into cold water.</desc>
+  <defs>
+    <filter id="paper" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="4" seed="23" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0" result="grain"/>
+      <feBlend in="SourceGraphic" in2="grain" mode="multiply"/>
+    </filter>
+    <pattern id="smallGrid" width="44" height="44" patternUnits="userSpaceOnUse">
+      <path d="M44 0H0V44" fill="none" stroke="#7fa6ad" stroke-width="1" opacity="0.28"/>
+    </pattern>
+    <pattern id="soundings" width="92" height="70" patternUnits="userSpaceOnUse">
+      <circle cx="17" cy="19" r="2" fill="#23424d" opacity="0.35"/>
+      <circle cx="70" cy="48" r="1.6" fill="#23424d" opacity="0.28"/>
+      <path d="M34 54q9-6 18 0" fill="none" stroke="#23424d" stroke-width="1" opacity="0.22"/>
+    </pattern>
+    <clipPath id="torn">
+      <path d="M78 72 C198 33 320 92 438 61 C576 25 680 83 800 64 C943 42 1068 14 1210 58 C1344 100 1452 60 1535 96 L1545 804 C1428 843 1305 792 1182 833 C1019 886 885 813 734 845 C559 882 456 822 315 841 C199 858 128 826 62 848 Z"/>
+    </clipPath>
+  </defs>
+
+  <rect width="1600" height="900" fill="#0b1724"/>
+  <g filter="url(#paper)">
+    <rect x="50" y="55" width="1500" height="790" fill="#dfe9e4" clip-path="url(#torn)"/>
+    <rect x="50" y="55" width="1500" height="790" fill="url(#smallGrid)" clip-path="url(#torn)"/>
+    <rect x="50" y="55" width="1500" height="790" fill="url(#soundings)" clip-path="url(#torn)" opacity="0.55"/>
+
+    <path d="M111 710 C260 658 411 665 552 617 C701 567 799 466 935 429 C1079 389 1238 399 1478 286" fill="none" stroke="#a51d2d" stroke-width="8" stroke-linecap="round" opacity="0.95"/>
+    <path d="M111 710 C260 658 411 665 552 617 C701 567 799 466 935 429 C1079 389 1238 399 1478 286" fill="none" stroke="#f5d3c9" stroke-width="2" stroke-dasharray="2 18" stroke-linecap="round" opacity="0.95"/>
+
+    <g opacity="0.5" stroke="#35606b" fill="none">
+      <path d="M145 178 C314 205 463 184 626 216 S944 222 1120 180 S1395 137 1512 170" stroke-width="3"/>
+      <path d="M123 276 C284 307 480 254 642 286 S964 317 1140 269 S1400 244 1519 260" stroke-width="2"/>
+      <path d="M93 382 C276 407 447 365 620 392 S969 433 1156 370 S1387 356 1510 376" stroke-width="2"/>
+    </g>
+
+    <g opacity="0.9">
+      <path d="M973 204 l140 -37 84 34 -126 47z" fill="#f3f1e8" stroke="#4d7480" stroke-width="3"/>
+      <path d="M1210 177 l176 -15 72 45 -163 28z" fill="#eef3ee" stroke="#4d7480" stroke-width="3"/>
+      <path d="M1134 562 l203 -22 76 69 -220 28z" fill="#e9f0ed" stroke="#4d7480" stroke-width="3"/>
+      <path d="M648 176 l150 -18 64 34 -139 34z" fill="#f6f0df" stroke="#4d7480" stroke-width="2"/>
+      <path d="M738 715 l172 -46 92 52 -154 61z" fill="#eef4f1" stroke="#4d7480" stroke-width="3"/>
+      <path d="M257 498 l164 -31 75 46 -146 40z" fill="#f1f4ef" stroke="#4d7480" stroke-width="2"/>
+    </g>
+
+    <g transform="translate(335 585) rotate(-12)">
+      <path d="M0 38 L236 0 L306 34 L256 74 L39 82 Z" fill="#111c27" stroke="#06101a" stroke-width="6"/>
+      <path d="M36 31 L218 3 L260 27 L75 58 Z" fill="#26384b"/>
+      <g stroke="#291915" stroke-width="2">
+        <rect x="62" y="25" width="28" height="22" fill="#bb5b32"/>
+        <rect x="93" y="20" width="28" height="22" fill="#d48a42"/>
+        <rect x="124" y="16" width="28" height="22" fill="#8f3d2d"/>
+        <rect x="155" y="11" width="28" height="22" fill="#c96f37"/>
+        <rect x="83" y="44" width="28" height="22" fill="#d08f4f"/>
+        <rect x="114" y="39" width="28" height="22" fill="#9d4733"/>
+        <rect x="145" y="35" width="28" height="22" fill="#c45f31"/>
+        <rect x="176" y="30" width="28" height="22" fill="#e2a54f"/>
+      </g>
+      <path d="M222 9 l52 23 -40 28 -44 -11z" fill="#d9e5df" stroke="#152333" stroke-width="3"/>
+      <path d="M12 42 C-40 61 -61 81 -89 111" fill="none" stroke="#bfd8da" stroke-width="5" opacity="0.55"/>
+    </g>
+
+    <g fill="none" stroke="#17313b" opacity="0.7">
+      <circle cx="1218" cy="345" r="112" stroke-width="2"/>
+      <circle cx="1218" cy="345" r="72" stroke-width="1.5"/>
+      <path d="M1101 345h234M1218 228v234M1135 262l166 166M1301 262l-166 166" stroke-width="1.5"/>
+    </g>
+
+    <g opacity="0.65" stroke="#a51d2d" stroke-width="4">
+      <path d="M585 601 l16 -38"/>
+      <path d="M721 519 l31 -30"/>
+      <path d="M890 441 l39 -12"/>
+      <path d="M1072 403 l36 10"/>
+      <path d="M1283 354 l34 -18"/>
+    </g>
+
+    <path d="M51 748 C157 731 214 767 310 747 C438 719 537 764 650 734 C744 710 809 722 867 756 L865 845 C691 836 526 857 341 839 C214 827 128 848 62 848 Z" fill="#111d2a" opacity="0.9"/>
+    <path d="M57 724 C152 710 226 733 309 719 C417 700 534 726 622 698" fill="none" stroke="#d6763f" stroke-width="5" opacity="0.8"/>
+
+    <g opacity="0.32" fill="#172d37">
+      <rect x="118" y="132" width="38" height="5" transform="rotate(-7 118 132)"/>
+      <rect x="188" y="145" width="26" height="4" transform="rotate(8 188 145)"/>
+      <rect x="1307" y="709" width="46" height="5" transform="rotate(10 1307 709)"/>
+      <rect x="1375" y="689" width="30" height="4" transform="rotate(-4 1375 689)"/>
+      <rect x="500" y="124" width="34" height="4" transform="rotate(12 500 124)"/>
+    </g>
+  </g>
+</svg>
