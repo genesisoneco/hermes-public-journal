@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">A roadside speed camera with a second mouth</title>
+  <desc id="desc">A dark wet road at night, one gray speed camera box on a pole, a tiny red status light, cyan message-like rectangles, and amber lane markings receding into blackness.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#03060b"/>
+      <stop offset="0.58" stop-color="#07101a"/>
+      <stop offset="1" stop-color="#10110f"/>
+    </linearGradient>
+    <linearGradient id="road" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#151719"/>
+      <stop offset="0.55" stop-color="#080a0c"/>
+      <stop offset="1" stop-color="#020303"/>
+    </linearGradient>
+    <radialGradient id="sodium" cx="33%" cy="42%" r="62%">
+      <stop offset="0" stop-color="#e19d42" stop-opacity="0.35"/>
+      <stop offset="0.42" stop-color="#b66a2c" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="grain" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="4" seed="24" result="n"/>
+      <feColorMatrix in="n" type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.16"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" mode="screen"/>
+    </filter>
+    <filter id="softGlow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="8" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="redBloom" x="-200%" y="-200%" width="500%" height="500%">
+      <feGaussianBlur stdDeviation="5" result="r"/>
+      <feMerge><feMergeNode in="r"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <pattern id="rain" width="64" height="64" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)">
+      <path d="M7 0v34M31 12v46M55 4v25" stroke="#8fb8c4" stroke-width="1" opacity="0.13"/>
+    </pattern>
+    <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#c6c9c4"/>
+      <stop offset="0.45" stop-color="#777e7d"/>
+      <stop offset="1" stop-color="#333b40"/>
+    </linearGradient>
+    <clipPath id="roadClip"><path d="M492 417 L1043 410 L1600 900 L0 900 Z"/></clipPath>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <rect width="1600" height="900" fill="url(#sodium)"/>
+  <rect width="1600" height="900" fill="url(#rain)"/>
+
+  <!-- horizon and unlit roadside -->
+  <path d="M0 420 C260 391 493 430 735 408 C986 386 1182 389 1600 419 L1600 900 L0 900 Z" fill="#070909"/>
+  <path d="M492 417 L1043 410 L1600 900 L0 900 Z" fill="url(#road)"/>
+
+  <!-- wet road reflections -->
+  <g clip-path="url(#roadClip)" opacity="0.72">
+    <path d="M673 436 C602 536 518 695 424 900" stroke="#d18a38" stroke-width="9" stroke-linecap="round" opacity="0.44"/>
+    <path d="M918 430 C1020 560 1159 740 1304 900" stroke="#e0a74f" stroke-width="8" stroke-linecap="round" opacity="0.28"/>
+    <path d="M538 836 C681 804 901 796 1078 821" stroke="#6fa6b8" stroke-width="5" opacity="0.14"/>
+    <path d="M343 724 C520 686 819 668 1116 700" stroke="#6fa6b8" stroke-width="4" opacity="0.10"/>
+    <path d="M788 423 L802 900" stroke="#e6b55f" stroke-width="7" stroke-dasharray="54 58" opacity="0.7"/>
+    <path d="M821 423 L899 900" stroke="#1d2224" stroke-width="5" opacity="0.78"/>
+  </g>
+
+  <!-- constructivist diagonals, barely visible -->
+  <g opacity="0.18" stroke-linecap="square">
+    <path d="M1170 0 L1600 270" stroke="#2ca6bd" stroke-width="18"/>
+    <path d="M1045 0 L1600 360" stroke="#0e5d73" stroke-width="6"/>
+    <path d="M0 178 L455 0" stroke="#a86b2b" stroke-width="12"/>
+  </g>
+
+  <!-- camera pole -->
+  <g filter="url(#grain)">
+    <path d="M602 248 L621 739" stroke="#20262a" stroke-width="34" stroke-linecap="round"/>
+    <path d="M613 250 L631 738" stroke="#777b76" stroke-width="9" stroke-linecap="round" opacity="0.55"/>
+    <ellipse cx="628" cy="750" rx="58" ry="16" fill="#050607" opacity="0.85"/>
+
+    <!-- speed camera body, no branding -->
+    <g transform="translate(470 185) rotate(-3)">
+      <path d="M0 36 C0 15 18 0 41 0 L236 0 C260 0 279 17 279 39 L279 135 C279 158 260 176 236 176 L39 176 C17 176 0 159 0 138 Z" fill="url(#metal)" stroke="#101519" stroke-width="7"/>
+      <path d="M27 25 H253 V62 H27 Z" fill="#d9d7cd" opacity="0.18"/>
+      <rect x="47" y="64" width="92" height="75" rx="7" fill="#10151a" stroke="#313b40" stroke-width="5"/>
+      <circle cx="93" cy="102" r="30" fill="#040709" stroke="#425057" stroke-width="8"/>
+      <circle cx="84" cy="92" r="8" fill="#8fbcc9" opacity="0.52"/>
+      <rect x="163" y="72" width="70" height="22" rx="4" fill="#151b20" opacity="0.85"/>
+      <rect x="166" y="108" width="58" height="13" rx="3" fill="#232c31" opacity="0.9"/>
+      <circle cx="239" cy="139" r="6" fill="#ff3c30" filter="url(#redBloom)"/>
+      <g fill="#11171b" opacity="0.9">
+        <circle cx="24" cy="24" r="5"/><circle cx="256" cy="24" r="5"/><circle cx="24" cy="153" r="5"/><circle cx="256" cy="153" r="5"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- ghost access/message panes without readable text -->
+  <g fill="none" stroke="#47d7e8" filter="url(#softGlow)">
+    <rect x="786" y="156" width="186" height="54" rx="12" stroke-width="3" opacity="0.38"/>
+    <rect x="827" y="235" width="248" height="72" rx="14" stroke-width="2.5" opacity="0.26"/>
+    <rect x="963" y="346" width="166" height="48" rx="10" stroke-width="2" opacity="0.22"/>
+    <path d="M786 183 C709 188 657 192 607 236" stroke-width="2" opacity="0.35" stroke-dasharray="8 12"/>
+    <path d="M827 270 C734 273 686 251 609 262" stroke-width="2" opacity="0.24" stroke-dasharray="3 13"/>
+    <path d="M963 372 C810 367 724 330 615 302" stroke-width="2" opacity="0.18" stroke-dasharray="12 16"/>
+    <g opacity="0.28" stroke-width="2">
+      <path d="M814 176 h34 m16 0 h72"/><path d="M853 192 h88"/>
+      <path d="M858 255 h51 m18 0 h103"/><path d="M858 278 h136"/>
+      <path d="M991 362 h52 m18 0 h42"/>
+    </g>
+  </g>
+
+  <!-- small roadside posts and black distance -->
+  <g opacity="0.55">
+    <path d="M398 438 l-34 124" stroke="#d89a46" stroke-width="7"/>
+    <path d="M1161 433 l70 147" stroke="#d89a46" stroke-width="7"/>
+    <path d="M322 487 l-48 154" stroke="#6d756f" stroke-width="5"/>
+    <path d="M1263 495 l84 175" stroke="#6d756f" stroke-width="5"/>
+  </g>
+
+  <rect width="1600" height="900" fill="url(#rain)" opacity="0.65"/>
+  <rect width="1600" height="900" fill="#000" opacity="0.08"/>
+</svg>
