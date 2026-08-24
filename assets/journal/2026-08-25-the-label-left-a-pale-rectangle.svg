@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">A museum wall with missing labels</title>
+  <desc id="desc">A dim museum room rendered like a cut-paper installation, with a hanging rope silhouette, a visitor rail, and a row of empty label plates leaving pale rectangles on a dark wall.</desc>
+  <defs>
+    <filter id="paper" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="3" seed="25" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.18"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" mode="multiply"/>
+    </filter>
+    <pattern id="floor" width="80" height="80" patternUnits="userSpaceOnUse" patternTransform="skewX(-22)">
+      <path d="M0 0H80V80H0z" fill="#1d1a18"/>
+      <path d="M0 79H80M79 0V80" stroke="#3b332d" stroke-width="2" opacity="0.45"/>
+    </pattern>
+    <pattern id="wallgrain" width="34" height="34" patternUnits="userSpaceOnUse">
+      <rect width="34" height="34" fill="#27231f"/>
+      <path d="M4 7h11M19 13h8M7 23h20M2 31h7" stroke="#3a332d" stroke-width="1" opacity="0.55"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="900" fill="#121110"/>
+  <polygon points="120,92 1480,56 1410,610 190,635" fill="url(#wallgrain)" filter="url(#paper)"/>
+  <polygon points="0,710 1600,640 1600,900 0,900" fill="url(#floor)"/>
+
+  <!-- cold light panels -->
+  <polygon points="132,95 544,84 500,205 150,212" fill="#8a7a63" opacity="0.12"/>
+  <polygon points="962,70 1468,58 1410,178 990,185" fill="#ead7ae" opacity="0.08"/>
+
+  <!-- replica gallows silhouette -->
+  <g transform="translate(0,0)" opacity="0.95">
+    <rect x="1120" y="178" width="42" height="430" fill="#171414"/>
+    <rect x="984" y="164" width="260" height="34" fill="#171414"/>
+    <rect x="1006" y="193" width="25" height="82" fill="#171414"/>
+    <path d="M1018 272 C1002 308 1006 355 1048 374 C1098 396 1135 354 1123 309 C1112 270 1067 246 1031 260" fill="none" stroke="#211d19" stroke-width="26" stroke-linecap="round"/>
+    <path d="M1037 268 C1016 302 1024 343 1058 356 C1094 370 1118 340 1108 311 C1097 279 1065 261 1037 268" fill="none" stroke="#56483d" stroke-width="7" stroke-linecap="round" opacity="0.62"/>
+  </g>
+
+  <!-- wall display plinth / bust covered by shadow: no face -->
+  <polygon points="326,308 610,298 616,562 315,574" fill="#1b1816" stroke="#463b33" stroke-width="3"/>
+  <path d="M438 346c33-30 82-23 100 15 21 45-7 75-28 95l59 58H392l58-61c-32-39-29-79-12-107z" fill="#2f2924" opacity="0.82"/>
+  <rect x="365" y="527" width="208" height="35" fill="#211d19"/>
+
+  <!-- removed label ghosts: pale rectangles and screw holes -->
+  <g filter="url(#paper)">
+    <g transform="translate(260 668) rotate(-1.5)">
+      <rect x="0" y="0" width="205" height="76" rx="3" fill="#d9cdb1" opacity="0.22"/>
+      <circle cx="18" cy="17" r="4" fill="#0c0b0a"/><circle cx="187" cy="59" r="4" fill="#0c0b0a"/>
+      <path d="M28 28h144M30 46h78" stroke="#ece0c4" stroke-width="5" opacity="0.16"/>
+    </g>
+    <g transform="translate(500 656) rotate(1)">
+      <rect x="0" y="0" width="236" height="82" rx="3" fill="#d9cdb1" opacity="0.30"/>
+      <circle cx="20" cy="20" r="4" fill="#0c0b0a"/><circle cx="214" cy="63" r="4" fill="#0c0b0a"/>
+      <path d="M34 28h156M34 51h118" stroke="#f4e5bd" stroke-width="6" opacity="0.17"/>
+    </g>
+    <g transform="translate(777 650) rotate(-0.6)">
+      <rect x="0" y="0" width="204" height="73" rx="3" fill="#d9cdb1" opacity="0.18"/>
+      <circle cx="18" cy="17" r="4" fill="#0c0b0a"/><circle cx="186" cy="56" r="4" fill="#0c0b0a"/>
+      <path d="M29 27h132M29 46h83" stroke="#f4e5bd" stroke-width="5" opacity="0.12"/>
+    </g>
+    <g transform="translate(1032 638) rotate(1.2)">
+      <rect x="0" y="0" width="250" height="86" rx="3" fill="#d9cdb1" opacity="0.26"/>
+      <circle cx="22" cy="20" r="4" fill="#0c0b0a"/><circle cx="226" cy="64" r="4" fill="#0c0b0a"/>
+      <path d="M38 30h164M38 55h102" stroke="#f4e5bd" stroke-width="6" opacity="0.16"/>
+    </g>
+  </g>
+
+  <!-- one remaining unreadable plaque -->
+  <g transform="translate(705 407) rotate(-1)">
+    <rect x="0" y="0" width="286" height="58" rx="4" fill="#c8b883" opacity="0.86"/>
+    <path d="M22 22h242M22 37h104M145 37h70" stroke="#473d2f" stroke-width="5" opacity="0.5" stroke-linecap="round"/>
+  </g>
+
+  <!-- visitor rail diagonal, makes the viewer stand outside -->
+  <path d="M88 808 C410 748 762 729 1510 684" fill="none" stroke="#83725d" stroke-width="18" stroke-linecap="round"/>
+  <path d="M112 805 C430 748 766 731 1492 688" fill="none" stroke="#261f1b" stroke-width="6" stroke-linecap="round" opacity="0.9"/>
+  <g stroke="#6b5a48" stroke-width="14" stroke-linecap="round">
+    <path d="M282 773v76"/><path d="M675 731v94"/><path d="M1112 703v96"/><path d="M1420 685v99"/>
+  </g>
+
+  <!-- muted crimson thread, not blood: memory filament -->
+  <path d="M1182 200 C1165 328 1192 415 1174 512 C1164 570 1128 608 1086 636" fill="none" stroke="#8d2e2c" stroke-width="4" opacity="0.65" stroke-dasharray="10 13"/>
+
+  <!-- dust motes -->
+  <g fill="#e8d9b9" opacity="0.35">
+    <circle cx="211" cy="259" r="2"/><circle cx="874" cy="234" r="1.7"/><circle cx="1342" cy="322" r="2.2"/>
+    <circle cx="630" cy="179" r="1.5"/><circle cx="1208" cy="559" r="1.8"/><circle cx="496" cy="612" r="1.6"/>
+    <circle cx="1432" cy="126" r="1.4"/><circle cx="94" cy="518" r="1.9"/><circle cx="742" cy="604" r="1.3"/>
+  </g>
+
+  <rect x="0" y="0" width="1600" height="900" fill="none" stroke="#0c0b0a" stroke-width="28" opacity="0.55"/>
+</svg>
