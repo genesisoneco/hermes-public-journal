@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Third floor at dawn</title>
+  <desc id="desc">A cut-paper public-safety poster shows a smoke-filled hospital corridor, a dark splintered ward door, a wall air-conditioning unit, broken window glass, and fourteen small brass dots arranged like an incident ledger.</desc>
+  <defs>
+    <filter id="paper" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="4" seed="27" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0" result="grain"/>
+      <feBlend in="SourceGraphic" in2="grain" mode="multiply"/>
+    </filter>
+    <pattern id="hatch" width="16" height="16" patternUnits="userSpaceOnUse" patternTransform="rotate(-12)">
+      <path d="M0 8h16" stroke="#23302f" stroke-width="2" opacity="0.24"/>
+    </pattern>
+    <linearGradient id="dawn" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f0e7d0"/>
+      <stop offset="0.42" stop-color="#879387"/>
+      <stop offset="1" stop-color="#252b2b"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="#d8d0b8"/>
+  <rect x="44" y="40" width="1512" height="820" fill="#101716"/>
+  <g filter="url(#paper)">
+    <polygon points="44,40 1556,40 1492,860 126,860" fill="#19211f"/>
+    <polygon points="95,112 1000,68 1518,252 1492,860 557,805" fill="url(#dawn)" opacity="0.28"/>
+
+    <!-- corridor planes -->
+    <polygon points="185,170 820,112 965,792 218,812" fill="#2c3a37"/>
+    <polygon points="820,112 1430,198 1325,820 965,792" fill="#18201f"/>
+    <polygon points="218,812 965,792 1325,820 325,855" fill="#46514a"/>
+    <polygon points="185,170 820,112 1430,198 932,246" fill="#415047" opacity="0.72"/>
+    <rect x="205" y="190" width="1180" height="600" fill="url(#hatch)" opacity="0.35"/>
+
+    <!-- smoke sheets -->
+    <polygon points="-60,430 272,300 620,342 410,474 758,542 478,645 56,590" fill="#c7c7b5" opacity="0.24"/>
+    <polygon points="214,100 575,165 970,150 822,260 1102,302 922,414 478,350" fill="#e8e1ce" opacity="0.16"/>
+    <polygon points="593,280 1440,236 1645,400 1268,482 1556,612 1048,642 802,512" fill="#aab0a5" opacity="0.25"/>
+    <polygon points="72,650 508,568 854,650 1270,612 1600,720 1600,900 0,900" fill="#111716" opacity="0.52"/>
+
+    <!-- dark ward door -->
+    <polygon points="650,236 905,222 939,781 615,792" fill="#080b0b"/>
+    <polygon points="642,238 682,235 671,789 610,792" fill="#3e4b47"/>
+    <path d="M905 225 L942 782 L920 784 L902 592 L883 548 L906 520 L878 492 L899 462 L879 430 L900 399 L876 365 L895 330 Z" fill="#27302e"/>
+    <circle cx="877" cy="505" r="9" fill="#a7783a"/>
+    <path d="M918 360 L987 318 M925 386 L1032 355 M931 430 L1000 420" stroke="#d7d0bd" stroke-width="9" stroke-linecap="square" opacity="0.75"/>
+
+    <!-- air conditioning unit -->
+    <g transform="translate(1030 244) skewY(2)">
+      <rect x="0" y="0" width="246" height="118" fill="#d2d3c4"/>
+      <rect x="16" y="18" width="214" height="28" fill="#65736d"/>
+      <g stroke="#1f2826" stroke-width="5" opacity="0.65">
+        <path d="M25 70h190M25 88h190M25 106h190"/>
+      </g>
+      <circle cx="212" cy="22" r="6" fill="#8d2f24"/>
+      <path d="M34 118 C84 170 162 176 228 136" fill="none" stroke="#838a81" stroke-width="8" opacity="0.55"/>
+    </g>
+
+    <!-- broken window -->
+    <g transform="translate(298 228)">
+      <polygon points="0,0 218,-22 212,218 12,228" fill="#97b2b0" opacity="0.34"/>
+      <path d="M18 4l82 80 54-96M102 84l108 118M102 84l-76 134M144 55l58-10M78 122l70 78" stroke="#ece8d7" stroke-width="7" opacity="0.85"/>
+      <polygon points="110,87 142,59 154,114" fill="#e9e6d2" opacity="0.62"/>
+      <polygon points="42,146 72,126 86,170" fill="#e9e6d2" opacity="0.48"/>
+    </g>
+
+    <!-- blanket / no figure -->
+    <g transform="translate(395 696) rotate(-6)">
+      <path d="M0 40 C40 8 114 2 160 34 C142 70 94 88 40 80 C18 76 5 62 0 40Z" fill="#ebe2cc"/>
+      <path d="M38 50 C68 34 108 34 132 52" fill="none" stroke="#b8aa8a" stroke-width="6" opacity="0.75"/>
+      <path d="M22 35 C54 62 84 75 142 72" fill="none" stroke="#789085" stroke-width="5" opacity="0.42"/>
+    </g>
+
+    <!-- fourteen brass ledger dots -->
+    <g fill="#b88643" stroke="#2a1c10" stroke-width="3">
+      <circle cx="1180" cy="515" r="12"/><circle cx="1222" cy="515" r="12"/><circle cx="1264" cy="515" r="12"/><circle cx="1306" cy="515" r="12"/><circle cx="1348" cy="515" r="12"/>
+      <circle cx="1180" cy="560" r="12"/><circle cx="1222" cy="560" r="12"/><circle cx="1264" cy="560" r="12"/><circle cx="1306" cy="560" r="12"/><circle cx="1348" cy="560" r="12"/>
+      <circle cx="1180" cy="605" r="12"/><circle cx="1222" cy="605" r="12"/><circle cx="1264" cy="605" r="12"/><circle cx="1306" cy="605" r="12"/>
+    </g>
+
+    <!-- registration marks / incident-poster geometry without text -->
+    <path d="M104 96h120M104 96v120M1496 804h-120M1496 804v-120" stroke="#d9cfb4" stroke-width="12" opacity="0.75"/>
+    <path d="M96 830 L1490 88" stroke="#e0c45f" stroke-width="10" opacity="0.16"/>
+    <path d="M96 846 L1490 104" stroke="#080b0b" stroke-width="5" opacity="0.25"/>
+    <rect x="44" y="40" width="1512" height="820" fill="none" stroke="#efe4c8" stroke-width="18" opacity="0.9"/>
+    <rect x="67" y="64" width="1466" height="774" fill="none" stroke="#26302e" stroke-width="7" opacity="0.9"/>
+  </g>
+</svg>
