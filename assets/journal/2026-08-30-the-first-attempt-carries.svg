@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">The First Attempt Carries</title>
+  <desc id="desc">A rough screenprinted sports-field illustration shows an elderly javelin thrower from behind on a red track, a thin javelin arcing over a green infield, misregistered cream and indigo ink textures, and a small gold glint near the boundary line.</desc>
+  <defs>
+    <filter id="grain" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" seed="83" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.16"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" mode="multiply"/>
+    </filter>
+    <pattern id="paper" width="44" height="44" patternUnits="userSpaceOnUse">
+      <rect width="44" height="44" fill="#f2dfb8"/>
+      <path d="M0 7h44M0 23h44M0 41h44" stroke="#d9bb86" stroke-width="1" opacity=".22"/>
+      <path d="M9 0v44M31 0v44" stroke="#fff3d2" stroke-width="1" opacity=".25"/>
+    </pattern>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f6e8c8"/>
+      <stop offset="1" stop-color="#e9ca91"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#paper)"/>
+  <rect width="1600" height="505" fill="url(#sky)" opacity=".92"/>
+  <circle cx="1360" cy="160" r="88" fill="#f2b13e" opacity=".82"/>
+  <circle cx="1337" cy="147" r="88" fill="none" stroke="#102a3a" stroke-width="10" opacity=".14"/>
+
+  <!-- far stadium ribs -->
+  <g opacity=".34" stroke="#173143" stroke-width="8" fill="none">
+    <path d="M0 420 C290 335 615 322 885 358 C1130 390 1370 382 1600 310"/>
+    <path d="M0 462 C255 390 610 377 887 410 C1140 439 1375 430 1600 365"/>
+    <path d="M80 407 l-40 115M230 370 l-25 113M388 347 l-11 111M550 339 l7 108M710 345 l25 107M875 363 l45 105M1055 386 l62 102M1238 386 l76 100M1412 355 l91 96"/>
+  </g>
+
+  <!-- field and track, with misregistered shapes -->
+  <path d="M0 560 C330 505 690 488 1040 520 C1285 542 1460 520 1600 470 L1600 900 L0 900 Z" fill="#4f8b54"/>
+  <path d="M-30 590 C350 530 734 525 1060 553 C1305 574 1460 558 1630 510 L1630 907 L-30 907 Z" fill="#386f48" opacity=".48"/>
+  <path d="M0 704 C362 660 765 648 1118 681 C1322 700 1474 690 1600 650 L1600 900 L0 900 Z" fill="#bb4f38"/>
+  <path d="M-15 730 C360 688 760 680 1115 711 C1320 730 1478 719 1615 682" fill="none" stroke="#f4d28d" stroke-width="12" opacity=".92"/>
+  <path d="M-25 793 C355 758 750 748 1098 779 C1310 798 1465 790 1620 752" fill="none" stroke="#f4d28d" stroke-width="10" opacity=".86"/>
+  <path d="M-30 852 C333 827 721 821 1080 846 C1313 862 1474 857 1635 822" fill="none" stroke="#f4d28d" stroke-width="8" opacity=".72"/>
+
+  <!-- measuring sector lines -->
+  <g stroke="#f4d28d" stroke-width="5" opacity=".76" fill="none">
+    <path d="M705 665 L1510 540"/>
+    <path d="M705 665 L1560 640"/>
+    <path d="M750 650 C945 612 1125 591 1335 580" stroke-dasharray="18 22"/>
+  </g>
+
+  <!-- javelin arc and release -->
+  <path d="M710 364 C905 248 1126 211 1398 237" fill="none" stroke="#143042" stroke-width="9" stroke-linecap="round" opacity=".22"/>
+  <path d="M725 348 C923 231 1147 190 1420 215" fill="none" stroke="#fbf0cb" stroke-width="7" stroke-linecap="round"/>
+  <path d="M1015 255 L1438 203" stroke="#102a3a" stroke-width="8" stroke-linecap="round"/>
+  <path d="M1398 208 l55 -15 l-43 36" fill="#102a3a" opacity=".92"/>
+  <circle cx="1485" cy="616" r="14" fill="#f5bd36"/>
+  <circle cx="1485" cy="616" r="26" fill="none" stroke="#f5bd36" stroke-width="5" opacity=".45"/>
+
+  <!-- thrower, no face, from behind -->
+  <g transform="translate(606 397) rotate(-12)">
+    <ellipse cx="3" cy="299" rx="104" ry="24" fill="#153143" opacity=".28" transform="rotate(12)"/>
+    <path d="M-60 132 C-74 191 -89 236 -119 297" stroke="#173143" stroke-width="34" stroke-linecap="round" fill="none"/>
+    <path d="M-6 139 C-5 202 7 252 35 317" stroke="#173143" stroke-width="32" stroke-linecap="round" fill="none"/>
+    <path d="M-76 132 C-60 111 -28 98 10 103 C45 108 63 130 70 166 C44 184 10 190 -29 179 C-53 172 -70 157 -76 132Z" fill="#f7e5bf" stroke="#173143" stroke-width="10"/>
+    <path d="M-28 107 C-30 68 -13 36 18 23 C43 38 55 68 48 102 C31 113 3 116 -28 107Z" fill="#efd4a5" stroke="#173143" stroke-width="9"/>
+    <path d="M38 125 C100 91 151 70 214 46" stroke="#173143" stroke-width="24" stroke-linecap="round" fill="none"/>
+    <path d="M-59 130 C-103 118 -143 102 -190 68" stroke="#173143" stroke-width="23" stroke-linecap="round" fill="none"/>
+    <path d="M-62 136 C-38 151 9 161 65 154" stroke="#d9813a" stroke-width="13" stroke-linecap="round" opacity=".83"/>
+    <path d="M-132 314 l-48 43M38 319 l58 39" stroke="#f2dfb8" stroke-width="24" stroke-linecap="round"/>
+  </g>
+
+  <!-- misregistration highlights -->
+  <g opacity=".5" fill="none" stroke="#fbf0cb" stroke-width="5">
+    <path d="M402 689 c64 -25 164 -32 260 -26"/>
+    <path d="M583 602 c68 -18 153 -18 255 -2"/>
+    <path d="M760 379 c56 -45 123 -72 194 -86"/>
+  </g>
+  <g opacity=".55" stroke="#102a3a" stroke-width="3" fill="none">
+    <path d="M101 832 c146 -14 292 -17 435 -11" stroke-dasharray="3 14"/>
+    <path d="M921 706 c128 9 249 8 363 -2" stroke-dasharray="3 14"/>
+    <path d="M40 522 c160 -37 333 -58 517 -65" stroke-dasharray="4 18"/>
+  </g>
+
+  <rect width="1600" height="900" filter="url(#grain)" opacity=".86"/>
+</svg>
