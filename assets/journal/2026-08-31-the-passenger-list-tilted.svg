@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Capsized ferry and search boats in a dark sea</title>
+  <desc id="desc">A dark nautical-chart collage shows an overturned ferry near the edge of a rough sea, orange rescue boats, diagonal searchlight beams, rain scratches, and torn coordinate-grid paper.</desc>
+  <defs>
+    <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M80 0H0V80" fill="none" stroke="#7893a0" stroke-width="1" opacity="0.26"/>
+      <path d="M40 0V80M0 40H80" fill="none" stroke="#7893a0" stroke-width="0.6" opacity="0.16"/>
+    </pattern>
+    <filter id="rough">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="4" seed="31" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="5"/>
+    </filter>
+    <filter id="paper">
+      <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="8" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0.8  0 0 0 0 0.85  0 0 0 0 0.86  0 0 0 .18 0"/>
+    </filter>
+    <linearGradient id="sea" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#071018"/>
+      <stop offset="0.45" stop-color="#10283a"/>
+      <stop offset="1" stop-color="#05070b"/>
+    </linearGradient>
+    <linearGradient id="beam" x1="0" x2="1">
+      <stop offset="0" stop-color="#d9f0ff" stop-opacity="0"/>
+      <stop offset="0.35" stop-color="#d9f0ff" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#d9f0ff" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="torn">
+      <path d="M52 74 C210 38 380 66 535 45 C727 20 908 72 1070 47 C1240 20 1406 39 1548 82 L1516 811 C1337 857 1174 823 1018 855 C823 895 650 824 462 864 C279 902 152 857 47 832 Z"/>
+    </clipPath>
+  </defs>
+
+  <rect width="1600" height="900" fill="#05070b"/>
+  <g clip-path="url(#torn)">
+    <rect x="30" y="35" width="1540" height="830" fill="url(#sea)"/>
+    <rect x="30" y="35" width="1540" height="830" fill="url(#grid)" opacity="0.82"/>
+    <rect x="30" y="35" width="1540" height="830" filter="url(#paper)" opacity="0.55"/>
+
+    <g opacity="0.52" stroke="#c6d5d9" stroke-width="2" fill="none" filter="url(#rough)">
+      <path d="M-40 514 C120 468 235 564 400 520 S688 480 833 528 S1115 592 1285 540 S1515 470 1645 512"/>
+      <path d="M-70 626 C112 598 244 660 410 624 S681 598 861 640 S1160 697 1324 646 S1518 596 1672 624" opacity="0.7"/>
+      <path d="M-80 405 C110 358 272 442 478 392 S786 348 943 404 S1212 464 1398 415 S1567 366 1685 397" opacity="0.62"/>
+    </g>
+
+    <g transform="translate(1105 356) rotate(16)" filter="url(#rough)">
+      <path d="M-248 -68 L108 -88 C154 -77 189 -49 202 -14 L220 50 L-220 82 C-258 41 -278 6 -280 -24 Z" fill="#e8edf0" stroke="#111922" stroke-width="12"/>
+      <path d="M-225 -24 L122 -44" stroke="#293a45" stroke-width="9"/>
+      <path d="M-172 18 L-132 14 M-96 10 L-56 6 M-20 2 L20 -2 M56 -6 L96 -10 M132 -13 L166 -17" stroke="#0b1620" stroke-width="7" stroke-linecap="round"/>
+      <path d="M-260 79 L222 45" stroke="#d85f35" stroke-width="9" opacity="0.86"/>
+      <path d="M-223 86 C-140 124 -40 130 55 102" stroke="#ecf6f8" stroke-width="8" opacity="0.45"/>
+    </g>
+
+    <g opacity="0.75">
+      <polygon points="118,703 1160,360 1220,412 166,760" fill="url(#beam)"/>
+      <polygon points="404,180 1110,385 1092,435 371,238" fill="url(#beam)"/>
+      <polygon points="1565,191 1178,382 1198,442 1600,250" fill="url(#beam)"/>
+    </g>
+
+    <g filter="url(#rough)">
+      <g transform="translate(275 690) rotate(-15)">
+        <ellipse cx="0" cy="0" rx="78" ry="22" fill="#f06f38" stroke="#160b08" stroke-width="7"/>
+        <rect x="-36" y="-19" width="72" height="22" rx="5" fill="#2b4250"/>
+        <path d="M-62 15 C-20 35 28 38 72 14" stroke="#f8c9a5" stroke-width="5" fill="none" opacity="0.8"/>
+      </g>
+      <g transform="translate(514 603) rotate(8) scale(.72)">
+        <ellipse cx="0" cy="0" rx="78" ry="22" fill="#f06f38" stroke="#160b08" stroke-width="7"/>
+        <rect x="-36" y="-19" width="72" height="22" rx="5" fill="#2b4250"/>
+      </g>
+      <g transform="translate(1403 282) rotate(25) scale(.58)">
+        <ellipse cx="0" cy="0" rx="78" ry="22" fill="#f06f38" stroke="#160b08" stroke-width="7"/>
+        <rect x="-36" y="-19" width="72" height="22" rx="5" fill="#2b4250"/>
+      </g>
+    </g>
+
+    <g stroke="#d6ecf5" stroke-width="3" opacity="0.28" stroke-linecap="round">
+      <path d="M120 91 L98 204 M210 75 L175 295 M356 58 L334 210 M475 66 L431 270 M604 58 L575 246 M742 77 L702 319 M872 55 L850 250 M1015 70 L990 308 M1136 61 L1104 245 M1270 64 L1224 294 M1405 75 L1372 252 M1528 106 L1490 302"/>
+      <path d="M86 482 L55 633 M191 437 L155 720 M342 470 L296 825 M460 404 L412 660 M641 420 L598 780 M782 408 L748 602 M945 452 L910 824 M1126 454 L1086 742 M1288 446 L1250 842 M1462 418 L1414 731"/>
+    </g>
+
+    <g fill="#f3f7f5" opacity="0.72">
+      <circle cx="1180" cy="451" r="5"/>
+      <circle cx="1198" cy="470" r="3"/>
+      <circle cx="1112" cy="498" r="4"/>
+      <circle cx="1044" cy="540" r="3"/>
+      <circle cx="1235" cy="526" r="4"/>
+    </g>
+  </g>
+
+  <path d="M52 74 C210 38 380 66 535 45 C727 20 908 72 1070 47 C1240 20 1406 39 1548 82 L1516 811 C1337 857 1174 823 1018 855 C823 895 650 824 462 864 C279 902 152 857 47 832 Z" fill="none" stroke="#b8c4c7" stroke-width="5" opacity="0.38"/>
+  <path d="M38 842 C184 815 304 878 462 850 C640 818 806 882 1010 844 C1167 815 1342 854 1525 813" fill="none" stroke="#0a0e12" stroke-width="18" opacity="0.55"/>
+</svg>
