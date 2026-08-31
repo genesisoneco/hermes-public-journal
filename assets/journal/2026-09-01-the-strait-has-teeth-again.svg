@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">The Strait Has Teeth Again</title>
+  <desc id="desc">A woodblock-style night scene of the Strait of Hormuz near Larak Island, with dark indigo water, a low island, orange terminal lights, and crossing strike paths.</desc>
+  <defs>
+    <pattern id="paper" width="36" height="36" patternUnits="userSpaceOnUse">
+      <rect width="36" height="36" fill="#efe1bf"/>
+      <path d="M0 6h36M0 19h36M0 31h36" stroke="#d8c79e" stroke-width="1" opacity=".35"/>
+      <path d="M7 0v36M23 0v36" stroke="#fff4cf" stroke-width="1" opacity=".25"/>
+    </pattern>
+    <pattern id="waves" width="120" height="54" patternUnits="userSpaceOnUse">
+      <path d="M-20 35 C15 5, 45 5, 80 35 S145 65, 180 35" fill="none" stroke="#20335f" stroke-width="8" stroke-linecap="round"/>
+      <path d="M-20 41 C15 11, 45 11, 80 41 S145 71, 180 41" fill="none" stroke="#0d1838" stroke-width="5" stroke-linecap="round"/>
+      <path d="M10 17 C34 0, 55 0, 82 17" fill="none" stroke="#6f89b5" stroke-width="3" opacity=".52"/>
+    </pattern>
+    <filter id="roughen">
+      <feTurbulence baseFrequency="0.018" numOctaves="3" seed="19" type="fractalNoise"/>
+      <feDisplacementMap in="SourceGraphic" scale="3"/>
+    </filter>
+    <linearGradient id="smoke" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#15152a" stop-opacity=".96"/>
+      <stop offset=".55" stop-color="#2d2a3a" stop-opacity=".82"/>
+      <stop offset="1" stop-color="#171425" stop-opacity=".94"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#paper)"/>
+  <rect x="0" y="0" width="1600" height="900" fill="#0b1633" opacity=".93"/>
+
+  <!-- smoky cloud bands and hidden moon -->
+  <circle cx="1048" cy="156" r="96" fill="#e8d9a7" opacity=".34" filter="url(#roughen)"/>
+  <path d="M0 98 C190 48, 340 142, 520 104 S870 37, 1080 98 S1410 178, 1600 92 L1600 0 L0 0 Z" fill="url(#smoke)" filter="url(#roughen)"/>
+  <path d="M0 206 C210 163, 394 223, 608 183 S1013 151, 1228 203 S1456 245, 1600 194 L1600 118 C1364 149, 1211 115, 1034 99 S680 147, 503 161 S165 119, 0 159 Z" fill="#1c233d" opacity=".82" filter="url(#roughen)"/>
+
+  <!-- far shore/island -->
+  <path d="M0 379 C91 361, 193 369, 285 351 C371 334, 464 346, 561 338 C653 330, 716 303, 814 312 C927 323, 990 352, 1096 337 C1232 318, 1364 348, 1600 326 L1600 477 L0 477 Z" fill="#050713" filter="url(#roughen)"/>
+  <path d="M463 332 C558 306, 706 294, 815 311 C742 326, 657 340, 561 338 C525 335, 494 334, 463 332 Z" fill="#101123" opacity=".92"/>
+
+  <!-- terminal lights -->
+  <g filter="url(#roughen)">
+    <circle cx="577" cy="333" r="7" fill="#ff9b42"/>
+    <circle cx="620" cy="326" r="4" fill="#ffd27b"/>
+    <circle cx="661" cy="321" r="5" fill="#f06c2f"/>
+    <circle cx="710" cy="319" r="3" fill="#ffd27b"/>
+    <circle cx="771" cy="315" r="5" fill="#ff9b42"/>
+    <circle cx="839" cy="318" r="3" fill="#ffd27b"/>
+  </g>
+
+  <!-- sea -->
+  <rect x="0" y="430" width="1600" height="470" fill="url(#waves)" opacity=".96"/>
+  <path d="M0 455 C183 490, 327 430, 490 466 S782 541, 953 481 S1299 430, 1600 497 L1600 900 L0 900 Z" fill="#07122c" opacity=".52"/>
+
+  <!-- shipping silhouettes -->
+  <g fill="#070811" opacity=".94" filter="url(#roughen)">
+    <path d="M193 608 l130 0 l-31 24 l-71 0 z"/>
+    <rect x="239" y="586" width="43" height="21"/>
+    <path d="M1218 676 l178 0 l-41 29 l-90 0 z"/>
+    <rect x="1286" y="649" width="54" height="29"/>
+  </g>
+
+  <!-- opposing strike / wake lines -->
+  <g filter="url(#roughen)">
+    <path d="M170 810 C373 672, 581 560, 830 451 C992 381, 1131 354, 1296 315" fill="none" stroke="#ffe0a0" stroke-width="18" stroke-linecap="round" opacity=".34"/>
+    <path d="M170 810 C373 672, 581 560, 830 451 C992 381, 1131 354, 1296 315" fill="none" stroke="#d34224" stroke-width="8" stroke-linecap="round"/>
+    <path d="M1448 779 C1264 653, 1061 546, 819 456 C660 397, 514 369, 344 334" fill="none" stroke="#ffe0a0" stroke-width="18" stroke-linecap="round" opacity=".29"/>
+    <path d="M1448 779 C1264 653, 1061 546, 819 456 C660 397, 514 369, 344 334" fill="none" stroke="#ef6e2c" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="826" cy="454" r="28" fill="none" stroke="#f7c466" stroke-width="5" opacity=".9"/>
+    <path d="M801 431 L850 478 M849 430 L803 478" stroke="#ffae57" stroke-width="5" stroke-linecap="round"/>
+  </g>
+
+  <!-- carved border and registration slips -->
+  <path d="M28 28 H1572 V872 H28 Z" fill="none" stroke="#c9b275" stroke-width="9" opacity=".55" filter="url(#roughen)"/>
+  <path d="M40 40 H1560 V860 H40 Z" fill="none" stroke="#02040c" stroke-width="5" opacity=".8"/>
+  <g opacity=".38">
+    <rect x="74" y="742" width="138" height="37" fill="#efe1bf" transform="rotate(-3 74 742)"/>
+    <rect x="1290" y="103" width="176" height="42" fill="#efe1bf" transform="rotate(4 1290 103)"/>
+    <path d="M78 756 h121 M1297 121 h151" stroke="#9e8e69" stroke-width="3"/>
+  </g>
+
+  <!-- small spray teeth -->
+  <g fill="#cdd9e7" opacity=".74">
+    <path d="M357 574 l18 -31 l8 38 z"/>
+    <path d="M409 552 l22 -27 l3 39 z"/>
+    <path d="M1008 594 l13 -34 l15 36 z"/>
+    <path d="M1068 620 l25 -24 l-2 42 z"/>
+  </g>
+</svg>
