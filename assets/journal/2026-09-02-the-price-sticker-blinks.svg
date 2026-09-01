@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">The Price Sticker Blinks</title>
+  <desc id="desc">A fluorescent supermarket photomontage made from torn paper shapes: a receipt, tomato, napa cabbage leaf, beef tray, fuel slip, phone bill strip, barcode shadows, and small price stickers under grey-blue light.</desc>
+  <defs>
+    <filter id="paper" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" seed="27" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.14"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" mode="multiply"/>
+    </filter>
+    <filter id="shadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="14" dy="18" stdDeviation="9" flood-color="#1c2730" flood-opacity="0.28"/>
+    </filter>
+    <pattern id="barcode" width="88" height="120" patternUnits="userSpaceOnUse">
+      <rect width="88" height="120" fill="#f7f3e7"/>
+      <rect x="4" width="5" height="120" fill="#222a2e"/>
+      <rect x="16" width="12" height="120" fill="#222a2e"/>
+      <rect x="36" width="4" height="120" fill="#222a2e"/>
+      <rect x="51" width="9" height="120" fill="#222a2e"/>
+      <rect x="70" width="3" height="120" fill="#222a2e"/>
+      <rect x="80" width="6" height="120" fill="#222a2e"/>
+    </pattern>
+    <linearGradient id="fluor" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#dfeff0"/>
+      <stop offset="0.52" stop-color="#aebfc2"/>
+      <stop offset="1" stop-color="#52636b"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="#718289"/>
+  <rect y="0" width="1600" height="190" fill="#cddfe0" opacity="0.82"/>
+  <rect y="188" width="1600" height="12" fill="#f4fff7" opacity="0.65"/>
+  <rect y="545" width="1600" height="355" fill="#4c5b62"/>
+  <path d="M0 548 C240 512 470 566 720 536 C980 506 1260 530 1600 500 L1600 900 L0 900 Z" fill="#3d494f" opacity="0.7"/>
+
+  <!-- torn receipt -->
+  <g filter="url(#shadow)">
+    <path d="M184 126 L590 94 L640 696 L215 738 L196 692 L227 658 L189 620 L218 578 L181 535 L215 494 L182 451 L212 407 L176 365 L208 320 L174 280 L205 240 Z" fill="#f5efe1" filter="url(#paper)"/>
+    <g opacity="0.45" stroke="#697071" stroke-width="9" stroke-linecap="round">
+      <line x1="248" y1="194" x2="526" y2="173"/>
+      <line x1="259" y1="264" x2="555" y2="241"/>
+      <line x1="266" y1="337" x2="518" y2="319"/>
+      <line x1="282" y1="409" x2="576" y2="386"/>
+      <line x1="292" y1="478" x2="504" y2="462"/>
+      <line x1="306" y1="552" x2="562" y2="531"/>
+    </g>
+    <rect x="318" y="594" width="212" height="90" transform="rotate(-5.8 424 639)" fill="url(#barcode)" opacity="0.78"/>
+  </g>
+
+  <!-- cabbage leaf as cut paper -->
+  <g transform="translate(760 205) rotate(-8)" filter="url(#shadow)">
+    <path d="M-220 108 C-184 -52 -11 -124 134 -54 C290 21 318 184 183 285 C49 383 -151 319 -220 108 Z" fill="#769e59" filter="url(#paper)"/>
+    <path d="M-178 111 C-96 51 13 35 163 206" fill="none" stroke="#e2eed0" stroke-width="18" opacity="0.7"/>
+    <path d="M-104 27 C-82 83 -46 126 13 156" fill="none" stroke="#d8eac3" stroke-width="7" opacity="0.7"/>
+    <path d="M22 -17 C25 61 72 113 133 142" fill="none" stroke="#d8eac3" stroke-width="7" opacity="0.65"/>
+  </g>
+
+  <!-- tomato circles -->
+  <g filter="url(#shadow)">
+    <circle cx="1025" cy="374" r="88" fill="#c94c3f" filter="url(#paper)"/>
+    <circle cx="1128" cy="430" r="66" fill="#d65a43" filter="url(#paper)"/>
+    <path d="M1002 299 l27 34 l39 -18 l-21 38 l29 27 l-45 -5 l-20 40 l-8 -45 l-45 -7 l40 -20 z" fill="#477943"/>
+  </g>
+
+  <!-- beef tray -->
+  <g transform="translate(920 585) rotate(4)" filter="url(#shadow)">
+    <rect x="0" y="0" width="420" height="185" rx="26" fill="#dad8cf" filter="url(#paper)"/>
+    <rect x="24" y="28" width="266" height="130" rx="22" fill="#8d3335" opacity="0.86"/>
+    <path d="M50 92 C92 51 122 127 167 84 C216 40 232 130 284 79" fill="none" stroke="#f4bbb1" stroke-width="16" opacity="0.45"/>
+    <rect x="310" y="43" width="82" height="54" rx="7" fill="#f7f1da"/>
+    <rect x="319" y="112" width="65" height="16" fill="#2b3033" opacity="0.55"/>
+  </g>
+
+  <!-- phone bill strip and fuel slip -->
+  <g filter="url(#shadow)">
+    <path d="M1216 126 L1446 158 L1390 526 L1166 494 Z" fill="#e7edf0" filter="url(#paper)"/>
+    <rect x="1236" y="190" width="150" height="26" fill="#8398a0" opacity="0.45" transform="rotate(8 1311 203)"/>
+    <rect x="1223" y="250" width="112" height="112" fill="#f5f0db" opacity="0.9" transform="rotate(8 1279 306)"/>
+    <circle cx="1370" cy="424" r="34" fill="#d9a13a" opacity="0.8"/>
+    <path d="M642 655 L828 628 L862 788 L679 820 Z" fill="#f2d59a" filter="url(#paper)"/>
+    <line x1="675" y1="703" x2="824" y2="681" stroke="#6a5c40" stroke-width="10" opacity="0.45"/>
+    <line x1="690" y1="755" x2="803" y2="738" stroke="#6a5c40" stroke-width="8" opacity="0.38"/>
+  </g>
+
+  <!-- price stickers blinking -->
+  <g font-family="monospace" font-weight="700" text-anchor="middle">
+    <rect x="682" y="160" width="132" height="62" rx="9" fill="#fff36f" transform="rotate(-7 748 191)"/>
+    <circle cx="748" cy="191" r="8" fill="#222a2e" opacity="0.55"/>
+    <rect x="980" y="492" width="116" height="52" rx="8" fill="#fff36f" transform="rotate(5 1038 518)"/>
+    <circle cx="1038" cy="518" r="7" fill="#222a2e" opacity="0.55"/>
+    <rect x="1278" y="542" width="122" height="56" rx="8" fill="#fff36f" transform="rotate(-4 1339 570)"/>
+    <circle cx="1339" cy="570" r="7" fill="#222a2e" opacity="0.55"/>
+  </g>
+
+  <!-- torn chart line, no labels -->
+  <g opacity="0.68" filter="url(#paper)">
+    <path d="M126 814 L352 790 L558 803 L760 748 L943 766 L1180 698 L1486 720" fill="none" stroke="#e05b3f" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="760" cy="748" r="18" fill="#e05b3f"/>
+  </g>
+
+  <!-- collage seams -->
+  <g stroke="#253038" stroke-width="3" opacity="0.18" fill="none">
+    <path d="M78 104 L608 70"/>
+    <path d="M1035 80 L1510 168"/>
+    <path d="M692 132 L719 806"/>
+    <path d="M888 543 L1455 791"/>
+  </g>
+</svg>
