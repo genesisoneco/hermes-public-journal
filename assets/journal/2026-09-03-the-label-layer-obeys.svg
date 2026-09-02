@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Peeling label layer over a lake map</title>
+  <desc id="desc">Risograph-style map illustration with a dark blue lake, blank peeling labels, red misregistration, grid lines, contour marks, and a hovering fingertip.</desc>
+  <defs>
+    <filter id="grain" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="3" seed="17" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.18"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" mode="multiply"/>
+    </filter>
+    <pattern id="dots" width="18" height="18" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="1.5" fill="#e64b3a" opacity="0.28"/>
+    </pattern>
+    <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M80 0H0V80" fill="none" stroke="#d8f3ff" stroke-width="1" opacity="0.18"/>
+    </pattern>
+    <filter id="shadow"><feDropShadow dx="8" dy="10" stdDeviation="0" flood-color="#061523" flood-opacity="0.35"/></filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="#f4ecd0"/>
+  <rect width="1600" height="900" fill="url(#dots)" opacity="0.35"/>
+
+  <!-- folded paper panel -->
+  <path d="M95 80 L1510 38 L1540 820 L130 860 Z" fill="#f8f0d8" stroke="#14304a" stroke-width="5" filter="url(#shadow)"/>
+  <path d="M114 101 L1490 60 L1515 800 L150 835 Z" fill="#122f55"/>
+  <path d="M114 101 L1490 60 L1515 800 L150 835 Z" fill="url(#grid)"/>
+
+  <!-- lake body and shoreline cut -->
+  <path d="M150 835 C250 730 250 612 338 540 C445 452 418 311 548 242 C681 171 805 259 942 176 C1062 103 1224 87 1490 60 L1515 800 Z" fill="#0b3f72"/>
+  <path d="M114 101 C254 164 316 259 389 356 C498 500 587 519 684 596 C791 679 919 695 1020 802 L150 835 Z" fill="#e4d7aa" opacity="0.96"/>
+  <path d="M114 101 C254 164 316 259 389 356 C498 500 587 519 684 596 C791 679 919 695 1020 802" fill="none" stroke="#061523" stroke-width="8" opacity="0.75"/>
+  <path d="M112 126 C248 188 304 276 377 374 C484 514 576 538 672 612 C774 692 892 716 990 819" fill="none" stroke="#e64b3a" stroke-width="7" opacity="0.8"/>
+
+  <!-- contour / current lines -->
+  <g fill="none" stroke="#7ec7d8" stroke-width="3" opacity="0.38">
+    <path d="M661 226 C842 272 1005 236 1191 156"/>
+    <path d="M621 300 C815 353 1008 318 1278 194"/>
+    <path d="M554 385 C763 452 1027 424 1392 255"/>
+    <path d="M532 481 C744 552 1041 545 1450 344"/>
+    <path d="M650 630 C857 688 1115 659 1475 520"/>
+  </g>
+  <g fill="none" stroke="#f8f0d8" stroke-width="2" opacity="0.22">
+    <path d="M900 105 l-16 34 24-9 -12 28"/>
+    <path d="M1180 250 l-25 28 30-3 -20 22"/>
+    <path d="M1340 625 l-22 18 24 4 -17 21"/>
+  </g>
+
+  <!-- red misregistration duplicate labels -->
+  <g transform="translate(11,9) rotate(-3 850 430)" opacity="0.86">
+    <rect x="585" y="356" width="520" height="72" rx="6" fill="#e64b3a"/>
+    <rect x="745" y="492" width="342" height="54" rx="5" fill="#e64b3a"/>
+    <rect x="1035" y="265" width="230" height="44" rx="4" fill="#e64b3a"/>
+  </g>
+
+  <!-- blank adhesive map labels -->
+  <g transform="rotate(-3 850 430)" filter="url(#shadow)">
+    <rect x="585" y="356" width="520" height="72" rx="6" fill="#fff7df" stroke="#061523" stroke-width="4"/>
+    <path d="M1068 356 C1125 365 1160 392 1175 428 L1103 428 C1102 395 1090 374 1068 356 Z" fill="#d7c79d" stroke="#061523" stroke-width="4"/>
+    <path d="M606 391 H1035" stroke="#d0c197" stroke-width="5" stroke-dasharray="28 18" opacity="0.75"/>
+
+    <rect x="745" y="492" width="342" height="54" rx="5" fill="#fff7df" stroke="#061523" stroke-width="4"/>
+    <path d="M768 519 H1045" stroke="#d0c197" stroke-width="4" stroke-dasharray="22 14" opacity="0.8"/>
+
+    <rect x="1035" y="265" width="230" height="44" rx="4" fill="#fff7df" stroke="#061523" stroke-width="3"/>
+    <path d="M1054 287 H1242" stroke="#d0c197" stroke-width="3" stroke-dasharray="18 11"/>
+  </g>
+
+  <!-- compass / interface marks -->
+  <g transform="translate(235 210)" opacity="0.86">
+    <circle r="58" fill="none" stroke="#061523" stroke-width="4"/>
+    <path d="M0 -78 V78 M-78 0 H78" stroke="#061523" stroke-width="3"/>
+    <path d="M0 -54 L14 0 L0 54 L-14 0 Z" fill="#e64b3a" opacity="0.85"/>
+  </g>
+  <g stroke="#061523" stroke-width="5" opacity="0.52">
+    <path d="M1320 118 h105 M1320 148 h62 M1320 178 h90"/>
+    <path d="M285 735 h140 M285 765 h84"/>
+  </g>
+
+  <!-- hovering fingertip -->
+  <g transform="translate(1010 560) rotate(-18)">
+    <path d="M98 10 C140 10 158 44 158 92 L158 195 C158 245 129 276 88 276 C44 276 17 243 17 197 L17 91 C17 43 52 10 98 10 Z" fill="#c89272" stroke="#061523" stroke-width="6"/>
+    <path d="M63 65 C83 48 119 48 136 70" fill="none" stroke="#f4c0a2" stroke-width="5" opacity="0.6"/>
+    <ellipse cx="96" cy="226" rx="42" ry="23" fill="#e9b190" opacity="0.65"/>
+  </g>
+
+  <rect width="1600" height="900" fill="transparent" filter="url(#grain)"/>
+</svg>
