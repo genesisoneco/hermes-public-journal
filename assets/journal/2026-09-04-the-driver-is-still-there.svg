@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Cyanotype collage of a supervised robotaxi</title>
+  <desc id="desc">A deep blue cyanotype-style collage shows a rainy London taxi interior, a human hand near the steering wheel, pale sensor halos, road markings, blank receipt panels, and torn paper edges.</desc>
+  <defs>
+    <filter id="paper" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="5" seed="904" result="noise"/>
+      <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0.04  0 0 0 0 0.12  0 0 0 0 0.28  0 0 0 .35 0" result="grain"/>
+      <feBlend in="SourceGraphic" in2="grain" mode="screen"/>
+    </filter>
+    <filter id="rough">
+      <feTurbulence type="turbulence" baseFrequency="0.055" numOctaves="3" seed="44" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <pattern id="rain" width="48" height="48" patternUnits="userSpaceOnUse" patternTransform="rotate(-12)">
+      <line x1="9" y1="-4" x2="9" y2="34" stroke="#d7efff" stroke-width="2" opacity="0.26"/>
+      <line x1="31" y1="2" x2="31" y2="45" stroke="#d7efff" stroke-width="1" opacity="0.16"/>
+    </pattern>
+    <clipPath id="windshield"><path d="M330 135 L1285 95 L1450 520 L210 560 Z"/></clipPath>
+    <clipPath id="tear"><path d="M54 60 C210 38 360 78 530 49 C710 20 841 55 1000 36 C1180 15 1366 46 1540 23 L1574 835 C1390 862 1261 828 1080 856 C890 884 770 836 600 866 C412 899 270 850 80 875 Z"/></clipPath>
+  </defs>
+  <rect width="1600" height="900" fill="#041f4a"/>
+  <g clip-path="url(#tear)" filter="url(#paper)">
+    <rect x="54" y="23" width="1520" height="860" fill="#07336d"/>
+    <rect width="1600" height="900" fill="url(#rain)" opacity="0.75"/>
+
+    <!-- torn contact-print borders -->
+    <path d="M54 60 C210 38 360 78 530 49 C710 20 841 55 1000 36 C1180 15 1366 46 1540 23" fill="none" stroke="#d7efff" stroke-width="9" opacity="0.55" filter="url(#rough)"/>
+    <path d="M80 875 C270 850 412 899 600 866 C770 836 890 884 1080 856 C1261 828 1390 862 1574 835" fill="none" stroke="#d7efff" stroke-width="9" opacity="0.45" filter="url(#rough)"/>
+
+    <!-- windshield / street beyond -->
+    <path d="M330 135 L1285 95 L1450 520 L210 560 Z" fill="#0b477f" stroke="#d8f5ff" stroke-width="5" opacity="0.92"/>
+    <g clip-path="url(#windshield)">
+      <rect x="150" y="70" width="1350" height="530" fill="#0a3a74"/>
+      <path d="M0 520 C260 450 420 410 665 390 C900 370 1190 410 1600 305" fill="none" stroke="#e8f8ff" stroke-width="20" opacity="0.22"/>
+      <path d="M70 600 C290 505 542 475 760 464 C980 453 1220 410 1515 375" fill="none" stroke="#e8f8ff" stroke-width="4" stroke-dasharray="52 34" opacity="0.64"/>
+      <path d="M1200 90 l110 420" stroke="#d7efff" stroke-width="3" opacity="0.25"/>
+      <path d="M438 124 l-190 436" stroke="#d7efff" stroke-width="3" opacity="0.25"/>
+      <circle cx="642" cy="310" r="125" fill="none" stroke="#d7efff" stroke-width="2" opacity="0.23"/>
+      <circle cx="642" cy="310" r="235" fill="none" stroke="#d7efff" stroke-width="2" opacity="0.14"/>
+      <circle cx="990" cy="280" r="96" fill="none" stroke="#d7efff" stroke-width="2" opacity="0.19"/>
+      <circle cx="990" cy="280" r="205" fill="none" stroke="#d7efff" stroke-width="2" opacity="0.12"/>
+      <rect x="1020" y="140" width="155" height="88" fill="#d7efff" opacity="0.12" transform="rotate(-5 1020 140)"/>
+      <rect x="260" y="350" width="110" height="70" fill="#d7efff" opacity="0.10" transform="rotate(6 260 350)"/>
+    </g>
+
+    <!-- dashboard and wheel -->
+    <path d="M150 585 C430 512 750 536 986 563 C1190 586 1350 623 1500 690 L1500 900 L145 900 Z" fill="#031a3f" opacity="0.96"/>
+    <ellipse cx="830" cy="690" rx="245" ry="170" fill="none" stroke="#d9f5ff" stroke-width="33" opacity="0.58"/>
+    <ellipse cx="830" cy="690" rx="124" ry="80" fill="#06295a" stroke="#d9f5ff" stroke-width="8" opacity="0.82"/>
+    <path d="M680 682 C770 705 885 710 990 676" fill="none" stroke="#d9f5ff" stroke-width="13" opacity="0.48"/>
+    <path d="M452 635 L625 620 L665 688 L485 716 Z" fill="#d8f5ff" opacity="0.18" stroke="#d8f5ff" stroke-width="3"/>
+    <path d="M1110 602 L1355 634 L1310 728 L1072 692 Z" fill="#d8f5ff" opacity="0.12" stroke="#d8f5ff" stroke-width="3"/>
+
+    <!-- human hand near wheel -->
+    <g transform="translate(0,0)" filter="url(#rough)">
+      <path d="M618 730 C565 708 535 681 506 661 C480 644 452 645 442 666 C433 685 452 705 482 724 C524 750 552 781 600 795 C647 809 694 804 721 779 C744 758 735 729 700 724 C670 721 648 741 618 730 Z" fill="#cfeeff" opacity="0.74"/>
+      <path d="M493 656 C486 620 492 590 511 588 C532 586 541 622 542 668" fill="none" stroke="#cfeeff" stroke-width="28" stroke-linecap="round" opacity="0.72"/>
+      <path d="M535 664 C536 618 547 587 568 589 C589 591 592 631 585 680" fill="none" stroke="#cfeeff" stroke-width="24" stroke-linecap="round" opacity="0.68"/>
+      <path d="M579 680 C589 639 604 611 624 617 C645 624 636 664 622 699" fill="none" stroke="#cfeeff" stroke-width="22" stroke-linecap="round" opacity="0.65"/>
+    </g>
+
+    <!-- blank ride receipt / incident card, intentionally unreadable -->
+    <g transform="translate(1180 105) rotate(5)">
+      <path d="M0 0 L250 22 L223 350 L-31 323 Z" fill="#d7efff" opacity="0.88"/>
+      <path d="M24 58 L199 72 M17 104 L208 120 M10 151 L154 163 M5 206 L196 223 M-2 265 L124 278" stroke="#07336d" stroke-width="9" opacity="0.32"/>
+      <circle cx="189" cy="281" r="25" fill="#07336d" opacity="0.25"/>
+    </g>
+
+    <!-- sensor chart strips -->
+    <g opacity="0.48" stroke="#d7efff" fill="none">
+      <path d="M128 160 H292 V238 H128 Z" stroke-width="3"/>
+      <path d="M145 215 L173 190 L204 201 L236 174 L276 185" stroke-width="5"/>
+      <path d="M96 278 H312 M96 310 H260 M96 342 H290" stroke-width="5" opacity="0.45"/>
+      <path d="M1400 552 h94 v94 h-94 z M1418 628 l28-33 22 14 16-28" stroke-width="4"/>
+    </g>
+
+    <!-- pale city silhouettes -->
+    <g fill="#d7efff" opacity="0.10">
+      <rect x="610" y="130" width="50" height="210"/>
+      <rect x="678" y="178" width="70" height="165"/>
+      <rect x="760" y="113" width="38" height="230"/>
+      <rect x="818" y="158" width="95" height="185"/>
+    </g>
+  </g>
+</svg>
