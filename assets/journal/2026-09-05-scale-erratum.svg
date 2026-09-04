@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Embroidered scale erratum atlas sampler</title>
+  <desc id="desc">An embroidered atlas sampler on linen shows two stitched world-map panels: a stretched old projection on the left and an oval corrected projection on the right, with Africa pulled larger by red thread and loose grid lines.</desc>
+  <defs>
+    <filter id="linen" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="4" seed="905" result="noise"/>
+      <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0.50  0 0 0 0 0.43  0 0 0 0 0.31  0 0 0 .22 0" result="grain"/>
+      <feBlend in="SourceGraphic" in2="grain" mode="multiply"/>
+    </filter>
+    <filter id="threadShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="2" dy="3" stdDeviation="1.2" flood-color="#4b3622" flood-opacity="0.33"/>
+    </filter>
+    <pattern id="weave" width="18" height="18" patternUnits="userSpaceOnUse">
+      <path d="M0 6 H18 M0 15 H18" stroke="#7b6b50" stroke-width="1" opacity="0.18"/>
+      <path d="M5 0 V18 M14 0 V18" stroke="#fff1d2" stroke-width="1" opacity="0.20"/>
+    </pattern>
+    <pattern id="stitch" width="24" height="12" patternUnits="userSpaceOnUse">
+      <path d="M2 6 L12 2 M12 10 L22 6" stroke="#20395a" stroke-width="3" stroke-linecap="round"/>
+    </pattern>
+    <clipPath id="leftPanel"><rect x="90" y="105" width="660" height="660" rx="24"/></clipPath>
+    <clipPath id="rightOval"><ellipse cx="1160" cy="435" rx="315" ry="248"/></clipPath>
+    <path id="africa" d="M0,-92 C48,-70 72,-28 58,12 C86,42 64,94 25,140 C-6,177 -34,142 -25,94 C-62,60 -64,20 -46,-20 C-24,-58 -34,-86 0,-92 Z"/>
+  </defs>
+
+  <rect width="1600" height="900" fill="#d9c6a2" filter="url(#linen)"/>
+  <rect width="1600" height="900" fill="url(#weave)" opacity="0.75"/>
+
+  <!-- conservation table scraps -->
+  <path d="M60 70 L1530 48 L1555 812 L74 844 Z" fill="none" stroke="#7e6846" stroke-width="2" opacity="0.25" stroke-dasharray="9 11"/>
+  <circle cx="780" cy="86" r="14" fill="#aa7b35" opacity="0.7"/>
+  <circle cx="1510" cy="800" r="12" fill="#aa7b35" opacity="0.55"/>
+  <circle cx="76" cy="804" r="10" fill="#aa7b35" opacity="0.45"/>
+
+  <!-- left: old rectangular habit -->
+  <g clip-path="url(#leftPanel)">
+    <rect x="90" y="105" width="660" height="660" fill="#e7d3ac" stroke="#8a704b" stroke-width="8"/>
+    <rect x="90" y="105" width="660" height="660" fill="url(#weave)"/>
+    <g stroke="#60728a" stroke-width="2" opacity="0.45">
+      <path d="M90 188 H750 M90 270 H750 M90 352 H750 M90 435 H750 M90 518 H750 M90 600 H750 M90 682 H750"/>
+      <path d="M172 105 V765 M255 105 V765 M337 105 V765 M420 105 V765 M502 105 V765 M585 105 V765 M667 105 V765"/>
+    </g>
+    <g fill="none" stroke="#21385b" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" filter="url(#threadShadow)">
+      <path d="M168 260 C220 224 276 236 310 283 C287 328 226 348 183 318 C149 296 141 279 168 260 Z" opacity="0.9"/>
+      <path d="M321 187 C388 143 493 146 572 190 C630 224 650 279 616 330 C558 300 488 285 424 290 C370 296 322 262 321 187 Z" opacity="0.88"/>
+      <path d="M586 390 C640 360 696 384 724 434 C681 472 632 468 600 429 C584 411 575 399 586 390 Z" opacity="0.82"/>
+    </g>
+    <!-- compressed Africa -->
+    <use href="#africa" transform="translate(392 470) scale(0.72 0.80)" fill="none" stroke="#b43d2e" stroke-width="8" filter="url(#threadShadow)"/>
+    <!-- exaggerated Greenland-like island -->
+    <path d="M435 155 C500 110 596 140 600 202 C608 260 520 285 460 251 C407 221 382 184 435 155 Z" fill="none" stroke="#304c70" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" filter="url(#threadShadow)"/>
+    <g stroke="#b43d2e" stroke-width="3" opacity="0.5">
+      <path d="M392 390 V560"/><path d="M342 469 H450"/>
+    </g>
+  </g>
+  <rect x="90" y="105" width="660" height="660" rx="24" fill="none" stroke="#5c452e" stroke-width="6" opacity="0.52"/>
+  <rect x="123" y="785" width="340" height="20" fill="#f1dfbd" stroke="#8a704b" opacity="0.75"/>
+  <path d="M130 794 H448" stroke="#7f6b50" stroke-width="2" stroke-dasharray="18 14" opacity="0.65"/>
+
+  <!-- thread pulled between projections -->
+  <g filter="url(#threadShadow)" fill="none" stroke-linecap="round">
+    <path d="M458 472 C635 390 785 405 914 430" stroke="#b43d2e" stroke-width="7" stroke-dasharray="18 13" opacity="0.82"/>
+    <path d="M426 524 C628 600 781 558 910 496" stroke="#b43d2e" stroke-width="5" stroke-dasharray="10 16" opacity="0.65"/>
+    <path d="M620 368 C715 335 775 336 840 370" stroke="#20395a" stroke-width="4" stroke-dasharray="8 13" opacity="0.38"/>
+  </g>
+
+  <!-- right: corrected oval bargain -->
+  <g>
+    <ellipse cx="1160" cy="435" rx="345" ry="275" fill="#ead8b7" stroke="#5c452e" stroke-width="7"/>
+    <g clip-path="url(#rightOval)">
+      <rect x="800" y="165" width="720" height="540" fill="#e1cca5"/>
+      <g stroke="#60728a" stroke-width="2.5" opacity="0.48" fill="none">
+        <ellipse cx="1160" cy="435" rx="315" ry="248"/>
+        <ellipse cx="1160" cy="435" rx="260" ry="248"/>
+        <ellipse cx="1160" cy="435" rx="196" ry="248"/>
+        <ellipse cx="1160" cy="435" rx="110" ry="248"/>
+        <path d="M845 435 C980 398 1320 398 1475 435"/>
+        <path d="M865 330 C1015 355 1305 355 1455 330"/>
+        <path d="M880 540 C1030 510 1290 510 1440 540"/>
+        <path d="M990 200 C960 320 960 550 995 675"/>
+        <path d="M1326 200 C1360 320 1360 550 1325 675"/>
+      </g>
+      <g fill="none" stroke="#20395a" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" filter="url(#threadShadow)">
+        <path d="M930 318 C988 282 1046 300 1075 347 C1032 386 966 392 928 354 C902 333 905 324 930 318 Z"/>
+        <path d="M1120 240 C1200 202 1320 225 1372 280 C1420 331 1390 392 1305 400 C1220 407 1135 372 1104 315 C1089 285 1094 258 1120 240 Z"/>
+        <path d="M1355 500 C1415 470 1460 510 1470 560 C1422 596 1364 578 1345 535 C1336 516 1338 506 1355 500 Z"/>
+      </g>
+      <!-- Africa enlarged and central -->
+      <use href="#africa" transform="translate(1162 470) scale(1.32 1.42)" fill="#b43d2e" opacity="0.12"/>
+      <use href="#africa" transform="translate(1162 470) scale(1.32 1.42)" fill="none" stroke="#b43d2e" stroke-width="10" filter="url(#threadShadow)"/>
+      <g stroke="#b43d2e" stroke-width="4" opacity="0.46">
+        <path d="M1162 325 V665"/><path d="M1050 470 H1274"/>
+      </g>
+    </g>
+    <ellipse cx="1160" cy="435" rx="315" ry="248" fill="none" stroke="#20395a" stroke-width="5" opacity="0.6" stroke-dasharray="14 10"/>
+  </g>
+
+  <!-- loose knots and frays -->
+  <g stroke="#b43d2e" stroke-width="5" stroke-linecap="round" opacity="0.72" filter="url(#threadShadow)">
+    <path d="M930 724 c28 -20 48 -6 72 -22 c22 -15 38 -10 58 6"/>
+    <path d="M963 747 c20 -10 34 -4 52 -14"/>
+    <path d="M1280 745 c38 16 74 8 111 27"/>
+  </g>
+  <g stroke="#20395a" stroke-width="4" stroke-linecap="round" opacity="0.45">
+    <path d="M110 58 c56 22 89 12 135 33"/>
+    <path d="M1360 90 c54 -18 88 -12 132 -32"/>
+    <path d="M58 612 c24 12 52 10 82 0"/>
+  </g>
+
+  <!-- blank margin labels, deliberately unreadable -->
+  <g fill="#f4e5c8" stroke="#8a704b" opacity="0.74">
+    <rect x="835" y="115" width="270" height="25" rx="4"/>
+    <rect x="1170" y="760" width="280" height="24" rx="4"/>
+    <rect x="520" y="805" width="185" height="22" rx="4"/>
+  </g>
+</svg>
