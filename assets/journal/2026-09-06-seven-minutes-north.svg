@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Rocket lifting from an Arctic island at night</title>
+  <desc id="desc">A high-contrast linocut-style scene of a rocket launching from a snowy island launch pad beside black water under aurora-green sky, with carved exhaust and small satellite glints.</desc>
+  <defs>
+    <filter id="rough">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="4" seed="906"/>
+      <feDisplacementMap in="SourceGraphic" scale="7"/>
+    </filter>
+    <filter id="paper">
+      <feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="2" seed="77"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.16"/>
+      </feComponentTransfer>
+    </filter>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#081019"/>
+      <stop offset="0.55" stop-color="#0a1d2f"/>
+      <stop offset="1" stop-color="#11151b"/>
+    </linearGradient>
+    <linearGradient id="aurora" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#86f2b4" stop-opacity="0"/>
+      <stop offset="0.35" stop-color="#86f2b4" stop-opacity="0.48"/>
+      <stop offset="0.65" stop-color="#9fd5ff" stop-opacity="0.25"/>
+      <stop offset="1" stop-color="#86f2b4" stop-opacity="0"/>
+    </linearGradient>
+    <pattern id="cut" width="32" height="32" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)">
+      <path d="M0 6 H32 M0 18 H32 M0 30 H32" stroke="#f4efe2" stroke-opacity="0.13" stroke-width="3"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="900" fill="#f4efe2"/>
+  <rect x="36" y="36" width="1528" height="828" rx="18" fill="url(#sky)"/>
+
+  <!-- aurora curtains -->
+  <g filter="url(#rough)" opacity="0.95">
+    <path d="M116 150 C260 70 354 190 494 118 C640 42 748 150 898 98 C1060 42 1228 116 1478 74 L1478 215 C1250 158 1088 238 916 180 C746 122 650 250 500 176 C360 108 260 242 116 190 Z" fill="url(#aurora)"/>
+    <path d="M185 250 C355 185 430 315 596 238 C785 150 858 308 1030 225 C1210 138 1320 250 1440 206 L1440 305 C1260 330 1155 250 1025 308 C850 385 780 245 610 330 C430 420 330 282 185 355 Z" fill="#70e9a8" opacity="0.18"/>
+  </g>
+
+  <!-- carved star/satellite glints -->
+  <g fill="#f4efe2" opacity="0.93">
+    <path d="M1195 150 l14 30 l32 10 l-31 12 l-12 32 l-13 -32 l-30 -12 l30 -10z"/>
+    <path d="M1288 242 l8 17 l18 6 l-18 7 l-7 18 l-8 -18 l-18 -7 l18 -6z"/>
+    <path d="M1094 286 l9 21 l22 7 l-22 8 l-8 23 l-9 -23 l-22 -8 l22 -7z"/>
+    <circle cx="1364" cy="178" r="7"/>
+    <circle cx="1016" cy="208" r="5"/>
+  </g>
+
+  <!-- flight path -->
+  <path d="M885 642 C970 503 1042 410 1164 274 C1216 217 1262 174 1321 128" fill="none" stroke="#86f2b4" stroke-width="5" stroke-dasharray="20 18" opacity="0.82"/>
+
+  <!-- sea -->
+  <path d="M36 660 C175 622 280 681 410 648 C570 608 695 690 855 648 C1040 598 1215 678 1564 624 L1564 864 L36 864 Z" fill="#020609"/>
+  <g stroke="#f4efe2" stroke-opacity="0.2" stroke-width="5" filter="url(#rough)">
+    <path d="M85 720 C220 700 300 752 430 726"/>
+    <path d="M760 718 C885 696 1010 754 1165 718"/>
+    <path d="M1188 780 C1306 760 1402 793 1510 778"/>
+  </g>
+
+  <!-- island and snowy headland -->
+  <path d="M250 664 C330 608 438 612 520 650 C600 690 725 668 806 700 C650 734 480 732 298 720 C236 714 208 698 250 664 Z" fill="#f4efe2" filter="url(#rough)"/>
+  <path d="M284 681 C382 660 455 686 548 674 C478 708 362 712 279 696 Z" fill="#9fd5ff" opacity="0.36"/>
+  <path d="M724 690 C828 636 944 646 1040 688 C1125 725 1268 698 1368 728 C1210 770 912 770 734 732 Z" fill="#f4efe2" filter="url(#rough)"/>
+  <path d="M826 705 C914 680 1035 716 1132 697 C1048 738 905 740 806 722 Z" fill="#9fd5ff" opacity="0.33"/>
+
+  <!-- launch tower -->
+  <g stroke="#f4efe2" stroke-width="8" stroke-linecap="square" fill="none" filter="url(#rough)">
+    <path d="M690 600 L690 414 L748 414 L748 615"/>
+    <path d="M690 470 L748 520 M748 470 L690 520 M690 560 L748 600 M748 560 L690 600"/>
+    <path d="M665 615 H780"/>
+    <path d="M748 452 H810"/>
+  </g>
+
+  <!-- rocket -->
+  <g transform="translate(835 498) rotate(23)" filter="url(#rough)">
+    <path d="M0 -158 C30 -120 39 -42 35 74 L-35 74 C-39 -42 -30 -120 0 -158 Z" fill="#f4efe2"/>
+    <path d="M0 -158 C15 -125 20 -30 17 74 L35 74 C39 -42 30 -120 0 -158 Z" fill="#9fd5ff" opacity="0.38"/>
+    <path d="M-35 35 L-78 94 L-32 78 Z" fill="#f4efe2"/>
+    <path d="M35 35 L78 94 L32 78 Z" fill="#f4efe2"/>
+    <rect x="-18" y="-44" width="36" height="34" fill="#081019"/>
+    <path d="M-24 75 C-10 120 8 120 25 75 Z" fill="#ff7b35"/>
+  </g>
+
+  <!-- exhaust plume, carved -->
+  <g filter="url(#rough)">
+    <path d="M792 642 C735 680 683 725 670 806 C748 780 812 798 893 845 C886 760 866 695 812 642 Z" fill="#f4efe2"/>
+    <path d="M800 656 C770 692 747 727 742 778 C792 752 825 764 860 803 C855 738 836 697 800 656 Z" fill="#ff7b35" opacity="0.72"/>
+    <path d="M700 780 C754 734 822 730 884 790" fill="none" stroke="#081019" stroke-width="10" stroke-opacity="0.34"/>
+    <path d="M724 722 C776 690 816 692 852 730" fill="none" stroke="#081019" stroke-width="8" stroke-opacity="0.28"/>
+  </g>
+
+  <!-- linocut hatch overlay -->
+  <rect x="36" y="36" width="1528" height="828" fill="url(#cut)" opacity="0.55"/>
+  <rect width="1600" height="900" filter="url(#paper)" opacity="0.8"/>
+
+  <!-- irregular ink border -->
+  <rect x="36" y="36" width="1528" height="828" rx="18" fill="none" stroke="#020609" stroke-width="42" opacity="0.95" filter="url(#rough)"/>
+</svg>
