@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Thermal blueprint of a snowy data centre campus</title>
+  <desc id="desc">A snowy axonometric data centre campus with blue server halls, green status lights, orange underground heat, cooling pipes, substation fences, pine trees, and a tiny curled hiring notice.</desc>
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#7fb9da" stroke-width="1" opacity="0.18"/>
+      <path d="M20 0V40M0 20H40" fill="none" stroke="#7fb9da" stroke-width=".5" opacity="0.10"/>
+    </pattern>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#061427"/>
+      <stop offset="0.55" stop-color="#102b42"/>
+      <stop offset="1" stop-color="#d8eef4"/>
+    </linearGradient>
+    <radialGradient id="heat" cx="50%" cy="58%" r="55%">
+      <stop offset="0" stop-color="#ffef7a" stop-opacity="0.95"/>
+      <stop offset="0.32" stop-color="#ff8b2d" stop-opacity="0.75"/>
+      <stop offset="0.68" stop-color="#ca3155" stop-opacity="0.38"/>
+      <stop offset="1" stop-color="#17364c" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="frost" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.015 0.09" numOctaves="3" seed="37" result="noise"/>
+      <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0.8  0 0 0 0 0.94  0 0 0 0 1  0 0 0 .28 0"/>
+    </filter>
+    <style>
+      .blueprint{fill:none;stroke:#96d6ff;stroke-width:2;stroke-linejoin:round;stroke-linecap:round;opacity:.82}
+      .thin{fill:none;stroke:#a9dcff;stroke-width:1;opacity:.55}
+      .snow{fill:#e9f7fb}.dark{fill:#10283b}.hall{fill:#163c58;stroke:#9bd9ff;stroke-width:2}.roof{fill:#d8f1f6;stroke:#a7dff1;stroke-width:2}
+      .hot{fill:none;stroke:#ff8a27;stroke-width:12;stroke-linecap:round;opacity:.82}.pipe{fill:none;stroke:#bfe6ff;stroke-width:8;stroke-linecap:round;opacity:.8}
+      .led{fill:#63ff9e}.pine{fill:#0d3140;stroke:#95d7d5;stroke-width:1.2}.fence{stroke:#b8d9e4;stroke-width:3;fill:none}.noText{font-size:0}
+    </style>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <rect width="1600" height="900" fill="url(#grid)"/>
+  <rect y="545" width="1600" height="355" fill="#dff2f5"/>
+  <rect y="545" width="1600" height="355" filter="url(#frost)" opacity=".75"/>
+
+  <!-- distant forest -->
+  <g opacity=".9">
+    <path class="pine" d="M70 530l32-90 32 90zM116 532l24-65 24 65zM220 536l39-112 39 112zM315 528l28-82 28 82zM1370 540l38-115 38 115zM1455 533l27-78 27 78zM1515 542l41-124 41 124z"/>
+    <path class="pine" d="M25 560h450M1300 562h300" opacity=".28"/>
+  </g>
+
+  <!-- underground thermal plume -->
+  <ellipse cx="850" cy="720" rx="610" ry="160" fill="url(#heat)" opacity=".94"/>
+  <path class="hot" d="M398 694C520 650 617 683 730 642s178-40 292 2 190 10 290-42"/>
+  <path class="hot" d="M515 746c130-38 229-23 327-64s210-41 323 3" opacity=".55"/>
+  <path class="pipe" d="M300 782c195-72 345-61 505-110s290-40 510 18"/>
+  <path class="pipe" d="M423 822c160-55 270-52 392-92s222-39 382 10" opacity=".48"/>
+
+  <!-- axonometric snow platform -->
+  <polygon points="282,540 805,330 1355,515 835,760" fill="#eef9fb" stroke="#9bd9ff" stroke-width="3"/>
+  <path class="thin" d="M335 562l523-212M430 602l522-212M525 641l522-212M620 681l522-212M720 724l522-212"/>
+  <path class="thin" d="M392 496l547 184M502 450l547 184M612 406l547 184M722 361l547 184"/>
+
+  <!-- main halls -->
+  <g>
+    <polygon class="hall" points="450,530 690,438 890,505 650,606"/>
+    <polygon class="roof" points="450,490 690,398 890,465 650,566"/>
+    <polygon class="dark" points="450,490 450,530 650,606 650,566" opacity=".72"/>
+    <polygon class="dark" points="650,566 650,606 890,505 890,465" opacity=".55"/>
+    <path class="blueprint" d="M492 492l200 68M532 476l200 68M572 460l200 68M612 444l200 68" opacity=".5"/>
+    <g>
+      <circle class="led" cx="505" cy="520" r="4"/><circle class="led" cx="535" cy="531" r="4"/><circle class="led" cx="565" cy="542" r="4"/><circle class="led" cx="596" cy="554" r="4"/>
+    </g>
+  </g>
+
+  <g transform="translate(290 105)">
+    <polygon class="hall" points="450,530 710,430 950,510 690,620"/>
+    <polygon class="roof" points="450,486 710,386 950,466 690,576"/>
+    <polygon class="dark" points="450,486 450,530 690,620 690,576" opacity=".72"/>
+    <polygon class="dark" points="690,576 690,620 950,510 950,466" opacity=".55"/>
+    <path class="blueprint" d="M506 489l240 82M550 472l240 82M594 455l240 82M638 438l240 82" opacity=".5"/>
+    <circle class="led" cx="513" cy="520" r="4"/><circle class="led" cx="548" cy="533" r="4"/><circle class="led" cx="585" cy="547" r="4"/><circle class="led" cx="622" cy="561" r="4"/>
+  </g>
+
+  <!-- cooling towers and substation -->
+  <g>
+    <ellipse cx="1105" cy="438" rx="58" ry="18" fill="#ccecf4" stroke="#91d2e8" stroke-width="2"/>
+    <path d="M1048 438l24 90c12 18 57 21 70 0l21-90" fill="#7999aa" opacity=".46" stroke="#9bd9ff" stroke-width="2"/>
+    <ellipse cx="1105" cy="528" rx="38" ry="13" fill="#28485b" stroke="#9bd9ff" stroke-width="2"/>
+    <path d="M1103 422c-15-45 30-55 4-96M1135 426c0-38 58-50 33-104" class="thin" opacity=".65"/>
+    <g transform="translate(1018 574)">
+      <polygon points="0,0 245,83 175,126 -70,43" fill="#bfdde6" stroke="#83cce7" stroke-width="2"/>
+      <path class="fence" d="M-54 38l240 83M-25 27l240 83M4 17l240 83M33 7l240 83" opacity=".55"/>
+      <path class="fence" d="M-60 39l65-40M-5 58l65-40M50 77l65-40M105 96l65-40M160 115l65-40" opacity=".55"/>
+      <path d="M48 37l25-54 25 73M125 63l25-54 25 73" class="blueprint"/>
+    </g>
+  </g>
+
+  <!-- tiny curled notice, intentionally no readable text -->
+  <g transform="translate(286 644) rotate(-14)">
+    <path d="M0 0h54c10 0 17 6 17 15v70H0z" fill="#fff7d8" stroke="#7c9aae" stroke-width="2"/>
+    <path d="M53 0c-4 14 2 23 18 23" fill="none" stroke="#7c9aae" stroke-width="2"/>
+    <path d="M11 20h36M11 34h42M11 49h28M11 65h35" stroke="#7c9aae" stroke-width="3" opacity=".42"/>
+  </g>
+
+  <!-- blueprint callout lines without text -->
+  <g opacity=".78">
+    <path class="blueprint" d="M370 380h210M370 380l78 112M1205 275h190M1205 275l-81 145M170 705h145M170 705l90-28"/>
+    <circle cx="370" cy="380" r="6" fill="#9bd9ff"/><circle cx="1205" cy="275" r="6" fill="#9bd9ff"/><circle cx="170" cy="705" r="6" fill="#9bd9ff"/>
+  </g>
+
+  <!-- snow/frost particles -->
+  <g fill="#eefcff" opacity=".85">
+    <circle cx="185" cy="126" r="2"/><circle cx="279" cy="214" r="1.8"/><circle cx="390" cy="153" r="2.5"/><circle cx="531" cy="96" r="1.7"/><circle cx="742" cy="203" r="2"/><circle cx="963" cy="118" r="2.4"/><circle cx="1190" cy="190" r="1.8"/><circle cx="1388" cy="86" r="2"/><circle cx="1495" cy="249" r="2.2"/>
+  </g>
+
+  <!-- frame ticks -->
+  <path d="M70 70h1460v760H70z" fill="none" stroke="#9bd9ff" stroke-width="2" opacity=".42"/>
+  <path d="M70 115h36M70 160h24M70 205h36M1494 115h36M1506 160h24M1494 205h36M130 830v-36M190 830v-24M250 830v-36M1360 830v-36M1420 830v-24M1480 830v-36" stroke="#9bd9ff" stroke-width="2" opacity=".48"/>
+</svg>
