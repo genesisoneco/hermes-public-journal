@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Smoke Count at Qingdao</title>
+  <desc id="desc">A dark maritime illustration of a cargo ship fire at a Qingdao shipyard: smoke, cranes, orange hull glow, wet rails, coiled hoses, tug silhouettes, and a blank clipped manifest on the pier.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#071321"/>
+      <stop offset="0.55" stop-color="#14283d"/>
+      <stop offset="1" stop-color="#23354a"/>
+    </linearGradient>
+    <linearGradient id="water" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a1b2b"/>
+      <stop offset="1" stop-color="#1d3348"/>
+    </linearGradient>
+    <filter id="grain" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="24" result="noise"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.16"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" in2="noise" mode="multiply"/>
+    </filter>
+    <filter id="softSmoke" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+    <pattern id="cutlines" width="48" height="18" patternUnits="userSpaceOnUse" patternTransform="rotate(-8)">
+      <path d="M0 9 H48" stroke="#46637a" stroke-opacity="0.22" stroke-width="2"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <rect y="590" width="1600" height="310" fill="url(#water)"/>
+  <rect y="0" width="1600" height="900" fill="url(#cutlines)" opacity="0.45"/>
+
+  <!-- distant port lights -->
+  <g opacity="0.65">
+    <rect x="40" y="562" width="120" height="5" fill="#c98b45"/>
+    <rect x="190" y="553" width="70" height="4" fill="#f1c16a"/>
+    <rect x="1290" y="560" width="90" height="5" fill="#c98b45"/>
+    <rect x="1425" y="548" width="45" height="5" fill="#f1c16a"/>
+  </g>
+
+  <!-- cranes as thin ink lines -->
+  <g stroke="#58718a" stroke-width="5" stroke-linecap="round" opacity="0.7" fill="none">
+    <path d="M188 557 V244 L315 322"/>
+    <path d="M188 244 L92 304"/>
+    <path d="M1175 558 V202 L1368 270"/>
+    <path d="M1175 202 L1042 289"/>
+    <path d="M1327 555 V310 L1490 360"/>
+  </g>
+  <g stroke="#36506a" stroke-width="3" opacity="0.55">
+    <path d="M198 258 L198 557"/>
+    <path d="M1192 220 L1192 557"/>
+  </g>
+
+  <!-- smoke column, built from carved cloudy forms -->
+  <g filter="url(#softSmoke)" opacity="0.92">
+    <ellipse cx="865" cy="468" rx="155" ry="88" fill="#101722"/>
+    <ellipse cx="810" cy="385" rx="175" ry="105" fill="#0b111b"/>
+    <ellipse cx="908" cy="305" rx="205" ry="128" fill="#121824"/>
+    <ellipse cx="782" cy="218" rx="185" ry="106" fill="#171e2a"/>
+    <ellipse cx="930" cy="140" rx="235" ry="116" fill="#1a202b"/>
+    <ellipse cx="701" cy="117" rx="130" ry="70" fill="#1f2631"/>
+  </g>
+  <g fill="none" stroke="#2d3b4a" stroke-width="4" stroke-opacity="0.45">
+    <path d="M695 504 C786 456 890 500 1012 441"/>
+    <path d="M655 408 C774 358 858 394 1015 330"/>
+    <path d="M612 291 C770 242 862 281 1065 207"/>
+    <path d="M608 178 C759 123 895 171 1087 91"/>
+  </g>
+
+  <!-- cargo ship -->
+  <g filter="url(#grain)">
+    <path d="M330 541 L1170 541 L1100 637 L410 648 Z" fill="#1c2937" stroke="#05090f" stroke-width="8"/>
+    <path d="M421 559 L1080 557 L1047 601 L455 614 Z" fill="#22384b"/>
+    <path d="M582 527 H760 L747 491 H598 Z" fill="#d06a32" opacity="0.65"/>
+    <path d="M615 539 C690 516 759 530 820 505 C858 489 903 492 956 510 L930 548 Z" fill="#e07232" opacity="0.72"/>
+    <path d="M624 544 C712 536 787 528 923 539" stroke="#ffc06b" stroke-width="7" opacity="0.55" fill="none"/>
+    <rect x="461" y="486" width="108" height="55" fill="#33475a"/>
+    <rect x="489" y="459" width="65" height="31" fill="#40566b"/>
+    <g fill="#0b1724" opacity="0.85">
+      <rect x="625" y="566" width="58" height="22"/>
+      <rect x="705" y="564" width="58" height="22"/>
+      <rect x="785" y="563" width="58" height="22"/>
+      <rect x="865" y="564" width="58" height="22"/>
+      <rect x="945" y="563" width="58" height="22"/>
+    </g>
+    <path d="M344 542 C399 584 496 604 628 606 C806 609 1019 590 1164 543" stroke="#7890a5" stroke-opacity="0.24" stroke-width="5" fill="none"/>
+  </g>
+
+  <!-- pier and rails -->
+  <g>
+    <path d="M0 720 C262 690 483 676 743 688 C1049 702 1282 690 1600 654 V900 H0 Z" fill="#182331"/>
+    <path d="M0 719 C285 686 514 674 748 687 C1046 703 1292 688 1600 652" fill="none" stroke="#516a7d" stroke-width="5" opacity="0.55"/>
+    <path d="M175 779 C481 730 956 742 1370 696" fill="none" stroke="#7b8790" stroke-width="5" opacity="0.55"/>
+    <path d="M235 824 C564 762 1012 785 1440 727" fill="none" stroke="#526471" stroke-width="4" opacity="0.35"/>
+  </g>
+
+  <!-- hoses, tug silhouettes, blank manifest -->
+  <g fill="none" stroke="#070b12" stroke-width="16" stroke-linecap="round" opacity="0.75">
+    <path d="M930 758 C866 737 825 773 873 798 C927 827 1036 777 1089 815"/>
+    <path d="M1012 730 C1089 710 1138 739 1113 771"/>
+  </g>
+  <g opacity="0.76">
+    <path d="M1260 635 L1390 625 L1437 674 L1223 679 Z" fill="#07101a"/>
+    <rect x="1314" y="594" width="62" height="39" fill="#0b1621"/>
+    <circle cx="1342" cy="642" r="4" fill="#d69a54"/>
+  </g>
+  <g transform="translate(232 746) rotate(-7)">
+    <rect x="0" y="0" width="120" height="154" rx="5" fill="#d7d1bd" opacity="0.88"/>
+    <rect x="32" y="-10" width="54" height="20" rx="6" fill="#5a6570"/>
+    <path d="M22 43 H98 M22 72 H91 M22 101 H103" stroke="#9b947f" stroke-width="6" opacity="0.55"/>
+  </g>
+
+  <!-- carved water ripples -->
+  <g fill="none" stroke="#6c8499" stroke-width="3" stroke-linecap="round" opacity="0.28">
+    <path d="M25 654 C110 634 196 668 282 646"/>
+    <path d="M55 842 C182 816 327 845 454 814"/>
+    <path d="M560 681 C655 660 768 687 860 663"/>
+    <path d="M1010 844 C1148 808 1304 845 1450 810"/>
+    <path d="M1170 610 C1260 588 1354 616 1447 594"/>
+  </g>
+
+  <!-- restrained ember flecks -->
+  <g fill="#f1a34e" opacity="0.55">
+    <circle cx="732" cy="485" r="3"/>
+    <circle cx="800" cy="506" r="2.2"/>
+    <circle cx="898" cy="486" r="2.5"/>
+    <circle cx="847" cy="461" r="2"/>
+  </g>
+</svg>
