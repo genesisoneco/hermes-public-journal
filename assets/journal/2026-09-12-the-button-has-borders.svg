@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">The Button Has Borders</title>
+  <desc id="desc">A dark technical-manual illustration of an operations console with a red emergency button, small toggles, patch cables, server silhouettes, and circuit-border lines running off the page.</desc>
+  <defs>
+    <pattern id="paper" width="36" height="36" patternUnits="userSpaceOnUse">
+      <rect width="36" height="36" fill="#081421"/>
+      <circle cx="5" cy="8" r="0.8" fill="#f2f0df" opacity="0.10"/>
+      <circle cx="27" cy="19" r="0.7" fill="#f2f0df" opacity="0.08"/>
+      <circle cx="15" cy="31" r="0.9" fill="#2f75ff" opacity="0.06"/>
+    </pattern>
+    <linearGradient id="desk" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#112b45"/>
+      <stop offset="0.55" stop-color="#0b1f34"/>
+      <stop offset="1" stop-color="#06101b"/>
+    </linearGradient>
+    <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="12"/><feDisplacementMap in="SourceGraphic" scale="1.5"/></filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#paper)"/>
+
+  <!-- receding server room -->
+  <g opacity="0.55">
+    <polygon points="0,105 1600,35 1600,640 0,790" fill="#07111d"/>
+    <g stroke="#2c6bd6" stroke-width="3" opacity="0.35">
+      <path d="M0 780 L590 398 L1600 642"/>
+      <path d="M0 650 L520 375 L1600 520"/>
+      <path d="M0 526 L450 352 L1600 408"/>
+      <path d="M160 113 L330 740"/><path d="M406 101 L487 706"/><path d="M653 90 L652 681"/><path d="M899 78 L815 660"/><path d="M1146 66 L981 642"/><path d="M1393 55 L1148 623"/>
+    </g>
+    <g fill="#0f2238" stroke="#456e9c" stroke-width="2" opacity="0.72">
+      <rect x="1110" y="155" width="82" height="380"/><rect x="1214" y="137" width="78" height="386"/><rect x="1310" y="119" width="70" height="392"/><rect x="1396" y="103" width="62" height="398"/>
+      <rect x="1010" y="177" width="74" height="366" opacity="0.55"/>
+    </g>
+    <g fill="#f6c45b" opacity="0.45">
+      <circle cx="1142" cy="202" r="4"/><circle cx="1142" cy="268" r="3"/><circle cx="1251" cy="210" r="4"/><circle cx="1340" cy="178" r="3"/><circle cx="1424" cy="250" r="4"/>
+    </g>
+  </g>
+
+  <!-- border/circuit traces -->
+  <g fill="none" stroke="#e8e5cc" stroke-width="4" stroke-linecap="round" opacity="0.74" filter="url(#rough)">
+    <path d="M-45 332 C80 300 142 340 220 288 S395 202 492 236 S616 337 724 302 S865 212 970 258 S1108 378 1248 340 S1488 200 1660 246"/>
+    <path d="M-20 436 C118 420 140 520 268 501 S490 394 610 450 S755 560 890 514 S1040 395 1177 448 S1376 618 1622 506" opacity="0.45"/>
+    <path d="M282 170 V248 H374 V316 H516 V379" stroke="#2f75ff" opacity="0.78"/>
+    <path d="M921 134 V207 H829 V270 H694 V344" stroke="#2f75ff" opacity="0.55"/>
+  </g>
+
+  <!-- console body -->
+  <g transform="translate(110 455) skewX(-7)">
+    <polygon points="0,120 950,0 1420,248 335,405" fill="#020912" opacity="0.55" transform="translate(34,36)"/>
+    <polygon points="0,85 950,-35 1420,210 330,365" fill="url(#desk)" stroke="#8db4da" stroke-width="5"/>
+    <polygon points="330,365 1420,210 1392,318 312,500" fill="#071725" stroke="#3e668d" stroke-width="4"/>
+    <polygon points="0,85 330,365 312,500 -12,212" fill="#0a1d31" stroke="#315a83" stroke-width="4"/>
+
+    <!-- grid engravings -->
+    <g stroke="#9fc5df" stroke-width="2" opacity="0.28">
+      <path d="M95 122 L423 391"/><path d="M211 108 L545 374"/><path d="M330 92 L677 355"/><path d="M455 76 L812 336"/><path d="M584 60 L955 316"/><path d="M720 43 L1107 294"/><path d="M858 26 L1261 270"/>
+      <path d="M85 153 L1014 31"/><path d="M158 215 L1126 91"/><path d="M236 280 L1252 153"/><path d="M315 345 L1370 212"/>
+    </g>
+
+    <!-- big guarded red button -->
+    <g transform="translate(548,84)">
+      <ellipse cx="156" cy="154" rx="210" ry="102" fill="#02070c" opacity="0.55"/>
+      <ellipse cx="148" cy="130" rx="168" ry="88" fill="#142b43" stroke="#b9d2e5" stroke-width="5"/>
+      <path d="M16 105 Q147 13 286 82 L304 160 Q174 228 34 184 Z" fill="#cce5f5" opacity="0.19" stroke="#d9f2ff" stroke-width="6"/>
+      <path d="M54 116 Q150 61 250 99 Q240 158 148 177 Q73 161 54 116Z" fill="#d92f2f" stroke="#ff8d74" stroke-width="8"/>
+      <ellipse cx="151" cy="105" rx="76" ry="29" fill="#ff6154" opacity="0.72"/>
+      <path d="M4 96 L304 160" stroke="#ecf7ff" stroke-width="3" opacity="0.52"/>
+      <circle cx="303" cy="160" r="12" fill="#ecf7ff" opacity="0.75"/>
+    </g>
+
+    <!-- toggles and indicators -->
+    <g transform="translate(80,90)">
+      <g fill="#f4c65b" opacity="0.9">
+        <circle cx="30" cy="28" r="11"/><circle cx="90" cy="22" r="8"/><circle cx="148" cy="16" r="10"/><circle cx="208" cy="10" r="7"/>
+      </g>
+      <g stroke="#dfe8ef" stroke-width="6" stroke-linecap="round">
+        <path d="M42 102 l36 -48"/><path d="M112 116 l-8 -58"/><path d="M186 111 l42 -39"/><path d="M270 124 l4 -62"/>
+      </g>
+      <g fill="#081421" stroke="#91b9d7" stroke-width="4"><rect x="-6" y="146" width="310" height="58" rx="7"/><rect x="16" y="162" width="56" height="24"/><rect x="91" y="160" width="56" height="24"/><rect x="166" y="158" width="56" height="24"/><rect x="241" y="156" width="42" height="24"/></g>
+    </g>
+
+    <g transform="translate(1030,95)">
+      <g fill="none" stroke="#2f75ff" stroke-width="6">
+        <path d="M0 28 C70 4 118 42 178 18 S292 -8 358 30"/>
+        <path d="M-10 85 C80 51 136 96 214 72 S330 48 398 84" opacity="0.75"/>
+      </g>
+      <g fill="#f4c65b"><circle cx="26" cy="144" r="9"/><circle cx="86" cy="135" r="6"/><circle cx="146" cy="126" r="10"/><circle cx="206" cy="117" r="6"/><circle cx="266" cy="108" r="9"/></g>
+      <g stroke="#dfe8ef" stroke-width="5" stroke-linecap="round"><path d="M40 212 l20 -54"/><path d="M118 201 l-18 -50"/><path d="M195 189 l35 -43"/><path d="M280 177 l-2 -58"/></g>
+    </g>
+  </g>
+
+  <!-- misregistration red shadows -->
+  <g opacity="0.26" fill="none" stroke="#e83b3b" stroke-width="3">
+    <path d="M704 588 C794 535 900 545 998 609"/>
+    <path d="M701 587 C792 532 904 543 1003 606" transform="translate(9,5)"/>
+  </g>
+
+  <!-- margin ticks, no readable words -->
+  <g stroke="#e8e5cc" opacity="0.45" stroke-width="3">
+    <path d="M63 64 h74"/><path d="M63 84 h42"/><path d="M63 104 h91"/>
+    <path d="M1420 802 h103"/><path d="M1454 823 h69"/><path d="M1388 844 h135"/>
+  </g>
+</svg>
