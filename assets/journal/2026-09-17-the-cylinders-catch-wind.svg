@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Container ship with rotor sails catching wind</title>
+  <desc id="desc">A woodcut-inspired illustration of a modern container ship at sea with three white rotor-sail cylinders, diagonal pale green wind arrows, rust cargo blocks, and an amber engine-room glow.</desc>
+  <defs>
+    <pattern id="seaHatch" width="38" height="24" patternUnits="userSpaceOnUse" patternTransform="skewX(-18)">
+      <rect width="38" height="24" fill="#14294a"/>
+      <path d="M-5 18 C8 10 20 10 36 18 M0 6 C15 -1 26 -1 42 6" fill="none" stroke="#365d7c" stroke-width="2" opacity="0.85"/>
+      <path d="M6 23 L20 1" stroke="#0b1831" stroke-width="1" opacity="0.7"/>
+    </pattern>
+    <pattern id="paper" width="11" height="11" patternUnits="userSpaceOnUse">
+      <rect width="11" height="11" fill="#f0e6cf" opacity="0.02"/>
+      <circle cx="2" cy="3" r="0.8" fill="#fff8dc" opacity="0.18"/>
+      <circle cx="9" cy="8" r="0.7" fill="#111827" opacity="0.12"/>
+    </pattern>
+    <filter id="roughen">
+      <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" seed="17" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="2.2"/>
+    </filter>
+    <marker id="arrow" markerWidth="20" markerHeight="14" refX="17" refY="7" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L18,7 L0,14 L4,7 Z" fill="#a8d8b9"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="900" fill="#0d1730"/>
+  <rect width="1600" height="900" fill="url(#paper)" opacity="0.55"/>
+
+  <path d="M0 535 C160 495 284 560 437 520 C604 476 734 540 904 498 C1082 455 1230 518 1600 468 L1600 900 L0 900 Z" fill="url(#seaHatch)"/>
+  <path d="M0 610 C210 575 350 635 546 594 C742 552 901 621 1096 574 C1282 529 1410 594 1600 552" fill="none" stroke="#77a8bd" stroke-width="5" opacity="0.45"/>
+  <path d="M0 722 C214 684 333 745 526 704 C747 657 888 729 1098 685 C1288 646 1420 703 1600 666" fill="none" stroke="#77a8bd" stroke-width="4" opacity="0.34"/>
+
+  <!-- wind: off-center diagonals -->
+  <g opacity="0.88" stroke="#a8d8b9" stroke-width="9" stroke-linecap="round" marker-end="url(#arrow)" filter="url(#roughen)">
+    <path d="M-70 245 C180 165 390 165 650 210"/>
+    <path d="M120 325 C410 242 728 247 1045 303"/>
+    <path d="M510 174 C782 102 1030 127 1290 195"/>
+    <path d="M820 395 C1030 336 1270 358 1580 418"/>
+  </g>
+  <g opacity="0.28" stroke="#d8f3dc" stroke-width="2">
+    <path d="M60 210 L520 260 M218 156 L760 218 M928 144 L1510 287 M684 356 L1398 446"/>
+  </g>
+
+  <!-- ship shadow and hull -->
+  <g filter="url(#roughen)">
+    <path d="M274 555 L1270 515 L1375 578 L1212 664 L360 676 Z" fill="#111827" opacity="0.92"/>
+    <path d="M320 531 L1248 494 L1356 556 L1198 623 L394 638 Z" fill="#263647" stroke="#05101f" stroke-width="9"/>
+    <path d="M392 638 L1198 623 L1124 670 L438 678 Z" fill="#091523"/>
+    <path d="M365 554 L1270 521" stroke="#e6d7b7" stroke-width="6" opacity="0.55"/>
+    <circle cx="1130" cy="600" r="22" fill="#f6a94b" opacity="0.88"/>
+    <circle cx="1130" cy="600" r="44" fill="#f6a94b" opacity="0.12"/>
+  </g>
+
+  <!-- containers -->
+  <g stroke="#1a2535" stroke-width="4" filter="url(#roughen)">
+    <rect x="430" y="452" width="110" height="65" fill="#9a4d35"/>
+    <rect x="545" y="445" width="116" height="68" fill="#c06a3f"/>
+    <rect x="666" y="438" width="122" height="69" fill="#76483a"/>
+    <rect x="793" y="431" width="118" height="71" fill="#b45c3c"/>
+    <rect x="918" y="424" width="110" height="73" fill="#7a8d88"/>
+    <rect x="475" y="383" width="117" height="64" fill="#7a8d88"/>
+    <rect x="597" y="374" width="111" height="66" fill="#a6533a"/>
+    <rect x="713" y="367" width="113" height="66" fill="#d0844a"/>
+    <rect x="833" y="359" width="112" height="67" fill="#823f35"/>
+    <g opacity="0.35" stroke="#f3ead8" stroke-width="2">
+      <path d="M445 462 h80 M445 480 h80 M445 498 h80"/>
+      <path d="M562 455 h82 M562 474 h82 M562 493 h82"/>
+      <path d="M685 449 h84 M685 468 h84 M685 489 h84"/>
+      <path d="M812 443 h80 M812 464 h80 M812 485 h80"/>
+    </g>
+  </g>
+
+  <!-- rotor sails -->
+  <g filter="url(#roughen)">
+    <g transform="translate(555 165)">
+      <ellipse cx="0" cy="268" rx="45" ry="16" fill="#a7b3b8"/>
+      <rect x="-45" y="22" width="90" height="247" rx="24" fill="#edf2ee" stroke="#162134" stroke-width="8"/>
+      <ellipse cx="0" cy="22" rx="45" ry="17" fill="#fff7df" stroke="#162134" stroke-width="8"/>
+      <path d="M-24 40 C-35 104 -32 185 -22 255 M16 42 C31 108 31 180 20 254" stroke="#94a3a7" stroke-width="5" fill="none" opacity="0.55"/>
+    </g>
+    <g transform="translate(790 117)">
+      <ellipse cx="0" cy="316" rx="49" ry="17" fill="#a7b3b8"/>
+      <rect x="-49" y="24" width="98" height="292" rx="25" fill="#f8f2dc" stroke="#162134" stroke-width="8"/>
+      <ellipse cx="0" cy="24" rx="49" ry="18" fill="#fff9e8" stroke="#162134" stroke-width="8"/>
+      <path d="M-27 45 C-38 126 -36 232 -24 302 M18 46 C35 129 35 218 22 302" stroke="#a5a59d" stroke-width="5" fill="none" opacity="0.56"/>
+    </g>
+    <g transform="translate(1017 183)">
+      <ellipse cx="0" cy="250" rx="42" ry="15" fill="#a7b3b8"/>
+      <rect x="-42" y="20" width="84" height="230" rx="23" fill="#ecf1e9" stroke="#162134" stroke-width="8"/>
+      <ellipse cx="0" cy="20" rx="42" ry="16" fill="#fff7df" stroke="#162134" stroke-width="8"/>
+      <path d="M-22 38 C-33 96 -30 174 -20 238 M15 40 C28 104 29 170 18 238" stroke="#94a3a7" stroke-width="5" fill="none" opacity="0.55"/>
+    </g>
+  </g>
+
+  <!-- rigging / cranes reduced to cuts -->
+  <g stroke="#07111f" stroke-width="7" stroke-linecap="square" opacity="0.85">
+    <path d="M1038 424 L1135 366 L1186 430"/>
+    <path d="M353 531 L466 453"/>
+    <path d="M1210 501 L1298 455"/>
+  </g>
+
+  <!-- woodcut sky hatching -->
+  <g stroke="#263a62" opacity="0.45" stroke-width="3">
+    <path d="M40 84 L480 18 M28 132 L610 44 M950 40 L1540 6 M1030 91 L1600 39 M1230 153 L1600 120"/>
+  </g>
+</svg>
