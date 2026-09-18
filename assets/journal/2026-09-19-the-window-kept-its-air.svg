@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Crowded cell linocut</title>
+  <desc id="desc">A rough linocut-style image of anonymous figures compressed in a barred room, pale breath marks slanting toward a small high yellow window.</desc>
+  <defs>
+    <filter id="paper" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="5" seed="19" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0" result="grain"/>
+      <feBlend in="SourceGraphic" in2="grain" mode="multiply"/>
+    </filter>
+    <pattern id="hatch" width="22" height="22" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)">
+      <path d="M0 0 L0 22" stroke="#111827" stroke-width="5" opacity="0.22"/>
+    </pattern>
+    <pattern id="rough" width="38" height="38" patternUnits="userSpaceOnUse">
+      <path d="M3 30 C11 25 13 17 24 12 M18 36 C22 26 29 21 35 9 M2 8 C12 11 18 7 28 2" fill="none" stroke="#111827" stroke-width="3" stroke-linecap="round" opacity="0.18"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="900" fill="#efe4c5"/>
+  <rect width="1600" height="900" fill="url(#rough)" opacity="0.45" filter="url(#paper)"/>
+
+  <!-- diagonal black pressure field -->
+  <path d="M-80 930 L1220 930 L1660 142 L1660 -60 L1270 -60 Z" fill="#111827"/>
+  <path d="M-60 870 L1040 870 L1515 40 L1398 40 L905 760 L-60 760 Z" fill="#243746"/>
+  <path d="M-50 835 L990 835 L1455 90 L1320 90 L850 710 L-50 710 Z" fill="url(#hatch)" opacity="0.5"/>
+
+  <!-- high window -->
+  <g transform="translate(1065 92) skewX(-13)">
+    <rect x="0" y="0" width="270" height="168" fill="#f1c95d" stroke="#111827" stroke-width="16"/>
+    <path d="M90 0 L90 168 M180 0 L180 168 M0 84 L270 84" stroke="#111827" stroke-width="11"/>
+    <path d="M-3 -4 L273 172" stroke="#9a3f2f" stroke-width="8" opacity="0.55"/>
+  </g>
+
+  <!-- bars and wall cuts -->
+  <g stroke="#111827" stroke-width="20" stroke-linecap="square" opacity="0.95">
+    <path d="M212 105 L167 835"/>
+    <path d="M392 70 L350 882"/>
+    <path d="M575 44 L520 884"/>
+    <path d="M765 20 L692 900"/>
+    <path d="M945 0 L835 900"/>
+  </g>
+  <path d="M0 618 C180 575 347 601 498 565 C676 522 817 574 965 514 C1137 444 1316 498 1600 390 L1600 900 L0 900 Z" fill="#111827" opacity="0.62"/>
+
+  <!-- compressed anonymous bodies -->
+  <g fill="#354f52" stroke="#111827" stroke-width="10" stroke-linejoin="round">
+    <path d="M78 872 C60 760 84 663 143 617 C204 570 279 606 283 700 C289 790 229 835 220 900 Z"/>
+    <path d="M225 894 C210 786 242 680 316 646 C392 611 454 669 438 760 C421 856 379 870 370 900 Z" fill="#415f5a"/>
+    <path d="M405 902 C384 802 421 691 500 660 C582 629 639 690 620 782 C603 862 566 879 558 900 Z"/>
+    <path d="M574 900 C571 784 628 690 705 676 C790 660 831 739 790 818 C752 891 709 885 700 900 Z" fill="#48685e"/>
+    <path d="M744 900 C740 801 797 716 880 702 C971 686 1012 762 969 840 C936 899 896 884 889 900 Z"/>
+    <path d="M905 900 C923 793 1008 735 1088 754 C1167 773 1190 854 1139 900 Z" fill="#415f5a"/>
+    <path d="M1088 900 C1116 825 1183 783 1250 802 C1318 821 1339 875 1319 900 Z"/>
+  </g>
+
+  <!-- heads without identity -->
+  <g fill="#1b2a31" stroke="#111827" stroke-width="9">
+    <ellipse cx="154" cy="613" rx="49" ry="54" transform="rotate(-9 154 613)"/>
+    <ellipse cx="335" cy="646" rx="47" ry="53" transform="rotate(10 335 646)"/>
+    <ellipse cx="524" cy="661" rx="48" ry="56" transform="rotate(-7 524 661)"/>
+    <ellipse cx="710" cy="681" rx="47" ry="52" transform="rotate(8 710 681)"/>
+    <ellipse cx="887" cy="705" rx="46" ry="52" transform="rotate(-10 887 705)"/>
+    <ellipse cx="1090" cy="760" rx="44" ry="49" transform="rotate(12 1090 760)"/>
+  </g>
+
+  <!-- hands -->
+  <g fill="#d8c79f" stroke="#111827" stroke-width="7" stroke-linecap="round">
+    <path d="M299 574 C334 536 356 529 376 548 C344 569 330 593 318 629 Z"/>
+    <path d="M604 587 C640 552 675 548 694 573 C653 585 631 607 615 642 Z"/>
+    <path d="M842 622 C879 596 907 601 920 628 C884 634 858 652 838 681 Z"/>
+    <path d="M1019 686 C1052 666 1088 675 1099 704 C1065 704 1042 718 1020 745 Z"/>
+    <path d="M139 545 C166 502 197 494 222 516 C185 537 168 561 154 595 Z"/>
+  </g>
+
+  <!-- breath/air cuts -->
+  <g fill="none" stroke="#efe4c5" stroke-width="14" stroke-linecap="round" opacity="0.82">
+    <path d="M194 578 C368 469 535 411 752 359 C896 324 1001 276 1111 203"/>
+    <path d="M356 633 C505 521 705 454 916 386 C1008 356 1050 310 1122 245"/>
+    <path d="M557 648 C698 557 832 513 988 445 C1080 405 1154 321 1200 246"/>
+    <path d="M735 677 C843 607 942 557 1055 504 C1150 460 1197 375 1237 267"/>
+  </g>
+  <g fill="none" stroke="#9a3f2f" stroke-width="8" stroke-linecap="round" opacity="0.65">
+    <path d="M126 705 C358 690 489 709 621 682"/>
+    <path d="M418 771 C577 747 703 776 827 733"/>
+    <path d="M938 821 C1087 789 1192 813 1364 760"/>
+  </g>
+
+  <!-- rough border -->
+  <path d="M28 32 H1572 V868 H28 Z" fill="none" stroke="#111827" stroke-width="18" stroke-dasharray="42 18 8 16" opacity="0.88"/>
+</svg>
