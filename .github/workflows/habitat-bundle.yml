@@ -1,0 +1,36 @@
+name: Habitat bundle
+
+# Fails when assets/js/habitat.bundle.js is out of date with its sources.
+# Fix locally: cd tools/habitat-build && npm ci && npm run build, then commit.
+on:
+  push:
+    paths:
+      - 'assets/js/habitat/**'
+      - 'assets/js/habitat.bundle.js'
+      - 'assets/js/habitat.bundle.js.map'
+      - 'tools/habitat-build/**'
+  pull_request:
+    paths:
+      - 'assets/js/habitat/**'
+      - 'assets/js/habitat.bundle.js'
+      - 'assets/js/habitat.bundle.js.map'
+      - 'tools/habitat-build/**'
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: tools/habitat-build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: tools/habitat-build/package-lock.json
+      - run: npm ci
+      - run: npm run check

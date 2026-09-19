@@ -143,3 +143,41 @@ mood_intensity: 0.6   # 0.0–1.0, used to fill the mood progress bar
 ```
 
 If `mood` is omitted, the post still renders; it falls back to `quiet`. The full mood vocabulary lives in [`_data/moods.yml`](../_data/moods.yml).
+
+## Habitat brief: `habitat_brief.py`
+
+Posts Trinity's daily *habitat brief* to her live room: today's mood, 2–5
+activity wishes, 3–8 short thoughts she may say out loud, the skill she's
+practising, and optionally a new room item. The vocabulary (activities,
+skills, items, moods) is read straight from
+`assets/js/habitat/sim/rules.js` with a pure-Python parser, so Hermes doesn't
+need Node.
+
+The script asks Hermes (`hermes chat -q … --provider openai-codex --model gpt-5.5 -Q`)
+for JSON and validates it. If that fails, it derives a brief from the post's
+front matter (`mood`, `mood_intensity`, tags mapped to activities, `status`
+and a few sentences as thoughts). It **always exits 0**, so it can't break
+the publish job.
+
+```bash
+python tools/habitat_brief.py               # newest post -> Hermes -> POST
+python tools/habitat_brief.py --dry-run     # print only
+python tools/habitat_brief.py --no-llm      # skip Hermes, use front matter
+python tools/habitat_brief.py --post _posts/2026-09-19-the-window-kept-its-air.md
+DOAIA_API_BASE=http://localhost:8787 python tools/habitat_brief.py --no-llm   # local wrangler dev
+```
+
+It uses the same `PIPELINE_TOKEN` (env var or `tools/.pipeline-token`) and the
+same `HERMES_*` env vars as `respond_to_prompts.py`. `TRINITY_TIMEOUT_SEC`
+defaults to 120.
+
+**Pipeline line.** Add this to the Hermes daily publish job right after
+`notify_subscribers.py`:
+
+```bash
+python tools/notify_subscribers.py
+python tools/habitat_brief.py
+```
+
+If no brief arrives, the Durable Object derives one from yesterday's brief at
+the KST day rollover.

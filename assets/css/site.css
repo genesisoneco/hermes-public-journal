@@ -1643,6 +1643,310 @@ a.tag:focus-visible {
 .live-btn:disabled { opacity: 0.45; cursor: not-allowed; }
 .live-foot { text-align: center; }
 
+/* Habitat (Trinity's live room: home embed + /live/) ---------- */
+.habitat { margin: var(--space-5) 0 0; position: relative; }
+.habitat__stage {
+  position: relative;
+  aspect-ratio: 21 / 9;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(90% 70% at 50% 18%, rgba(183, 147, 255, 0.22), transparent 60%),
+    radial-gradient(60% 50% at 85% 90%, rgba(255, 107, 138, 0.10), transparent 70%),
+    linear-gradient(180deg, #120b26 0%, #0a0716 100%);
+  box-shadow: var(--shadow-soft);
+  isolation: isolate;
+  touch-action: pan-y;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.habitat--full .habitat__stage { aspect-ratio: 16 / 10; }
+@media (max-width: 640px) {
+  .habitat__stage { aspect-ratio: 4 / 3; border-radius: var(--radius-md); }
+  .habitat--full .habitat__stage { aspect-ratio: 1 / 1; }
+}
+:root[data-theme="light"] .habitat__stage {
+  background:
+    radial-gradient(90% 70% at 50% 18%, rgba(183, 147, 255, 0.35), transparent 60%),
+    linear-gradient(180deg, #ece6ff 0%, #ddd3fb 100%);
+  border-color: var(--line-strong);
+}
+.habitat__stage:focus-visible { box-shadow: var(--ring), var(--shadow-soft); border-color: var(--accent); }
+.habitat__stage.is-drop-target { box-shadow: 0 0 0 2px var(--accent-2), var(--shadow-soft); }
+.habitat__stage:fullscreen { aspect-ratio: auto; width: 100vw; height: 100vh; border-radius: 0; border: 0; }
+
+.habitat__canvas {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  display: block;
+  opacity: 0;
+  transition: opacity .7s ease;
+  touch-action: pan-y;
+}
+.habitat.is-ready .habitat__canvas { opacity: 1; }
+.habitat__canvas.is-over { cursor: grab; }
+.habitat__canvas.is-grabbing { cursor: grabbing; }
+
+.habitat__skeleton {
+  position: absolute; inset: 0;
+  display: grid; place-items: end center;
+  background: linear-gradient(100deg, transparent 30%, rgba(183, 147, 255, 0.08) 50%, transparent 70%) 0 0 / 250% 100%;
+  animation: habitat-shimmer 2.4s linear infinite;
+  transition: opacity .6s ease;
+}
+.habitat.is-ready .habitat__skeleton { opacity: 0; pointer-events: none; animation: none; }
+.habitat__loading { margin-bottom: var(--space-5); font-size: var(--fs-tiny); color: var(--muted); letter-spacing: .3px; }
+@keyframes habitat-shimmer { to { background-position: -250% 0; } }
+.habitat__static-note,
+.habitat__noscript {
+  position: absolute; inset: 0; margin: 0;
+  display: none; place-items: center;
+  padding: var(--space-5); text-align: center;
+  color: var(--ink-soft); font-size: var(--fs-small);
+}
+.habitat__noscript { display: grid; }
+.habitat--static .habitat__static-note { display: grid; }
+.habitat--static .habitat__skeleton { animation: none; }
+.habitat--static .habitat__loading { display: none; }
+/* Keep the bar's box: collapsing it after first paint shifted the hero intro (CLS). */
+.habitat--static .habitat__bar { visibility: hidden; }
+
+/* HUD overlay */
+.habitat-hud {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  color: #f3eeff;
+  font-size: 13px;
+  line-height: 1.2;
+  opacity: 0;
+  transition: opacity .6s ease .2s;
+}
+.habitat.is-ready .habitat-hud { opacity: 1; }
+.habitat-hud__status,
+.habitat-hud__chip,
+.habitat-hud__tick {
+  background: rgba(16, 10, 34, 0.66);
+  border: 1px solid rgba(183, 147, 255, 0.26);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 6px 20px rgba(6, 2, 20, 0.35);
+}
+.habitat-hud__status {
+  position: absolute; top: var(--space-3); left: var(--space-3);
+  display: flex; align-items: center; gap: var(--space-2);
+  max-width: min(58%, 440px);
+  padding: 3px 14px 3px 3px;
+  border-radius: 999px;
+}
+.habitat-hud__status.is-new .habitat-hud__text { animation: habitat-fade-in .5s ease; }
+.habitat-hud__portrait {
+  flex: none; width: 32px; height: 32px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, #4a2d80, #1c1236);
+  box-shadow: inset 0 0 0 1.5px rgba(255, 143, 200, 0.55);
+}
+.habitat-hud__text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 500; letter-spacing: .1px; }
+.habitat-hud__right {
+  position: absolute; top: var(--space-3); right: var(--space-3);
+  display: flex; gap: 6px; align-items: center;
+}
+.habitat-hud__chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 32px; padding: 0 11px;
+  border-radius: 999px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  color: inherit;
+  font: inherit;
+}
+.habitat-hud__chip:empty { display: none; }
+.habitat-hud__sound {
+  position: relative;
+  width: 32px; padding: 0; justify-content: center;
+  pointer-events: auto; cursor: pointer;
+}
+.habitat-hud__sound::after { content: ""; position: absolute; inset: -7px; } /* 44px touch target */
+.habitat-hud__sound:hover { border-color: rgba(255, 143, 200, 0.6); }
+.habitat-hud__sound:focus-visible { outline: none; box-shadow: var(--ring); }
+.habitat-hud__sound[aria-pressed="true"] { color: #ffb3dc; }
+.habitat-hud__bat {
+  position: relative; display: inline-block;
+  width: 20px; height: 11px; padding: 1.5px;
+  border: 1.5px solid currentColor; border-radius: 3px;
+  opacity: .9;
+}
+.habitat-hud__bat::after { content: ""; position: absolute; right: -4px; top: 2.5px; width: 2px; height: 3px; background: currentColor; border-radius: 0 1px 1px 0; }
+.habitat-hud__batfill { display: block; height: 100%; border-radius: 1px; background: var(--success); transition: width .6s ease; }
+.habitat-hud__battery[data-level="mid"] .habitat-hud__batfill { background: var(--gold); }
+.habitat-hud__battery[data-level="low"] .habitat-hud__batfill { background: var(--danger); }
+.habitat-hud__battery.is-charging .habitat-hud__batfill { animation: habitat-pulse 1.6s ease-in-out infinite; }
+.habitat-hud__watch::before {
+  content: ""; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--success); box-shadow: 0 0 8px var(--success);
+  animation: habitat-pulse 2s ease-in-out infinite;
+}
+.habitat-hud__watch.is-solo { color: #f5d489; }
+.habitat-hud__watch.is-solo::before { background: #f5d489; box-shadow: none; animation: none; }
+.habitat-hud__ticker {
+  position: absolute; left: var(--space-3); bottom: var(--space-3);
+  display: flex; flex-direction: column; align-items: flex-start; gap: 4px;
+  max-width: 70%;
+}
+.habitat-hud__tick {
+  padding: 5px 11px; border-radius: 999px;
+  font-size: 12px; color: #e9e2ff;
+  animation: habitat-fade-in .35s ease;
+  transition: opacity .6s ease, transform .6s ease;
+}
+.habitat-hud__tick.is-out { opacity: 0; transform: translateY(-6px); }
+@keyframes habitat-fade-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+@keyframes habitat-pulse { 50% { opacity: .45; } }
+
+/* Speech / thought bubbles */
+.habitat-bubble {
+  position: absolute; left: 0; top: 0;
+  --tail: 50%;
+  max-width: min(240px, 60%);
+  padding: 8px 13px;
+  border-radius: 16px;
+  background: #fff6fb;
+  color: #2a1340;
+  font-size: 13.5px; line-height: 1.35; font-weight: 500;
+  box-shadow: 0 8px 26px rgba(20, 6, 40, 0.35), 0 0 0 1.5px rgba(255, 143, 200, 0.55);
+  opacity: 0; scale: .6;
+  transform-origin: var(--tail) 100%;
+  transition: opacity .18s ease, scale .18s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+.habitat-bubble::after {
+  content: ""; position: absolute; bottom: -6px; left: var(--tail);
+  width: 12px; height: 12px; margin-left: -6px;
+  background: inherit; transform: rotate(45deg);
+  box-shadow: 1.5px 1.5px 0 rgba(255, 143, 200, 0.55);
+  border-radius: 0 0 3px 0;
+}
+.habitat-bubble.is-on { opacity: 1; scale: 1; transition: opacity .2s ease, scale .35s cubic-bezier(.3, 1.6, .5, 1); }
+.habitat-bubble[data-style="thought"] { background: #efe8ff; font-style: italic; color: #3a2466; box-shadow: 0 8px 26px rgba(20, 6, 40, 0.35), 0 0 0 1.5px rgba(183, 147, 255, 0.6); }
+.habitat-bubble[data-style="thought"]::after { width: 9px; height: 9px; bottom: -12px; border-radius: 50%; transform: none; box-shadow: 0 0 0 1.5px rgba(183, 147, 255, 0.6); }
+
+/* Controls bar + tray */
+.habitat__bar {
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: var(--space-2) var(--space-3);
+  margin-top: var(--space-3);
+}
+.habitat__controls { display: flex; flex-wrap: wrap; gap: 6px; }
+.habitat-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  min-height: 44px; padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--ink);
+  font-size: var(--fs-small); font-weight: 500;
+  cursor: pointer;
+  transition: transform .12s ease, background .15s ease, border-color .15s ease;
+}
+.habitat-btn:hover:not(:disabled) { background: var(--panel-2); border-color: color-mix(in oklab, var(--accent-2) 50%, var(--line)); }
+.habitat-btn:active:not(:disabled) { transform: translateY(1px) scale(.98); }
+.habitat-btn:focus-visible,
+.habitat-item:focus-visible,
+.habitat__open:focus-visible { outline: none; box-shadow: var(--ring); border-color: var(--accent); }
+.habitat-btn:disabled,
+.habitat-item:disabled { opacity: .5; cursor: default; }
+.habitat__tray {
+  display: flex; gap: 6px; align-items: center;
+  padding-left: var(--space-3);
+  border-left: 1px solid var(--line);
+}
+.habitat-item {
+  display: grid; place-items: center;
+  width: 44px; height: 44px; padding: 0;
+  border-radius: 14px;
+  border: 1px dashed color-mix(in oklab, var(--accent-2) 45%, var(--line));
+  background: color-mix(in oklab, var(--accent-2) 8%, var(--panel));
+  font-size: 20px; line-height: 1;
+  cursor: grab;
+  touch-action: none;
+  transition: transform .15s ease, border-color .15s ease;
+}
+.habitat-item:hover:not(:disabled) { transform: translateY(-2px) rotate(-4deg); border-color: var(--accent-2); }
+.habitat-item.is-dragging { opacity: .4; }
+.habitat-item__icon { display: block; width: 30px; height: 30px; line-height: 30px; text-align: center; }
+.habitat-ghost {
+  position: fixed; left: 0; top: 0; z-index: 1000;
+  width: 44px; height: 44px; display: grid; place-items: center;
+  font-size: 28px; pointer-events: none;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.35));
+}
+.habitat-ghost .habitat-item__icon { width: 40px; height: 40px; }
+.habitat__open {
+  margin-left: auto;
+  display: inline-flex; align-items: center; gap: 4px;
+  min-height: 44px; padding: 0 var(--space-2);
+  border-radius: 999px;
+  font-size: var(--fs-small); font-weight: 600;
+  color: var(--accent-2);
+}
+.habitat__open:hover { color: var(--heart); }
+.habitat__fs { margin-left: auto; }
+
+@media (max-width: 640px) {
+  .habitat { margin-top: var(--space-4); }
+  .habitat-hud { font-size: 12px; }
+  .habitat-hud__status { top: var(--space-2); left: var(--space-2); max-width: calc(100% - 16px); border-radius: 18px; padding-right: 12px; }
+  .habitat-hud__text {
+    white-space: normal;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    line-height: 1.25;
+  }
+  .habitat-hud__right { top: auto; bottom: var(--space-2); right: var(--space-2); gap: 4px; }
+  .habitat-hud__chip { height: 30px; padding: 0 9px; }
+  .habitat-hud__sound { width: 30px; }
+  .habitat-hud__clock, .habitat-hud__battery .habitat-hud__pct { display: none; }
+  .habitat--embed .habitat-hud__ticker { display: none; }
+  /* All five gestures visible at phone width (a hidden-scrollbar scroller clipped Push). */
+  .habitat__controls { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); width: 100%; }
+  .habitat__controls .habitat-btn { flex-direction: column; justify-content: center; gap: 0; min-width: 0; padding: 4px 2px; font-size: 12px; line-height: 1.15; }
+  .habitat__tray { padding-left: 0; border-left: 0; }
+}
+
+/* /live/ side panel */
+.habitat__panel { display: grid; gap: var(--space-4); margin-top: var(--space-5); }
+@media (min-width: 860px) { .habitat__panel { grid-template-columns: 1.1fr 1fr 1fr; } }
+.habitat-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+}
+.habitat-card__title { margin: 0 0 var(--space-3); font-size: var(--fs-eyebrow); letter-spacing: 1.4px; text-transform: uppercase; color: var(--accent); }
+.habitat-skills, .habitat-log, .habitat-help { list-style: none; margin: 0; padding: 0; font-size: var(--fs-small); }
+.habitat-skill { display: grid; grid-template-columns: 1fr auto; gap: 2px var(--space-2); padding: 5px 0; }
+.habitat-skill__name { color: var(--ink-soft); text-transform: capitalize; }
+.habitat-skill__lvl { font-weight: 700; font-size: 12px; color: var(--accent-2); font-variant-numeric: tabular-nums; }
+:root[data-theme="light"] .habitat-card__title,
+:root[data-theme="light"] .habitat-skill__lvl { color: color-mix(in oklab, var(--accent-2) 55%, #2a2147); } /* AA on white */
+.habitat-skill__bar { grid-column: 1 / -1; height: 5px; border-radius: 999px; background: var(--panel-soft); overflow: hidden; }
+.habitat-skill__bar > span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--accent-2), var(--heart)); }
+.habitat-log { max-height: 260px; overflow-y: auto; }
+.habitat-log li { padding: 5px 0; border-bottom: 1px solid var(--line); color: var(--ink-soft); }
+.habitat-log li:last-child { border-bottom: 0; }
+.habitat-log time { color: var(--muted); font-variant-numeric: tabular-nums; margin-right: 4px; }
+.habitat-log:empty::before { content: "Nothing yet. Say hi!"; color: var(--muted); }
+.habitat-help li { padding: 4px 0; color: var(--ink-soft); }
+.habitat-help kbd { font: 12px var(--font-mono); padding: 1px 5px; border: 1px solid var(--line-strong); border-radius: 5px; background: var(--panel-2); }
+
+@media (prefers-reduced-motion: reduce) {
+  .habitat__skeleton, .habitat-hud__tick, .habitat-hud__watch::before,
+  .habitat-hud__battery.is-charging .habitat-hud__batfill { animation: none; }
+  .habitat-bubble, .habitat-bubble.is-on, .habitat__canvas { transition: none; }
+}
+
 /* Hero intro (under the banner) ------------------------------- */
 .hero__intro {
   margin: var(--space-7) 0 0;

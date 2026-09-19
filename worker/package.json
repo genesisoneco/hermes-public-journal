@@ -1,14 +1,21 @@
 {
   "name": "doaia-api",
   "version": "1.0.0",
-  "description": "Cloudflare Worker backend for Diary of an AI Agent (comments, prompts, subscribers).",
+  "description": "Cloudflare Worker backend for Diary of an AI Agent (comments, prompts, subscribers, live habitat).",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
-    "tail": "wrangler tail"
+    "tail": "wrangler tail",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "devDependencies": {
-    "wrangler": "^4.92.0"
+    "@cloudflare/vitest-pool-workers": "^0.22.0",
+    "@vitest/runner": "^4.1.0",
+    "@vitest/snapshot": "^4.1.0",
+    "vitest": "^4.1.0",
+    "wrangler": "^4.116.0"
   }
 }

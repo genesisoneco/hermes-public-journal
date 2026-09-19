@@ -117,3 +117,81 @@ The moderation queue (`GET /api/admin/ask/moderation`,
 private page at `/ask/moderate/`. Paste your `PIPELINE_TOKEN` there.
 
 No raw IP is stored — only `SHA-256(ip + IP_HASH_SALT)`, truncated. Rotate the salt to invalidate all stored hashes.
+
+## Habitat (Durable Object)
+
+Trinity's live room on doaia.com is one authoritative Trinity in a SQLite-backed
+Durable Object, `TrinityHabitat` (`src/habitat/`), bound as `HABITAT`. Her brain
+is the shared sim in `assets/js/habitat/sim/` (wrangler bundles it from
+`../../../assets/...`). The browser runs the same sim when it's offline.
+
+| Route | Notes |
+|---|---|
+| `GET /api/habitat/ws` | WebSocket. Origin must be in `ALLOWED_ORIGINS` (else 403). Protocol: `docs/habitat/CONTRACT.md` §3 |
+| `GET /api/habitat/state` | Snapshot JSON, edge-cached 3 s |
+| `POST /api/habitat/interact` | `{"k":"poke"}` etc. for clients without a socket |
+| `POST /api/admin/habitat/brief` | Bearer. Daily brief from `tools/habitat_brief.py` |
+| `GET /api/admin/habitat/debug` | Bearer. World, plan, alarm, limits, recent briefs |
+
+### Local dev
+
+```bash
+cd worker
+npm install
+npm test                      # vitest in workerd (sim + DO + WS + routes)
+# worker/.dev.vars (gitignored) holds local secrets, one per line:
+#   PIPELINE_TOKEN=some-local-token
+npx wrangler dev              # http://localhost:8787, ws://localhost:8787/api/habitat/ws
+```
+
+Seed a brief against the local Worker (no Hermes needed):
+
+```bash
+DOAIA_API_BASE=http://localhost:8787 PIPELINE_TOKEN=some-local-token \
+  python tools/habitat_brief.py --no-llm
+curl -s http://localhost:8787/api/habitat/state | head -c 400
+```
+
+The dev harness on :8080 and Jekyll on :4000 are both in `ALLOWED_ORIGINS`.
+
+### Deploy (Hermes machine)
+
+```bash
+git pull
+cd worker
+npm install
+npm test
+npx wrangler deploy           # first deploy applies migration tag "v1-habitat"
+curl -s https://api.doaia.com/api/habitat/state | head -c 300
+cd ..
+python tools/habitat_brief.py # then add it to the daily pipeline after notify_subscribers.py
+```
+
+Deploy the site first (git push), then the Worker. Snapshots carry
+`rules_version`, so clients notice a rules mismatch.
+
+### Rollback
+
+`npx wrangler rollback` restores the previous Worker version. The Durable
+Object's SQLite data survives rollbacks. Never edit or delete the
+`v1-habitat` `[[migrations]]` block once it's deployed; that would orphan her
+state. To turn the habitat off, remove the `/api/habitat/*` routes (the client
+falls back to its offline sim) rather than removing the class.
+
+### Free-plan cost notes
+
+- **No fixed tick.** An alarm fires at each plan's end (every 20–180 s) only
+  while at least one socket is connected. With nobody watching, there is no
+  alarm and no work; the next visitor triggers a coarse `catchUp()`.
+- **WebSocket Hibernation.** Idle sockets don't bill duration; `"ping"` is
+  auto-answered `"pong"` without waking the object.
+- **Row writes.** State is written at most once a minute at plan boundaries,
+  plus on level-ups, brief ingest, day rollover and when the last viewer
+  leaves. That's at most about 1.5k rows a day, well under the 5k target.
+  Pokes and other interactions stay in memory until the next boundary.
+- **No KV.** Rate limits live in memory (per connection 2/s burst 5, per IP
+  5/s and 6 sockets, 300 sockets total via `HABITAT_MAX_CONN`). The KV
+  `rateLimit()` helper is never used for habitat paths.
+- **Privacy.** The IP hash is only an in-memory socket tag. Visitor ids and
+  colours are random per connection. Visitors can send emoji from a fixed
+  allowlist, never text.
