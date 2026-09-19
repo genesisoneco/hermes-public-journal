@@ -110,7 +110,7 @@ jobs:
         run: |
           export CLOUDFLARE_ACCOUNT_ID="$(node ../tools/cloudflare/account-id.mjs)"
           npx wrangler deploy
-          curl -fsS https://api.doaia.com/api/habitat/state -o /dev/null && echo "habitat state OK"
+          curl -fsS --retry 5 --retry-all-errors --retry-delay 3 https://api.doaia.com/api/habitat/state -o /dev/null && echo "habitat state OK"
 
   purge:
     needs: changes
