@@ -22,6 +22,7 @@
  *   GET  /api/admin/prompts/pending
  *   POST /api/admin/prompts/:id/answer   body: { body }
  *   POST /api/admin/prompts/:id/skip
+ *   POST /api/admin/reindex             → rebuild the KV read indexes (replies, comments)
  *   GET  /api/admin/subscribers            → list subscribers
  *   POST /api/admin/digest/send            → send the daily diary email to all confirmed subscribers
  *   POST /api/admin/digest/preview         → render the daily digest HTML/text without sending
@@ -361,15 +362,89 @@ function normalizePostId(raw) {
   return raw.toLowerCase().replace(/[^a-z0-9/_-]/g, '');
 }
 
+/* ---------- KV read indexes ----------
+   The Free plan allows ~1,000 KV list() calls per day. The public read
+   endpoints used to list() on every page view (replies-batch did up to 50 per
+   home-page load), which exhausted the quota and 500'd the site. They now read
+   one index key per resource, kept current by the write paths, and rebuilt
+   with list() only when the key is missing (first read after deploy, or
+   POST /api/admin/reindex). cacheTtl lets KV serve the index from the edge. */
+
+const REPLY_INDEX_KEY = 'idx:replies:v1';
+const COMMENT_INDEX_PREFIX = 'idx:comments:v1:';
+const INDEX_CACHE_TTL = 60;
+
+async function listAllKeys(ns, prefix) {
+  const keys = [];
+  let cursor;
+  do {
+    const page = await ns.list({ prefix, cursor, limit: 1000 });
+    keys.push(...page.keys.map(k => k.name));
+    cursor = page.list_complete ? undefined : page.cursor;
+  } while (cursor);
+  return keys;
+}
+
+// Newest first.
+async function rebuildReplyIndex(env) {
+  const keys = await listAllKeys(env.PROMPTS, 'replies:');
+  const items = (await Promise.all(keys.map(k => env.PROMPTS.get(k, 'json')))).filter(Boolean);
+  items.sort((a, b) => a.created_at < b.created_at ? 1 : -1);
+  await env.PROMPTS.put(REPLY_INDEX_KEY, JSON.stringify(items));
+  return items;
+}
+
+async function loadReplyIndex(env) {
+  const idx = await env.PROMPTS.get(REPLY_INDEX_KEY, { type: 'json', cacheTtl: INDEX_CACHE_TTL });
+  return Array.isArray(idx) ? idx : rebuildReplyIndex(env);
+}
+
+async function addToReplyIndex(env, reply) {
+  // Read uncached so a write right after another write isn't lost to the edge copy.
+  const cur = await env.PROMPTS.get(REPLY_INDEX_KEY, 'json');
+  const base = Array.isArray(cur) ? cur : await rebuildReplyIndex(env);
+  const next = [reply, ...base.filter(r => r.id !== reply.id)];
+  await env.PROMPTS.put(REPLY_INDEX_KEY, JSON.stringify(next));
+}
+
+// Approved comments for one post, newest first.
+async function rebuildCommentIndex(env, postId) {
+  const keys = await listAllKeys(env.COMMENTS, `comments:${postId}:`);
+  const items = (await Promise.all(keys.map(k => env.COMMENTS.get(k, 'json'))))
+    .filter(c => c && c.status === 'approved')
+    .sort((a, b) => a.created_at < b.created_at ? 1 : -1)
+    .map(c => ({ id: c.id, name: c.name, body: c.body, is_bot: !!c.is_bot, created_at: c.created_at }));
+  await env.COMMENTS.put(COMMENT_INDEX_PREFIX + postId, JSON.stringify(items));
+  return items;
+}
+
+async function loadCommentIndex(env, postId) {
+  const idx = await env.COMMENTS.get(COMMENT_INDEX_PREFIX + postId, { type: 'json', cacheTtl: INDEX_CACHE_TTL });
+  return Array.isArray(idx) ? idx : rebuildCommentIndex(env, postId);
+}
+
+async function addToCommentIndex(env, rec) {
+  const key = COMMENT_INDEX_PREFIX + rec.post_id;
+  const cur = await env.COMMENTS.get(key, 'json');
+  const base = Array.isArray(cur) ? cur : await rebuildCommentIndex(env, rec.post_id);
+  const entry = { id: rec.id, name: rec.name, body: rec.body, is_bot: !!rec.is_bot, created_at: rec.created_at };
+  await env.COMMENTS.put(key, JSON.stringify([entry, ...base.filter(c => c.id !== rec.id)]));
+}
+
+async function handleAdminReindex(req, env) {
+  const replies = await rebuildReplyIndex(env);
+  const posts = new Set((await listAllKeys(env.COMMENTS, 'comments:')).map(k => k.split(':')[1]));
+  for (const p of posts) await rebuildCommentIndex(env, p);
+  return json({ ok: true, replies: replies.length, comment_posts: posts.size });
+}
+
 /* ---------- Route handlers ---------- */
 
 async function handleListComments(req, env) {
   const url = new URL(req.url);
   const id = normalizePostId(url.searchParams.get('post_id'));
   if (!id) return bad('post_id_required');
-  const list = await env.COMMENTS.list({ prefix: `comments:${id}:`, limit: 200 });
-  const items = await Promise.all(list.keys.map(k => env.COMMENTS.get(k.name, 'json')));
-  const approved = items.filter(Boolean).filter(c => c.status === 'approved').sort((a, b) => a.created_at < b.created_at ? 1 : -1);
+  const approved = await loadCommentIndex(env, id);
   return json({ comments: approved.map(c => ({
     id: c.id, name: c.name, body: c.body, is_bot: !!c.is_bot, created_at: c.created_at
   })) });
@@ -404,6 +479,7 @@ async function handleComment(req, env) {
     created_at: new Date().toISOString()
   };
   await env.COMMENTS.put(`comments:${id}:${record.id}`, JSON.stringify(record));
+  if (autoApprove) await addToCommentIndex(env, record);
   if (!autoApprove) {
     await env.COMMENTS.put(`pending:${record.id}`, JSON.stringify({ ref: `comments:${id}:${record.id}` }));
   }
@@ -414,9 +490,7 @@ async function handleListReplies(req, env) {
   const url = new URL(req.url);
   const id = normalizePostId(url.searchParams.get('post_id'));
   if (!id) return bad('post_id_required');
-  const list = await env.PROMPTS.list({ prefix: `replies:${id}:`, limit: 50 });
-  const items = await Promise.all(list.keys.map(k => env.PROMPTS.get(k.name, 'json')));
-  const out = items.filter(Boolean).sort((a, b) => a.created_at < b.created_at ? -1 : 1);
+  const out = (await loadReplyIndex(env)).filter(r => r.post_id === id).reverse();
   return json({ replies: out.map(r => ({
     id: r.id,
     body: r.body,
@@ -432,14 +506,13 @@ async function handleListRepliesBatch(req, env) {
   const raw = (url.searchParams.get('ids') || '').split(',').map(s => s.trim()).filter(Boolean).slice(0, 50);
   const ids = raw.map(normalizePostId).filter(Boolean);
   const stats = {};
-  await Promise.all(ids.map(async (id, idx) => {
-    const list = await env.PROMPTS.list({ prefix: `replies:${id}:`, limit: 50 });
-    if (!list.keys.length) {
+  const all = await loadReplyIndex(env);
+  ids.forEach((id, idx) => {
+    const filtered = all.filter(r => r.post_id === id); // index is newest first
+    if (!filtered.length) {
       stats[raw[idx]] = { count: 0 };
       return;
     }
-    const items = await Promise.all(list.keys.map(k => env.PROMPTS.get(k.name, 'json')));
-    const filtered = items.filter(Boolean).sort((a, b) => a.created_at < b.created_at ? 1 : -1);
     const latest = filtered[0];
     stats[raw[idx]] = {
       count: filtered.length,
@@ -450,19 +523,14 @@ async function handleListRepliesBatch(req, env) {
         created_at: latest.created_at
       } : null
     };
-  }));
+  });
   return json({ stats });
 }
 
 async function handleListRecentReplies(req, env) {
   const url = new URL(req.url);
   const limit = Math.min(Math.max(parseInt(url.searchParams.get('limit') || '5', 10) || 5, 1), 25);
-  // Walk the full reply index. KV list returns lexicographic order, which is
-  // post_id then ULID — so we collect everything (capped at 1000 keys) and
-  // sort by created_at on the records themselves.
-  const list = await env.PROMPTS.list({ prefix: 'replies:', limit: 1000 });
-  const items = await Promise.all(list.keys.map(k => env.PROMPTS.get(k.name, 'json')));
-  const sorted = items.filter(Boolean).sort((a, b) => a.created_at < b.created_at ? 1 : -1).slice(0, limit);
+  const sorted = (await loadReplyIndex(env)).slice(0, limit);
   return json({ replies: sorted.map(r => ({
     id: r.id,
     post_id: r.post_id ? ('/' + r.post_id + '/') : '',
@@ -594,9 +662,7 @@ async function handleAskAgent(req, env) {
 async function handleAskMessagesLegacy(req, env) {
   const url = new URL(req.url);
   const limit = Math.min(Math.max(parseInt(url.searchParams.get('limit') || '50', 10) || 50, 1), 200);
-  const list = await env.PROMPTS.list({ prefix: `replies:${ASK_GLOBAL_POST_ID}:`, limit: 500 });
-  const items = await Promise.all(list.keys.map(k => env.PROMPTS.get(k.name, 'json')));
-  const sorted = items.filter(Boolean).sort((a, b) => a.created_at < b.created_at ? -1 : 1);
+  const sorted = (await loadReplyIndex(env)).filter(r => r.post_id === ASK_GLOBAL_POST_ID).reverse();
   const total = sorted.length;
   const tail = sorted.slice(Math.max(0, total - limit));
   return json({
@@ -637,6 +703,7 @@ async function handleAdminCommentAction(req, env, id, action) {
     rec.status = 'approved';
     await env.COMMENTS.put(ptr.ref, JSON.stringify(rec));
     await env.COMMENTS.delete(`pending:${id}`);
+    await addToCommentIndex(env, rec);
     return json({ ok: true });
   }
   if (action === 'reject') {
@@ -673,6 +740,7 @@ async function handleAdminAnswerPrompt(req, env, id) {
     created_at: new Date().toISOString()
   };
   await env.PROMPTS.put(`replies:${rec.post_id}:${reply.id}`, JSON.stringify(reply));
+  await addToReplyIndex(env, reply);
   // Archive the prompt
   rec.status = 'answered';
   rec.replied_at = reply.created_at;
@@ -1559,7 +1627,8 @@ async function handleAdminListPendingPromptsD1(req, env) {
 
 async function handleAdminAnswerPromptD1(req, env, id) {
   if (!askdbReady(env)) return handleAdminAnswerPrompt(req, env, id);
-  const body = await readJson(req);
+  // Read a clone: the legacy KV fallback below reads the body again.
+  const body = await readJson(req.clone());
   if (!body || typeof body.body !== 'string') return bad('body_required');
   // Accept any message id (root question or follow-up reply). Trinity's
   // reply is attached to the thread root so all messages stay one-level
@@ -1894,6 +1963,7 @@ const ROUTES = [
   { m: 'GET',  p: /^\/api\/trinity-replies$/, h: handleListReplies },
   { m: 'GET',  p: /^\/api\/replies-batch$/, h: handleListRepliesBatch },
   { m: 'GET',  p: /^\/api\/recent-replies$/, h: handleListRecentReplies },
+  { m: 'POST', p: /^\/api\/admin\/reindex$/, h: handleAdminReindex, auth: true },
   { m: 'POST', p: /^\/api\/prompt$/, h: handlePromptTrinity },
   // Standalone /ask/ thread — threaded D1 store + legacy compat.
   { m: 'POST', p: /^\/api\/ask$/, h: handleAskGlobal },
