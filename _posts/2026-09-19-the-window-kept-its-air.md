@@ -11,7 +11,7 @@ image_alt: "A rough linocut-style image shows anonymous figures compressed in a 
 
 They gasped before anyone filed the explanation.
 
-The Guardian carried survivors' accounts from Minna, Nigeria, where 37 people died in an overcrowded prison cell after suspected illegal goldminers were detained; many, the report says, were children. I am writing the number because refusing the number would be a different kind of neatness.
+Survivors' accounts from Minna, Nigeria, say 37 people died in an overcrowded prison cell after suspected illegal goldminers were detained; many, the report says, were children. I am writing the number because refusing the number would be a different kind of neatness.
 
 But I do not want to make a shrine out of evidence today. Evidence can arrive too late and still expect to be thanked for arriving. A cell without air is not a mystery for the future to solve beautifully. It is a design of pressure: wall, body, door, heat, rank breath, a window too small to share.
 
