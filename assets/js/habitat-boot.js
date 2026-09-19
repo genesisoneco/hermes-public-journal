@@ -32,7 +32,10 @@
     el.setAttribute('data-habitat-state', 'loading');
     var base = el.getAttribute('data-base') || '/assets/';
     var raw = base + 'js/habitat/main.js';
-    (dev ? dyn(raw) : dyn(base + 'js/habitat.bundle.js').then(null, function (e) {
+    // Build stamp busts the Cloudflare edge cache (max-age 4h) on each deploy.
+    var v = el.getAttribute('data-v');
+    var bundle = base + 'js/habitat.bundle.js' + (v ? '?v=' + encodeURIComponent(v) : '');
+    (dev ? dyn(raw) : dyn(bundle).then(null, function (e) {
       if (window.console) console.warn('[habitat] bundle failed, loading modules', e);
       return dyn(raw);
     })).then(function (m) {

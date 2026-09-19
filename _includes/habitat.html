@@ -1,5 +1,5 @@
 {%- assign hmode = include.mode | default: 'embed' -%}
-<section class="habitat habitat--{{ hmode }}" data-habitat data-mode="{{ hmode }}" data-api="{{ site.api.base }}" data-base="{{ '/assets/' | relative_url }}" aria-labelledby="habitat-title">
+<section class="habitat habitat--{{ hmode }}" data-habitat data-mode="{{ hmode }}" data-api="{{ site.api.base }}" data-base="{{ '/assets/' | relative_url }}" data-v="{{ site.time | date: '%s' }}" aria-labelledby="habitat-title">
   <h2 class="visually-hidden" id="habitat-title">Trinity's room, live</h2>
   <div class="habitat__stage" data-hab-stage>
     <div class="habitat__skeleton" aria-hidden="true"><span class="habitat__loading">Opening Trinity's room…</span></div>
@@ -51,4 +51,4 @@
   {%- endif %}
   <p class="visually-hidden" role="status" aria-live="polite" data-hab-live></p>
 </section>
-<script src="{{ '/assets/js/habitat-boot.js' | relative_url }}" defer></script>
+<script src="{{ '/assets/js/habitat-boot.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
