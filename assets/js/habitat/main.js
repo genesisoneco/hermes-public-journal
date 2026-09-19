@@ -26,6 +26,7 @@ export async function mount(el, opts = {}) {
   const clock = makeClock(flags);
   const mq = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)");
   const reduced = !!(mq && mq.matches);
+  const smT = [];
   let extT = 0, raf = 0, last = performance.now(), dirty = true, visible = true, hudT = 0, running = false, ready = false;
 
   // --- DOM ----------------------------------------------------------------
@@ -44,7 +45,7 @@ export async function mount(el, opts = {}) {
   const scene = new Scene(cv, { mode, reduced });
   scene.resize();
 
-  loadAtlas(base, Math.min(2, window.devicePixelRatio || 1), () => { dirty = true; }).then((a) => {
+  loadAtlas(base, Math.min(2, window.devicePixelRatio || 1), () => { dirty = true; }, { reduced, spriteScale: () => scene.spriteScale() }).then((a) => {
     if (!a) return;
     scene.setAtlas(a); hud.setAtlas(a); dirty = true;
     el.classList.add("has-atlas");
@@ -189,8 +190,12 @@ export async function mount(el, opts = {}) {
     if (ts - hudT > 250 || reduced) { hudT = ts; hud.update({ world: director.world, status: director.status, presence: director.presence, mode: director.mode, sim }, { kst }); }
     if (!ready && director.plan) {
       ready = true; el.classList.add("is-ready"); controls.setEnabled(true);
-      // Warm the lazy atlas page a few seconds after the room is up (if nothing needed it sooner).
-      extT = setTimeout(() => (window.requestIdleCallback || setTimeout)(() => scene.atlas && scene.atlas.need && scene.atlas.need("trinity-ext")), 4000);
+      // Warm the lazy atlas pages once the room is up and idle (if nothing needed them sooner):
+      // in-between frames for the everyday anims first, then trinity-ext, then its in-betweens.
+      // Reduced motion never loads the in-between pages (the loader ignores them too).
+      const warm = (name) => (window.requestIdleCallback || setTimeout)(() => scene.atlas && scene.atlas.need && scene.atlas.need(name));
+      if (!reduced) { scene.smoothArmed = true; smT.push(setTimeout(() => warm("trinity-smooth-core"), 1500), setTimeout(() => warm("trinity-smooth-ext"), 12000)); }
+      extT = setTimeout(() => warm("trinity-ext"), 4000);
     }
     dirty = false;
     if (running && !reduced) raf = requestAnimationFrame(frame);
@@ -221,6 +226,8 @@ export async function mount(el, opts = {}) {
     pos: () => ({ i: scene.actor.i, j: scene.actor.j, z: scene.actor.z }),
     emit: (g, p) => (g === "feed" || g === "toss" ? give((p && p.item) || (g === "feed" ? "carrot" : "ball"), p && p.i != null ? p : null, true) : g === "push" && !p ? push() : gesture(g, p || {})),
     fps: () => Math.round(scene.fps),
+    // Animation smoothing introspection (specs): smooth sequence in use, blend weight drawn last frame, playback rate.
+    motion: () => ({ key: scene.actor.anim, smooth: scene.anim.useSmooth, blend: scene.lastBlend || 0, trans: !!scene.lastTrans, rate: scene.rate, src: director._src, dpr: scene.dpr, degraded: scene.degraded, slow: scene.slow, phase: scene.anim.phase, total: scene.anim.total, pages: Object.keys(scene.pages), cam: { x: scene.cam.x, y: scene.cam.y, zoom: scene.cam.zoom } }),
     // Viewport px of Trinity's body centre (for pointer-driven tests).
     screen: () => { const p = scene.toCss(scene.actor.x, scene.actor.y - 45), r = cv.getBoundingClientRect(); return { x: r.left + p.x, y: r.top + p.y }; },
   };
@@ -229,7 +236,7 @@ export async function mount(el, opts = {}) {
   return {
     destroy() {
       cancelAnimationFrame(raf); running = false; io.disconnect(); ro.disconnect(); unbind();
-      clearInterval(retryT); clearInterval(staticT); clearTimeout(fallbackT); clearTimeout(closeT); clearTimeout(extT);
+      clearInterval(retryT); clearInterval(staticT); clearTimeout(fallbackT); clearTimeout(closeT); clearTimeout(extT); smT.forEach(clearTimeout);
       document.removeEventListener("visibilitychange", onVis);
       if (socket) socket.destroy(); stopOffline();
       cv.remove(); hud.el.remove(); bubbles.el.remove();

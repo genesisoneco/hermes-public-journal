@@ -186,6 +186,11 @@ Clients use `data-api` from the markup. When `location.hostname` is `localhost` 
 
 **Budgets:** all WebP files total under 1.5 MB, and `trinity-core@2x.webp` is under 700 KB.
 
+**Smooth variants (optional, backward compatible).** A Trinity anim may also carry
+`"s": { "f": [...], "fps": 24, "p": "trinity-smooth-core" }`. This is the same anim with AI in-between frames (RIFE), in play order. `s.f` reuses the source frame names, which stay on their own pages, and adds new frames. Those new frames live only on page `s.p`: `trinity-smooth-core` for anims on `trinity-core`, and `trinity-smooth-ext` for the rest. Both smooth pages are separate, load lazily, and don't count toward the budget above. Their own budget is @1x ≤ 1.6 MB and @2x ≤ 3.5 MB in total.
+
+The timing is uniform. `len(s.f) = len(f) × m` and `s.fps = fps × m`, so one cycle lasts exactly as long as the source anim. Source frame `i` sits at `s.f[i × m]`, which is where `ev` indices map. Where a pair couldn't be interpolated cleanly, a non-looping anim holds its last pose, or `s.f` repeats a source frame. Clients that ignore `s` play exactly as before. Anims without `s` have no smooth variant (for example `jump`, `turn`, `sleep`, and 1–2-frame anims).
+
 ## 5. Markup hook (home and /live/)
 
 ```html

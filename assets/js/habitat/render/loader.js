@@ -1,6 +1,8 @@
 // Atlas loader (CONTRACT §4): @1x/@2x by DPR, WebP with PNG fallback,
 // createImageBitmap decode. trinity-ext is loaded on demand: atlas.need(page)
 // is called the first time a frame from it is drawn (or on idle after ready).
+// The in-between pages (trinity-smooth-*) are optional polish: lazy, never
+// in reduced motion, and @1x on low DPR / Save-Data / slow connections.
 
 let webp;
 function probeWebp() {
@@ -26,24 +28,40 @@ function decodeMask(b64) {
 }
 
 // Returns null if there is no atlas yet (placeholder Trinity is used).
-export async function loadAtlas(base, dpr, onPage) {
+export const SMOOTH_PAGES = ["trinity-smooth-core", "trinity-smooth-ext"];
+function lowData() {
+  const c = typeof navigator !== "undefined" && navigator.connection;
+  return !!(c && (c.saveData || /(^|-)(2g|3g)$/.test(c.effectiveType || "")));
+}
+
+export async function loadAtlas(base, dpr, onPage, opts = {}) {
   const dir = base + "habitat/atlas/";
   let json;
   try { const r = await fetch(dir + "atlas.json", { cache: "no-cache" }); if (!r.ok) return null; json = await r.json(); } catch (e) { return null; }
   const res = dpr > 1.25 ? 2 : 1, key = "@" + res + "x";
   const useWebp = await probeWebp();
   const atlas = { ...json, res, pages: {} };
+  // In-betweens at @2x only when the sprite is actually drawn above @1x size
+  // (desktop DPR 2); phones draw her at ~0.5–0.8× of @1x, so @1x is enough there
+  // and saves ~50 MB of decoded bitmap.
+  const smoothRes = () => (dpr > 1.25 && !lowData() && (!opts.spriteScale || opts.spriteScale() > 1) ? 2 : 1);
   const load = async (name) => {
     const pg = json.pages[name]; if (!pg) return;
-    const file = useWebp ? pg[key] : (pg.png && pg.png[key]) || pg[key];
-    try { atlas.pages[name] = { img: await loadImage(dir + file), res }; }
+    const r = SMOOTH_PAGES.includes(name) ? smoothRes() : res, k = "@" + r + "x";
+    const file = useWebp ? pg[k] : (pg.png && pg.png[k]) || pg[k];
+    if (!file) return;
+    try { atlas.pages[name] = { img: await loadImage(dir + file), res: r }; }
     catch (e) {
-      if (useWebp && pg.png) try { atlas.pages[name] = { img: await loadImage(dir + pg.png[key]), res }; } catch (e2) { /* keep placeholder */ }
+      if (useWebp && pg.png && pg.png[k]) try { atlas.pages[name] = { img: await loadImage(dir + pg.png[k]), res: r }; } catch (e2) { /* keep placeholder */ }
     }
-    onPage && onPage(name);
+    if (atlas.pages[name]) onPage && onPage(name);
   };
-  const LAZY = new Set(["trinity-ext"]), pending = {};
-  atlas.need = (name) => (json.pages[name] && !atlas.pages[name] ? (pending[name] ||= load(name)) : Promise.resolve());
+  const LAZY = new Set(["trinity-ext", ...SMOOTH_PAGES]), pending = {};
+  atlas.need = (name) => {
+    if (opts.reduced && SMOOTH_PAGES.includes(name)) return Promise.resolve();
+    return json.pages[name] && !atlas.pages[name] ? (pending[name] ||= load(name)) : Promise.resolve();
+  };
+  atlas.has = (name) => !!json.pages[name];
   await Promise.all(Object.keys(json.pages).filter((n) => !LAZY.has(n)).map(load));
   return atlas;
 }

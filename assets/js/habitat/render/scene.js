@@ -2,11 +2,14 @@
 // Trinity, dropped items and particles. Design space is 1600x900 (CONTRACT §1).
 import { bakeRoom, drawLive, drawTop, ROOM_BOUNDS, P } from "./room.js";
 import { Animator, Facing, Spring, family } from "./animator.js";
-import { drawPlaceholder, drawFrame } from "./trinity.js";
+import { drawPlaceholder, drawFrame, drawBlend } from "./trinity.js";
 import { Particles } from "./particles.js";
 import { hitFrame } from "./loader.js";
 
 const T_SCALE_ATLAS = 0.8, T_SCALE_PH = 0.86, HEAD = 104; // design px feet→head (bubble anchor)
+// Ground speed (tiles/s) each locomotion cycle was drawn for: playback rate
+// follows the actual speed so the feet don't slide (clamped 0.6–1.6×).
+const CYCLE_SPEED = { walk: 1.6, run: 2.6, carry: 1.6 }, STEP_BOB = 2.5, STEP_BOB_SEC = 0.22;
 const AMBIENT = { sleep: ["z", 1.3], charging: ["spark", 0.45], dance: ["note", 0.7], listen: ["note", 1.1], victory: ["fx_sparkle_small", 0.9], love: ["fx_heart_small", 0.8], low_battery: ["fx_smoke_small", 2.5] };
 
 export class Scene {
@@ -15,6 +18,8 @@ export class Scene {
     this.mode = opts.mode; this.reduced = !!opts.reduced;
     this.dprCap = 2; this.degraded = 0;
     this.atlas = null; this.anim = new Animator(null); this.face = new Facing("F");
+    this.anim.xfade = this.anim.smoothOK = !this.reduced;
+    this.gspd = 0; this.stepT = 1; this.rate = 1; this.smoothArmed = false;
     this.sq = new Spring(1, 260, 16); this.lean = new Spring(0, 120, 16);
     this.parts = new Particles(); this.parts.enabled = !this.reduced;
     this.items = []; this.room = null; this.roomKey = ""; this.tod = "afternoon"; this.unlocked = [];
@@ -24,6 +29,8 @@ export class Scene {
   }
   setAtlas(a) { this.atlas = a; this.anim.setAtlas(a); }
   get pages() { return (this.atlas && this.atlas.pages) || {}; }
+  // Device px per @1x atlas px for Trinity right now (picks the in-between page resolution).
+  spriteScale() { return this.cam.zoom * (this.dpr || 1) * T_SCALE_ATLAS; }
 
   resize() {
     const r = this.cv.getBoundingClientRect();
@@ -68,8 +75,20 @@ export class Scene {
     const hx = cam.vw / 2, hy = cam.vh / 2;
     tx = B.x1 - B.x0 <= cam.vw ? (B.x0 + B.x1) / 2 : Math.max(B.x0 + hx, Math.min(B.x1 - hx, tx));
     ty = B.y1 - B.y0 <= cam.vh ? (B.y0 + B.y1) / 2 : Math.max(B.y0 + hy, Math.min(B.y1 - hy, ty));
-    const k = snap || !cam.init ? 1 : 1 - Math.exp(-dt * 3);
-    cam.x += (tx - cam.x) * k; cam.y += (ty - cam.y) * k; cam.init = true;
+    // Rest exactly on the device-pixel grid (crisp baked room), but move with
+    // sub-pixel offsets: a whole-pixel camera stepped the entire scene in
+    // 1 px jumps, which reads as Trinity stuttering even when she's smooth.
+    const s = cam.zoom * (this.dpr || 1);
+    tx = Math.round((tx - cam.vw / 2) * s) / s + cam.vw / 2; ty = Math.round((ty - cam.vh / 2) * s) / s + cam.vh / 2;
+    if (snap || !cam.init) { cam.x = tx; cam.y = ty; cam.vx = cam.vy = 0; cam.init = true; return; }
+    // Critically damped spring: eases in when she crosses the framing margin
+    // and eases out when she stops (no velocity steps, never a snap).
+    const w = 4.5, h = Math.min(dt, 0.05);
+    for (const [p, v, t] of [["x", "vx", tx], ["y", "vy", ty]]) {
+      const a = w * w * (t - cam[p]) - 2 * w * (cam[v] || 0);
+      cam[v] = (cam[v] || 0) + a * h; cam[p] += cam[v] * h;
+      if (Math.abs(t - cam[p]) * s < 0.02 && Math.abs(cam[v]) * s < 0.5) { cam[p] = t; cam[v] = 0; }
+    }
   }
   // design → css px
   toCss(x, y) { const c = this.cam; return { x: (x - (c.x - c.vw / 2)) * c.zoom, y: (y - (c.y - c.vh / 2)) * c.zoom }; }
@@ -86,12 +105,28 @@ export class Scene {
     a.alpha = out ? Math.max(0, 1 - (s.i - 9.5) / 0.45) : 1;
     if (out !== !!a.out && Math.abs(s.j - 7) < 1.2) this.parts.emit("fx_portal_floor_pink", ...P(9.25, 7, 0), this.atlas);
     a.out = out;
+    if (s.moving && !this._moving) this.face.set(s.facing);
+    this._moving = !!s.moving;
     const f = this.face.update(s.facing, dt);
     let key;
     if (this.face.turning && s.moving && this.atlas && this.atlas.anims.turn) key = "turn";
     else key = this.anim.resolve(s.anim, f);
     this.anim.play(key, { loop: s.loop !== false || undefined });
-    for (const ev of this.anim.update(dt)) { if (ev === "step") this.sq.kick(-0.5); if (ev === "step" && s.anim === "run") this.fx("fx_dust", "feet"); }
+    // Actual ground speed (smoothed) → locomotion playback rate.
+    if (dt > 0) {
+      const inst = Math.hypot(s.i - (this._pi ?? s.i), s.j - (this._pj ?? s.j)) / dt;
+      this.gspd += (Math.min(inst, 8) - this.gspd) * (1 - Math.exp(-dt / 0.08));
+    }
+    this._pi = s.i; this._pj = s.j;
+    const cyc = CYCLE_SPEED[family(key)];
+    this.rate = cyc && s.moving ? Math.max(0.6, Math.min(1.6, this.gspd / cyc)) : 1;
+    // Smooth in-betweens for ext anims: fetch their page the first time one plays.
+    if (this.smoothArmed && this.atlas && this.atlas.need) { const sp = this.anim.smoothPage(); if (sp && !this.pages[sp]) this.atlas.need(sp); }
+    for (const ev of this.anim.update(dt, this.rate)) {
+      if (ev === "step") { this.sq.kick(-0.5); this.stepT = 0; }
+      if (ev === "step" && s.anim === "run") this.fx("fx_dust", "feet");
+    }
+    this.stepT += dt;
     if (wasAir && !a.air) { this.sq.kick(-4); this.fx("fx_dust", "feet"); }
     const vx = dt > 0 ? (a.x - px) / dt : 0;
     this.lean.step(s.moving ? Math.max(-0.1, Math.min(0.1, vx * 0.0012)) : 0, dt);
@@ -132,7 +167,9 @@ export class Scene {
     this.parts.update(dt);
     this.follow(dt, this.reduced);
     const c = this.c, cam = this.cam, s = cam.zoom * this.dpr;
-    const ox = Math.round((cam.x - cam.vw / 2) * s), oy = Math.round((cam.y - cam.vh / 2) * s);
+    // Sub-pixel while the camera moves; integral at rest (follow() settles on the pixel grid).
+    let ox = (cam.x - cam.vw / 2) * s, oy = (cam.y - cam.vh / 2) * s;
+    if (Math.abs(ox - Math.round(ox)) < 1e-3) ox = Math.round(ox); if (Math.abs(oy - Math.round(oy)) < 1e-3) oy = Math.round(oy);
     c.setTransform(1, 0, 0, 1, 0, 0);
     c.clearRect(0, 0, this.cv.width, this.cv.height);
     if (!this.room) return;
@@ -166,7 +203,9 @@ export class Scene {
     const ft = performance.now() - t0 + (dt > 0.03 ? 8 : 0);
     this.ft.push(dt * 1000); if (this.ft.length > 60) this.ft.shift();
     this.fps = this.ft.length ? 1000 / (this.ft.reduce((a, b) => a + b, 0) / this.ft.length) : 0;
-    this.slow = (this.slow || 0) * 0.97 + (ft > 22 ? 1 : 0) * 0.03;
+    // Slow = heavy JS *or* a sustained long frame interval (raster/compositing
+    // cost of a big DPR-2 canvas never shows up in the JS time).
+    this.slow = (this.slow || 0) * 0.97 + (ft > 22 || dt > 0.028 ? 1 : 0) * 0.03;
     if (this.slow > 0.6 && this.degraded < 2) { this.degraded++; this.slow = 0; if (this.degraded === 1 && this.dpr > 1) { this.dprCap = 1; this.resize(); this.setRoom(this.tod, this.unlocked); } else this.parts.enabled = false; }
   }
   drawShadow(i, j, z, k, alpha) {
@@ -177,17 +216,27 @@ export class Scene {
   }
   drawTrinity(c) {
     const a = this.actor; if (a.alpha <= 0.01) return;
-    const moving = /^(walk|run)/.test(a.anim), breathe = moving || a.air ? 0 : Math.sin(this.t * 2.4) * 0.018;
+    const moving = /^(walk|run|carry)/.test(a.anim), breathe = moving || a.air ? 0 : Math.sin(this.t * 2.4) * 0.018;
     const sq = this.sq.x + breathe;
-    c.save(); c.globalAlpha = a.alpha; c.translate(a.x, a.y);
+    // Step bob: a small eased dip after each footfall (design px, + = down).
+    const bob = moving && !this.reduced && this.stepT < STEP_BOB_SEC ? STEP_BOB * Math.min(1, this.rate) * Math.sin(Math.PI * this.stepT / STEP_BOB_SEC) : 0;
+    c.save(); c.globalAlpha = a.alpha; c.translate(a.x, a.y + bob);
     c.rotate(this.lean.x); c.scale(1 / Math.sqrt(Math.max(0.6, sq)), sq);
-    let fr = this.anim.frame(), pg = fr && this.pages[fr.fr.p];
+    const fs = this.anim.frames();
+    let fr = fs && fs.a, pg = fr && this.pages[fr.fr.p], fb = fs && fs.b, pb = fb && this.pages[fb.fr.p];
+    if (fs && fs.trans && !pg && pb) { fr = fb; pg = pb; fb = null; } // outgoing frame's page is gone: just show the new one
     if (fr && !pg && this.atlas.need) { // lazy page (trinity-ext): fetch it, show idle meanwhile
-      this.atlas.need(fr.fr.p);
+      this.atlas.need(fr.fr.p); fb = null;
       const an = this.atlas.anims[this.anim.resolve("idle", this.face.f)], f0 = an && this.atlas.frames[an.f[0]];
       if (f0 && this.pages[f0.p]) { fr = { fr: f0, flip: !!an.flip }; pg = this.pages[f0.p]; }
     }
-    if (fr && pg) { c.scale(T_SCALE_ATLAS, T_SCALE_ATLAS); drawFrame(c, pg.img, fr.fr, pg.res, fr.flip); }
+    this.lastBlend = fb && pb ? fs.k : 0; this.lastTrans = !!(fs && fs.trans && fb);
+    if (fr && pg && fb && pb && fs.k > 0.004) {
+      c.scale(T_SCALE_ATLAS, T_SCALE_ATLAS);
+      if (fs.k >= 0.996) drawFrame(c, pb.img, fb.fr, pb.res, fb.flip);
+      else drawBlend(c, pg, fr, pb, fb, fs.k);
+    }
+    else if (fr && pg) { c.scale(T_SCALE_ATLAS, T_SCALE_ATLAS); drawFrame(c, pg.img, fr.fr, pg.res, fr.flip); }
     else { c.scale(T_SCALE_PH, T_SCALE_PH); drawPlaceholder(c, a.anim, this.anim.phase || 0, this.t, this.face.f); }
     c.restore();
   }

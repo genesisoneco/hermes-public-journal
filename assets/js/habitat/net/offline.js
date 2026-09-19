@@ -15,7 +15,26 @@ export class Offline {
     this.tick(true);
     this.timer = setInterval(() => this.tick(false), 1000);
   }
-  stop() { clearInterval(this.timer); }
+  stop() { clearInterval(this.timer); clearTimeout(this.edge); clearTimeout(this.pre); }
+  // Fire the next tick right at the plan boundary: the 1 s poll alone adopted
+  // the next plan up to 1 s (×clockrate) late, so it started mid-walk and she
+  // snapped forward along it.
+  // Plans are deterministic, so the next one is also handed to the Director
+  // ahead of time (queuePlan): it switches exactly at started_at inside
+  // sample(), independent of timer latency (a busy frame is 0.5–1 s of sim
+  // time at ?clockrate=30).
+  arm() {
+    clearTimeout(this.edge); clearTimeout(this.pre);
+    if (!this.plan) return;
+    const rate = this.flags.rate > 0 ? this.flags.rate : 1, end = this.plan.ends_at;
+    const ms = (end - this.clock.now()) / rate;
+    if (ms >= 6e5) return;
+    this.edge = setTimeout(() => this.tick(false), Math.max(0, ms) + 1);
+    if (this.queued !== end) this.pre = setTimeout(() => {
+      this.queued = end;
+      try { this.d.queuePlan(this.sim.schedule.planAt(end, null).plan); } catch (e) { /* the edge tick still delivers it */ }
+    }, Math.max(0, ms - 400));
+  }
   items(w) {
     const f = this.flags.items;
     if (f === "all") return Object.keys(ITEMS).filter((k) => !ITEMS[k].visitor);
@@ -25,7 +44,7 @@ export class Offline {
   }
   tick(first) {
     const now = this.clock.now();
-    if (!first && this.plan && now < this.plan.ends_at) return;
+    if (!first && this.plan && now < this.plan.ends_at) { this.arm(); return; }
     const { plan, world } = this.sim.schedule.planAt(now, null);
     // Keep what visitors did to her across plan boundaries.
     if (this.crowd) world.crowd = this.crowd;
@@ -36,6 +55,7 @@ export class Offline {
     this.world = world; this.plan = plan;
     this.d.world = world;
     this.d.handle(first ? { t: "snap", world, plan, presence: { n: 1, colors: [] }, recent: [] } : { t: "plan", plan });
+    this.arm();
   }
   gesture(k, payload = {}) {
     const now = this.clock.now(), w = this.world; if (!w) return null;

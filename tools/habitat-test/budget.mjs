@@ -33,7 +33,9 @@ const minWsOnly = buildSync({ entryPoints: [join(JS, "main.js")], bundle: true, 
 const shippedBuf = readFileSync(join(ROOT, "assets/js/habitat.bundle.js"));
 const atlasDir = join(ROOT, "assets/habitat/atlas");
 const atlas = readdirSync(atlasDir).map((f) => ({ f, n: statSync(join(atlasDir, f)).size }));
-const webp = atlas.filter((a) => a.f.endsWith(".webp"));
+// The in-between pages (trinity-smooth-*) are lazy and budgeted separately (CONTRACT §4).
+const allWebp = atlas.filter((a) => a.f.endsWith(".webp"));
+const webp = allWebp.filter((a) => !/smooth/.test(a.f)), smooth = allWebp.filter((a) => /smooth/.test(a.f));
 const out = {
   boot: { raw: boot.length, gz: gzipSizeSync(boot) },
   client: { rawKB: kb(sum.client.raw), gzKB: kb(sum.client.gz) },
@@ -54,7 +56,9 @@ const out = {
     coreAt2xKB: kb((webp.find((a) => a.f === "trinity-core@2x.webp") || {}).n || 0),
     pngTotalKB: kb(atlas.filter((a) => a.f.endsWith(".png")).reduce((s, a) => s + a.n, 0)),
     jsonGzKB: kb(gzipSizeSync(readFileSync(join(atlasDir, "atlas.json")))),
-    byFile: Object.fromEntries(webp.map((a) => [a.f, kb(a.n)])),
+    smooth1xKB: kb(smooth.filter((a) => a.f.includes("@1x")).reduce((s, a) => s + a.n, 0)),
+    smooth2xKB: kb(smooth.filter((a) => a.f.includes("@2x")).reduce((s, a) => s + a.n, 0)),
+    byFile: Object.fromEntries(allWebp.map((a) => [a.f, kb(a.n)])),
   },
   biggestFilesGz: files.map((f) => ({ f: relative(JS, f).replace(/\\/g, "/"), gz: kb(gzipSizeSync(readFileSync(f))) })).sort((a, b) => b.gz - a.gz).slice(0, 8),
 };

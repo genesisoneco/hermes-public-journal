@@ -24,6 +24,10 @@ CORE_EXTRA = ["sit", "happy", "sleep", "wake_up", "love", "wave", "surprised", "
 LOCOMOTION = ["idle_F", "idle_B", "idle_L", "idle_R", "walk_F", "walk_B", "walk_L", "walk_R",
               "run_F", "run_B", "run_L", "run_R", "jump", "fall", "land", "turn"]
 PAGES = ["trinity-core", "trinity-ext", "fx", "ui"]
+# AI in-betweens from 035_interpolate (lazily loaded by the client)
+SMOOTH_PAGES = ["trinity-smooth-core", "trinity-smooth-ext"]
+BUDGET_SMOOTH_1X = 1.6 * 1024 * 1024
+BUDGET_SMOOTH_2X = 3.5 * 1024 * 1024
 
 
 def page_of(anim):
@@ -151,8 +155,92 @@ def webp_bytes(img, q, aq):
     return buf.getvalue()
 
 
+def place_page(names, load, meta, p, frames_json):
+    """Pack `names` into one page; returns (img@1x, img@2x, W, H)."""
+    sizes = {n: (meta[n]["w"] + 2 * PAD, meta[n]["h"] + 2 * PAD) for n in names}
+    W, H, pos = pack(sizes)
+    img1 = np.zeros((H, W, 4), np.uint8)
+    img2 = np.zeros((H * 2, W * 2, 4), np.uint8)
+    for n in names:
+        x, y = pos[n][0] + PAD, pos[n][1] + PAD
+        f1, f2 = load(n)
+        h, w = f1.shape[:2]
+        img1[y:y + h, x:x + w] = f1
+        img2[2 * y:2 * y + 2 * h, 2 * x:2 * x + 2 * w] = f2
+        extrude(img1, x, y, w, h, 1)
+        extrude(img2, 2 * x, 2 * y, 2 * w, 2 * h, 2)
+        frames_json[n] = {"p": p, "x": x, "y": y, "w": w, "h": h, "ax": meta[n]["ax"], "ay": meta[n]["ay"],
+                          "hit": hit_mask(f1[..., 3])}
+    return img1, img2, W, H
+
+
+def pack_smooth(anims, frames_json, pages_json, anims_json, q0):
+    """Smooth pages: frames from out/smooth, one page per source page family.
+    Adds "s": {f, fps, p} to each smoothed anim. Existing pages untouched."""
+    ipath = os.path.join(OUT, "smooth", "index.json")
+    if not os.path.exists(ipath):
+        print("pack: no out/smooth/index.json (run 035_interpolate) -> no smooth pages")
+        return {}
+    sm = json.load(open(ipath))
+    sf, plan = sm["frames"], sm["plan"]
+    for key, pl in plan.items():
+        for n in pl["f"]:
+            if n not in sf and n not in frames_json:
+                raise SystemExit(f"pack: smooth {key} references unknown frame {n}")
+    spage = lambda k: "trinity-smooth-core" if page_of(k) == "trinity-core" else "trinity-smooth-ext"
+    need = {p: [] for p in SMOOTH_PAGES}
+    owner = {}
+    for key in sorted(plan, key=lambda k: SMOOTH_PAGES.index(spage(k))):
+        for n in plan[key]["f"]:
+            if n in sf and n not in owner:
+                owner[n] = spage(key); need[spage(key)].append(n)
+    load = lambda n: tuple(np.array(Image.open(os.path.join(OUT, "smooth", f"{n}@{r}.png")).convert("RGBA"))
+                           for r in ("1x", "2x"))
+    imgs = {}
+    for p in SMOOTH_PAGES:
+        if not need[p]: continue
+        i1, i2, W, H = place_page(need[p], load, sf, p, frames_json)
+        imgs[p] = (Image.fromarray(i1, "RGBA"), Image.fromarray(i2, "RGBA"))
+        rawd = ensure(os.path.join(OUT, "pages"))
+        imgs[p][0].save(os.path.join(rawd, f"{p}@1x.png")); imgs[p][1].save(os.path.join(rawd, f"{p}@2x.png"))
+        pages_json[p] = {"@1x": f"{p}@1x.webp", "@2x": f"{p}@2x.webp",
+                         "png": {"@1x": f"{p}@1x.png", "@2x": f"{p}@2x.png"}, "w": W, "h": H}
+        print(f"pack: {p:20s} {len(need[p]):3d} frames  {W}x{H} @1x")
+    # same quality as the source pages (no sharpness flicker between source and
+    # in-between); each in-between is on screen ~40 ms, so it may step lower for budget
+    q = q0
+    while True:
+        blobs = {}
+        for p, (i1, i2) in imgs.items():
+            blobs[(p, "@1x")] = webp_bytes(i1, max(30, q - 14), ALPHA_Q)
+            blobs[(p, "@2x")] = webp_bytes(i2, q, ALPHA_Q)
+        t1 = sum(len(b) for (p, r), b in blobs.items() if r == "@1x")
+        t2 = sum(len(b) for (p, r), b in blobs.items() if r == "@2x")
+        if (t1 <= BUDGET_SMOOTH_1X and t2 <= BUDGET_SMOOTH_2X) or q <= 36:
+            break
+        q -= 3
+        print(f"pack: smooth over budget (@1x {t1/1024:.0f} KB, @2x {t2/1024:.0f} KB) -> quality {q}")
+    for (p, r), b in blobs.items():
+        open(os.path.join(ATLAS_DIR, f"{p}{r}.webp"), "wb").write(b)
+    for p, pair in imgs.items():
+        for r, im in zip(("@1x", "@2x"), pair):
+            qim = im.quantize(colors=256, method=Image.Quantize.FASTOCTREE, dither=Image.Dither.NONE)
+            qim.save(os.path.join(ATLAS_DIR, f"{p}{r}.png"), optimize=True)
+    for key, pl in plan.items():
+        if key in anims_json:
+            anims_json[key]["s"] = {"f": pl["f"], "fps": pl["fps"], "p": spage(key)}
+    print(f"pack: smooth webp @1x {t1/1024:.0f} KB (budget {BUDGET_SMOOTH_1X/1024:.0f}), "
+          f"@2x {t2/1024:.0f} KB (budget {BUDGET_SMOOTH_2X/1024:.0f}), quality {q}; {len(plan)} anims")
+    if t1 > BUDGET_SMOOTH_1X or t2 > BUDGET_SMOOTH_2X:
+        raise SystemExit("pack: SMOOTH BUDGET EXCEEDED")
+    return {"q": q, "@1x": t1, "@2x": t2}
+
+
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("--quality", type=int, default=64); ap.add_argument("--raw-only", action="store_true"); a = ap.parse_args()
+    ap = argparse.ArgumentParser(); ap.add_argument("--quality", type=int, default=64); ap.add_argument("--raw-only", action="store_true")
+    ap.add_argument("--no-smooth", action="store_true", help="skip the trinity-smooth-* pages and the anims' \"s\" keys")
+    ap.add_argument("--smooth-quality", type=int, help="default: the final quality of the source pages")
+    a = ap.parse_args()
     man = load_manifest()
     nidx = json.load(open(os.path.join(OUT, "norm", "index.json")))
     anims = man["anims"]
@@ -227,6 +315,13 @@ def main():
         if spec.get("ev"): d["ev"] = spec["ev"]
         if spec.get("facing"): d["facing"] = spec["facing"]
         anims_json[key] = d
+    # stale smooth pages from an earlier build go away with --no-smooth
+    for p in SMOOTH_PAGES:
+        for r in ("@1x.webp", "@2x.webp", "@1x.png", "@2x.png"):
+            fp = os.path.join(ATLAS_DIR, p + r)
+            if os.path.exists(fp): os.remove(fp)
+    if not a.no_smooth:
+        pack_smooth(anims, frames_json, pages_json, anims_json, a.smooth_quality or q)
     atlas = {"v": 1, "scale": {"@1x": 1, "@2x": 2},
              "hitMask": {"res": 0.25, "order": "row-major", "bits": "MSB-first, continuous (no per-row byte padding)",
                          "w4": "ceil(w/4)", "h4": "ceil(h/4)", "set": "any @1x alpha >= 128 in the 4x4 block"},
@@ -234,9 +329,9 @@ def main():
     with open(os.path.join(ATLAS_DIR, "atlas.json"), "w", encoding="utf-8") as f:
         json.dump(atlas, f, separators=(",", ":"))
     sizes = {fn: os.path.getsize(os.path.join(ATLAS_DIR, fn)) for fn in sorted(os.listdir(ATLAS_DIR))}
-    total = sum(v for k, v in sizes.items() if k.endswith(".webp"))
+    total = sum(v for k, v in sizes.items() if k.endswith(".webp") and not k.startswith("trinity-smooth"))
     for k, v in sizes.items(): print(f"  {k:28s} {v/1024:8.1f} KB")
-    print(f"pack: webp total {total/1024:.0f} KB (budget {BUDGET_TOTAL/1024:.0f}), quality {q}")
+    print(f"pack: webp total (existing pages) {total/1024:.0f} KB (budget {BUDGET_TOTAL/1024:.0f}), quality {q}")
     ok = total < BUDGET_TOTAL and sizes["trinity-core@2x.webp"] < BUDGET_CORE2X
     if not ok:
         raise SystemExit("pack: BUDGET EXCEEDED")

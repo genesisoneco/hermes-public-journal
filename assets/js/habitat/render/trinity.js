@@ -110,3 +110,34 @@ export function drawFrame(c, img, fr, res, flip) {
   c.drawImage(img, fr.x * res, fr.y * res, fr.w * res, fr.h * res, -fr.ax, -fr.ay, fr.w, fr.h);
   c.restore();
 }
+
+// Crossfade two atlas frames (anchors aligned at (0,0)): (1-k)·A + k·B.
+// Composited on a scratch canvas with 'lighter' so the premultiplied sum is a
+// true linear blend (drawing B over A directly would leave A's silhouette at
+// full strength, and two half-alpha draws would turn the overlap see-through).
+let scratch = null;
+export function drawBlend(c, pa, fa, pb, fb, k) {
+  const R = Math.max(pa.res, pb.res);
+  const box = (f) => { const fr = f.fr, x0 = f.flip ? fr.ax - fr.w : -fr.ax; return [x0, -fr.ay, x0 + fr.w, fr.h - fr.ay]; };
+  const A = box(fa), B = box(fb);
+  const x0 = Math.floor(Math.min(A[0], B[0])), y0 = Math.floor(Math.min(A[1], B[1]));
+  const x1 = Math.ceil(Math.max(A[2], B[2])), y1 = Math.ceil(Math.max(A[3], B[3]));
+  const W = (x1 - x0) * R, H = (y1 - y0) * R;
+  if (!scratch || scratch.width < W || scratch.height < H) {
+    const w = Math.max(W, scratch ? scratch.width : 0), h = Math.max(H, scratch ? scratch.height : 0);
+    scratch = typeof OffscreenCanvas !== "undefined" ? new OffscreenCanvas(w, h) : Object.assign(document.createElement("canvas"), { width: w, height: h });
+    scratch.g = scratch.getContext("2d");
+  }
+  const g = scratch.g;
+  g.setTransform(1, 0, 0, 1, 0, 0); g.globalCompositeOperation = "source-over"; g.globalAlpha = 1;
+  g.clearRect(0, 0, W, H);
+  const put = (p, f, alpha) => {
+    const fr = f.fr;
+    g.setTransform(f.flip ? -R : R, 0, 0, R, -x0 * R, -y0 * R); g.globalAlpha = alpha;
+    g.drawImage(p.img, fr.x * p.res, fr.y * p.res, fr.w * p.res, fr.h * p.res, -fr.ax, -fr.ay, fr.w, fr.h);
+  };
+  put(pa, fa, 1 - k);
+  g.globalCompositeOperation = "lighter";
+  put(pb, fb, k);
+  c.drawImage(scratch, 0, 0, W, H, x0, y0, W / R, H / R);
+}

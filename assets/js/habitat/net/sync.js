@@ -4,9 +4,16 @@
 // steps, fire say/fx steps once, and let interrupts (reactions, pushes)
 // override. After an interrupt moves her, a short local walk reconciles her
 // back onto the plan. Own gestures are predicted instantly and matched by nonce.
-import { ZONES } from "../sim/rules.js";
+import { ZONES, WORLD } from "../sim/rules.js";
 
 const DIST = (a, b) => Math.hypot(a.i - b.i, a.j - b.j);
+// Walk easing (ms): accelerate out of a standstill, decelerate into the stop.
+// Pure function of the step's t0..t1, so every viewer sees the same motion;
+// it only reshapes speed along the path, the endpoints and t1 don't move.
+const EASE_IN = 150, EASE_OUT = 220;
+// Discontinuities (late plan, interrupt landing, resync) blend over this long.
+const BLEND_MS = 150, BLEND_MAX = 1.2;
+const smooth01 = (x) => (x <= 0 ? 0 : x >= 1 ? 1 : x * x * (3 - 2 * x));
 
 export class Director {
   constructor(sim, clock) {
@@ -17,6 +24,7 @@ export class Director {
     this.listeners = {}; this.recover = null; this.override = null;
     this.last = { i: ZONES.rug.i, j: ZONES.rug.j, z: 0, facing: "F" };
     this.mode = "offline";
+    this.vis = null; this._src = null; this._raw = null; this._now = null; this._rt = null; this._rate = 1;
   }
   on(ev, fn) { (this.listeners[ev] ||= []).push(fn); }
   emit(ev, d) { (this.listeners[ev] || []).forEach((f) => f(d)); }
@@ -49,10 +57,17 @@ export class Director {
     if (!prev || prev.id !== plan.id) this.emit("plan", { plan, fresh: !!fresh });
     // Stale say steps from a plan we joined mid-way shouldn't all fire at once.
     if (fresh || !prev) for (const [k, s] of plan.steps.entries()) if ((s.kind === "say" || s.kind === "fx") && s.t0 < this.clock.now() - 4000) this.fired.add(plan.id + ":" + k);
-    // If she's far from where the new plan starts, walk there first.
-    const p0 = this.planPos(plan, this.clock.now());
-    if (!fresh && DIST(p0, this.last) > 0.6) this.startRecover(this.last);
+    // If she's far from where the new plan is now, walk there first — but only
+    // when the plan really arrived late (real time). Adopted on time, the gap is
+    // just this frame's share of the plan's own walk (up to a tile per frame at
+    // ?clockrate=30), and a catch-up walk there overshot and then snapped.
+    const now = this.clock.now(), p0 = this.planPos(plan, now);
+    const lateReal = plan.started_at != null ? (now - plan.started_at) / Math.max(1, this._rate || 1) : Infinity;
+    if (!fresh && lateReal > 60 && DIST(p0, this.last) > 0.6) this.startRecover(this.last);
   }
+  // A plan known ahead of time (offline: deterministic schedule); adopted in
+  // sample() exactly when it starts.
+  queuePlan(plan) { if (plan && (!this.plan || plan.id !== this.plan.id)) this.nextPlan = plan; }
   onEvent(m) {
     const mine = m.nonce && this.pending.has(m.nonce);
     if (mine) this.pending.delete(m.nonce);
@@ -102,11 +117,22 @@ export class Director {
     if (this._gk !== key) { this._gk = key; this._g = this.sim.grid.buildGrid(items); }
     return this._g;
   }
-  startRecover(from) {
-    const to = this.planPos(this.plan, this.clock.now() + 1500);
-    let path = this.sim.grid.findPath(this.grid(), from, to);
-    if (!path || path.length < 2) path = [[from.i, from.j], [to.i, to.j]];
-    this.recover = { t0: this.clock.now(), path, speed: 1.8 };
+  // Walk from `from` back onto the plan. Aim where the plan will BE when she
+  // arrives (iterate on the ETA): a fixed now+1.5 s target fell behind a plan
+  // that was itself walking, and she snapped ~2.6 tiles forward at the end.
+  startRecover(from, depth = 0) {
+    const now = this.clock.now(), speed = 1.8;
+    let eta = 1500, path, len = 0;
+    for (let k = 0; k < 4; k++) {
+      const to = this.planPos(this.plan, now + eta);
+      path = this.sim.grid.findPath(this.grid(), from, to);
+      if (!path || path.length < 2) path = [[from.i, from.j], [to.i, to.j]];
+      len = this.sim.grid.pathLength(path);
+      const e2 = (len / speed) * 1000 + 50;
+      if (Math.abs(e2 - eta) < 60) break;
+      eta = e2;
+    }
+    this.recover = { t0: now, path, speed, len, depth };
   }
 
   // --- sampling -----------------------------------------------------------
@@ -125,10 +151,14 @@ export class Director {
       const s = steps[k];
       if (s.t0 > now) break;
       if (s.kind === "walk") {
-        // Time-based, like brain.posAt, so we match the server exactly.
-        const len = this.sim.grid.pathLength(s.path), u = Math.min(1, (now - s.t0) / Math.max(1, s.t1 - s.t0));
-        const r = walkAt(s.path, len * u, this.sim.iso);
+        // Time-based like brain.posAt (same t0, t1 and endpoints as the server),
+        // with eased speed at a standstill start/stop.
+        const len = this.sim.grid.pathLength(s.path), T = Math.max(1, s.t1 - s.t0);
+        const pw = prevMove(steps, k), nw = nextMove(steps, k);
+        const d = len * easedU(now - s.t0, T, !(pw && pw.t1 >= s.t0), !(nw && nw.t0 <= s.t1));
+        const r = walkAt(s.path, d, this.sim.iso);
         pos = { i: r.i, j: r.j }; if (r.facing) facing = r.facing;
+        if (now < s.t1) facing = lookFacing(s.path, d, len, this.last.facing, this.sim.iso) || facing;
         if (now < s.t1) return { ...pos, z: 0, anim: s.anim === "float" ? "hover" : s.anim || "walk", facing, loop: true, moving: true, float: s.anim === "float" };
       } else if (s.kind === "anim") {
         if (s.facing) facing = s.facing;
@@ -151,8 +181,13 @@ export class Director {
 
   // What to show at `now`. Returns {i,j,z,anim,facing,loop,moving,air}.
   sample(now) {
+    const nx = this.nextPlan;
+    if (nx && now >= nx.started_at) {
+      this.nextPlan = null;
+      if (this.mode === "offline" && (!this.plan || (nx.id !== this.plan.id && nx.started_at >= this.plan.started_at))) { this.setPlan(nx); this.emit("state"); }
+    }
     this.fireSteps(now);
-    let out;
+    let out, src = "o";
     const it = this.interrupt;
     if (this.override) {
       out = { ...this.override, anim: "fall", facing: this.last.facing, loop: true, moving: false, air: true };
@@ -176,6 +211,7 @@ export class Director {
         anim = rest[k] || "idle";
       }
       out = { i: pos.i, j: pos.j, z: pos.z || 0, anim, facing: it.kind === "asleep" ? "F" : this.last.facing, loop: true, moving: false, air, reacting: true };
+      src = "i" + it.start;
     } else {
       if (it) { // interrupt just ended
         this.interrupt = null;
@@ -186,14 +222,47 @@ export class Director {
         this.emit("state");
       }
       if (this.recover) {
-        const r = this.recover, w = walkAt(r.path, ((now - r.t0) / 1000) * r.speed, this.sim.iso);
-        if (!w.end) out = { i: w.i, j: w.j, z: 0, anim: "walk", facing: w.facing || this.last.facing, loop: true, moving: true };
-        else this.recover = null;
+        const r = this.recover, T = (r.len / r.speed) * 1000, el = now - r.t0;
+        if (el < T) {
+          const d = r.len * easedU(el, T, true, true), w = walkAt(r.path, d, this.sim.iso);
+          out = { i: w.i, j: w.j, z: 0, anim: "walk", facing: lookFacing(r.path, d, r.len, this.last.facing, this.sim.iso) || w.facing || this.last.facing, loop: true, moving: true };
+          src = "r" + r.t0;
+        } else {
+          // Still off the plan (it kept moving)? Chase again rather than snap; the blend covers small gaps.
+          const end = r.path[r.path.length - 1], planP = this.samplePlan(this.plan, now);
+          this.recover = null;
+          if (r.depth < 3 && DIST(planP, { i: end[0], j: end[1] }) > 0.35) { this.startRecover({ i: end[0], j: end[1] }, r.depth + 1); return this.sample(now); }
+        }
       }
-      if (!out) out = this.samplePlan(this.plan, now);
+      if (!out) { out = this.samplePlan(this.plan, now); src = "p" + (this.plan && this.plan.id); }
     }
+    this.smoothJump(out, src, now);
     this.last = { i: out.i, j: out.j, z: out.z || 0, facing: out.facing };
     return out;
+  }
+  // Visual continuity: when the source of her position changes (a plan that
+  // arrived late and starts mid-walk, an interrupt landing, a resync) or the
+  // raw position jumps within one frame, keep showing where she was and ease
+  // the offset out over BLEND_MS instead of snapping. Only the rendered
+  // position is offset; the plan/timeline stays exactly the shared one.
+  smoothJump(out, src, now) {
+    const rt = typeof performance !== "undefined" ? performance.now() : Date.now();
+    const raw = { i: out.i, j: out.j };
+    // Sim-time per real ms (?clockrate); the blend is real-time, so shrink it on fast clocks.
+    const simDt = this._now != null ? Math.max(0, now - this._now) : 0, realDt = this._rt != null ? rt - this._rt : 0;
+    if (realDt > 0 && simDt > 0) this._rate = simDt / realDt;
+    if (this._raw && src !== "o" && !out.air && !(this.interrupt && this.interrupt.kind === "teleport")) {
+      const step = DIST(raw, this._raw), shown = this.last, d = DIST(raw, shown);
+      // Same source: only a step no locomotion (≤ 3 tiles/s) could cover in this much sim time.
+      const jumped = src !== this._src ? d > 0.02 : step > 3 * (simDt / 1000) * 1.5 + 0.05;
+      if (jumped && d < BLEND_MAX) this.vis = { di: shown.i - raw.i, dj: shown.j - raw.j, t0: rt, ms: BLEND_MS / Math.max(1, this._rate || 1) };
+    } else this.vis = null;
+    this._raw = raw; this._src = src; this._now = now; this._rt = rt;
+    if (this.vis) {
+      const w = 1 - smooth01((rt - this.vis.t0) / this.vis.ms);
+      if (w <= 0) this.vis = null;
+      else { out.i += this.vis.di * w; out.j += this.vis.dj * w; }
+    }
   }
   get status() {
     if (this.override) return "Wheee — you picked her up!";
@@ -219,4 +288,35 @@ export function walkAt(path, dist, iso) {
   }
   const e = path[path.length - 1] || [0, 0];
   return { i: e[0], j: e[1], facing: null, end: true };
+}
+
+// Trapezoidal speed profile over a walk of duration T (ms): ramp up over
+// EASE_IN, down over EASE_OUT (each ≤ T/3), constant in between. Returns the
+// fraction of the path covered at `el` ms; 0 at el=0 and exactly 1 at el=T.
+export function easedU(el, T, easeIn = true, easeOut = true) {
+  if (el <= 0) return 0;
+  if (el >= T) return 1;
+  const a = easeIn ? Math.min(EASE_IN, T / 3) : 0, b = easeOut ? Math.min(EASE_OUT, T / 3) : 0;
+  const L = T - a / 2 - b / 2; // path length in "cruise-speed ms"
+  if (el < a) return (el * el) / (2 * a) / L;
+  if (el <= T - b) return (el - a / 2) / L;
+  const r = T - el;
+  return 1 - (r * r) / (2 * b) / L;
+}
+const MOVE = (s) => s.kind !== "say" && s.kind !== "fx";
+function prevMove(steps, k) { for (let q = k - 1; q >= 0; q--) if (MOVE(steps[q])) return steps[q].kind === "walk" ? steps[q] : null; return null; }
+function nextMove(steps, k) { for (let q = k + 1; q < steps.length; q++) if (MOVE(steps[q])) return steps[q].kind === "walk" ? steps[q] : null; return null; }
+
+// Facing from the direction ~0.6 tiles ahead on the path (not the current
+// grid segment), with angular hysteresis around the side/front boundary so
+// zig-zag paths that run near-vertical on screen don't flip L/R ⇄ F/B.
+export function lookFacing(path, d, len, prev, iso) {
+  const a = walkAt(path, d, iso), b = walkAt(path, Math.min(len, d + 0.6), iso);
+  let di = b.i - a.i, dj = b.j - a.j;
+  if (Math.hypot(di, dj) < 0.05) { const p = path[path.length - 2], q = path[path.length - 1]; if (!p) return null; di = q[0] - p[0]; dj = q[1] - p[1]; }
+  const dx = (di - dj) * WORLD.tileW, dy = (di + dj) * WORLD.tileH;
+  if (!dx && !dy) return null;
+  const side = prev === "L" || prev === "R", lim = side ? 0.95 : 1.5; // stock threshold is 1.2
+  if (Math.abs(dx) > lim * Math.abs(dy)) return dx > 0 ? "R" : "L";
+  return dy > 0 ? "F" : "B";
 }
