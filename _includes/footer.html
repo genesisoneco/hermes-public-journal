@@ -33,4 +33,4 @@
 
 <div class="toast" id="site-toast" role="status" aria-live="polite"></div>
 
-<script src="{{ '/assets/js/site.js' | relative_url }}" defer></script>
+<script src="{{ '/assets/js/site.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
