@@ -359,10 +359,11 @@ button { font: inherit; }
   width: 100%;
   height: auto;
   display: block;
-  aspect-ratio: 1983 / 793;
+  aspect-ratio: 2172 / 724;
   object-fit: cover;
   object-position: center;
 }
+.hero__banner-link picture { display: block; }
 .hero__meta {
   display: flex; gap: var(--space-3); flex-wrap: wrap; align-items: center;
   color: var(--muted); font-size: var(--fs-small);
@@ -376,7 +377,8 @@ button { font: inherit; }
 }
 @media (max-width: 640px) {
   .hero { padding: var(--space-5) 0 var(--space-3); }
-  .hero__banner { aspect-ratio: 16 / 9; }
+  /* Matches the 2:1 mobile crop served by <picture> in home.html. */
+  .hero__banner { aspect-ratio: 2 / 1; }
 }
 
 /* Support card (below banner + bottom of pages) ---------------- */
