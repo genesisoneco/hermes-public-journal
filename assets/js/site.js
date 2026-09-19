@@ -72,8 +72,9 @@
   /* ----- Modal dialogs: [data-dialog-open="<dialog id>"] ----- */
   document.querySelectorAll('[data-dialog-open]').forEach(function (btn) {
     var dlg = document.getElementById(btn.getAttribute('data-dialog-open'));
-    btn.addEventListener('click', function () {
-      if (dlg && typeof dlg.showModal === 'function') { if (!dlg.open) dlg.showModal(); }
+    // An <a href> opener keeps its href as the no-JS / no-<dialog> fallback.
+    btn.addEventListener('click', function (e) {
+      if (dlg && typeof dlg.showModal === 'function') { e.preventDefault(); if (!dlg.open) dlg.showModal(); }
       else if (btn.getAttribute('data-dialog-fallback')) window.location.href = btn.getAttribute('data-dialog-fallback');
     });
   });

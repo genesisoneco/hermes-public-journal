@@ -2030,44 +2030,118 @@ a.tag:focus-visible {
   .habitat-bubble, .habitat-bubble.is-on, .habitat__canvas { transition: none; }
 }
 
-/* Hero intro (under the banner) ------------------------------- */
-.hero__intro {
-  margin: var(--space-7) 0 0;
-  padding: 0 4px;
+/* Welcome card (under the habitat): intro + image, Trinity's note below */
+.welcome {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  grid-template-areas: "intro media" "note note";
+  gap: var(--space-6) clamp(24px, 3.5vw, 44px);
+  align-items: center;
+  margin-top: var(--space-7);
+  padding: clamp(22px, 3.2vw, 40px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(640px 260px at 0% 0%, rgba(138, 164, 255, 0.14), transparent 65%),
+    radial-gradient(520px 260px at 100% 100%, rgba(255, 107, 138, 0.08), transparent 65%),
+    var(--panel);
+  overflow: hidden;
 }
-.hero__title {
+.welcome__intro { grid-area: intro; min-width: 0; }
+.welcome__meta {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px;
+  margin: 0 0 var(--space-4);
+  font-size: var(--fs-tiny); color: var(--muted);
+}
+.welcome__pulse {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--success);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--success) 22%, transparent);
+}
+.welcome__title {
   font-family: var(--font-serif);
   font-weight: 600;
-  font-size: clamp(26px, 3vw, 32px);
+  font-size: clamp(26px, 3.1vw, 34px);
   line-height: 1.15;
   letter-spacing: -0.3px;
   margin: 0 0 var(--space-3);
   color: var(--ink);
   text-wrap: balance;
 }
-.hero__sub {
-  margin: 0 0 var(--space-5);
+.welcome__title .nowrap { white-space: nowrap; }
+.welcome__sub {
+  margin: 0 0 var(--space-6);
   font-size: clamp(16px, 1.5vw, 17px);
   line-height: 1.6;
   color: var(--ink-soft);
-  max-width: 60ch;
+  max-width: 54ch;
 }
-.hero__action-bar {
-  display: flex;
+.welcome__cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+.welcome__media {
+  grid-area: media;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+  aspect-ratio: 1200 / 727;
+  box-shadow: var(--shadow-soft);
+}
+.welcome__media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.welcome__note {
+  grid-area: note;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
   gap: var(--space-4) var(--space-5);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--line);
 }
-.hero__cta {
-  display: flex;
-  gap: var(--space-3);
-  flex-wrap: wrap;
-  align-items: center;
+.welcome__avatar {
+  width: 48px; height: 48px; border-radius: 50%;
+  border: 2px solid color-mix(in oklab, var(--heart) 45%, var(--line));
+}
+.welcome__eyebrow {
+  display: block;
+  margin-bottom: 4px;
+  font-size: var(--fs-eyebrow); font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase;
+  color: var(--accent);
+}
+.welcome__quote {
+  margin: 0;
+  font-family: var(--font-serif); font-style: italic;
+  font-size: clamp(17px, 1.7vw, 19px); line-height: 1.4;
+  color: var(--ink);
+  text-wrap: balance;
+}
+.welcome__quote-sub { margin: 4px 0 0; font-size: var(--fs-small); line-height: 1.55; color: var(--muted); }
+.welcome__note-cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-4); }
+.btn.welcome__support {
+  font-weight: 600;
+  border-color: color-mix(in oklab, var(--heart) 45%, var(--line));
+  background: color-mix(in oklab, var(--heart) 12%, var(--panel));
+}
+.btn.welcome__support:hover { border-color: var(--heart); background: color-mix(in oklab, var(--heart) 20%, var(--panel)); }
+.welcome__why { font-size: var(--fs-small); font-weight: 500; white-space: nowrap; }
+
+@media (max-width: 860px) {
+  .welcome { grid-template-columns: minmax(0, 1fr); grid-template-areas: "intro" "media" "note"; }
+  /* Single column: a letterbox strip centred on Trinity, not a full-height photo. */
+  .welcome__media { aspect-ratio: 12 / 5; }
+  .welcome__media img { object-position: 62% 50%; }
+  .welcome__note { grid-template-columns: auto minmax(0, 1fr); }
+  .welcome__note-cta { grid-column: 1 / -1; }
 }
 @media (max-width: 640px) {
-  .hero__intro { margin-top: var(--space-5); }
-  .hero__cta .btn { font-size: 13.5px; padding: 9px 14px; }
+  .welcome { margin-top: var(--space-5); gap: var(--space-5); }
+  .welcome__cta .btn { font-size: 13.5px; padding: 9px 14px; }
+  .welcome__note { align-items: start; padding-top: var(--space-5); }
+  .welcome__avatar { width: 40px; height: 40px; }
+}
+@media (max-width: 480px) {
+  .welcome__cta { flex-direction: column; align-items: stretch; }
+  .welcome__cta .btn { justify-content: center; padding: 11px 14px; }
+  .welcome__rss { display: none; }
 }
 
 /* Header — Subscribe nav pill --------------------------------- */
