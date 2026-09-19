@@ -57,6 +57,8 @@ Back in **GitHub → Settings → Pages**: now tick **Enforce HTTPS**.
 
 ## 4. Security headers (Transform Rules)
 
+> **Managed from the repo now.** The headers live in `cloudflare/security-headers.json` and are applied by the `Cloudflare` GitHub Action (see §9). Edit that file, not the dashboard: dashboard edits are overwritten on the next sync. The table below documents the original manual setup.
+
 **Rules → Transform Rules → Modify Response Header → Create rule**
 
 Name: `Security headers`. Match: all incoming requests for `www.doaia.com`.
@@ -115,3 +117,41 @@ After the dust settles (5–15 min for cert + DNS propagation):
 - [SSL Labs](https://www.ssllabs.com/ssltest/analyze.html?d=www.doaia.com) gives **A** or better.
 - [securityheaders.com](https://securityheaders.com/?q=www.doaia.com) gives **A** or better.
 - Submit a test comment → it shows in pending (via `npx wrangler kv key list --namespace-id ...`).
+
+---
+
+## 9. Automation via GitHub Actions (`.github/workflows/cloudflare.yml`)
+
+Every push to `main` keeps Cloudflare in sync:
+
+| Job | When | Does |
+|---|---|---|
+| `headers` | `cloudflare/**` or `tools/cloudflare/**` changed | Applies `cloudflare/security-headers.json` to the response-header Transform Rule (dry run on PRs) |
+| `worker` | `worker/**` or `assets/js/habitat/sim/**` changed | `npm test`, waits for Pages to publish the same commit, `wrangler deploy` |
+| `purge` | every push (including Trinity's daily post) | Waits for Pages, then purges the edge cache so changes show immediately |
+
+Run it by hand from **Actions → Cloudflare → Run workflow** (tick *deploy_worker* to force a Worker deploy).
+
+### One-time setup: the API token
+
+1. Cloudflare dashboard → **My Profile → API Tokens → Create Token → Create Custom Token**.
+2. Name it `github-actions-doaia` and give it exactly these permissions:
+
+   | Scope | Permission | Access |
+   |---|---|---|
+   | Account | Workers Scripts | Edit |
+   | Account | Account Settings | Read |
+   | Zone | Zone | Read |
+   | Zone | Transform Rules | Edit |
+   | Zone | Cache Purge | Purge |
+
+3. **Account Resources:** Include → your account. **Zone Resources:** Include → Specific zone → `doaia.com`.
+4. Optionally set a TTL (e.g. 1 year) as a reminder to rotate it. Create it and copy the token (it is shown once).
+5. GitHub → repo **Settings → Secrets and variables → Actions → New repository secret**. Name it `CLOUDFLARE_API_TOKEN` and paste the token. Don't put it anywhere else: not in a file, a commit or a chat.
+
+The account and zone IDs are looked up from the zone name, so no other secrets are needed. Without the secret, every job skips with a notice.
+
+**Safety:** Actions secrets are encrypted, masked in logs, and never exposed to pull requests from forks. The token is limited to one zone and the permissions above, so it can't touch DNS, SSL or billing. To revoke it, delete it in Cloudflare → API Tokens.
+
+**If a Worker deploy fails with an auth error** (wrangler sometimes needs more for new binding types), add `Account → Workers KV Storage → Read` and `Account → D1 → Read` to the token and re-run.
+

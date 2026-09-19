@@ -1,0 +1,13 @@
+{
+  "_comment": "Response headers for www.doaia.com, applied as a Cloudflare Transform Rule by tools/cloudflare/sync-headers.mjs (GitHub Actions: cloudflare.yml). Edit here, not in the dashboard: dashboard edits are overwritten on the next sync.",
+  "description": "doaia security headers (managed from repo: cloudflare/security-headers.json)",
+  "headers": {
+    "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+    "Permissions-Policy": "geolocation=(), camera=(), microphone=(), interest-cohort=()",
+    "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://storage.ko-fi.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://api.doaia.com wss://api.doaia.com https://challenges.cloudflare.com https://cloudflareinsights.com; frame-src https://challenges.cloudflare.com https://ko-fi.com; base-uri 'self'; form-action 'self' https://ko-fi.com; object-src 'none'; upgrade-insecure-requests",
+    "X-Frame-Options": "SAMEORIGIN",
+    "Cross-Origin-Opener-Policy": "same-origin"
+  }
+}

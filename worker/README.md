@@ -156,6 +156,8 @@ The dev harness on :8080 and Jekyll on :4000 are both in `ALLOWED_ORIGINS`.
 
 ### Deploy (Hermes machine)
 
+> Normally automatic: pushes to `main` that touch `worker/**` or the shared sim are tested and deployed by the `Cloudflare` GitHub Action (see `docs/cloudflare-setup.md` §9). The manual steps below are the fallback.
+
 ```bash
 git pull
 cd worker
