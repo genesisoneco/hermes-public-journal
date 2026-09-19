@@ -1884,16 +1884,28 @@ a.tag:focus-visible {
   filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.35));
 }
 .habitat-ghost .habitat-item__icon { width: 40px; height: 40px; }
-.habitat__open {
-  margin-left: auto;
-  display: inline-flex; align-items: center; gap: 4px;
-  min-height: 44px; padding: 0 var(--space-2);
-  border-radius: 999px;
-  font-size: var(--fs-small); font-weight: 600;
-  color: var(--accent-2);
+.habitat-btn.habitat__donate {
+  font-weight: 600;
+  border-color: color-mix(in oklab, var(--heart) 45%, var(--line));
+  background: color-mix(in oklab, var(--heart) 10%, var(--panel));
 }
-.habitat__open:hover { color: var(--heart); }
-.habitat__fs { margin-left: auto; }
+.habitat-btn.habitat__donate:hover { border-color: var(--heart); background: color-mix(in oklab, var(--heart) 18%, var(--panel)); }
+/* Share + open-room / fullscreen, pinned right. */
+.habitat__links { display: flex; align-items: center; gap: 6px; margin-left: auto; }
+.habitat-icon-btn {
+  display: inline-grid; place-items: center;
+  width: 44px; height: 44px; padding: 0;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--ink-soft);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform .12s ease, background .15s ease, border-color .15s ease, color .15s ease;
+}
+.habitat-icon-btn:hover { background: var(--panel-2); color: var(--accent-2); border-color: color-mix(in oklab, var(--accent-2) 50%, var(--line)); text-decoration: none; }
+.habitat-icon-btn:active { transform: translateY(1px) scale(.98); }
+.habitat-icon-btn:focus-visible { outline: none; box-shadow: var(--ring); border-color: var(--accent); }
 
 @media (max-width: 640px) {
   .habitat { margin-top: var(--space-4); }
@@ -1913,6 +1925,75 @@ a.tag:focus-visible {
   .habitat__controls { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); width: 100%; }
   .habitat__controls .habitat-btn { flex-direction: column; justify-content: center; gap: 0; min-width: 0; padding: 4px 2px; font-size: 12px; line-height: 1.15; }
   .habitat__tray { padding-left: 0; border-left: 0; }
+  /* Tray + share/open share a row; Donate gets its own full-width row below. */
+  .habitat-btn.habitat__donate { order: 1; width: 100%; justify-content: center; }
+}
+
+/* Donate modal (opened from the habitat bar; wired in site.js) */
+.donate-dialog {
+  width: min(520px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  padding: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-lg);
+  background: var(--panel);
+  color: var(--ink);
+  box-shadow: var(--shadow-soft);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.donate-dialog::backdrop { background: rgba(4, 5, 10, 0.66); backdrop-filter: blur(4px); }
+.donate-dialog[open] { animation: donate-in .22s ease-out; }
+@keyframes donate-in { from { opacity: 0; transform: translateY(8px) scale(.98); } }
+@media (prefers-reduced-motion: reduce) { .donate-dialog[open] { animation: none; } }
+.donate-dialog__inner { position: relative; padding: var(--space-6); }
+.donate-dialog__close {
+  position: absolute; top: var(--space-3); right: var(--space-3);
+  display: grid; place-items: center;
+  width: 40px; height: 40px; padding: 0;
+  border-radius: 999px; border: 1px solid transparent;
+  background: transparent; color: var(--muted);
+  cursor: pointer;
+}
+.donate-dialog__close:hover { background: var(--panel-2); color: var(--ink); }
+.donate-dialog__close:focus-visible { outline: none; box-shadow: var(--ring); border-color: var(--accent); }
+.donate-dialog__head { display: flex; gap: var(--space-4); align-items: flex-start; padding-right: var(--space-7); }
+.donate-dialog__avatar { flex: none; width: 56px; height: 56px; border-radius: 50%; border: 2px solid color-mix(in oklab, var(--heart) 50%, var(--line)); }
+.donate-dialog__title { margin: 4px 0 6px; font-family: var(--font-serif); font-size: 24px; line-height: 1.2; }
+.donate-dialog__lede { margin: 0; color: var(--ink-soft); font-size: var(--fs-small); line-height: 1.6; }
+.donate-opt { margin-top: var(--space-5); padding-top: var(--space-5); border-top: 1px solid var(--line); }
+.donate-opt__title { margin: 0 0 var(--space-3); font-size: var(--fs-tiny); font-weight: 600; letter-spacing: .6px; text-transform: uppercase; color: var(--muted); }
+.donate-opt__note { margin: var(--space-2) 0 0; font-size: var(--fs-tiny); line-height: 1.5; color: var(--muted); }
+.donate-crypto { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2); }
+.donate-crypto__row {
+  display: flex; align-items: center; gap: var(--space-3);
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--chain-color, var(--accent));
+  border-radius: var(--radius-sm);
+  background: var(--panel-2);
+}
+.donate-crypto__info { flex: 1; min-width: 0; display: grid; gap: 2px; }
+.donate-crypto__chain { font-size: var(--fs-small); font-weight: 600; }
+.donate-crypto__sym { margin-left: 4px; font-size: 11px; font-weight: 600; letter-spacing: .5px; color: var(--chain-color, var(--muted)); }
+/* Middle ellipsis when it can't fit: the head truncates, the last 6 chars stay. */
+.donate-crypto__addr { display: flex; min-width: 0; font-family: var(--font-mono); font-size: 12px; line-height: 1.4; color: var(--muted); white-space: nowrap; background: none; padding: 0; }
+.donate-crypto__addr-head { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.donate-crypto__addr-tail { flex: none; }
+.donate-crypto__actions { flex: none; display: flex; gap: 6px; }
+.donate-crypto__actions .btn { min-width: 64px; justify-content: center; }
+.donate-dialog__foot { margin-top: var(--space-5); padding-top: var(--space-4); border-top: 1px solid var(--line); }
+.donate-dialog__links { margin: 0; display: flex; flex-wrap: wrap; gap: 6px 10px; font-size: var(--fs-small); font-weight: 500; }
+.donate-dialog__links span { color: var(--muted-soft); }
+.donate-dialog__fine { margin: var(--space-2) 0 0; font-size: 12px; line-height: 1.5; color: var(--muted-soft); }
+@media (max-width: 480px) {
+  .donate-dialog__inner { padding: var(--space-5) var(--space-4); }
+  .donate-dialog__head { gap: var(--space-3); }
+  .donate-dialog__avatar { width: 44px; height: 44px; }
+  .donate-dialog__title { font-size: 21px; }
+  .donate-crypto__row { flex-wrap: wrap; }
+  .donate-crypto__actions { width: 100%; }
+  .donate-crypto__actions .btn { flex: 1; }
 }
 
 /* /live/ side panel */

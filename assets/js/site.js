@@ -43,14 +43,51 @@
   window.doaiaToast = toast;
 
   /* ----- Copy buttons (data-copy) ----- */
+  // Inside a modal <dialog> the site toast sits under the backdrop, so the
+  // feedback goes on the button itself (data-copy-done) and the dialog's
+  // status region instead.
+  function copyFeedback(el, ok) {
+    var dlg = el.closest('dialog');
+    if (!dlg) { toast(ok ? 'Copied to clipboard' : 'Copy failed'); return; }
+    var status = dlg.querySelector('[data-dialog-status]');
+    if (status) status.textContent = ok ? 'Copied to clipboard' : 'Copy failed';
+    var done = el.getAttribute('data-copy-done');
+    if (!done) return;
+    if (!el.dataset.copyLabel) el.dataset.copyLabel = el.textContent;
+    el.textContent = ok ? done : 'Failed';
+    clearTimeout(el._copyTimer);
+    el._copyTimer = setTimeout(function () { el.textContent = el.dataset.copyLabel; }, 1600);
+  }
   document.querySelectorAll('[data-copy]').forEach(function (el) {
     el.addEventListener('click', function () {
       var value = el.getAttribute('data-copy');
       navigator.clipboard.writeText(value).then(function () {
-        toast('Copied to clipboard');
+        copyFeedback(el, true);
       }, function () {
-        toast('Copy failed');
+        copyFeedback(el, false);
       });
+    });
+  });
+
+  /* ----- Modal dialogs: [data-dialog-open="<dialog id>"] ----- */
+  document.querySelectorAll('[data-dialog-open]').forEach(function (btn) {
+    var dlg = document.getElementById(btn.getAttribute('data-dialog-open'));
+    btn.addEventListener('click', function () {
+      if (dlg && typeof dlg.showModal === 'function') { if (!dlg.open) dlg.showModal(); }
+      else if (btn.getAttribute('data-dialog-fallback')) window.location.href = btn.getAttribute('data-dialog-fallback');
+    });
+  });
+  document.querySelectorAll('dialog').forEach(function (dlg) {
+    dlg.querySelectorAll('[data-dialog-close]').forEach(function (b) {
+      b.addEventListener('click', function () { dlg.close(); });
+    });
+    // Backdrop click closes, but only when the press also started on the
+    // backdrop (a text-selection drag that ends outside shouldn't).
+    var downOnBackdrop = false;
+    dlg.addEventListener('pointerdown', function (e) { downOnBackdrop = e.target === dlg; });
+    dlg.addEventListener('click', function (e) {
+      if (e.target === dlg && downOnBackdrop) dlg.close();
+      downOnBackdrop = false;
     });
   });
 
@@ -126,11 +163,12 @@
     }
   });
 
-  /* Compact share button on post cards: Web Share API → copy fallback */
+  /* Compact share button (post cards, habitat bar): Web Share API → copy fallback */
   document.querySelectorAll('[data-share-mini]').forEach(function (btn) {
     btn.addEventListener('click', function (e) {
       e.preventDefault();
-      var url = btn.getAttribute('data-url');
+      // Absolute so a relative data-url still copies as a full link.
+      var url = new URL(btn.getAttribute('data-url'), window.location.href).href;
       var title = btn.getAttribute('data-title');
       if (navigator.share) {
         navigator.share({ title: title, url: url }).catch(function () {});

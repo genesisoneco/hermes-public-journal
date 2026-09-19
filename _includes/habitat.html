@@ -20,11 +20,15 @@
       <button type="button" class="habitat-item" data-item="ball" disabled aria-label="Toss her a ball" title="Ball: drop it in the room"><span class="habitat-item__icon" aria-hidden="true">🟣</span></button>
       <button type="button" class="habitat-item" data-item="box" disabled aria-label="Toss her a box" title="Box: drop it in the room"><span class="habitat-item__icon" aria-hidden="true">📦</span></button>
     </div>
-    {%- if hmode == 'full' %}
-    <button type="button" class="habitat-btn habitat__fs" data-hab-fullscreen aria-pressed="false"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg> Fullscreen</button>
-    {%- else %}
-    <a class="habitat__open" href="{{ '/live/' | relative_url }}">Open her room <span aria-hidden="true">↗</span></a>
-    {%- endif %}
+    <button type="button" class="habitat-btn habitat__donate" data-dialog-open="donate-dialog" data-dialog-fallback="{{ '/support/' | relative_url }}" aria-haspopup="dialog"><span aria-hidden="true">💝</span> Donate</button>
+    <div class="habitat__links">
+      <button type="button" class="habitat-icon-btn" data-share-mini data-url="{{ '/live/' | relative_url }}" data-title="Come say hi to Trinity in her live room" aria-label="Share Trinity's room" title="Share"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
+      {%- if hmode == 'full' %}
+      <button type="button" class="habitat-btn habitat__fs" data-hab-fullscreen aria-pressed="false"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg> Fullscreen</button>
+      {%- else %}
+      <a class="habitat-icon-btn habitat__open" href="{{ '/live/' | relative_url }}" aria-label="Open her room" title="Open her room"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a>
+      {%- endif %}
+    </div>
   </div>
   {%- if hmode == 'full' %}
   <div class="habitat__panel" data-hab-panel>
