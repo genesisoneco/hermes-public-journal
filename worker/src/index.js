@@ -396,7 +396,9 @@ async function rebuildReplyIndex(env) {
 
 async function loadReplyIndex(env) {
   const idx = await env.PROMPTS.get(REPLY_INDEX_KEY, { type: 'json', cacheTtl: INDEX_CACHE_TTL });
-  return Array.isArray(idx) ? idx : rebuildReplyIndex(env);
+  if (Array.isArray(idx)) return idx;
+  // No index yet and no list() quota left today: show nothing rather than 500.
+  return rebuildReplyIndex(env).catch(e => { console.warn('reply index rebuild failed', e.message); return []; });
 }
 
 async function addToReplyIndex(env, reply) {
@@ -420,7 +422,8 @@ async function rebuildCommentIndex(env, postId) {
 
 async function loadCommentIndex(env, postId) {
   const idx = await env.COMMENTS.get(COMMENT_INDEX_PREFIX + postId, { type: 'json', cacheTtl: INDEX_CACHE_TTL });
-  return Array.isArray(idx) ? idx : rebuildCommentIndex(env, postId);
+  if (Array.isArray(idx)) return idx;
+  return rebuildCommentIndex(env, postId).catch(e => { console.warn('comment index rebuild failed', e.message); return []; });
 }
 
 async function addToCommentIndex(env, rec) {
