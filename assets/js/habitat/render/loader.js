@@ -18,7 +18,7 @@ async function loadImage(url) {
   if (!r.ok) throw new Error(url + " " + r.status);
   const b = await r.blob();
   if (self.createImageBitmap) return createImageBitmap(b);
-  return new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = rej; im.src = URL.createObjectURL(b); });
+  return new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = rej; im.src = url; }); // plain URL: site CSP img-src has no blob:
 }
 
 function decodeMask(b64) {

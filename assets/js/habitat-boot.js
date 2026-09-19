@@ -10,10 +10,22 @@
   var off = /[?&]habitat=off\b/.test(location.search);
   var mod = 'noModule' in document.createElement('script');
   var dev = /[?&]habitat=dev/.test(location.search);
-  var dyn;
-  try { dyn = new Function('u', 'return import(u)'); } catch (e) { dyn = null; }
+  // import() via an inline module script: the site CSP has no 'unsafe-eval',
+  // so new Function('return import(u)') is blocked in production.
+  var seq = 0;
+  function dyn(u) {
+    return new Promise(function (resolve, reject) {
+      var id = '__habitatImport' + (++seq);
+      window[id] = function (err, m) { try { delete window[id]; } catch (e) { window[id] = undefined; } if (err) reject(err); else resolve(m); };
+      var s = document.createElement('script');
+      s.type = 'module';
+      s.text = 'import(' + JSON.stringify(u) + ').then(function(m){window.' + id + '(null,m)},function(e){window.' + id + '(e||new Error("import failed"))})';
+      s.onerror = function () { if (window[id]) window[id](new Error('module script blocked')); };
+      document.head.appendChild(s);
+    });
+  }
   // Static card right away (not after load+idle): hiding the bar late shifted the page (CLS).
-  if (off || !mod || !dyn) { for (var s = 0; s < els.length; s++) els[s].className += ' habitat--static'; return; }
+  if (off || !mod) { for (var s = 0; s < els.length; s++) els[s].className += ' habitat--static'; return; }
 
   function start(el) {
     if (el.getAttribute('data-habitat-state')) return;
