@@ -14,3 +14,6 @@ tools/.pipeline-token
 .pipeline-token
 # Trinity's private scratchpad — inner life, never publish.
 _private/
+
+# Cloudflare API token handoff (uploaded to GitHub secret, then deleted) — never commit.
+tools/.cloudflare-token
