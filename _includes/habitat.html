@@ -1,0 +1,54 @@
+{%- assign hmode = include.mode | default: 'embed' -%}
+<section class="habitat habitat--{{ hmode }}" data-habitat data-mode="{{ hmode }}" data-api="{{ site.api.base }}" data-base="{{ '/assets/' | relative_url }}" aria-labelledby="habitat-title">
+  <h2 class="visually-hidden" id="habitat-title">Trinity's room, live</h2>
+  <div class="habitat__stage" data-hab-stage>
+    <div class="habitat__skeleton" aria-hidden="true"><span class="habitat__loading">Opening Trinity's room…</span></div>
+    <p class="habitat__static-note">Trinity's room is resting right now. <a href="{{ '/journal/' | relative_url }}">Read her journal</a> instead.</p>
+    <noscript><p class="habitat__noscript">Trinity's live room needs JavaScript. <a href="{{ '/journal/' | relative_url }}">Read her journal</a> instead.</p></noscript>
+  </div>
+  <div class="habitat__bar">
+    <div class="habitat__controls" role="toolbar" aria-label="Interact with Trinity">
+      <button type="button" class="habitat-btn" data-gesture="wave" disabled><span aria-hidden="true">👋</span> Wave</button>
+      <button type="button" class="habitat-btn" data-gesture="poke" disabled><span aria-hidden="true">👉</span> Poke</button>
+      <button type="button" class="habitat-btn" data-gesture="pet" disabled><span aria-hidden="true">💜</span> Pet</button>
+      <button type="button" class="habitat-btn" data-gesture="tickle" disabled><span aria-hidden="true">✨</span> Tickle</button>
+      <button type="button" class="habitat-btn" data-gesture="push" disabled><span aria-hidden="true">💨</span> Push</button>
+    </div>
+    <div class="habitat__tray" role="group" aria-label="Give her something: drag it into the room, or tap it">
+      <button type="button" class="habitat-item" data-item="carrot" disabled aria-label="Give her a carrot" title="Carrot: drag it to her"><span class="habitat-item__icon" aria-hidden="true">🥕</span></button>
+      <button type="button" class="habitat-item" data-item="battery" disabled aria-label="Give her a battery" title="Battery: drag it to her"><span class="habitat-item__icon" aria-hidden="true">🔋</span></button>
+      <button type="button" class="habitat-item" data-item="ball" disabled aria-label="Toss her a ball" title="Ball: drop it in the room"><span class="habitat-item__icon" aria-hidden="true">🟣</span></button>
+      <button type="button" class="habitat-item" data-item="box" disabled aria-label="Toss her a box" title="Box: drop it in the room"><span class="habitat-item__icon" aria-hidden="true">📦</span></button>
+    </div>
+    {%- if hmode == 'full' %}
+    <button type="button" class="habitat-btn habitat__fs" data-hab-fullscreen aria-pressed="false"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg> Fullscreen</button>
+    {%- else %}
+    <a class="habitat__open" href="{{ '/live/' | relative_url }}">Open her room <span aria-hidden="true">↗</span></a>
+    {%- endif %}
+  </div>
+  {%- if hmode == 'full' %}
+  <div class="habitat__panel" data-hab-panel>
+    <section class="habitat-card">
+      <h3 class="habitat-card__title">Skills</h3>
+      <ul class="habitat-skills" data-hab-skills><li class="muted">Loading…</li></ul>
+    </section>
+    <section class="habitat-card">
+      <h3 class="habitat-card__title">Room log</h3>
+      <ol class="habitat-log" data-hab-log></ol>
+    </section>
+    <section class="habitat-card">
+      <h3 class="habitat-card__title">How to play</h3>
+      <ul class="habitat-help">
+        <li><b>Tap</b> her to poke. <b>Double-tap</b> to tickle.</li>
+        <li><b>Press and hold</b> to pet her.</li>
+        <li><b>Drag</b> her to pick her up, then let go to fling.</li>
+        <li><b>Drag</b> a carrot or battery onto her to feed her; drop a ball or box anywhere to toss it.</li>
+        <li>Keyboard: focus the room, then <kbd>P</kbd> poke, <kbd>T</kbd> tickle, <kbd>H</kbd> pet, <kbd>W</kbd> wave, arrow keys push.</li>
+        <li>She sleeps 23:00–06:00 KST. Be gentle, she remembers.</li>
+      </ul>
+    </section>
+  </div>
+  {%- endif %}
+  <p class="visually-hidden" role="status" aria-live="polite" data-hab-live></p>
+</section>
+<script src="{{ '/assets/js/habitat-boot.js' | relative_url }}" defer></script>

@@ -1,0 +1,13 @@
+{
+  "name": "habitat-build",
+  "private": true,
+  "type": "module",
+  "description": "Bundles + minifies the habitat client (assets/js/habitat/main.js) into assets/js/habitat.bundle.js",
+  "scripts": {
+    "build": "node build.mjs",
+    "check": "node build.mjs --check"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.12"
+  }
+}

@@ -1,0 +1,3583 @@
+{
+ "version": 1,
+ "sheets": {
+  "1": {
+   "path": "../../../tmp/Trinity/ChatGPT Image Sep 19, 2026, 12_49_26 PM (1).png",
+   "layout": "freeform"
+  },
+  "2": {
+   "path": "../../../tmp/Trinity/ChatGPT Image Sep 19, 2026, 12_49_27 PM (2).png",
+   "layout": "freeform"
+  },
+  "3": {
+   "path": "../../../tmp/Trinity/ChatGPT Image Sep 19, 2026, 12_49_27 PM (3).png",
+   "layout": "freeform"
+  },
+  "4": {
+   "path": "../../../tmp/Trinity/ChatGPT Image Sep 19, 2026, 12_49_27 PM (4).png",
+   "layout": "freeform"
+  },
+  "5": {
+   "path": "../../../tmp/Trinity/ChatGPT Image Sep 19, 2026, 12_49_27 PM (5).png",
+   "layout": "freeform"
+  }
+ },
+ "target": {
+  "idleRow": "idle_front",
+  "bodyH1x": 120,
+  "idleRefH": 121
+ },
+ "rows": [
+  {
+   "id": "idle_front",
+   "sheet": 1,
+   "rect": [
+    12,
+    116,
+    468,
+    138
+   ],
+   "frames": 4,
+   "facing": [
+    "F",
+    "F",
+    "F",
+    "F"
+   ],
+   "mode": "solid",
+   "refH": 121
+  },
+  {
+   "id": "idle_side",
+   "sheet": 1,
+   "rect": [
+    493,
+    116,
+    457,
+    138
+   ],
+   "frames": 4,
+   "facing": [
+    "R",
+    "R",
+    "R",
+    "R"
+   ],
+   "mode": "solid",
+   "refH": 121
+  },
+  {
+   "id": "idle_back",
+   "sheet": 1,
+   "rect": [
+    966,
+    116,
+    476,
+    138
+   ],
+   "frames": 4,
+   "facing": [
+    "B",
+    "B",
+    "B",
+    "B"
+   ],
+   "mode": "solid",
+   "refH": 121
+  },
+  {
+   "id": "walk_right",
+   "sheet": 1,
+   "rect": [
+    14,
+    316,
+    466,
+    131
+   ],
+   "frames": 5,
+   "facing": [
+    "R",
+    "R",
+    "R",
+    "R",
+    "R"
+   ],
+   "mode": "solid",
+   "refH": 116
+  },
+  {
+   "id": "walk_left",
+   "sheet": 1,
+   "rect": [
+    493,
+    316,
+    454,
+    131
+   ],
+   "frames": 5,
+   "facing": [
+    "L",
+    "L",
+    "L",
+    "L",
+    "L"
+   ],
+   "mode": "solid",
+   "refH": 116
+  },
+  {
+   "id": "walk_back",
+   "sheet": 1,
+   "rect": [
+    966,
+    316,
+    470,
+    131
+   ],
+   "frames": 5,
+   "facing": [
+    "B",
+    "B",
+    "B",
+    "B",
+    "B"
+   ],
+   "mode": "solid",
+   "refH": 113
+  },
+  {
+   "id": "walk_front",
+   "sheet": 1,
+   "rect": [
+    16,
+    510,
+    460,
+    132
+   ],
+   "frames": 5,
+   "facing": [
+    "F",
+    "F",
+    "F",
+    "F",
+    "F"
+   ],
+   "mode": "solid",
+   "refH": 111
+  },
+  {
+   "id": "run_right",
+   "sheet": 1,
+   "rect": [
+    493,
+    510,
+    454,
+    132
+   ],
+   "frames": 5,
+   "facing": [
+    "R",
+    "R",
+    "R",
+    "R",
+    "R"
+   ],
+   "mode": "solid",
+   "refH": 110
+  },
+  {
+   "id": "run_left",
+   "sheet": 1,
+   "rect": [
+    966,
+    510,
+    456,
+    132
+   ],
+   "frames": 5,
+   "facing": [
+    "L",
+    "L",
+    "L",
+    "L",
+    "L"
+   ],
+   "mode": "solid",
+   "refH": 112
+  },
+  {
+   "id": "run_back",
+   "sheet": 1,
+   "rect": [
+    14,
+    703,
+    466,
+    147
+   ],
+   "frames": 5,
+   "facing": [
+    "B",
+    "B",
+    "B",
+    "B",
+    "B"
+   ],
+   "mode": "solid",
+   "refH": 114
+  },
+  {
+   "id": "run_front",
+   "sheet": 1,
+   "rect": [
+    493,
+    703,
+    459,
+    147
+   ],
+   "frames": 5,
+   "facing": [
+    "F",
+    "F",
+    "F",
+    "F",
+    "F"
+   ],
+   "mode": "solid",
+   "refH": 108
+  },
+  {
+   "id": "jump",
+   "sheet": 1,
+   "rect": [
+    966,
+    703,
+    476,
+    147
+   ],
+   "frames": 5,
+   "facing": [
+    "R",
+    "R",
+    "R",
+    "R",
+    "R"
+   ],
+   "mode": "solid",
+   "anchorY": "row",
+   "refH": 106
+  },
+  {
+   "id": "fall",
+   "sheet": 1,
+   "rect": [
+    14,
+    912,
+    456,
+    132
+   ],
+   "frames": 5,
+   "facing": [
+    "R",
+    "R",
+    "R",
+    "R",
+    "R"
+   ],
+   "mode": "solid",
+   "anchorY": "row",
+   "refH": 104
+  },
+  {
+   "id": "land",
+   "sheet": 1,
+   "rect": [
+    493,
+    912,
+    459,
+    132
+   ],
+   "frames": 5,
+   "facing": [
+    "R",
+    "R",
+    "R",
+    "R",
+    "R"
+   ],
+   "mode": "solid",
+   "refH": 104
+  },
+  {
+   "id": "turn",
+   "sheet": 1,
+   "rect": [
+    966,
+    912,
+    472,
+    132
+   ],
+   "frames": 5,
+   "facing": [
+    "F",
+    "R",
+    "B",
+    "L",
+    "F"
+   ],
+   "mode": "solid",
+   "refH": 108
+  },
+  {
+   "id": "dash",
+   "sheet": 2,
+   "rect": [
+    22,
+    126,
+    700,
+    128
+   ],
+   "frames": 5,
+   "facing": [
+    "R",
+    "R",
+    "R",
+    "R",
+    "R"
+   ],
+   "mode": "glow",
+   "refH": 98
+  },
+  {
+   "id": "hover",
+   "sheet": 2,
+   "rect": [
+    758,
+    98,
+    674,
+    156
+   ],
+   "frames": 6,
+   "facing": [
+    "F",
+    "F",
+    "F",
+    "F",
+    "F",
+    "F"
+   ],
+   "mode": "glow",
+   "anchorY": "row",
+   "labelRect": [
+    [
+     752,
+     66,
+     302,
+     44
+    ]
+   ],
+   "refH": 103
+  },
+  {
+   "id": "fly",
+   "sheet": 2,
+   "rect": [
+    18,
+    286,
+    622,
+    136
+   ],
+   "frames": 5,
+   "facing": [
+    "R",
+    "R",
+    "R",
+    "R",
+    "R"
+   ],
+   "mode": "glow",
+   "anchorY": "row",
+   "labelRect": [
+    [
+     8,
+     254,
+     196,
+     42
+    ]
+   ],
+   "refH": 103
+  },
+  {
+   "id": "spin",
+   "sheet": 2,
+   "rect": [
+    672,
+    286,
+    770,
+    138
+   ],
+   "frames": 5,
+   "facing": [
+    "F",
+    "F",
+    "F",
+    "F",
+    "F"
+   ],
+   "mode": "glow",
+   "labelRect": [
+    [
+     660,
+     254,
+     222,
+     42
+    ]
+   ],
+   "refH": 100
+  },
+  {
+   "id": "beam",
+   "sheet": 2,
+   "rect": [
+    22,
+    468,
+    756,
+    112
+   ],
+   "frames": 4,
+   "facing": [
+    "R",
+    "R",
+    "R",
+    "R"
+   ],
+   "mode": "glow",
+   "cuts": [
+    162,
+    312,
+    500
+   ],
+   "refH": 95
+  },
+  {
+   "id": "projectile",
+   "sheet": 2,
+   "rect": [
+    788,
+    468,
+    648,
+    112
+   ],
+   "frames": 6,
+   "facing": [
+    "R",
+    "R",
+    "R",
+    "R",
+    "R",
+    "R"
+   ],
+   "mode": "glow",
+   "refH": 99
+  },
+  {
+   "id": "shield",
+   "sheet": 2,
+   "rect": [
+    8,
+    608,
+    444,
+    144
+   ],
+   "frames": 3,
+   "facing": [
+    "F",
+    "F",
+    "F"
+   ],
+   "mode": "glow",
+   "labelRect": [
+    [
+     6,
+     582,
+     152,
+     40
+    ],
+    [
+     6,
+     746,
+     262,
+     10
+    ]
+   ],
+   "refH": 97
+  },
+  {
+   "id": "hurt",
+   "sheet": 2,
+   "rect": [
+    486,
+    612,
+    449,
+    130
+   ],
+   "frames": 4,
+   "facing": [
+    "F",
+    "F",
+    "F",
+    "F"
+   ],
+   "mode": "solid",
+   "refH": 97
+  },
+  {
+   "id": "knockdown",
+   "sheet": 2,
+   "rect": [
+    972,
+    636,
+    470,
+    106
+   ],
+   "frames": 4,
+   "facing": [
+    "F",
+    "F",
+    "F",
+    "F"
+   ],
+   "mode": "solid",
+   "refH": 97
+  },
+  {
+   "id": "recover",
+   "sheet": 2,
+   "rect": [
+    28,
+    776,
+    540,
+    116
+   ],
+   "frames": 4,
+   "facing": [
+    "F",
+    "F",
+    "F",
+    "F"
+   ],
+   "mode": "solid",
+   "labelRect": [
+    [
+     6,
+     750,
+     262,
+     42
+    ]
+   ],
+   "refH": 103
+  },
+  {
+   "id": "die",
+   "sheet": 2,
+   "rect": [
+    655,
+    766,
+    767,
+    126
+   ],
+   "frames": 5,
+   "facing": [
+    "F",
+    "F",
+    "F",
+    "F",
+    "F"
+   ],
+   "mode": "glow",
+   "anchorY": "row",
+   "labelRect": [
+    [
+     634,
+     750,
+     206,
+     42
+    ]
+   ],
+   "refH": 97
+  },
+  {
+   "id": "special",
+   "sheet": 2,
+   "rect": [
+    18,
+    918,
+    674,
+    152
+   ],
+   "frames": 5,
+   "facing": [
+    "F",
+    "F",
+    "F",
+    "F",
+    "F"
+   ],
+   "mode": "glow",
+   "labelRect": [
+    [
+     6,
+     900,
+     270,
+     44
+    ]
+   ],
+   "refH": 99
+  },
+  {
+   "id": "teleport_in",
+   "sheet": 2,
+   "rect": [
+    700,
+    944,
+    402,
+    126
+   ],
+   "frames": 4,
+   "facing": [
+    "F",
+    "F",
+    "F",
+    "F"
+   ],
+   "mode": "glow",
+   "anchorY": "row",
+   "refH": 100
+  },
+  {
+   "id": "teleport_out",
+   "sheet": 2,
+   "rect": [
+    1122,
+    944,
+    314,
+    126
+   ],
+   "frames": 3,
+   "facing": [
+    "F",
+    "F",
+    "F"
+   ],
+   "mode": "glow",
+   "anchorY": "row",
+   "refH": 100
+  },
+  {
+   "id": "sit",
+   "sheet": 3,
+   "rect": [
+    36,
+    114,
+    656,
+    131
+   ],
+   "frames": 5,
+   "facing": [
+    "F",
+    "F",
+    "L",
+    "B",
+    "R"
+   ],
+   "mode": "solid",
+   "refH": 121
+  },
+  {
+   "id": "happy",
+   "sheet": 3,
+   "rect": [
+    746,
+    114,
+    666,
+    131
+   ],
+   "frames": 5,
+   "facing": [
+    "F",
+    "F",
+    "F",
+    "B",
+    "R"
+   ],
+   "mode": "solid",
+   "refH": 121
+  },
+  {
+   "id": "sad",
+   "sheet": 3,
+   "rect": [
+    36,
+    294,
+    661,
+    128
+   ],
+   "frames": 5,
+   "facing": [
+    "F",
+    "F",
+    "L",
+    "B",
+    "R"
+   ],
+   "mode": "solid",
+   "refH": 121
+  },
+  {
+   "id": "angry",
+   "sheet": 3,
+   "rect": [
+    746,
+    294,
+    671,
+    128
+   ],
+   "frames": 5,
+   "facing": [
+    "F",
+    "F",
+    "F",
+    "B",
+    "R"
+   ],
+   "mode": "solid",
+   "refH": 121
+  },
+  {
+   "id": "surprised",
+   "sheet": 3,
+   "rect": [
+    36,
+    474,
+    656,
+    128
+   ],
+   "frames": 5,
+   "facing": [
+    "F",
+    "F",
+    "L",
+    "B",
+    "R"
+   ],
+   "mode": "solid",
+   "refH": 121
+  },
+  {
+   "id": "listen",
+   "sheet": 3,
+   "rect": [
+    746,
+    474,
+    671,
+    128
+   ],
+   "frames": 5,
+   "facing": [
+    "F",
+    "F",
+    "L",
+    "B",
+    "R"
+   ],
+   "mode": "solid",
+   "refH": 121
+  },
+  {
+   "id": "confused",
+   "sheet": 3,
+   "rect": [
+    36,
+    652,
+    656,
+    128
+   ],
+   "frames": 5,
+   "facing": [
+    "F",
+    "F",
+    "L",
+    "B",
+    "R"
+   ],
+   "mode": "solid",
+   "refH": 121
+  },
+  {
+   "id": "sleep",
+   "sheet": 3,
+   "rect": [
+    742,
+    652,
+    665,
+    128
+   ],
+   "frames": 5,
+   "facing": [
+    "F",
+    "L",
+    "B",
+    "B",
+    "R"
+   ],
+   "mode": "solid",
+   "refH": 121
+  },
+  {
+   "id": "wake_up",
+   "sheet": 3,
+   "rect": [
+    33,
+    828,
+    659,
+    122
+   ],
+   "frames": 5,
+   "facing": [
+    "F",
+    "F",
+    "F",
+    "B",
+    "R"
+   ],
+   "mode": "solid",
+   "refH": 118
+  },
+  {
+   "id": "love",
+   "sheet": 3,
+   "rect": [
+    742,
+    828,
+    680,
+    122
+   ],
+   "frames": 5,
+   "facing": [
+    "F",
+    "F",
+    "F",
+    "B",
+    "R"
+   ],
+   "mode": "solid",
+   "refH": 115
+  },
+  {
+   "id": "dance",
+   "sheet": 3,
+   "rect": [
+    6,
+    992,
+    364,
+    88
+   ],
+   "frames": 5,
+   "facing": [
+    "F",
+    "F",
+    "F",
+    "B",
+    "R"
+   ],
+   "mode": "solid",
+   "refH": 76
+  },
+  {
+   "id": "ear_wiggle",
+   "sheet": 3,
+   "rect": [
+    390,
+    992,
+    324,
+    88
+   ],
+   "frames": 4,
+   "facing": [
+    "F",
+    "F",
+    "B",
+    "F"
+   ],
+   "mode": "solid",
+   "refH": 78
+  },
+  {
+   "id": "headphone_adjust",
+   "sheet": 3,
+   "rect": [
+    733,
+    992,
+    341,
+    88
+   ],
+   "frames": 4,
+   "facing": [
+    "F",
+    "F",
+    "B",
+    "F"
+   ],
+   "mode": "solid",
+   "refH": 77
+  },
+  {
+   "id": "wave",
+   "sheet": 3,
+   "rect": [
+    1086,
+    992,
+    356,
+    88
+   ],
+   "frames": 4,
+   "facing": [
+    "F",
+    "F",
+    "B",
+    "R"
+   ],
+   "mode": "solid",
+   "refH": 77
+  },
+  {
+   "id": "scan",
+   "sheet": 4,
+   "rect": [
+    13,
+    126,
+    734,
+    126
+   ],
+   "frames": 6,
+   "facing": [
+    "F",
+    "F",
+    "F",
+    "F",
+    "F",
+    "F"
+   ],
+   "mode": "solid",
+   "refH": 116
+  },
+  {
+   "id": "hack",
+   "sheet": 4,
+   "rect": [
+    795,
+    126,
+    647,
+    126
+   ],
+   "frames": 5,
+   "facing": [
+    "F",
+    "F",
+    "F",
+    "F",
+    "F"
+   ],
+   "mode": "solid",
+   "refH": 119
+  },
+  {
+   "id": "pick_up",
+   "sheet": 4,
+   "rect": [
+    16,
+    298,
+    656,
+    142
+   ],
+   "frames": 5,
+   "facing": [
+    "F",
+    "R",
+    "R",
+    "R",
+    "R"
+   ],
+   "mode": "solid",
+   "labelRect": [
+    [
+     14,
+     262,
+     168,
+     46
+    ]
+   ],
+   "refH": 117
+  },
+  {
+   "id": "carry",
+   "sheet": 4,
+   "rect": [
+    738,
+    298,
+    704,
+    142
+   ],
+   "frames": 6,
+   "facing": [
+    "R",
+    "R",
+    "R",
+    "R",
+    "R",
+    "R"
+   ],
+   "mode": "solid",
+   "labelRect": [
+    [
+     736,
+     262,
+     162,
+     46
+    ]
+   ],
+   "refH": 119
+  },
+  {
+   "id": "push",
+   "sheet": 4,
+   "rect": [
+    33,
+    488,
+    684,
+    126
+   ],
+   "frames": 4,
+   "facing": [
+    "R",
+    "R",
+    "R",
+    "R"
+   ],
+   "mode": "solid",
+   "labelRect": [
+    [
+     14,
+     446,
+     146,
+     46
+    ]
+   ],
+   "refH": 109
+  },
+  {
+   "id": "pull",
+   "sheet": 4,
+   "rect": [
+    736,
+    488,
+    706,
+    126
+   ],
+   "frames": 4,
+   "facing": [
+    "L",
+    "L",
+    "L",
+    "L"
+   ],
+   "mode": "solid",
+   "cuts": [
+    872,
+    1090,
+    1300
+   ],
+   "refH": 107
+  },
+  {
+   "id": "climb",
+   "sheet": 4,
+   "rect": [
+    23,
+    638,
+    694,
+    164
+   ],
+   "frames": 6,
+   "facing": [
+    "R",
+    "R",
+    "R",
+    "R",
+    "R",
+    "R"
+   ],
+   "mode": "solid",
+   "labelRect": [
+    [
+     14,
+     618,
+     154,
+     44
+    ]
+   ],
+   "refH": 110
+  },
+  {
+   "id": "slip",
+   "sheet": 4,
+   "rect": [
+    746,
+    660,
+    696,
+    142
+   ],
+   "frames": 5,
+   "facing": [
+    "R",
+    "R",
+    "R",
+    "R",
+    "R"
+   ],
+   "mode": "solid",
+   "labelRect": [
+    [
+     736,
+     618,
+     138,
+     46
+    ]
+   ],
+   "refH": 112
+  },
+  {
+   "id": "low_battery",
+   "sheet": 4,
+   "rect": [
+    18,
+    836,
+    689,
+    124
+   ],
+   "frames": 6,
+   "facing": [
+    "F",
+    "F",
+    "F",
+    "F",
+    "F",
+    "F"
+   ],
+   "mode": "solid",
+   "labelRect": [
+    [
+     14,
+     808,
+     226,
+     44
+    ]
+   ],
+   "refH": 93
+  },
+  {
+   "id": "charging",
+   "sheet": 4,
+   "rect": [
+    743,
+    836,
+    684,
+    124
+   ],
+   "frames": 5,
+   "facing": [
+    "F",
+    "F",
+    "F",
+    "F",
+    "F"
+   ],
+   "mode": "solid",
+   "labelRect": [
+    [
+     734,
+     808,
+     188,
+     46
+    ]
+   ],
+   "refH": 93
+  },
+  {
+   "id": "repair",
+   "sheet": 4,
+   "rect": [
+    13,
+    985,
+    689,
+    99
+   ],
+   "frames": 6,
+   "facing": [
+    "F",
+    "F",
+    "F",
+    "F",
+    "F",
+    "F"
+   ],
+   "mode": "solid",
+   "labelRect": [
+    [
+     12,
+     956,
+     232,
+     46
+    ]
+   ],
+   "refH": 82
+  },
+  {
+   "id": "victory",
+   "sheet": 4,
+   "rect": [
+    736,
+    985,
+    706,
+    99
+   ],
+   "frames": 6,
+   "facing": [
+    "F",
+    "F",
+    "F",
+    "F",
+    "F",
+    "F"
+   ],
+   "mode": "solid",
+   "labelRect": [
+    [
+     732,
+     956,
+     176,
+     46
+    ]
+   ],
+   "refH": 85
+  },
+  {
+   "id": "fx_sparkle",
+   "sheet": 5,
+   "rect": [
+    40,
+    172,
+    78,
+    96
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "glow",
+   "anchor": "center",
+   "scaleRef": 0.8
+  },
+  {
+   "id": "fx_sparkle_small",
+   "sheet": 5,
+   "rect": [
+    150,
+    190,
+    50,
+    55
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "glow",
+   "anchor": "center",
+   "scaleRef": 0.8
+  },
+  {
+   "id": "fx_star",
+   "sheet": 5,
+   "rect": [
+    230,
+    180,
+    64,
+    78
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "glow",
+   "anchor": "center",
+   "scaleRef": 0.8
+  },
+  {
+   "id": "fx_heart",
+   "sheet": 5,
+   "rect": [
+    308,
+    180,
+    82,
+    76
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "glow",
+   "anchor": "center",
+   "scaleRef": 0.8
+  },
+  {
+   "id": "fx_heart_small",
+   "sheet": 5,
+   "rect": [
+    404,
+    198,
+    54,
+    50
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "glow",
+   "anchor": "center",
+   "scaleRef": 0.8
+  },
+  {
+   "id": "fx_hearts",
+   "sheet": 5,
+   "rect": [
+    488,
+    160,
+    96,
+    102
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "glow",
+   "anchor": "center",
+   "scaleRef": 0.8
+  },
+  {
+   "id": "fx_exclaim",
+   "sheet": 5,
+   "rect": [
+    598,
+    164,
+    56,
+    100
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "glow",
+   "anchor": "center",
+   "scaleRef": 0.8
+  },
+  {
+   "id": "fx_exclaim_yellow",
+   "sheet": 5,
+   "rect": [
+    668,
+    164,
+    56,
+    100
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "glow",
+   "anchor": "center",
+   "scaleRef": 0.8
+  },
+  {
+   "id": "fx_question",
+   "sheet": 5,
+   "rect": [
+    754,
+    168,
+    68,
+    94
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "glow",
+   "anchor": "center",
+   "scaleRef": 0.8
+  },
+  {
+   "id": "fx_ring_blue",
+   "sheet": 5,
+   "rect": [
+    34,
+    292,
+    140,
+    100
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "glow",
+   "anchor": "center",
+   "scaleRef": 0.8
+  },
+  {
+   "id": "fx_ring_heart",
+   "sheet": 5,
+   "rect": [
+    178,
+    288,
+    130,
+    104
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "glow",
+   "anchor": "center",
+   "scaleRef": 0.8
+  },
+  {
+   "id": "fx_burst_pink",
+   "sheet": 5,
+   "rect": [
+    326,
+    286,
+    114,
+    120
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "glow",
+   "anchor": "center",
+   "scaleRef": 0.8
+  },
+  {
+   "id": "fx_burst_orange",
+   "sheet": 5,
+   "rect": [
+    466,
+    280,
+    96,
+    120
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "glow",
+   "anchor": "center",
+   "scaleRef": 0.8
+  },
+  {
+   "id": "fx_comet",
+   "sheet": 5,
+   "rect": [
+    580,
+    300,
+    184,
+    90
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "glow",
+   "anchor": "center",
+   "scaleRef": 0.8
+  },
+  {
+   "id": "fx_star_blue",
+   "sheet": 5,
+   "rect": [
+    776,
+    278,
+    128,
+    132
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "glow",
+   "anchor": "center",
+   "scaleRef": 0.8
+  },
+  {
+   "id": "fx_portal_floor_pink",
+   "sheet": 5,
+   "rect": [
+    32,
+    420,
+    146,
+    104
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "glow",
+   "anchor": "center",
+   "scaleRef": 0.8
+  },
+  {
+   "id": "fx_portal_floor_blue",
+   "sheet": 5,
+   "rect": [
+    186,
+    420,
+    156,
+    104
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "glow",
+   "anchor": "center",
+   "scaleRef": 0.8
+  },
+  {
+   "id": "fx_portal_pink",
+   "sheet": 5,
+   "rect": [
+    364,
+    410,
+    82,
+    140
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "glow",
+   "anchor": "center",
+   "scaleRef": 0.8
+  },
+  {
+   "id": "fx_portal_blue",
+   "sheet": 5,
+   "rect": [
+    478,
+    416,
+    76,
+    132
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "glow",
+   "anchor": "center",
+   "scaleRef": 0.8
+  },
+  {
+   "id": "fx_smoke",
+   "sheet": 5,
+   "rect": [
+    576,
+    440,
+    116,
+    94
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "glow",
+   "anchor": "center",
+   "scaleRef": 0.8
+  },
+  {
+   "id": "fx_smoke_small",
+   "sheet": 5,
+   "rect": [
+    692,
+    452,
+    98,
+    80
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "glow",
+   "anchor": "center",
+   "scaleRef": 0.8
+  },
+  {
+   "id": "fx_dust",
+   "sheet": 5,
+   "rect": [
+    790,
+    436,
+    122,
+    96
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "glow",
+   "anchor": "center",
+   "scaleRef": 0.8
+  },
+  {
+   "id": "ui_bunny",
+   "sheet": 5,
+   "rect": [
+    952,
+    164,
+    82,
+    92
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "solid",
+   "anchor": "center",
+   "scaleRef": 0.6
+  },
+  {
+   "id": "ui_heart",
+   "sheet": 5,
+   "rect": [
+    1056,
+    180,
+    80,
+    72
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "solid",
+   "anchor": "center",
+   "scaleRef": 0.6
+  },
+  {
+   "id": "ui_star",
+   "sheet": 5,
+   "rect": [
+    1160,
+    178,
+    78,
+    76
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "solid",
+   "anchor": "center",
+   "scaleRef": 0.6
+  },
+  {
+   "id": "ui_exclaim",
+   "sheet": 5,
+   "rect": [
+    1268,
+    164,
+    48,
+    98
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "solid",
+   "anchor": "center",
+   "scaleRef": 0.6
+  },
+  {
+   "id": "ui_question",
+   "sheet": 5,
+   "rect": [
+    1344,
+    164,
+    70,
+    98
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "solid",
+   "anchor": "center",
+   "scaleRef": 0.6
+  },
+  {
+   "id": "ui_battery_1",
+   "sheet": 5,
+   "rect": [
+    956,
+    276,
+    84,
+    60
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "solid",
+   "anchor": "center",
+   "scaleRef": 0.6
+  },
+  {
+   "id": "ui_battery_2",
+   "sheet": 5,
+   "rect": [
+    1056,
+    276,
+    84,
+    60
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "solid",
+   "anchor": "center",
+   "scaleRef": 0.6
+  },
+  {
+   "id": "ui_battery_3",
+   "sheet": 5,
+   "rect": [
+    1158,
+    276,
+    90,
+    60
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "solid",
+   "anchor": "center",
+   "scaleRef": 0.6
+  },
+  {
+   "id": "ui_battery_4",
+   "sheet": 5,
+   "rect": [
+    1286,
+    272,
+    122,
+    66
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "solid",
+   "anchor": "center",
+   "scaleRef": 0.6
+  },
+  {
+   "id": "ui_shield_pink",
+   "sheet": 5,
+   "rect": [
+    950,
+    352,
+    78,
+    84
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "solid",
+   "anchor": "center",
+   "scaleRef": 0.6
+  },
+  {
+   "id": "ui_shield_blue",
+   "sheet": 5,
+   "rect": [
+    1048,
+    352,
+    78,
+    84
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "solid",
+   "anchor": "center",
+   "scaleRef": 0.6
+  },
+  {
+   "id": "ui_gear_pink",
+   "sheet": 5,
+   "rect": [
+    1140,
+    352,
+    82,
+    84
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "solid",
+   "anchor": "center",
+   "scaleRef": 0.6
+  },
+  {
+   "id": "ui_gear_purple",
+   "sheet": 5,
+   "rect": [
+    1238,
+    356,
+    74,
+    76
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "solid",
+   "anchor": "center",
+   "scaleRef": 0.6
+  },
+  {
+   "id": "ui_plus",
+   "sheet": 5,
+   "rect": [
+    1330,
+    352,
+    80,
+    82
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "solid",
+   "anchor": "center",
+   "scaleRef": 0.6
+  },
+  {
+   "id": "ui_speaker_on",
+   "sheet": 5,
+   "rect": [
+    950,
+    452,
+    80,
+    80
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "solid",
+   "anchor": "center",
+   "scaleRef": 0.6
+  },
+  {
+   "id": "ui_speaker_off",
+   "sheet": 5,
+   "rect": [
+    1046,
+    452,
+    78,
+    80
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "solid",
+   "anchor": "center",
+   "scaleRef": 0.6
+  },
+  {
+   "id": "ui_mail",
+   "sheet": 5,
+   "rect": [
+    1144,
+    456,
+    80,
+    72
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "solid",
+   "anchor": "center",
+   "scaleRef": 0.6
+  },
+  {
+   "id": "ui_gear",
+   "sheet": 5,
+   "rect": [
+    1236,
+    452,
+    76,
+    80
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "solid",
+   "anchor": "center",
+   "scaleRef": 0.6
+  },
+  {
+   "id": "ui_trophy",
+   "sheet": 5,
+   "rect": [
+    1326,
+    452,
+    88,
+    86
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "solid",
+   "anchor": "center",
+   "scaleRef": 0.6
+  },
+  {
+   "id": "obj_box",
+   "sheet": 5,
+   "rect": [
+    650,
+    628,
+    150,
+    116
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "solid",
+   "anchor": "feet",
+   "scaleRef": 0.45
+  },
+  {
+   "id": "obj_laptop",
+   "sheet": 5,
+   "rect": [
+    822,
+    622,
+    174,
+    114
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "solid",
+   "anchor": "feet",
+   "scaleRef": 0.45
+  },
+  {
+   "id": "obj_trophy",
+   "sheet": 5,
+   "rect": [
+    1028,
+    616,
+    118,
+    126
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "solid",
+   "anchor": "feet",
+   "scaleRef": 0.45
+  },
+  {
+   "id": "obj_carrot",
+   "sheet": 5,
+   "rect": [
+    620,
+    738,
+    100,
+    138
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "solid",
+   "anchor": "feet",
+   "scaleRef": 0.45
+  },
+  {
+   "id": "obj_crate",
+   "sheet": 5,
+   "rect": [
+    754,
+    740,
+    168,
+    136
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "solid",
+   "anchor": "feet",
+   "scaleRef": 0.45
+  },
+  {
+   "id": "obj_battery",
+   "sheet": 5,
+   "rect": [
+    956,
+    742,
+    84,
+    132
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "solid",
+   "anchor": "feet",
+   "scaleRef": 0.45
+  },
+  {
+   "id": "obj_blocks",
+   "sheet": 5,
+   "rect": [
+    1086,
+    734,
+    106,
+    146
+   ],
+   "frames": 1,
+   "facing": [
+    "F"
+   ],
+   "mode": "solid",
+   "anchor": "feet",
+   "scaleRef": 0.45
+  },
+  {
+   "id": "portraits",
+   "sheet": 5,
+   "rect": [
+    18,
+    898,
+    1414,
+    139
+   ],
+   "frames": 10,
+   "facing": [
+    "F",
+    "F",
+    "F",
+    "F",
+    "F",
+    "F",
+    "F",
+    "F",
+    "F",
+    "F"
+   ],
+   "mode": "solid",
+   "anchor": "center",
+   "scaleRef": 0.75
+  }
+ ],
+ "anims": {
+  "idle_F": {
+   "src": "idle_front",
+   "f": [
+    0,
+    3,
+    0,
+    3,
+    2,
+    3
+   ],
+   "fps": 4,
+   "loop": true,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "idle_B": {
+   "src": "idle_back",
+   "f": [
+    0,
+    1
+   ],
+   "fps": 3,
+   "loop": true,
+   "flip": false,
+   "facing": "B",
+   "blend": "normal"
+  },
+  "idle_R": {
+   "src": "idle_side",
+   "f": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "fps": 4,
+   "loop": true,
+   "flip": false,
+   "facing": "R",
+   "blend": "normal"
+  },
+  "idle_L": {
+   "src": "idle_side",
+   "f": [
+    0,
+    3
+   ],
+   "fps": 3,
+   "loop": true,
+   "flip": true,
+   "facing": "L",
+   "blend": "normal"
+  },
+  "walk_F": {
+   "src": "walk_front",
+   "f": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "fps": 9,
+   "loop": true,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal",
+   "ev": {
+    "1": "step",
+    "3": "step"
+   }
+  },
+  "walk_B": {
+   "src": "walk_back",
+   "f": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "fps": 9,
+   "loop": true,
+   "flip": false,
+   "facing": "B",
+   "blend": "normal",
+   "ev": {
+    "1": "step",
+    "3": "step"
+   }
+  },
+  "walk_R": {
+   "src": "walk_right",
+   "f": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "fps": 9,
+   "loop": true,
+   "flip": false,
+   "facing": "R",
+   "blend": "normal",
+   "ev": {
+    "1": "step",
+    "3": "step"
+   }
+  },
+  "walk_L": {
+   "src": "walk_left",
+   "f": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "fps": 9,
+   "loop": true,
+   "flip": false,
+   "facing": "L",
+   "blend": "normal",
+   "ev": {
+    "1": "step",
+    "3": "step"
+   }
+  },
+  "run_F": {
+   "src": "run_front",
+   "f": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "fps": 12,
+   "loop": true,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal",
+   "ev": {
+    "1": "step",
+    "3": "step"
+   }
+  },
+  "run_B": {
+   "src": "run_back",
+   "f": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "fps": 12,
+   "loop": true,
+   "flip": false,
+   "facing": "B",
+   "blend": "normal",
+   "ev": {
+    "1": "step",
+    "3": "step"
+   }
+  },
+  "run_R": {
+   "src": "run_right",
+   "f": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "fps": 12,
+   "loop": true,
+   "flip": false,
+   "facing": "R",
+   "blend": "normal",
+   "ev": {
+    "1": "step",
+    "3": "step"
+   }
+  },
+  "run_L": {
+   "src": "run_left",
+   "f": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "fps": 12,
+   "loop": true,
+   "flip": false,
+   "facing": "L",
+   "blend": "normal",
+   "ev": {
+    "1": "step",
+    "3": "step"
+   }
+  },
+  "jump": {
+   "src": "jump",
+   "f": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "fps": 10,
+   "loop": false,
+   "flip": false,
+   "facing": "R",
+   "blend": "normal"
+  },
+  "fall": {
+   "src": "fall",
+   "f": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "fps": 8,
+   "loop": true,
+   "flip": false,
+   "facing": "R",
+   "blend": "normal"
+  },
+  "land": {
+   "src": "land",
+   "f": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "fps": 10,
+   "loop": false,
+   "flip": false,
+   "facing": "R",
+   "blend": "normal",
+   "ev": {
+    "1": "land"
+   }
+  },
+  "turn": {
+   "src": "turn",
+   "f": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "fps": 8,
+   "loop": false,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "dash": {
+   "src": "dash",
+   "f": [
+    0,
+    2,
+    4
+   ],
+   "fps": 12,
+   "loop": true,
+   "flip": false,
+   "facing": "R",
+   "blend": "normal"
+  },
+  "hover": {
+   "src": "hover",
+   "f": [
+    3,
+    4,
+    5,
+    4
+   ],
+   "fps": 8,
+   "loop": true,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "fly": {
+   "src": "fly",
+   "f": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "fps": 8,
+   "loop": true,
+   "flip": false,
+   "facing": "R",
+   "blend": "normal"
+  },
+  "spin": {
+   "src": "spin",
+   "f": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "fps": 12,
+   "loop": true,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "beam": {
+   "src": "beam",
+   "f": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "fps": 8,
+   "loop": false,
+   "flip": false,
+   "facing": "R",
+   "blend": "normal"
+  },
+  "projectile": {
+   "src": "projectile",
+   "f": [
+    0,
+    1,
+    5
+   ],
+   "fps": 8,
+   "loop": false,
+   "flip": false,
+   "facing": "R",
+   "blend": "normal"
+  },
+  "shield": {
+   "src": "shield",
+   "f": [
+    0,
+    1,
+    2
+   ],
+   "fps": 6,
+   "loop": true,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "hurt": {
+   "src": "hurt",
+   "f": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "fps": 8,
+   "loop": false,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "knockdown": {
+   "src": "knockdown",
+   "f": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "fps": 8,
+   "loop": false,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal",
+   "ev": {
+    "3": "thud"
+   }
+  },
+  "recover": {
+   "src": "recover",
+   "f": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "fps": 6,
+   "loop": false,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "die": {
+   "src": "die",
+   "f": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "fps": 6,
+   "loop": false,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "special": {
+   "src": "special",
+   "f": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "fps": 8,
+   "loop": false,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "teleport_in": {
+   "src": "teleport_in",
+   "f": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "fps": 10,
+   "loop": false,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "teleport_out": {
+   "src": "teleport_out",
+   "f": [
+    0,
+    1,
+    2
+   ],
+   "fps": 10,
+   "loop": false,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "sit": {
+   "src": "sit",
+   "f": [
+    0,
+    1
+   ],
+   "fps": 3,
+   "loop": true,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "happy": {
+   "src": "happy",
+   "f": [
+    0,
+    1,
+    2,
+    1
+   ],
+   "fps": 6,
+   "loop": true,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "sad": {
+   "src": "sad",
+   "f": [
+    0,
+    1
+   ],
+   "fps": 3,
+   "loop": true,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "angry": {
+   "src": "angry",
+   "f": [
+    0,
+    1,
+    2,
+    1
+   ],
+   "fps": 6,
+   "loop": true,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "surprised": {
+   "src": "surprised",
+   "f": [
+    0,
+    1
+   ],
+   "fps": 6,
+   "loop": false,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "listen": {
+   "src": "listen",
+   "f": [
+    0,
+    0,
+    0,
+    1
+   ],
+   "fps": 4,
+   "loop": true,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "confused": {
+   "src": "confused",
+   "f": [
+    0,
+    1
+   ],
+   "fps": 3,
+   "loop": true,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "sleep": {
+   "src": "sleep",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": true,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "wake_up": {
+   "src": "wake_up",
+   "f": [
+    0,
+    1,
+    2
+   ],
+   "fps": 5,
+   "loop": false,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "love": {
+   "src": "love",
+   "f": [
+    0,
+    1,
+    2,
+    1
+   ],
+   "fps": 6,
+   "loop": true,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "dance": {
+   "src": "dance",
+   "f": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "fps": 8,
+   "loop": true,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "ear_wiggle": {
+   "src": "ear_wiggle",
+   "f": [
+    0,
+    1,
+    3,
+    1
+   ],
+   "fps": 8,
+   "loop": true,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "headphone_adjust": {
+   "src": "headphone_adjust",
+   "f": [
+    0,
+    1,
+    3
+   ],
+   "fps": 6,
+   "loop": false,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "wave": {
+   "src": "wave",
+   "f": [
+    0,
+    1
+   ],
+   "fps": 5,
+   "loop": true,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "scan": {
+   "src": "scan",
+   "f": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "fps": 6,
+   "loop": true,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "hack": {
+   "src": "hack",
+   "f": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "fps": 6,
+   "loop": true,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "pick_up": {
+   "src": "pick_up",
+   "f": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "fps": 8,
+   "loop": false,
+   "flip": false,
+   "facing": "R",
+   "blend": "normal"
+  },
+  "carry": {
+   "src": "carry",
+   "f": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "fps": 8,
+   "loop": true,
+   "flip": false,
+   "facing": "R",
+   "blend": "normal",
+   "ev": {
+    "1": "step",
+    "3": "step"
+   }
+  },
+  "push": {
+   "src": "push",
+   "f": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "fps": 6,
+   "loop": true,
+   "flip": false,
+   "facing": "R",
+   "blend": "normal"
+  },
+  "pull": {
+   "src": "pull",
+   "f": [
+    0,
+    1,
+    2
+   ],
+   "fps": 6,
+   "loop": true,
+   "flip": false,
+   "facing": "R",
+   "blend": "normal"
+  },
+  "climb": {
+   "src": "climb",
+   "f": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "fps": 6,
+   "loop": false,
+   "flip": false,
+   "facing": "R",
+   "blend": "normal"
+  },
+  "slip": {
+   "src": "slip",
+   "f": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "fps": 8,
+   "loop": false,
+   "flip": false,
+   "facing": "R",
+   "blend": "normal"
+  },
+  "low_battery": {
+   "src": "low_battery",
+   "f": [
+    0,
+    2,
+    4,
+    5
+   ],
+   "fps": 4,
+   "loop": false,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "charging": {
+   "src": "charging",
+   "f": [
+    2,
+    3,
+    4
+   ],
+   "fps": 3,
+   "loop": true,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "repair": {
+   "src": "repair",
+   "f": [
+    0,
+    1,
+    3,
+    4,
+    5
+   ],
+   "fps": 6,
+   "loop": true,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "victory": {
+   "src": "victory",
+   "f": [
+    1,
+    2,
+    3,
+    5
+   ],
+   "fps": 8,
+   "loop": true,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "fx_sparkle": {
+   "src": "fx_sparkle",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "fx_sparkle_small": {
+   "src": "fx_sparkle_small",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "fx_star": {
+   "src": "fx_star",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "fx_heart": {
+   "src": "fx_heart",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "fx_heart_small": {
+   "src": "fx_heart_small",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "fx_hearts": {
+   "src": "fx_hearts",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "fx_exclaim": {
+   "src": "fx_exclaim",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "fx_exclaim_yellow": {
+   "src": "fx_exclaim_yellow",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "fx_question": {
+   "src": "fx_question",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "fx_ring_blue": {
+   "src": "fx_ring_blue",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "fx_ring_heart": {
+   "src": "fx_ring_heart",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "fx_burst_pink": {
+   "src": "fx_burst_pink",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "fx_burst_orange": {
+   "src": "fx_burst_orange",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "fx_comet": {
+   "src": "fx_comet",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "fx_star_blue": {
+   "src": "fx_star_blue",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "fx_portal_floor_pink": {
+   "src": "fx_portal_floor_pink",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "fx_portal_floor_blue": {
+   "src": "fx_portal_floor_blue",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "fx_portal_pink": {
+   "src": "fx_portal_pink",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "fx_portal_blue": {
+   "src": "fx_portal_blue",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "fx_smoke": {
+   "src": "fx_smoke",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "fx_smoke_small": {
+   "src": "fx_smoke_small",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "fx_dust": {
+   "src": "fx_dust",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "ui_bunny": {
+   "src": "ui_bunny",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "ui_heart": {
+   "src": "ui_heart",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "ui_star": {
+   "src": "ui_star",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "ui_exclaim": {
+   "src": "ui_exclaim",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "ui_question": {
+   "src": "ui_question",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "ui_battery_1": {
+   "src": "ui_battery_1",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "ui_battery_2": {
+   "src": "ui_battery_2",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "ui_battery_3": {
+   "src": "ui_battery_3",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "ui_battery_4": {
+   "src": "ui_battery_4",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "ui_shield_pink": {
+   "src": "ui_shield_pink",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "ui_shield_blue": {
+   "src": "ui_shield_blue",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "ui_gear_pink": {
+   "src": "ui_gear_pink",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "ui_gear_purple": {
+   "src": "ui_gear_purple",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "ui_plus": {
+   "src": "ui_plus",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "ui_speaker_on": {
+   "src": "ui_speaker_on",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "ui_speaker_off": {
+   "src": "ui_speaker_off",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "ui_mail": {
+   "src": "ui_mail",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "ui_gear": {
+   "src": "ui_gear",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "ui_trophy": {
+   "src": "ui_trophy",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "obj_box": {
+   "src": "obj_box",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "obj_laptop": {
+   "src": "obj_laptop",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "obj_trophy": {
+   "src": "obj_trophy",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "obj_carrot": {
+   "src": "obj_carrot",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "obj_crate": {
+   "src": "obj_crate",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "obj_battery": {
+   "src": "obj_battery",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "obj_blocks": {
+   "src": "obj_blocks",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": null,
+   "blend": "normal"
+  },
+  "portrait_neutral": {
+   "src": "portraits",
+   "f": [
+    0
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "portrait_happy": {
+   "src": "portraits",
+   "f": [
+    1
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "portrait_wink": {
+   "src": "portraits",
+   "f": [
+    2
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "portrait_laugh": {
+   "src": "portraits",
+   "f": [
+    3
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "portrait_blush": {
+   "src": "portraits",
+   "f": [
+    4
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "portrait_surprised": {
+   "src": "portraits",
+   "f": [
+    5
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "portrait_angry": {
+   "src": "portraits",
+   "f": [
+    6
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "portrait_sad": {
+   "src": "portraits",
+   "f": [
+    7
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "portrait_sleep": {
+   "src": "portraits",
+   "f": [
+    8
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  },
+  "portrait_love": {
+   "src": "portraits",
+   "f": [
+    9
+   ],
+   "fps": 1,
+   "loop": false,
+   "flip": false,
+   "facing": "F",
+   "blend": "normal"
+  }
+ }
+}

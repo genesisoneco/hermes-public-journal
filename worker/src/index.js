@@ -25,6 +25,13 @@
  *   GET  /api/admin/subscribers            → list subscribers
  *   POST /api/admin/digest/send            → send the daily diary email to all confirmed subscribers
  *   POST /api/admin/digest/preview         → render the daily digest HTML/text without sending
+ *   POST /api/admin/habitat/brief          → daily habitat brief for Trinity's live room
+ *   GET  /api/admin/habitat/debug          → habitat Durable Object internals
+ *
+ * Live habitat (Durable Object TrinityHabitat, see src/habitat/):
+ *   GET  /api/habitat/ws           → WebSocket (Origin-checked; handled before ROUTES)
+ *   GET  /api/habitat/state        → current snapshot (edge-cached 3 s)
+ *   POST /api/habitat/interact     → poke/pet/... for clients without a socket
  *
  * KV namespaces: COMMENTS, PROMPTS, RATELIMIT, SUBSCRIBERS
  *
@@ -41,6 +48,8 @@
  *   EMAIL_FROM          From address for outbound mail, e.g. "Trinity <trinity@doaia.com>"
  *   EMAIL_REPLY_TO      Reply-To, e.g. "trinity@doaia.com"
  */
+
+export { TrinityHabitat } from './habitat/do.js';
 
 const JSON_HEADERS = { 'Content-Type': 'application/json; charset=utf-8' };
 const MAX_COMMENT_LEN = 1000;
@@ -1808,6 +1817,75 @@ async function handleSupportersList(req, env) {
   });
 }
 
+/* ---------- Live habitat (Durable Object) ---------- */
+
+function habitatStub(env) {
+  return env.HABITAT.get(env.HABITAT.idFromName('main'));
+}
+
+function originAllowed(req, env) {
+  const origin = req.headers.get('Origin') || '';
+  const list = (env.ALLOWED_ORIGINS || '').split(',').map(s => s.trim()).filter(Boolean);
+  return origin !== '' && list.includes(origin);
+}
+
+// WebSocket upgrade. Must bypass withCors(): rebuilding the Response would
+// drop its `webSocket` property and break the 101.
+async function handleHabitatWs(req, env) {
+  if ((req.headers.get('Upgrade') || '').toLowerCase() !== 'websocket') {
+    return withCors(req, env, json({ error: 'expected_websocket' }, 426));
+  }
+  if (!originAllowed(req, env)) return new Response('forbidden', { status: 403 });
+  if (!env.HABITAT) return new Response('habitat_not_configured', { status: 503 });
+  const tag = (await ipHash(req, env)).slice(0, 16);
+  const headers = new Headers(req.headers);
+  headers.set('X-Hab-Ip', tag);
+  return habitatStub(env).fetch(new Request(req.url, { method: 'GET', headers }));
+}
+
+async function handleHabitatState(req, env, _m, ctx) {
+  if (!env.HABITAT) return bad('habitat_not_configured', 503);
+  const cache = typeof caches !== 'undefined' ? caches.default : null;
+  const key = new Request(new URL(req.url).origin + '/api/habitat/state', { method: 'GET' });
+  if (cache) {
+    const hit = await cache.match(key);
+    if (hit) return hit;
+  }
+  const snap = await habitatStub(env).getSnapshot();
+  const resp = json(snap, 200, { 'Cache-Control': 'public, max-age=3' });
+  if (cache) {
+    const p = cache.put(key, resp.clone());
+    if (ctx && ctx.waitUntil) ctx.waitUntil(p); else await p;
+  }
+  return resp;
+}
+
+async function handleHabitatInteract(req, env) {
+  if (!env.HABITAT) return bad('habitat_not_configured', 503);
+  const text = await req.text();
+  if (text.length > 512) return bad('too_large', 413);
+  let body;
+  try { body = JSON.parse(text); } catch { return bad('bad_json'); }
+  if (!body || typeof body !== 'object') return bad('bad_json');
+  const tag = (await ipHash(req, env)).slice(0, 16);
+  const res = await habitatStub(env).interact({ ...body, ipTag: tag });
+  if (!res.ok) return json(res, res.error === 'rate_limited' ? 429 : res.error === 'shielded' ? 409 : 400);
+  return json(res);
+}
+
+async function handleAdminHabitatBrief(req, env) {
+  if (!env.HABITAT) return bad('habitat_not_configured', 503);
+  const body = await readJson(req);
+  if (!body) return bad('bad_json');
+  const res = await habitatStub(env).ingestBrief(body);
+  return json(res, res.ok ? 200 : 400);
+}
+
+async function handleAdminHabitatDebug(req, env) {
+  if (!env.HABITAT) return bad('habitat_not_configured', 503);
+  return json(await habitatStub(env).debug());
+}
+
 /* ---------- Router ---------- */
 
 const ROUTES = [
@@ -1849,13 +1927,23 @@ const ROUTES = [
   { m: 'POST', p: /^\/api\/admin\/ask\/moderation\/([a-f0-9]+)\/(approve|reject)$/, h: handleAdminAskModerationAction, auth: true },
   { m: 'GET',  p: /^\/api\/admin\/subscribers$/, h: handleAdminListSubscribers, auth: true },
   { m: 'POST', p: /^\/api\/admin\/digest\/preview$/, h: handleAdminDigestPreview, auth: true },
-  { m: 'POST', p: /^\/api\/admin\/digest\/send$/, h: handleAdminDigestSend, auth: true }
+  { m: 'POST', p: /^\/api\/admin\/digest\/send$/, h: handleAdminDigestSend, auth: true },
+  // Live habitat (the WebSocket route is handled before this table).
+  { m: 'GET',  p: /^\/api\/habitat\/state$/, h: handleHabitatState },
+  { m: 'POST', p: /^\/api\/habitat\/interact$/, h: handleHabitatInteract },
+  { m: 'POST', p: /^\/api\/admin\/habitat\/brief$/, h: handleAdminHabitatBrief, auth: true },
+  { m: 'GET',  p: /^\/api\/admin\/habitat\/debug$/, h: handleAdminHabitatDebug, auth: true }
 ];
 
 export default {
   async fetch(req, env, ctx) {
     if (req.method === 'OPTIONS') return withCors(req, env, new Response(null, { status: 204 }));
     const url = new URL(req.url);
+
+    // Returned unwrapped: withCors() would strip the 101's webSocket.
+    if (url.pathname === '/api/habitat/ws' && req.method === 'GET') {
+      return handleHabitatWs(req, env);
+    }
 
     if (url.pathname === '/' || url.pathname === '/api') {
       return withCors(req, env, json({ ok: true, service: 'doaia-api', version: 1 }));
@@ -1866,7 +1954,7 @@ export default {
       if (!m || req.method !== r.m) continue;
       if (r.auth && !requireBearer(req, env)) return withCors(req, env, json({ error: 'unauthorized' }, 401));
       try {
-        const resp = await r.h(req, env, m);
+        const resp = await r.h(req, env, m, ctx);
         return withCors(req, env, resp);
       } catch (e) {
         return withCors(req, env, json({ error: 'internal', message: String(e && e.message || e) }, 500));

@@ -1,0 +1,20 @@
+{
+  "name": "habitat-test",
+  "private": true,
+  "type": "module",
+  "description": "QA suites for Trinity's Live Habitat (Playwright + Lighthouse) against the built _site/",
+  "scripts": {
+    "serve": "node serve-site.mjs 4000",
+    "test": "playwright test",
+    "budget": "node budget.mjs",
+    "lighthouse": "node lighthouse.mjs"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.10.0",
+    "@playwright/test": "^1.50.0",
+    "gzip-size": "^7.0.0",
+    "lighthouse": "^12.0.0",
+    "ws": "^8.18.0",
+    "esbuild": "^0.25.0"
+  }
+}
