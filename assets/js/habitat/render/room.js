@@ -19,6 +19,46 @@ export const TOD = {
   sleep:     { sky: ["#02030c", "#070a24", "#120f3a"], tint: [4, 5, 24], tintA: 0.5, glow: 0.8, stars: 1, haze: "#0e0b26" },
 };
 
+// Which time-of-day buckets each switchable light is on for. Both are part of
+// the bake key already (setRoom keys on `tod`), so flipping them costs nothing
+// beyond the rebake that the bucket change triggers anyway.
+// Desk lamp: the two dark buckets she is awake for, 17:00–23:00 KST.
+const LAMP_TOD = new Set(["evening", "night"]);
+// Grow light over the plant cabinet: a ~14 h photoperiod, 06:00–20:00 KST, so
+// the plants get a real dark stretch overnight while the desk lamp is lit.
+const GROW_TOD = new Set(["morning", "afternoon", "evening"]);
+
+// Spine colour per journal mood, keyed by the first four letters (unique across
+// rules.MOODS). Kept inside the room's own palette so the shelf reads as part
+// of the furniture, not a chart.
+const MOOD_COL = {
+  cont: "#8aa4ff", curi: "#5dd0d9", hope: "#7ee0a8", unce: "#8a7ab8",
+  atte: "#8fe9f0", rest: "#ff8fc8", tend: "#ffb3dc", focu: "#b793ff",
+  wear: "#6b5f8c", play: "#f5d489", sole: "#4f5f96", grat: "#ffd2a8",
+  mela: "#5a6b9e", reso: "#e07bb5", surp: "#fff3cf", quie: "#a9b6d8",
+};
+const MOOD_FALLBACK = "#7c6aa6";
+
+// The window glass, shared by the baked view and the live weather layer.
+const WIN = { u0: 4 * K, u1: 6 * K, y0: -218, y1: -78 };
+
+// Seoul through the year: one haze wash per season over the skyline band.
+export const seasonOf = (mo) => (mo === 12 || mo <= 2 ? "winter" : mo <= 5 ? "spring" : mo <= 8 ? "summer" : "autumn");
+const SEASON_HAZE = {
+  spring: "rgba(255,170,205,.26)",   // cherry blossom haze
+  summer: "rgba(120,200,170,.22)",   // humid monsoon green
+  autumn: "rgba(245,190,120,.24)",   // amber
+  winter: "rgba(175,195,230,.20)",   // cold and bare
+};
+// Weather dims the sky in the bake; the animation lives in drawLive.
+const WEATHER_WASH = {
+  cloud: "rgba(120,128,165,.22)",
+  rain: "rgba(70,86,130,.30)",
+  storm: "rgba(45,55,95,.40)",
+  snow: "rgba(190,200,230,.20)",
+  fog: "rgba(170,178,205,.34)",
+};
+
 // --- small drawing helpers (design coords) ---------------------------------
 function poly(c, pts) { c.beginPath(); c.moveTo(pts[0][0], pts[0][1]); for (let k = 1; k < pts.length; k++) c.lineTo(pts[k][0], pts[k][1]); c.closePath(); }
 function fillPoly(c, pts, fill, stroke, lw = 1) { poly(c, pts); if (fill) { c.fillStyle = fill; c.fill(); } if (stroke) { c.strokeStyle = stroke; c.lineWidth = lw; c.stroke(); } }
@@ -52,7 +92,7 @@ function isoEllipse(c, i, j, z, r) { const [x, y] = P(i, j, z); c.beginPath(); c
 
 // --- the layers --------------------------------------------------------------
 // ctx `c` is already transformed to design coords. G = emissive list.
-function drawBack(c, tod, items, G) {
+function drawBack(c, tod, items, G, archive, feed, season, weather) {
   const L = TOD[tod] || TOD.afternoon;
   const glow = (fn) => { fn(c); G.push([c.getTransform(), fn]); };
   const has = (k) => items.includes(k);
@@ -109,7 +149,7 @@ function drawBack(c, tod, items, G) {
     c.strokeStyle = "rgba(255,143,200,.35)"; c.lineWidth = 2; c.beginPath(); c.moveTo(...P(0, 10, 3)); c.lineTo(...P(0, 0, 3)); c.lineTo(...P(10, 0, 3)); c.stroke();
   });
 
-  drawWindow(c, L, glow);
+  drawWindow(c, L, glow, season, weather);
   drawClockFace(c);
   drawNeonSign(c, glow);
 
@@ -126,20 +166,20 @@ function drawBack(c, tod, items, G) {
   });
 
   // Props hugging the walls (Trinity is always in front of these).
-  drawShelf(c, glow);
+  drawShelf(c, glow, archive);
   if (has("trophy_shelf")) drawTrophies(c, glow);
   if (has("globe")) drawGlobe(c, glow);
-  drawPod(c, glow);
-  drawDesk(c, glow, has);
-  drawPlants(c, glow, has);
+  drawRig(c, glow, feed);
+  drawDesk(c, glow, has, LAMP_TOD.has(tod));
+  drawPlants(c, glow, has, GROW_TOD.has(tod));
   if (has("kettle")) drawKettle(c, glow);
 
   // Window light on the floor (daytime).
   if (L.sun) drawSunPatch(c, L.sun);
 }
 
-function drawWindow(c, L, glow) {
-  const u0 = 4 * K, u1 = 6 * K, y0 = -218, y1 = -78, w = u1 - u0, hgt = y1 - y0;
+function drawWindow(c, L, glow, season, weather) {
+  const u0 = WIN.u0, u1 = WIN.u1, y0 = WIN.y0, y1 = WIN.y1, w = u1 - u0, hgt = y1 - y0;
   plane(c, "i", 0, (c) => {
     // Curtains.
     for (const [x, dir] of [[u0 - 26, 1]]) { // one tied-back curtain; the pod sits beside the other side
@@ -164,13 +204,29 @@ function drawWindow(c, L, glow) {
       glow((c) => { const g = c.createRadialGradient(u0 + w * 0.25, y0 + 34, 2, u0 + w * 0.25, y0 + 34, 40); g.addColorStop(0, "rgba(255,250,235,.95)"); g.addColorStop(1, "rgba(255,250,235,0)"); c.fillStyle = g; c.fillRect(u0, y0, w, hgt); });
       c.fillStyle = "rgba(255,255,255,.55)"; for (let k = 0; k < 3; k++) { const x = u0 + 20 + r() * (w - 60), y = y0 + 30 + r() * 30; c.beginPath(); c.ellipse(x, y, 18, 6, 0, 0, 7); c.ellipse(x + 12, y - 4, 12, 6, 0, 0, 7); c.fill(); }
     }
-    // Seoul skyline (+ N Seoul Tower).
+    // Seoul skyline. Lotte World Tower (555 m, Jamsil) anchors it; Namsan keeps
+    // a low ridge on the left for depth. The tower reads ~16% taller in frame
+    // than N Seoul Tower did (555 m against 236 m of mast on a 243 m hill), so
+    // it carries the horizon instead of pinning it. Drawn before the buildings
+    // so they occlude its base, exactly as the old mast was.
     const base = y1, night = !!L.stars;
     c.fillStyle = L.haze; c.fillRect(u0, base - 30, w, 30);
-    const tx = u0 + w * 0.34;
+    if (SEASON_HAZE[season]) { c.fillStyle = SEASON_HAZE[season]; c.fillRect(u0, base - 34, w, 34); }
     c.fillStyle = night ? "#140f2e" : "#5d5a9e";
-    c.beginPath(); c.moveTo(u0, base); c.quadraticCurveTo(tx, base - 64, u1, base - 12); c.lineTo(u1, base); c.fill();
-    c.fillRect(tx - 1.5, base - 110, 3, 60); rrect(c, tx - 6, base - 92, 12, 8, 3); c.fill();
+    c.beginPath(); c.moveTo(u0, base); c.quadraticCurveTo(u0 + w * 0.16, base - 30, u0 + w * 0.38, base - 6); c.lineTo(u0 + w * 0.38, base); c.fill();
+    // Four faces tapering to the lantern, then the spire.
+    // tw is the half-width at street level: 130 px of height on a 16.4 px base
+    // keeps the real 555 m / 72 m proportion (~7.9 : 1).
+    const tx = u0 + w * 0.54, tw = 8.2, tipY = base - 130, crownY = base - 118;
+    const tower = (c) => {
+      c.beginPath();
+      c.moveTo(tx - tw, base);
+      c.quadraticCurveTo(tx - tw * 0.78, base - 74, tx - 2.2, crownY);
+      c.lineTo(tx, tipY); c.lineTo(tx + 2.2, crownY);
+      c.quadraticCurveTo(tx + tw * 0.78, base - 74, tx + tw, base);
+      c.closePath();
+    };
+    tower(c); c.fill();
     const bl = mul(3); let x = u0 - 4;
     const lights = [];
     while (x < u1) {
@@ -178,7 +234,22 @@ function drawWindow(c, L, glow) {
       for (let yy = base - bh + 5; yy < base - 4; yy += 7) for (let xx = x + 3; xx < x + bw - 3; xx += 5) if (bl() < 0.35) lights.push([xx, yy]);
       x += bw + 1 + bl() * 3;
     }
-    if (night || L === TOD.evening) glow((c) => { lights.forEach(([a, b], k) => { c.fillStyle = k % 5 ? "rgba(255,214,140,.85)" : "rgba(255,143,200,.9)"; c.fillRect(a, b, 2, 2.5); }); c.fillStyle = "#ff5f9f"; c.beginPath(); c.arc(tx, base - 112, 2.5, 0, 7); c.fill(); });
+    if (night || L === TOD.evening) glow((c) => {
+      lights.forEach(([a, b], k) => { c.fillStyle = k % 5 ? "rgba(255,214,140,.85)" : "rgba(255,143,200,.9)"; c.fillRect(a, b, 2, 2.5); });
+      // After dark the real tower is lit, not silhouetted: a facade wash that
+      // gathers toward the lantern, so it stays the anchor of the skyline.
+      c.save(); tower(c); c.clip();
+      const tg = c.createLinearGradient(0, base, 0, tipY);
+      tg.addColorStop(0, "rgba(93,208,217,.06)"); tg.addColorStop(0.62, "rgba(143,233,240,.22)"); tg.addColorStop(1, "rgba(206,246,255,.46)");
+      c.fillStyle = tg; c.fillRect(tx - tw - 2, tipY, tw * 2 + 4, base - tipY);
+      // Lantern bands and the facade seam, bounded by the silhouette itself.
+      c.fillStyle = "rgba(206,246,255,.75)"; c.fillRect(tx - 6, base - 112, 12, 1.6); c.fillRect(tx - 6, base - 106, 12, 1.4);
+      c.strokeStyle = "rgba(143,233,240,.3)"; c.lineWidth = 1; c.beginPath(); c.moveTo(tx, base - 102); c.lineTo(tx, base - 48); c.stroke();
+      c.restore();
+      // Aircraft beacon on the spire.
+      c.fillStyle = "#ff5f9f"; c.beginPath(); c.arc(tx, tipY - 2, 2.5, 0, 7); c.fill();
+    });
+    if (WEATHER_WASH[weather]) { c.fillStyle = WEATHER_WASH[weather]; c.fillRect(u0, y0, w, hgt); }
     c.restore();
     // Mullions + sill + tiny cactus.
     c.strokeStyle = "#1c1236"; c.lineWidth = 4; c.beginPath(); c.moveTo(u0 + w / 2, y0); c.lineTo(u0 + w / 2, y1); c.moveTo(u0, y0 + hgt * 0.45); c.lineTo(u1, y0 + hgt * 0.45); c.stroke();
@@ -246,16 +317,48 @@ function drawNeonSign(c, glow) {
   });
 }
 
-function drawShelf(c, glow) {
+// The archive: one spine per journal entry, oldest on the top shelf, reading
+// left to right and down. Spines thin as the collection grows (the shelf fills
+// over roughly the first two months, then densifies), and a faint brass tick
+// marks where one month ends and the next begins.
+function drawArchive(c, ua, shelfW, archive) {
+  const n = archive.length, per = Math.max(1, Math.ceil(n / 4));
+  // `fit` is the widest pitch that still lands `per` spines on one shelf, so
+  // the row can never overflow however long the journal runs; the spine width
+  // caps at 9 px (a young shelf packs left, it doesn't spread out) and floors
+  // at 0.8 px, past which the archive simply reads as a dense band.
+  const fit = shelfW / per;
+  const bw = Math.max(0.8, Math.min(9, fit - 1)), step = Math.min(fit, bw + 1);
+  // This plane's u axis runs right-to-left on screen (see plane(), axis "i"),
+  // so the oldest entry takes the highest u and the shelf reads left to right.
+  const uOf = (col) => ua + 3 + shelfW - (col + 1) * step;
+  const tick = Math.min(0.8, Math.max(0.3, step - bw - 0.2));
+  for (let k = 0; k < n; k++) {
+    const row = Math.min(3, Math.floor(k / per)), col = k - row * per;
+    const u = uOf(col);
+    if (u < ua) continue;
+    const yb = -12 - (3 - row) * 46;              // row 0 is the top shelf
+    const bh = 20 + ((k * 37) % 13);              // deterministic spine heights
+    c.fillStyle = MOOD_COL[archive[k].m] || MOOD_FALLBACK;
+    c.fillRect(u, yb - bh, bw, bh);
+    if (bw >= 3.4) { c.fillStyle = "rgba(255,255,255,.22)"; c.fillRect(u + 0.6, yb - bh + 4, bw - 1.2, 1.4); }
+    // Month change: a brass tick in the gap on the older (higher u) side.
+    if (k && col && archive[k].ym !== archive[k - 1].ym) { c.fillStyle = "rgba(245,212,137,.55)"; c.fillRect(u + bw + 0.1, yb - bh - 2, tick, bh + 2); }
+  }
+}
+
+function drawShelf(c, glow, archive) {
   const H = 196;
   box(c, 0, 1, 1, 3.5, 0, H, "#5a3f86", "#3a2760", "#2c1d4b", "rgba(183,147,255,.35)");
   plane(c, "i", 1, (c) => {
     const ua = 1 * K + 6, ub = 3.5 * K - 6;
     c.fillStyle = "#170f2c"; c.fillRect(ua, -H + 10, ub - ua, H - 18);
+    for (let s = 0; s < 4; s++) { c.fillStyle = "#6b4d99"; c.fillRect(ua, -12 - s * 46, ub - ua, 4); }
+    if (archive && archive.length) return drawArchive(c, ua, ub - ua - 6, archive);
+    // No journal data (dev, offline, or a stale build): decorative books.
     const r = mul(11), cols = ["#ff8fc8", "#b793ff", "#5dd0d9", "#f5d489", "#8aa4ff", "#e07bb5", "#7ee0a8", "#c7a6ff"];
     for (let s = 0; s < 4; s++) {
       const yb = -12 - s * 46;
-      c.fillStyle = "#6b4d99"; c.fillRect(ua, yb, ub - ua, 4);
       let u = ua + 3;
       while (u < ub - 10) {
         if (r() < 0.12 && u < ub - 30) { // a little plant or orb on the shelf
@@ -288,43 +391,114 @@ function drawGlobe(c, glow) {
   c.strokeStyle = "#b793ff"; c.lineWidth = 1.5; c.beginPath(); c.arc(x, y - 70, 18, -1.2, 2.2); c.stroke();
 }
 
-function drawPod(c, glow) {
-  // Charging pad in front of the pod (she stands here to charge/sleep).
+// Her workstation. The dock ring on the floor is unchanged -- ZONES.pod still
+// sends her here to sleep and to charge, and PROPS.pod still blocks the same
+// tiles -- so nothing in the simulation moves. Only the capsule that used to
+// stand against the wall is gone, replaced by the rig she works at.
+function drawRig(c, glow, feed) {
+  // Dock pad: she stands on this to charge and to sleep.
   glow((c) => {
     isoEllipse(c, 2.6, 8, 0, 0.72); c.fillStyle = "rgba(93,208,217,.18)"; c.fill();
     c.strokeStyle = "rgba(93,208,217,.85)"; c.lineWidth = 2; isoEllipse(c, 2.6, 8, 0, 0.62); c.stroke();
     c.lineWidth = 1; isoEllipse(c, 2.6, 8, 0, 0.4); c.stroke();
   });
-  // Cable.
+  // Cable from the dock back under the bench.
   c.strokeStyle = "#140c26"; c.lineWidth = 3; c.beginPath(); c.moveTo(...P(1.7, 8.4, 4)); c.quadraticCurveTo(...P(2.2, 8.9), ...P(2.3, 8.3)); c.stroke();
-  // Base disc.
-  const [bx, by] = P(1, 8);
-  isoEllipse(c, 1, 8, 0, 0.98); c.fillStyle = "#1a1030"; c.fill();
-  c.fillStyle = "#2a1b4a"; c.fillRect(bx - 77, by - 22, 154, 22);
-  isoEllipse(c, 1, 8, 22, 0.98); c.fillStyle = "#3d2a66"; c.fill();
-  glow((c) => { c.strokeStyle = "rgba(93,208,217,.9)"; c.lineWidth = 2; isoEllipse(c, 1, 8, 12, 0.98); c.stroke(); });
-  // Capsule shell.
-  const cx = bx - 8, top = by - 212, w = 114;
-  c.fillStyle = "#e06aa9";
-  c.beginPath(); c.moveTo(cx - w / 2, by - 22); c.lineTo(cx - w / 2, top + w / 2); c.arc(cx, top + w / 2, w / 2, Math.PI, 0); c.lineTo(cx + w / 2, by - 22); c.closePath(); c.fill();
-  const sg = c.createLinearGradient(cx - w / 2, 0, cx + w / 2, 0); sg.addColorStop(0, "rgba(255,255,255,.28)"); sg.addColorStop(0.35, "rgba(255,255,255,0)"); sg.addColorStop(1, "rgba(60,10,60,.35)");
-  c.fillStyle = sg; c.fill();
-  // Glass window.
-  const gw = w - 26;
-  c.beginPath(); c.moveTo(cx - gw / 2, by - 34); c.lineTo(cx - gw / 2, top + w / 2 + 4); c.arc(cx, top + w / 2 + 4, gw / 2, Math.PI, 0); c.lineTo(cx + gw / 2, by - 34); c.closePath();
+
+  // Bench along the wall, with a tower tucked underneath.
+  box(c, 0, 7.05, 0.95, 8.95, 0, 44, "#5a3f86", "#38265f", "#2a1b4a", "rgba(143,233,240,.4)");
+  box(c, 0.12, 8.46, 0.62, 8.88, 0, 30, "#2a1b4a", "#1d1338", "#170f2c");
   glow((c) => {
-    c.save(); c.beginPath(); c.moveTo(cx - gw / 2, by - 34); c.lineTo(cx - gw / 2, top + w / 2 + 4); c.arc(cx, top + w / 2 + 4, gw / 2, Math.PI, 0); c.lineTo(cx + gw / 2, by - 34); c.closePath();
-    const g = c.createRadialGradient(cx, by - 120, 6, cx, by - 120, 110); g.addColorStop(0, "rgba(255,170,220,.75)"); g.addColorStop(0.6, "rgba(120,90,220,.55)"); g.addColorStop(1, "rgba(40,30,110,.8)");
-    c.fillStyle = g; c.fill(); c.clip();
-    c.fillStyle = "rgba(255,255,255,.22)"; c.beginPath(); c.ellipse(cx - 22, by - 118, 7, 44, 0.08, 0, 7); c.fill();
-    c.restore();
+    const [gx, gy] = P(0.62, 8.67, 22);
+    c.fillStyle = "#7ee0a8"; c.fillRect(gx - 9, gy - 3, 3, 2.2);
+    c.fillStyle = "#8fe9f0"; c.fillRect(gx - 4, gy - 3, 3, 2.2);
   });
-  c.strokeStyle = "rgba(255,255,255,.35)"; c.lineWidth = 1.5; c.stroke();
-  // Status LEDs.
-  glow((c) => { ["#7ee0a8", "#7ee0a8", "#7ee0a8", "#f5d489"].forEach((col, k) => { c.fillStyle = col; c.beginPath(); c.arc(cx - 15 + k * 10, by - 28, 2.4, 0, 7); c.fill(); }); });
+  // Keyboard + a slab of notes on the bench top.
+  const [kx, ky] = P(0.5, 7.95, 44);
+  c.fillStyle = "#3a2760"; c.beginPath(); c.ellipse(kx, ky, 26, 11, 0, 0, 7); c.fill();
+  glow((c) => { c.fillStyle = "rgba(143,233,240,.5)"; c.beginPath(); c.ellipse(kx, ky - 1, 19, 7, 0, 0, 7); c.fill(); });
+
+  // Three screens on the wall, the middle one her main view.
+  plane(c, "i", 0.05, (c) => {
+    rigScreen(c, glow, 7.00 * K, 7.62 * K, -160, -110, feed, 0);
+    rigScreen(c, glow, 7.70 * K, 8.40 * K, -186, -114, feed, 1);
+    rigScreen(c, glow, 8.48 * K, 9.10 * K, -158, -110, feed, 2);
+    c.fillStyle = "#140c26";
+    for (const [u, y] of [[7.31, -110], [8.05, -114], [8.79, -110]]) c.fillRect(u * K - 2, y, 4, 9);
+    // Charge column housing; drawLive() fills the four cells from real energy.
+    c.fillStyle = "#1c1236"; rrect(c, 6.74 * K, -176, 13, 52, 3); c.fill();
+    c.fillStyle = "rgba(183,147,255,.25)"; c.fillRect(6.74 * K, -122, 13, 1);
+  });
 }
 
-function drawDesk(c, glow, has) {
+// Clip a headline to the screen width, with an ellipsis if it had to be cut.
+function clipText(c, s, maxW) {
+  if (c.measureText(s).width <= maxW) return s;
+  let t = s;
+  while (t.length > 1 && c.measureText(t + "…").width > maxW) t = t.slice(0, -1);
+  return t + "…";
+}
+
+// One rig screen. Draws today's feed when the brief carried one, and her own
+// code otherwise. Both are baked: the feed turns over once a day.
+function rigScreen(c, glow, u0, u1, y0, y1, feed, idx) {
+  const w = u1 - u0, h = y1 - y0;
+  c.fillStyle = "#0b0718"; rrect(c, u0 - 3.5, y0 - 3.5, w + 7, h + 7, 5); c.fill();
+  glow((c) => {
+    const g = c.createLinearGradient(u0, y0, u1, y1);
+    g.addColorStop(0, idx === 1 ? "#27406e" : "#2b1f56"); g.addColorStop(1, idx === 1 ? "#4b2a78" : "#3a2566");
+    c.fillStyle = g; rrect(c, u0, y0, w, h, 3); c.fill();
+    if (feed && feed.length) {
+      c.font = "600 6.5px ui-monospace, 'Cascadia Mono', monospace"; c.textBaseline = "top";
+      const rows = Math.max(1, Math.floor((h - 9) / 9));
+      for (let k = 0; k < rows; k++) {
+        const line = feed[(idx * 2 + k) % feed.length];
+        if (!line) break;
+        c.fillStyle = idx === 1 && k === 0 ? "#fff3cf" : k % 3 === 0 ? "#8fe9f0" : k % 3 === 1 ? "#ff9fd2" : "#c7a6ff";
+        c.fillText(clipText(c, line, w - 9), u0 + 4.5, y0 + 5.5 + k * 9);
+      }
+    } else {
+      const r = mul(20 + idx * 7), cols = ["#8fe9f0", "#ff9fd2", "#c7a6ff", "#f5d489"];
+      const rows = Math.max(1, Math.floor((h - 9) / 7));
+      c.globalAlpha = 0.8;
+      for (let k = 0; k < rows; k++) { c.fillStyle = cols[k % 4]; c.fillRect(u0 + 5 + (k % 3 === 0 ? 0 : 7), y0 + 6 + k * 7, 9 + r() * Math.max(6, w - 28), 2.4); }
+      c.globalAlpha = 1;
+    }
+  });
+}
+
+// Where her sub-agents hover at the rig: [i, j, z]. Shared with the scene so
+// the spawn/despawn portals land on the same spots the glyphs are drawn at.
+export const AGENT_SPOTS = [[0.62, 7.30, 116], [0.80, 8.10, 152], [0.55, 8.70, 100], [0.88, 7.72, 84], [0.66, 8.44, 174]];
+const AGENT_COL = ["#8fe9f0", "#c7a6ff", "#ffd7a8"];
+
+// Sub-agents: small holographic helpers, drawn live because they come and go
+// with what she is doing. Cosmetic only -- the simulation never sees them.
+function drawAgents(c, t, agents) {
+  for (const a of agents) {
+    const sp = AGENT_SPOTS[a.spot];
+    if (!sp || !(a.a > 0.02)) continue;
+    const [x, y] = P(sp[0], sp[1], sp[2] + Math.sin(t * 1.7 + a.ph) * 5);
+    const col = AGENT_COL[a.spot % AGENT_COL.length], k = 0.55 + 0.45 * a.a;
+    c.save(); c.globalAlpha = a.a * 0.92; c.translate(x, y); c.scale(k, k);
+    c.globalCompositeOperation = "lighter";
+    const g = c.createRadialGradient(0, 0, 1, 0, 0, 21);
+    g.addColorStop(0, col + "55"); g.addColorStop(1, col + "00");
+    c.fillStyle = g; c.beginPath(); c.arc(0, 0, 21, 0, 7); c.fill();
+    c.globalCompositeOperation = "source-over";
+    c.fillStyle = col;
+    for (const sgn of [-1, 1]) { c.beginPath(); c.ellipse(sgn * 3.6, -8.6, 1.9, 5.2, sgn * 0.22, 0, 7); c.fill(); }
+    c.beginPath(); c.arc(0, 0, 6.4, 0, 7); c.fill();
+    c.fillStyle = "rgba(10,6,24,.75)"; c.beginPath(); c.arc(-2.1, -0.6, 1.1, 0, 7); c.fill(); c.beginPath(); c.arc(2.1, -0.6, 1.1, 0, 7); c.fill();
+    c.save(); c.beginPath(); c.arc(0, 0, 6.4, 0, 7); c.clip();
+    c.globalAlpha = a.a * 0.45; c.fillStyle = "#ffffff";
+    c.fillRect(-6.4, ((t * 13 + a.ph * 4) % 13) - 6.5, 12.8, 0.9);
+    c.restore();
+    c.restore();
+  }
+}
+
+function drawDesk(c, glow, has, lampOn) {
   const H = 74;
   // Monitor on the wall side.
   plane(c, "j", 0.28, (c) => {
@@ -360,15 +534,18 @@ function drawDesk(c, glow, has) {
     [x, y] = P(4.75, 0.25, H);
     c.strokeStyle = "#ff8fc8"; c.lineWidth = 3; c.beginPath(); c.moveTo(x, y); c.lineTo(x - 4, y - 40); c.lineTo(x - 22, y - 54); c.stroke();
     c.fillStyle = "#ff8fc8"; c.beginPath(); c.ellipse(x, y, 9, 4, 0, 0, 7); c.fill();
-    glow((c) => { c.save(); c.globalCompositeOperation = "lighter"; const g = c.createRadialGradient(x - 24, y - 50, 2, x - 30, y - 10, 60); g.addColorStop(0, "rgba(255,220,160,.55)"); g.addColorStop(1, "rgba(255,220,160,0)"); c.fillStyle = g; c.beginPath(); c.moveTo(x - 30, y - 56); c.lineTo(x - 70, y + 10); c.lineTo(x + 10, y + 10); c.closePath(); c.fill(); c.restore(); c.fillStyle = "#fff0c8"; c.beginPath(); c.arc(x - 24, y - 52, 5, 0, 7); c.fill(); });
+    // The shade is always there; only the light switches (LAMP_TOD).
+    if (lampOn) glow((c) => { c.save(); c.globalCompositeOperation = "lighter"; const g = c.createRadialGradient(x - 24, y - 50, 2, x - 30, y - 10, 60); g.addColorStop(0, "rgba(255,220,160,.55)"); g.addColorStop(1, "rgba(255,220,160,0)"); c.fillStyle = g; c.beginPath(); c.moveTo(x - 30, y - 56); c.lineTo(x - 70, y + 10); c.lineTo(x + 10, y + 10); c.closePath(); c.fill(); c.restore(); c.fillStyle = "#fff0c8"; c.beginPath(); c.arc(x - 24, y - 52, 5, 0, 7); c.fill(); });
+    else { c.fillStyle = "#6b4d99"; c.beginPath(); c.arc(x - 24, y - 52, 5, 0, 7); c.fill(); }
   }
 }
 
-function drawPlants(c, glow, has) {
+function drawPlants(c, glow, has, growOn) {
   const H = 104;
-  // Grow light bar on the wall.
+  // Grow light bar on the wall: fixture always, emission on its photoperiod.
   plane(c, "j", 0, (c) => {
     c.fillStyle = "#1c1236"; rrect(c, 6.2 * K, -232, 2.6 * K, 9, 4); c.fill();
+    if (!growOn) { c.fillStyle = "#3a2a5c"; rrect(c, 6.25 * K, -226, 2.5 * K, 4, 2); c.fill(); return; }
     glow((c) => { c.fillStyle = "#ff9fd2"; rrect(c, 6.25 * K, -226, 2.5 * K, 4, 2); c.fill(); const g = c.createLinearGradient(0, -222, 0, -110); g.addColorStop(0, "rgba(255,120,200,.28)"); g.addColorStop(1, "rgba(255,120,200,0)"); c.fillStyle = g; c.beginPath(); c.moveTo(6.25 * K, -222); c.lineTo(8.75 * K, -222); c.lineTo(9 * K, -104); c.lineTo(6 * K, -104); c.fill(); });
   });
   box(c, 6, 0, 9, 1, 0, H, "#4f7a6a", "#2c4a4a", "#203838", "rgba(126,224,168,.45)");
@@ -457,10 +634,10 @@ function bake(scale, rect, draw, L) {
   return { canvas: cv, x: x0, y: y0, w: x1 - x0, h: y1 - y0 };
 }
 
-export function bakeRoom({ scale, tod, items }) {
+export function bakeRoom({ scale, tod, items, archive, feed, season, weather }) {
   const L = TOD[tod] || TOD.afternoon;
   const b = ROOM_BOUNDS;
-  const back = bake(scale, [b.x0, b.y0, b.x1, b.y1], (c, G) => drawBack(c, tod, items, G), L);
+  const back = bake(scale, [b.x0, b.y0, b.x1, b.y1], (c, G) => drawBack(c, tod, items, G, archive, feed, season, weather), L);
   const props = [];
   for (const key in SPRITE_PROPS) {
     const p = PROPS[key]; if (!p || (p.requires && !items.includes(p.requires))) continue;
@@ -472,13 +649,27 @@ export function bakeRoom({ scale, tod, items }) {
     const img = bake(scale, rect, (c, G) => def.draw(c, (fn) => { fn(c); G.push([c.getTransform(), fn]); }), L);
     props.push({ key, rect: p.rect, img });
   }
-  return { back, props, tod, L };
+  // `lampOn` lets drawLive() lift the desk when she sits down without needing
+  // the unlocked-item list again.
+  return { back, props, tod, L, lampOn: items.includes("desk_lamp") && LAMP_TOD.has(tod) };
 }
 
 // Moving details, drawn every frame in design coords (camera transform set).
-export function drawLive(c, t, room, state) {
+export function drawLive(c, t, room, state, agents) {
   const L = room.L;
   if (state.kst) drawClockHands(c, state.kst.h, state.kst.mi);
+  // Desk lamp lift: a warm pool that eases in while she is actually working
+  // under it. Only ever adds to the lit lamp, so the baked cone and this agree.
+  const wantDesk = room.lampOn && state.atDesk ? 1 : 0;
+  room._dg = (room._dg || 0) + (wantDesk - (room._dg || 0)) * 0.08;
+  if (room._dg > 0.01) {
+    const [lx, ly] = P(4.3, 0.6, 74);
+    c.save(); c.globalCompositeOperation = "lighter";
+    const lg = c.createRadialGradient(lx, ly - 18, 3, lx, ly, 78);
+    lg.addColorStop(0, `rgba(255,224,170,${0.22 * room._dg})`); lg.addColorStop(1, "rgba(255,224,170,0)");
+    c.fillStyle = lg; c.beginPath(); c.ellipse(lx, ly - 6, 86, 46, 0, 0, Math.PI * 2); c.fill();
+    c.restore();
+  }
   // Charging pad pulse.
   const pulse = 0.5 + 0.5 * Math.sin(t * 2.2);
   c.save(); c.globalCompositeOperation = "lighter";
@@ -494,6 +685,67 @@ export function drawLive(c, t, room, state) {
     const ph = t * 0.05 + k * 0.13, i = 0.6 + ((ph * 3) % 1) * 3, j = 4.4 + (k % 4) * 0.45, z = 30 + ((k * 53) % 150) + Math.sin(t + k) * 8;
     const [x, y] = P(i, j, z); c.fillStyle = `rgba(255,240,220,${0.25 + 0.2 * Math.sin(t * 1.7 + k)})`; c.beginPath(); c.arc(x, y, 1.3, 0, 7); c.fill();
   }
+  c.restore();
+
+  // Charge column on the rig: four cells driven by her real energy, not the
+  // four lights the old pod had painted on permanently.
+  if (state.energy != null) {
+    const e = Math.max(0, Math.min(100, state.energy));
+    const lit = Math.min(4, Math.ceil(e / 25));
+    const col = e < 25 ? "#ff7aa8" : e < 50 ? "#f5d489" : "#7ee0a8";
+    c.save();
+    plane(c, "i", 0.05, (c) => {
+      for (let k = 0; k < 4; k++) {
+        const y = -130 - k * 11;
+        c.fillStyle = "rgba(9,5,20,.8)"; rrect(c, 6.78 * K, y - 8, 10.4, 8, 2); c.fill();
+        if (k >= lit) continue;
+        c.globalAlpha = state.charging ? 0.5 + 0.5 * Math.sin(t * 3.4 - k * 0.7) : 1;
+        c.fillStyle = col; rrect(c, 6.98 * K - 7.6, y - 6.6, 7.6, 5.2, 1.5); c.fill();
+        c.globalAlpha = 1;
+      }
+    });
+    c.restore();
+  }
+  if (agents && agents.length) drawAgents(c, t, agents);
+  drawWeather(c, t, state.weather);
+}
+
+// Weather on the glass. Clipped to the window, drawn in the window's own plane
+// so the streaks lie on the pane rather than floating in the room.
+function drawWeather(c, t, code) {
+  if (!code || code === "clear" || code === "cloud") return;
+  const w = WIN.u1 - WIN.u0, h = WIN.y1 - WIN.y0;
+  c.save();
+  plane(c, "i", 0, (c) => {
+    c.save();
+    rrect(c, WIN.u0, WIN.y0, w, h, 6); c.clip();
+    if (code === "rain" || code === "storm") {
+      c.strokeStyle = "rgba(196,226,255,.42)"; c.lineWidth = 1; c.beginPath();
+      for (let k = 0; k < 26; k++) {
+        const x = WIN.u0 + ((k * 37.3) % w), y = WIN.y0 + ((t * (62 + (k % 5) * 20) + k * 53) % (h + 22)) - 11;
+        c.moveTo(x, y); c.lineTo(x - 2.4, y + 9);
+      }
+      c.stroke();
+      if (code === "storm") {
+        const ph = (t * 0.23) % 1, f = ph < 0.05 ? 1 - ph / 0.05 : 0;
+        if (f > 0) { c.fillStyle = `rgba(206,224,255,${0.38 * f})`; c.fillRect(WIN.u0, WIN.y0, w, h); }
+      }
+    } else if (code === "snow") {
+      c.fillStyle = "rgba(255,255,255,.85)";
+      for (let k = 0; k < 24; k++) {
+        const x = WIN.u0 + ((k * 41.7) % w) + Math.sin(t * 0.6 + k) * 5;
+        const y = WIN.y0 + ((t * (11 + (k % 4) * 5) + k * 67) % (h + 16)) - 8;
+        c.beginPath(); c.arc(x, y, 0.9 + (k % 3) * 0.35, 0, 7); c.fill();
+      }
+    } else if (code === "fog") {
+      for (let k = 0; k < 3; k++) {
+        const y = WIN.y0 + h * (0.3 + k * 0.22) + Math.sin(t * 0.18 + k * 1.7) * 6;
+        c.fillStyle = `rgba(206,212,234,${0.1 + k * 0.035})`;
+        c.fillRect(WIN.u0, y, w, 16 + k * 7);
+      }
+    }
+    c.restore();
+  });
   c.restore();
 }
 

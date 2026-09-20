@@ -1,5 +1,13 @@
 {%- assign hmode = include.mode | default: 'embed' -%}
-<section class="habitat habitat--{{ hmode }}" data-habitat data-mode="{{ hmode }}" data-api="{{ site.api.base }}" data-base="{{ '/assets/' | relative_url }}" data-v="{{ site.time | date: '%s' }}" aria-labelledby="habitat-title">
+{%- comment -%}
+  Her archive shelf is drawn from the real journal: one spine per entry, oldest
+  first, coloured by that entry's mood. Fixed 8-char records, "YYMM" + the first
+  four letters of the mood (unique across rules.MOODS), so the payload stays
+  ~1 KB at 130 entries and gzips to almost nothing. Absent or malformed, the
+  shelf falls back to its decorative books.
+{%- endcomment -%}
+{%- capture hab_archive -%}{%- for p in site.posts reversed -%}{{ p.date | date: '%y%m' }}{{ p.mood | default: 'quiet' | slice: 0, 4 }}{%- endfor -%}{%- endcapture -%}
+<section class="habitat habitat--{{ hmode }}" data-habitat data-mode="{{ hmode }}" data-api="{{ site.api.base }}" data-base="{{ '/assets/' | relative_url }}" data-v="{{ site.time | date: '%s' }}" data-archive="{{ hab_archive }}" aria-labelledby="habitat-title">
   <h2 class="visually-hidden" id="habitat-title">Trinity's room, live</h2>
   <div class="habitat__stage" data-hab-stage>
     <div class="habitat__skeleton" aria-hidden="true"><span class="habitat__loading">Opening Trinity's room…</span></div>

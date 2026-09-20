@@ -109,6 +109,10 @@ export function publicBrief(brief) {
     post_url: brief.post_url || '',
     post_title: brief.post_title || '',
     source: brief.source || 'derived',
+    // feed + weather are what the room draws; mood_intensity, wishes and
+    // new_item stay server-side as before.
+    feed: brief.feed || null,
+    weather: brief.weather || null,
   };
 }
 

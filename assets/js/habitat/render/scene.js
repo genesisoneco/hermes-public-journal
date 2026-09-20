@@ -1,6 +1,6 @@
 // Scene: canvas sizing, camera, depth-sorted drawing of the baked room,
 // Trinity, dropped items and particles. Design space is 1600x900 (CONTRACT §1).
-import { bakeRoom, drawLive, drawTop, ROOM_BOUNDS, P } from "./room.js";
+import { bakeRoom, drawLive, drawTop, ROOM_BOUNDS, P, AGENT_SPOTS } from "./room.js";
 import { Animator, Facing, Spring, family } from "./animator.js";
 import { drawPlaceholder, drawFrame, drawBlend } from "./trinity.js";
 import { Particles } from "./particles.js";
@@ -26,6 +26,7 @@ export class Scene {
     this.actor = { i: 5.5, j: 5.5, z: 0, x: 0, y: 0, alpha: 1, anim: "idle_F" };
     this.cam = { x: 800, y: 480, zoom: 1, vw: 1600, vh: 900, init: false };
     this.amb = 0; this.t = 0; this.ft = []; this.fps = 0;
+    this.agents = []; this.agentT = 0; this.archive = null;
   }
   setAtlas(a) { this.atlas = a; this.anim.setAtlas(a); }
   get pages() { return (this.atlas && this.atlas.pages) || {}; }
@@ -47,13 +48,52 @@ export class Scene {
     this.cam.zoom = w / vw; this.cam.vw = vw; this.cam.vh = h / this.cam.zoom;
     this.roomKey = ""; this.cam.init = false;
   }
-  setRoom(tod, items) {
+  setRoom(tod, items, archive, feed, season, weather) {
     this.tod = tod; this.unlocked = items;
-    const key = tod + "|" + items.join(",") + "|" + this.cam.zoom.toFixed(4) + "|" + this.dpr;
+    this.archive = archive || this.archive || null;
+    if (feed !== undefined) this.feed = feed || null;
+    if (season !== undefined) this.season = season || null;
+    if (weather !== undefined) this.weather = weather || null;
+    const arc = this.archive, fd = this.feed || null;
+    // The feed only turns over once a day, so it belongs in the bake key
+    // rather than being redrawn every frame.
+    const fkey = fd ? fd.length + ":" + (fd[0] || "").slice(0, 24) : "0";
+    const key = tod + "|" + items.join(",") + "|" + (arc ? arc.length : 0) + "|" + fkey + "|" + (this.season || "-") + "|" + (this.weather || "-") + "|" + this.cam.zoom.toFixed(4) + "|" + this.dpr;
     if (key === this.roomKey) return false;
     this.roomKey = key;
-    this.room = bakeRoom({ scale: this.cam.zoom * this.dpr, tod, items });
+    this.room = bakeRoom({ scale: this.cam.zoom * this.dpr, tod, items, archive: arc, feed: fd, season: this.season, weather: this.weather });
     return true;
+  }
+
+  // Sub-agents at the rig. They trickle in and out one at a time so the
+  // corner never pops; `target` comes from what she is currently doing.
+  updateAgents(dt, target) {
+    const A = this.agents;
+    this.agentT -= dt;
+    const live = A.filter((a) => !a.out);
+    if (this.agentT <= 0 && this.parts.enabled) {
+      if (live.length < target) {
+        const used = new Set(live.map((a) => a.spot));
+        const spot = AGENT_SPOTS.findIndex((_, k) => !used.has(k));
+        if (spot >= 0) {
+          A.push({ spot, a: 0, out: false, ph: (spot * 2.399) % 6.283 });
+          const [i, j, z] = AGENT_SPOTS[spot];
+          this.parts.emit(spot % 2 ? "fx_portal_blue" : "fx_portal_pink", ...P(i, j, z), this.atlas);
+          this.agentT = 1.1;
+        }
+      } else if (live.length > target) {
+        const go = live[live.length - 1];
+        go.out = true;
+        const [i, j, z] = AGENT_SPOTS[go.spot];
+        this.parts.emit("fx_portal_blue", ...P(i, j, z), this.atlas);
+        this.agentT = 0.9;
+      }
+    }
+    for (let k = A.length - 1; k >= 0; k--) {
+      const a = A[k];
+      a.a += ((a.out ? 0 : 1) - a.a) * Math.min(1, dt * 6);
+      if (a.out && a.a < 0.02) A.splice(k, 1);
+    }
   }
 
   // --- camera -------------------------------------------------------------
@@ -176,7 +216,8 @@ export class Scene {
     const blit = (img) => c.drawImage(img.canvas, Math.round(img.x * s) - ox, Math.round(img.y * s) - oy);
     blit(this.room.back);
     c.setTransform(s, 0, 0, s, -ox, -oy);
-    drawLive(c, this.t, this.room, live || {});
+    this.updateAgents(dt, (live && live.agents) || 0);
+    drawLive(c, this.t, this.room, live || {}, this.agents);
 
     // Depth-sorted props + entities.
     const list = this.room.props.map((p) => ({ p, key: (p.rect[0] + p.rect[2] + p.rect[1] + p.rect[3]) / 2 }));

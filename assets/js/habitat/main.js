@@ -3,6 +3,7 @@
 import { readFlags, makeClock, h } from "./util/flags.js";
 import { sim } from "./util/sim.js";
 import { Scene, drawItemShape } from "./render/scene.js";
+import { seasonOf } from "./render/room.js";
 import { loadAtlas } from "./render/loader.js";
 import { Director } from "./net/sync.js";
 import { Offline } from "./net/offline.js";
@@ -16,12 +17,34 @@ import { bindTray } from "./ui/tray.js";
 import { bindControls } from "./ui/controls.js";
 import { SKILLS } from "./sim/rules.js";
 
-const PAST = { write_journal: "wrote today's entry", code: "tinkered with code", read_archive: "re-read old entries", research_scan: "scanned the news", tend_plants: "tended her plants", stargaze: "watched the stars", dance: "danced", listen_music: "listened to music", make_tea: "made tea", tidy_up: "tidied up", repair: "fixed something", think: "sat and thought", wander: "wandered around", hover_practice: "practised hovering", teleport_practice: "practised teleporting", play_ball: "played with a ball", charge: "recharged in her pod", sleep: "fell asleep", away: "stepped out" };
+const PAST = { write_journal: "wrote today's entry", code: "tinkered with code", read_archive: "re-read old entries", research_scan: "scanned the news", tend_plants: "tended her plants", stargaze: "watched the stars", dance: "danced", listen_music: "listened to music", make_tea: "made tea", tidy_up: "tidied up", repair: "fixed something", think: "sat and thought", wander: "wandered around", hover_practice: "practised hovering", teleport_practice: "practised teleporting", play_ball: "played with a ball", charge: "recharged at her dock", sleep: "fell asleep", away: "stepped out" };
 const VERB = { poke: "poked her", pet: "petted her", tickle: "tickled her", wave: "waved", push: "gave her a push", feed: "fed her", toss: "tossed her something" };
+
+// data-archive is fixed 8-char records from Jekyll: "YYMM" + the first four
+// letters of that entry's mood, oldest first. Null when the attribute is
+// missing or malformed, which leaves the shelf on its decorative books.
+function parseArchive(s) {
+  if (typeof s !== "string" || s.length < 8) return null;
+  const out = [];
+  for (let k = 0; k + 8 <= s.length; k += 8) out.push({ ym: s.slice(k, k + 4), m: s.slice(k + 4, k + 8) });
+  return out.length ? out : null;
+}
+
+// How many sub-agents are at the rig: her own work decides it, plus one when
+// the room is busy. None while she is asleep or on the dock charging.
+const AGENTS_BY_ACTIVITY = { code: 3, research_scan: 2, repair: 2, write_journal: 1, read_archive: 1 };
+function agentsFor(director, resting) {
+  if (resting) return 0;
+  const w = director.world;
+  let n = (w && AGENTS_BY_ACTIVITY[w.activity]) || 0;
+  if (n && director.presence && director.presence.n > 3) n++;
+  return Math.min(5, n);
+}
 
 export async function mount(el, opts = {}) {
   const mode = opts.mode || el.dataset.mode || "embed";
   const base = opts.base || el.dataset.base || "/assets/";
+  const archive = parseArchive(el.dataset.archive);
   const flags = readFlags();
   const clock = makeClock(flags);
   const mq = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)");
@@ -177,14 +200,25 @@ export async function mount(el, opts = {}) {
     const dt = Math.min(0.05, Math.max(0, (ts - last) / 1000)); last = ts;
     const now = clock.now();
     const kst = sim.clock.kstParts(now), tod = sim.clock.todBucket(kst.h);
-    scene.setRoom(tod, (director.world && director.world.items) || []);
+    const brief = director.brief || null;
+    const wx = (brief && brief.weather && brief.weather.code) || null;
+    scene.setRoom(tod, (director.world && director.world.items) || [], archive,
+      brief && brief.feed && brief.feed.items, seasonOf(kst.mo), wx);
     if (liftT) { // spring lag while she's held
       const k = 1 - Math.exp(-dt * 14);
       lift.i += (liftT.i - lift.i) * k; lift.j += (liftT.j - lift.j) * k; lift.z += (liftT.z - lift.z) * k;
       director.override = { ...lift };
     }
     const s = director.plan ? director.sample(now) : null;
-    scene.render(now, reduced ? 0 : dt, s, { kst, charging: s && /charg|sleep/.test(s.anim) });
+    // atDesk: inside the desk zone's tile box, so the lamp warms when she works.
+    const atDesk = !!s && Math.abs(s.i - 3.5) < 1.4 && Math.abs(s.j - 1.7) < 1.4;
+    const resting = !!s && /charg|sleep/.test(s.anim);
+    scene.render(now, reduced ? 0 : dt, s, {
+      kst, atDesk, charging: resting,
+      energy: director.world ? director.world.energy : null,
+      agents: agentsFor(director, resting),
+      weather: wx,
+    });
     const hp = scene.headPos(), css = scene.toCss(hp.x, hp.y);
     bubbles.place(css.x, css.y, scene.cssW, scene.cssH);
     if (ts - hudT > 250 || reduced) { hudT = ts; hud.update({ world: director.world, status: director.status, presence: director.presence, mode: director.mode, sim }, { kst }); }

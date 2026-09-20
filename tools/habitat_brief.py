@@ -68,6 +68,25 @@ CLI_NOISE_PREFIXES = (
 NOT_WISHABLE = {"sleep", "charge"}
 THOUGHT_MAX = 90
 
+# What her rig screens and her window show. Both are gathered HERE, on the
+# pipeline machine, and travel in with the brief: the page itself may only talk
+# to api.doaia.com (see cloudflare/security-headers.json), so the browser never
+# contacts a third party and no third-party markup reaches the room.
+FEED_SOURCE = os.environ.get("DOAIA_FEED_SOURCE", "news.ycombinator.com")
+FEED_URL = os.environ.get(
+    "DOAIA_FEED_URL",
+    "https://hn.algolia.com/api/v1/search?tags=front_page&hitsPerPage=12",
+)
+# Open-Meteo: no key, no sign-up. Seoul city hall.
+WEATHER_URL = os.environ.get(
+    "DOAIA_WEATHER_URL",
+    "https://api.open-meteo.com/v1/forecast?latitude=37.5665&longitude=126.978"
+    "&current=temperature_2m,weather_code&timezone=Asia%2FSeoul",
+)
+NET_TIMEOUT = int(os.environ.get("DOAIA_NET_TIMEOUT_SEC", "12"))
+FEED_MAX = 8
+FEED_LINE_MAX = 72
+
 
 # ---------------------------------------------------------------- helpers
 
@@ -81,6 +100,71 @@ def _load_token() -> str | None:
         if candidate.exists():
             return candidate.read_text(encoding="utf-8").strip().splitlines()[0].strip()
     return None
+
+
+def _get_json(url: str):
+    """GET some JSON. Never raises: the room simply goes without."""
+    req = urllib.request.Request(
+        url, headers={"User-Agent": "doaia-habitat-brief/1.0", "Accept": "application/json"}
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=NET_TIMEOUT) as r:
+            return json.loads(r.read().decode("utf-8", errors="replace"))
+    except Exception as e:
+        host = url.split("/")[2] if "/" in url else url
+        print(f"  {host}: {e}", file=sys.stderr)
+        return None
+
+
+def fetch_feed() -> dict | None:
+    """Headlines for the three screens at her workstation."""
+    data = _get_json(FEED_URL)
+    hits = data.get("hits") if isinstance(data, dict) else None
+    if not hits:
+        return None
+    items = []
+    for h in hits:
+        if not isinstance(h, dict):
+            continue
+        title = re.sub(r"<[^>]*>", "", str(h.get("title") or ""))
+        title = re.sub(r"\s+", " ", title).strip()
+        if len(title) < 8:
+            continue
+        items.append(title[:FEED_LINE_MAX])
+        if len(items) >= FEED_MAX:
+            break
+    return {"source": FEED_SOURCE, "items": items} if items else None
+
+
+# WMO weather codes -> the coarse vocabulary worker/src/habitat/brief.js accepts.
+_WMO = [({0, 1}, "clear"), ({2, 3}, "cloud"), ({45, 48}, "fog"),
+        ({71, 73, 75, 77, 85, 86}, "snow"), ({95, 96, 99}, "storm")]
+
+
+def _wmo_code(code: int) -> str:
+    for codes, name in _WMO:
+        if code in codes:
+            return name
+    if 51 <= code <= 67 or 80 <= code <= 82:
+        return "rain"
+    return "cloud"
+
+
+def fetch_weather() -> dict | None:
+    """Seoul's weather right now, for the view out of her window."""
+    data = _get_json(WEATHER_URL)
+    cur = data.get("current") if isinstance(data, dict) else None
+    if not isinstance(cur, dict):
+        return None
+    try:
+        out = {"code": _wmo_code(int(cur.get("weather_code")))}
+    except (TypeError, ValueError):
+        return None
+    try:
+        out["temp"] = round(float(cur.get("temperature_2m")))
+    except (TypeError, ValueError):
+        pass
+    return out
 
 
 def newest_post() -> Path:
@@ -447,6 +531,8 @@ def main() -> None:
     parser.add_argument("--post", help="Path to a specific _posts file (default: newest)")
     parser.add_argument("--dry-run", action="store_true", help="Print the brief, do not POST")
     parser.add_argument("--no-llm", action="store_true", help="Skip Hermes; derive from front matter")
+    parser.add_argument("--no-feed", action="store_true", help="Skip the headline feed for her screens")
+    parser.add_argument("--no-weather", action="store_true", help="Skip Seoul's weather for her window")
     args = parser.parse_args()
 
     post_path = Path(args.post) if args.post else newest_post()
@@ -465,6 +551,18 @@ def main() -> None:
                 print("  Hermes answer failed validation; falling back.", file=sys.stderr)
     if brief is None:
         brief = derive_brief(post, vocab)
+
+    # Both are optional: if either lookup fails the room falls back to her own
+    # code on the screens and plain weather at the window.
+    if not args.no_feed:
+        feed = fetch_feed()
+        if feed:
+            brief["feed"] = feed
+    if not args.no_weather:
+        weather = fetch_weather()
+        if weather:
+            brief["weather"] = weather
+
     print(json.dumps(brief, indent=2, ensure_ascii=False))
 
     if args.dry_run:

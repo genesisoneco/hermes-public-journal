@@ -181,3 +181,30 @@ python tools/habitat_brief.py
 
 If no brief arrives, the Durable Object derives one from yesterday's brief at
 the KST day rollover.
+
+### What her screens and her window show
+
+The same run also gathers two small extras and sends them with the brief:
+
+| Field | Source | Where it shows |
+|---|---|---|
+| `feed` | Hacker News front page (`hn.algolia.com`) | The three screens at her workstation |
+| `weather` | Open-Meteo, Seoul, no API key | Rain, snow or fog on her window |
+
+Both are gathered **here, on the pipeline machine**, on purpose. The site's CSP
+allows the page to talk to `api.doaia.com` and nothing else, so the browser
+never contacts a third party and no third-party markup reaches the room. The
+Worker re-validates both (`worker/src/habitat/brief.js`): headlines are
+stripped of markup, capped at 8 lines of 72 characters, and the weather code
+must be one of `clear, cloud, rain, snow, fog, storm`.
+
+Either lookup failing is harmless — the screens fall back to her own code and
+the window to plain weather.
+
+```bash
+python tools/habitat_brief.py --no-feed      # skip the headlines
+python tools/habitat_brief.py --no-weather   # skip the weather
+DOAIA_FEED_URL=... DOAIA_FEED_SOURCE=... python tools/habitat_brief.py   # a different feed
+```
+
+`DOAIA_NET_TIMEOUT_SEC` (default 12) bounds both lookups.

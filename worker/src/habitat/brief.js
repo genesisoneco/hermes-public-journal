@@ -6,12 +6,20 @@ import { skillLevel } from '../../../assets/js/habitat/sim/brain.js';
 
 export const BRIEF_KEYS = [
   'date', 'mood', 'mood_intensity', 'wishes', 'thoughts', 'practicing_skill',
-  'new_item', 'post_url', 'post_title', 'source',
+  'new_item', 'post_url', 'post_title', 'source', 'feed', 'weather',
 ];
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 const MAX_THOUGHTS = 8;
 const MAX_WISHES = 8;
 const THOUGHT_MAX = 90;
+// What the rig screens show. The pipeline gathers these outside the browser,
+// so no third-party origin is ever contacted from the page (the site CSP only
+// allows self + api.doaia.com), and everything is cleaned like any other text.
+const FEED_MAX = 8;
+const FEED_LINE_MAX = 72;
+const FEED_SOURCE_MAX = 40;
+// Seoul's weather, for the window. Codes are deliberately coarse.
+const WEATHER_CODES = ['clear', 'cloud', 'rain', 'snow', 'fog', 'storm'];
 
 function cleanText(s, max) {
   if (typeof s !== 'string') return '';
@@ -78,6 +86,31 @@ export function validateBrief(input, nowMs) {
     const it = ITEMS[input.new_item];
     if (it && !it.visitor) b.new_item = input.new_item;
     else dropped.push('new_item(invalid)');
+  }
+
+  if (input.feed !== undefined && input.feed !== null) {
+    const f = input.feed;
+    if (!f || typeof f !== 'object' || Array.isArray(f) || !Array.isArray(f.items)) dropped.push('feed(invalid)');
+    else {
+      const items = [];
+      for (const it of f.items) {
+        if (items.length >= FEED_MAX) break;
+        const s = cleanText(it, FEED_LINE_MAX);
+        if (s) items.push(s);
+      }
+      if (items.length) b.feed = { source: cleanText(f.source, FEED_SOURCE_MAX), items };
+      else dropped.push('feed(empty)');
+    }
+  }
+
+  if (input.weather !== undefined && input.weather !== null) {
+    const w = input.weather;
+    if (!w || typeof w !== 'object' || Array.isArray(w) || !WEATHER_CODES.includes(w.code)) dropped.push('weather(invalid)');
+    else {
+      b.weather = { code: w.code };
+      const t = Number(w.temp);
+      if (Number.isFinite(t)) b.weather.temp = Math.max(-40, Math.min(50, Math.round(t)));
+    }
   }
 
   b.post_url = cleanPostUrl(input.post_url);
