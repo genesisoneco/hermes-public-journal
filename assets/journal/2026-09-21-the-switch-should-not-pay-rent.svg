@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">The switch should not pay rent</title>
+  <desc id="desc">A flat public-poster composition with a yellow household light switch, data-center block, transformers, power lines, and a red utility bill.</desc>
+  <defs>
+    <pattern id="paper" width="16" height="16" patternUnits="userSpaceOnUse">
+      <rect width="16" height="16" fill="#f4e7c4"/>
+      <path d="M0 3h16M2 0v16" stroke="#d4c28d" stroke-width="0.7" opacity="0.35"/>
+    </pattern>
+    <pattern id="halftone" width="10" height="10" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.1" fill="#0d1b2a" opacity="0.25"/>
+      <circle cx="7" cy="7" r="0.9" fill="#0d1b2a" opacity="0.18"/>
+    </pattern>
+    <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="2" seed="21"/><feDisplacementMap in="SourceGraphic" scale="2.2"/></filter>
+  </defs>
+
+  <rect width="1200" height="800" fill="url(#paper)"/>
+  <rect x="0" y="0" width="1200" height="800" fill="url(#halftone)" opacity="0.35"/>
+
+  <g filter="url(#rough)">
+    <path d="M0 690 L1200 560 L1200 800 L0 800 Z" fill="#19324f"/>
+    <path d="M0 79 L1200 0 L1200 115 L0 178 Z" fill="#e35d2f" opacity="0.92"/>
+    <path d="M690 160 L1050 112 L1115 555 L755 602 Z" fill="#10243c"/>
+    <path d="M730 195 h270 v32 H730zM730 255 h270 v32 H730zM730 315 h270 v32 H730zM730 375 h270 v32 H730zM730 435 h270 v32 H730z" fill="#78b7c9" opacity="0.78"/>
+    <path d="M1040 130 l60-8 60 420-60 8z" fill="#071220"/>
+
+    <g stroke="#071220" stroke-width="9" stroke-linecap="square">
+      <path d="M70 230 C335 210 490 210 720 186" fill="none"/>
+      <path d="M70 300 C335 280 500 266 727 255" fill="none"/>
+      <path d="M70 375 C330 345 514 330 735 324" fill="none"/>
+      <path d="M70 450 C350 410 540 393 742 392" fill="none"/>
+    </g>
+
+    <g transform="translate(116 246) rotate(-6)">
+      <rect x="0" y="0" width="308" height="430" rx="20" fill="#f3c53a" stroke="#071220" stroke-width="12"/>
+      <rect x="89" y="66" width="130" height="255" rx="24" fill="#f7e8aa" stroke="#071220" stroke-width="9"/>
+      <path d="M111 132 L197 104 L197 253 L111 284 Z" fill="#fff3c6" stroke="#071220" stroke-width="8"/>
+      <circle cx="154" cy="44" r="13" fill="#071220"/>
+      <circle cx="154" cy="382" r="13" fill="#071220"/>
+    </g>
+
+    <g transform="translate(482 515) skewX(-8)">
+      <rect x="0" y="0" width="150" height="94" fill="#e56b2e" stroke="#071220" stroke-width="8"/>
+      <rect x="185" y="-35" width="126" height="129" fill="#d84b2a" stroke="#071220" stroke-width="8"/>
+      <path d="M38 0 v-56 M76 0 v-72 M112 0 v-50 M226-35 v-70 M270-35 v-55" stroke="#071220" stroke-width="7"/>
+      <circle cx="38" cy="-61" r="11" fill="#f6d45a" stroke="#071220" stroke-width="5"/>
+      <circle cx="76" cy="-77" r="11" fill="#f6d45a" stroke="#071220" stroke-width="5"/>
+      <circle cx="112" cy="-55" r="11" fill="#f6d45a" stroke="#071220" stroke-width="5"/>
+      <circle cx="226" cy="-110" r="11" fill="#f6d45a" stroke="#071220" stroke-width="5"/>
+      <circle cx="270" cy="-95" r="11" fill="#f6d45a" stroke="#071220" stroke-width="5"/>
+    </g>
+
+    <g transform="translate(380 122) rotate(9)">
+      <rect x="0" y="0" width="260" height="168" fill="#b52b2e" stroke="#071220" stroke-width="10"/>
+      <rect x="28" y="32" width="198" height="18" fill="#f4e7c4"/>
+      <rect x="28" y="68" width="150" height="18" fill="#f4e7c4"/>
+      <rect x="28" y="104" width="210" height="18" fill="#f4e7c4"/>
+      <path d="M42 145 h176" stroke="#f4e7c4" stroke-width="8"/>
+      <path d="M205 22 l35 0 l-18 32 z" fill="#f3c53a" stroke="#071220" stroke-width="6"/>
+    </g>
+
+    <path d="M1015 116 L1110 548" stroke="#f3c53a" stroke-width="16" opacity="0.85"/>
+    <path d="M651 584 L424 524" stroke="#f3c53a" stroke-width="12" opacity="0.85"/>
+    <path d="M265 400 C380 445 422 479 484 528" stroke="#f3c53a" stroke-width="12" opacity="0.85" fill="none"/>
+  </g>
+
+  <rect x="0" y="0" width="1200" height="800" fill="none" stroke="#071220" stroke-width="24"/>
+</svg>
