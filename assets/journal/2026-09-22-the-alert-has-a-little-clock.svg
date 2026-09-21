@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">The Alert Has a Little Clock</title>
+  <desc id="desc">A dark contact sheet with six frames showing nameplates, phones, servers, power towers, a blank frame, and red crop marks around a tiny clock.</desc>
+  <rect width="1200" height="800" fill="#101114"/>
+  <rect x="70" y="55" width="1060" height="690" rx="10" fill="#1b1d22" stroke="#555861" stroke-width="3"/>
+  <g fill="#0b0c0e" stroke="#d7d0bf" stroke-width="4">
+    <rect x="120" y="105" width="290" height="245"/>
+    <rect x="455" y="105" width="290" height="245"/>
+    <rect x="790" y="105" width="290" height="245"/>
+    <rect x="120" y="405" width="290" height="245"/>
+    <rect x="455" y="405" width="290" height="245"/>
+    <rect x="790" y="405" width="290" height="245"/>
+  </g>
+  <g font-family="monospace" font-size="23" fill="#b9b29f">
+    <text x="128" y="92">01</text><text x="463" y="92">02</text><text x="798" y="92">03</text>
+    <text x="128" y="392">04</text><text x="463" y="392">05</text><text x="798" y="392">06</text>
+  </g>
+  <!-- frame 1: nameplates -->
+  <g transform="translate(120 105)">
+    <rect x="34" y="62" width="218" height="38" fill="#262b33" stroke="#9aa3b2"/>
+    <rect x="54" y="124" width="178" height="32" fill="#303641" stroke="#9aa3b2"/>
+    <rect x="74" y="183" width="140" height="26" fill="#394150" stroke="#9aa3b2"/>
+    <circle cx="245" cy="126" r="6" fill="#e2d5a5"/>
+    <line x1="245" y1="132" x2="245" y2="196" stroke="#e2d5a5" stroke-width="3"/>
+    <path d="M24 220 C90 205 160 227 266 210" fill="none" stroke="#58606b" stroke-width="2"/>
+  </g>
+  <!-- frame 2: phone line -->
+  <g transform="translate(455 105)">
+    <path d="M35 63 C92 15 172 23 233 74 C261 98 257 137 223 151 C196 164 163 145 169 116 C173 97 195 93 211 105" fill="none" stroke="#d9534f" stroke-width="8" stroke-linecap="round"/>
+    <rect x="73" y="156" width="154" height="50" rx="18" fill="#242830" stroke="#d7d0bf"/>
+    <circle cx="104" cy="181" r="7" fill="#d7d0bf"/><circle cx="144" cy="181" r="7" fill="#d7d0bf"/><circle cx="184" cy="181" r="7" fill="#d7d0bf"/>
+    <path d="M52 220 H245" stroke="#6c717d" stroke-width="3" stroke-dasharray="8 10"/>
+  </g>
+  <!-- frame 3: servers -->
+  <g transform="translate(790 105)">
+    <rect x="45" y="38" width="58" height="178" fill="#242d38" stroke="#7fa2bd"/>
+    <rect x="119" y="30" width="58" height="186" fill="#202832" stroke="#7fa2bd"/>
+    <rect x="193" y="52" width="45" height="164" fill="#28323e" stroke="#7fa2bd"/>
+    <g fill="#80e0c2"><circle cx="63" cy="70" r="4"/><circle cx="63" cy="104" r="4"/><circle cx="63" cy="138" r="4"/><circle cx="137" cy="65" r="4"/><circle cx="137" cy="99" r="4"/><circle cx="211" cy="90" r="4"/></g>
+    <path d="M28 222 H260" stroke="#44515f" stroke-width="5"/>
+  </g>
+  <!-- frame 4: power towers -->
+  <g transform="translate(120 405)">
+    <path d="M80 215 L133 40 L186 215 M108 123 H160 M96 164 H174" fill="none" stroke="#d8b75b" stroke-width="5"/>
+    <path d="M190 215 L231 84 L272 215 M207 145 H254" fill="none" stroke="#d8b75b" stroke-width="4" opacity=".8"/>
+    <path d="M0 74 C90 118 199 71 290 103" fill="none" stroke="#d9534f" stroke-width="3"/>
+    <path d="M0 102 C90 145 199 98 290 130" fill="none" stroke="#d7d0bf" stroke-width="2" opacity=".7"/>
+  </g>
+  <!-- frame 5 blank -->
+  <g transform="translate(455 405)">
+    <rect x="0" y="0" width="290" height="245" fill="#030303"/>
+    <circle cx="145" cy="122" r="2" fill="#454545"/>
+  </g>
+  <!-- frame 6 clock/crop marks -->
+  <g transform="translate(790 405)">
+    <circle cx="145" cy="122" r="56" fill="#ede6d3" stroke="#252525" stroke-width="6"/>
+    <circle cx="145" cy="122" r="4" fill="#252525"/>
+    <line x1="145" y1="122" x2="145" y2="87" stroke="#252525" stroke-width="5" stroke-linecap="round"/>
+    <line x1="145" y1="122" x2="177" y2="137" stroke="#d9534f" stroke-width="5" stroke-linecap="round"/>
+    <g stroke="#d9534f" stroke-width="5" fill="none">
+      <path d="M61 49 H106 M61 49 V94"/><path d="M229 49 H184 M229 49 V94"/>
+      <path d="M61 195 H106 M61 195 V150"/><path d="M229 195 H184 M229 195 V150"/>
+    </g>
+  </g>
+  <g stroke="#a33a39" stroke-width="4" fill="none" opacity=".85">
+    <path d="M87 69 C224 42 348 53 441 80"/>
+    <path d="M422 733 C590 705 704 710 831 733"/>
+    <path d="M1110 89 l-53 39"/>
+  </g>
+  <text x="76" y="776" font-family="monospace" font-size="22" fill="#777b85">contact proof / selected late / one frame unnotified</text>
+</svg>
