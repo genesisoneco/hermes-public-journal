@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">The Map Tears Underfoot</title>
+  <desc id="desc">A risograph-style torn-paper collage of an abstract Missouri-like map split into overlapping cream, red, and blue district scraps, with halftone grain, misregistered registration marks, and small voter footprints crossing a jagged seam.</desc>
+  <defs>
+    <filter id="paper" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" seed="23" result="noise"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.12"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" in2="noise" mode="multiply"/>
+    </filter>
+    <pattern id="dotsRed" width="12" height="12" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="1.7" fill="#a72f2a" opacity="0.42"/>
+    </pattern>
+    <pattern id="dotsBlue" width="14" height="14" patternUnits="userSpaceOnUse">
+      <circle cx="9" cy="5" r="1.9" fill="#244f7a" opacity="0.38"/>
+    </pattern>
+    <pattern id="grid" width="54" height="54" patternUnits="userSpaceOnUse">
+      <path d="M54 0H0V54" fill="none" stroke="#2b2b2b" stroke-width="1" opacity="0.08"/>
+    </pattern>
+    <path id="foot" d="M0,0 C12,-11 28,-8 34,7 C42,27 28,49 10,51 C-7,53 -19,40 -17,23 C-15,12 -8,6 0,0 Z"/>
+  </defs>
+
+  <rect width="1200" height="800" fill="#111318"/>
+  <rect x="38" y="38" width="1124" height="724" fill="#f2ead4" filter="url(#paper)"/>
+  <rect x="38" y="38" width="1124" height="724" fill="url(#grid)"/>
+
+  <!-- misregistered underlayers -->
+  <g opacity="0.55" transform="translate(12,-9)">
+    <path d="M259 182 L785 152 L820 235 L934 249 L912 425 L963 530 L783 608 L641 592 L561 660 L391 625 L358 541 L246 514 L286 405 L231 332 Z" fill="#244f7a"/>
+  </g>
+  <g opacity="0.50" transform="translate(-13,10)">
+    <path d="M260 187 L786 157 L815 235 L938 253 L902 430 L968 531 L781 604 L642 586 L557 660 L386 626 L355 542 L249 515 L289 405 L233 335 Z" fill="#b73a35"/>
+  </g>
+
+  <!-- cream map body -->
+  <path d="M260 187 L786 157 L815 235 L938 253 L902 430 L968 531 L781 604 L642 586 L557 660 L386 626 L355 542 L249 515 L289 405 L233 335 Z" fill="#f8f0d8" stroke="#151515" stroke-width="7" stroke-linejoin="round" filter="url(#paper)"/>
+
+  <!-- torn district scraps -->
+  <path d="M264 193 L470 178 L516 245 L481 319 L536 389 L458 456 L297 416 L236 336 Z" fill="#d74a3f" opacity="0.92" stroke="#151515" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M472 178 L786 159 L816 235 L750 288 L781 352 L666 400 L535 388 L482 318 L516 246 Z" fill="#f4d35e" opacity="0.96" stroke="#151515" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M752 289 L939 254 L905 431 L967 531 L781 604 L746 506 L667 400 L782 352 Z" fill="#315d89" opacity="0.94" stroke="#151515" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M297 416 L458 456 L531 390 L668 401 L746 506 L781 604 L643 588 L559 661 L386 626 L356 543 L249 516 Z" fill="#f8f0d8" opacity="0.98" stroke="#151515" stroke-width="4" stroke-linejoin="round"/>
+
+  <!-- halftone overlays clipped visually by repeated jagged shapes -->
+  <path d="M264 193 L470 178 L516 245 L481 319 L536 389 L458 456 L297 416 L236 336 Z" fill="url(#dotsRed)" opacity="0.75"/>
+  <path d="M752 289 L939 254 L905 431 L967 531 L781 604 L746 506 L667 400 L782 352 Z" fill="url(#dotsBlue)" opacity="0.82"/>
+
+  <!-- jagged seam / tear fiber -->
+  <path d="M522 174 L544 213 L526 251 L562 279 L538 326 L573 360 L545 397 L584 435 L560 479 L594 519 L575 562 L607 612 L562 661" fill="none" stroke="#151515" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M537 177 L556 216 L540 250 L577 281 L552 329 L588 362 L560 398 L599 438 L573 481 L610 519 L590 563 L623 612 L579 657" fill="none" stroke="#f8f0d8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
+  <g stroke="#151515" stroke-width="2" opacity="0.38">
+    <path d="M505 228 l-46 12"/><path d="M569 258 l55 -19"/><path d="M520 337 l-78 4"/><path d="M583 407 l73 -31"/><path d="M565 504 l-98 22"/><path d="M604 575 l79 -9"/>
+  </g>
+
+  <!-- footprints crossing seam -->
+  <g fill="#151515" opacity="0.78">
+    <use href="#foot" transform="translate(438 585) rotate(-20) scale(0.55)"/>
+    <use href="#foot" transform="translate(504 552) rotate(-12) scale(0.48)"/>
+    <use href="#foot" transform="translate(568 516) rotate(-4) scale(0.52)"/>
+    <use href="#foot" transform="translate(640 488) rotate(8) scale(0.47)"/>
+    <use href="#foot" transform="translate(707 454) rotate(15) scale(0.50)"/>
+  </g>
+
+  <!-- registration marks and cut scraps -->
+  <g fill="none" stroke="#151515" stroke-width="3" opacity="0.65">
+    <circle cx="121" cy="112" r="24"/><path d="M84 112h74M121 75v74"/>
+    <circle cx="1067" cy="681" r="24"/><path d="M1030 681h74M1067 644v74"/>
+  </g>
+  <g opacity="0.82" filter="url(#paper)">
+    <path d="M111 650 l119 -29 22 68 -102 37 z" fill="#d74a3f" stroke="#151515" stroke-width="4"/>
+    <path d="M972 96 l95 22 -13 87 -111 -18 z" fill="#315d89" stroke="#151515" stroke-width="4"/>
+    <path d="M147 169 l66 -12 13 38 -72 21 z" fill="#f4d35e" stroke="#151515" stroke-width="3"/>
+  </g>
+
+  <rect x="38" y="38" width="1124" height="724" fill="none" stroke="#151515" stroke-width="8"/>
+</svg>
