@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">Salt on the lease</title>
+  <desc id="desc">A watercolor-and-ink coastal scene with salt blooms, offshore turbines, and a damp lease page curling at the surf edge.</desc>
+  <defs>
+    <filter id="paper" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.038" numOctaves="5" seed="24" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 .16"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" mode="multiply"/>
+    </filter>
+    <filter id="bleed">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="4" seed="91" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="18" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <radialGradient id="salt" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#fbf4dc" stop-opacity=".95"/>
+      <stop offset=".42" stop-color="#f3e5bd" stop-opacity=".42"/>
+      <stop offset=".68" stop-color="#d9bf86" stop-opacity=".12"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="wash" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#0d2f55"/>
+      <stop offset=".48" stop-color="#285f84"/>
+      <stop offset="1" stop-color="#0a1e35"/>
+    </linearGradient>
+    <linearGradient id="lease" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f3ead2"/>
+      <stop offset=".58" stop-color="#d6c4a1"/>
+      <stop offset="1" stop-color="#a9916c"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="800" fill="#ede5d4"/>
+  <g filter="url(#paper)">
+    <path d="M0 321 C123 285 214 325 329 303 C477 274 578 218 705 256 C831 294 924 279 1200 223 L1200 800 L0 800 Z" fill="url(#wash)" filter="url(#bleed)" opacity=".96"/>
+    <path d="M0 389 C162 344 279 393 430 359 C607 319 746 338 879 306 C1004 276 1081 302 1200 271 L1200 800 L0 800 Z" fill="#18466b" opacity=".42" filter="url(#bleed)"/>
+    <path d="M0 493 C159 451 291 501 454 472 C623 441 755 454 909 419 C1056 386 1117 413 1200 392 L1200 800 L0 800 Z" fill="#092039" opacity=".65" filter="url(#bleed)"/>
+  </g>
+
+  <g opacity=".88" stroke="#1a2630" stroke-width="3" stroke-linecap="round" fill="none">
+    <line x1="822" y1="214" x2="822" y2="372"/>
+    <circle cx="822" cy="211" r="7" fill="#1a2630"/>
+    <path d="M822 211 L787 164 M822 211 L870 184 M822 211 L812 265"/>
+    <line x1="940" y1="195" x2="940" y2="377"/>
+    <circle cx="940" cy="192" r="7" fill="#1a2630"/>
+    <path d="M940 192 L899 148 M940 192 L991 172 M940 192 L932 254"/>
+    <line x1="1055" y1="232" x2="1055" y2="384"/>
+    <circle cx="1055" cy="229" r="6" fill="#1a2630"/>
+    <path d="M1055 229 L1019 191 M1055 229 L1099 204 M1055 229 L1048 285"/>
+  </g>
+
+  <g opacity=".92">
+    <ellipse cx="174" cy="463" rx="71" ry="34" fill="url(#salt)"/>
+    <ellipse cx="303" cy="564" rx="102" ry="49" fill="url(#salt)"/>
+    <ellipse cx="541" cy="455" rx="62" ry="28" fill="url(#salt)"/>
+    <ellipse cx="680" cy="620" rx="126" ry="58" fill="url(#salt)"/>
+    <ellipse cx="1007" cy="513" rx="83" ry="41" fill="url(#salt)"/>
+    <g fill="none" stroke="#f7e9bd" stroke-opacity=".56" stroke-width="2">
+      <path d="M117 463 C142 437 197 435 233 462 C199 488 148 490 117 463Z"/>
+      <path d="M210 568 C255 528 344 524 396 562 C351 605 256 609 210 568Z"/>
+      <path d="M610 622 C657 574 752 574 806 617 C756 662 661 668 610 622Z"/>
+      <path d="M943 513 C979 481 1041 483 1075 511 C1041 543 977 547 943 513Z"/>
+    </g>
+  </g>
+
+  <g transform="translate(566 480) rotate(-8)">
+    <path d="M0 0 L356 42 C379 45 392 65 384 86 L310 278 C304 293 288 301 271 296 L-44 202 C-63 197 -72 177 -63 160 L17 17 C21 8 9 2 0 0Z" fill="url(#lease)" stroke="#4a3b2f" stroke-width="3"/>
+    <path d="M278 294 C298 260 325 240 371 247 C347 274 322 292 278 294Z" fill="#806d57" opacity=".45"/>
+    <path d="M43 61 L288 91 M26 98 L329 135 M9 135 L305 177 M-8 172 L243 224" stroke="#594737" stroke-width="5" stroke-linecap="round" opacity=".34"/>
+    <path d="M55 33 C86 31 115 40 143 50" stroke="#594737" stroke-width="9" opacity=".28" stroke-linecap="round"/>
+    <path d="M214 18 C236 26 260 32 281 32" stroke="#18466b" stroke-width="7" opacity=".24" stroke-linecap="round"/>
+  </g>
+
+  <g fill="none" stroke="#f6e7bf" stroke-opacity=".5" stroke-width="7" stroke-linecap="round">
+    <path d="M54 662 C181 621 319 636 439 675 C565 716 687 711 795 681 C917 646 1048 650 1165 684"/>
+    <path d="M31 713 C191 682 347 700 497 731 C655 762 839 745 1004 716" opacity=".62"/>
+  </g>
+
+  <g stroke="#251f1c" stroke-width="2" opacity=".58">
+    <path d="M70 284 C145 269 218 272 286 292"/>
+    <path d="M62 304 C158 291 225 299 292 318" opacity=".35"/>
+    <path d="M412 248 C470 237 540 243 587 260" opacity=".42"/>
+  </g>
+</svg>
